@@ -51,7 +51,7 @@ export async function PUT(req: any) {
       )
     }
 
-    await validateEmail(activation_token, userExists._id)
+    await validateEmail(activation_token, userExists._id as string)
 
     return Response.json({ message: 'Activation successful' })
   } catch (error) {

@@ -1,27 +1,27 @@
-import mongoose, { Schema, Document, Model } from 'mongoose'
-import htmlTags from 'html-tags'
-import * as CSS from 'csstype'
+import mongoose, { Schema, Document, Model } from 'mongoose';
+import htmlTags from 'html-tags';
+import { CSSProperties } from 'react';
 
-type ElementType = (typeof htmlTags)[number]
+type ElementType = (typeof htmlTags)[number];
+
 export interface ElementsDocument extends Document {
-  name: string
-  slug: string
-  type: ElementType
-  element_id: string
-  page: mongoose.Types.ObjectId
-  project: mongoose.Types.ObjectId
+  name: string;
+  slug: string;
+  type: ElementType;
+  element_id: string;
+  page: mongoose.Types.ObjectId;
+  project: mongoose.Types.ObjectId;
 }
 
-const validateCSSProperties = (value: any): boolean => {
-  if (typeof value !== 'object' || value === null) return false
-  for (const property in value) {
-    //@ts-ignore
-    if (!(property in CSS?.Properties)) {
-      return false
-    }
-  }
-  return true
-}
+// const validateCSSProperties = (value: any): boolean => {
+//   if (typeof value !== 'object' || value === null) return false;
+//   for (const property in value) {
+//     if (!(property in CSSProperties)) {
+//       return false;
+//     }
+//   }
+//   return true;
+// };
 
 const ElementsSchema: Schema = new Schema(
   {
@@ -55,33 +55,33 @@ const ElementsSchema: Schema = new Schema(
     style: {
       type: Map,
       of: String,
-      validate: {
-        validator: validateCSSProperties,
-        message: 'Invalid CSS properties',
-      },
+      // validate: {
+      //   validator: validateCSSProperties,
+      //   message: 'Invalid CSS properties',
+      // },
     },
     tailwind_style: {
       type: Map,
       of: String,
-      validate: {
-        validator: validateCSSProperties,
-        message: 'Invalid CSS properties',
-      },
+      // validate: {
+      //   validator: validateCSSProperties,
+      //   message: 'Invalid CSS properties',
+      // },
     },
     children_tailwind_style: {
       type: Map,
       of: String,
-      validate: {
-        validator: validateCSSProperties,
-        message: 'Invalid CSS properties',
-      },
+      // validate: {
+      //   validator: validateCSSProperties,
+      //   message: 'Invalid CSS properties',
+      // },
     },
   },
-  { timestamps: true },
-)
+  { timestamps: true }
+);
 
 const Elements: Model<ElementsDocument> =
   mongoose.models.Elements ||
-  mongoose.model<ElementsDocument>('Elements', ElementsSchema)
+  mongoose.model<ElementsDocument>('Elements', ElementsSchema);
 
-export default Elements
+export default Elements;

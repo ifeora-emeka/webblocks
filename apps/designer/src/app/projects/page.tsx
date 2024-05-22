@@ -22,7 +22,7 @@ export default async function Page() {
       <div className={'grid grid-cols-3 gap-4 p-default_spacing'}>
         {projects &&
           projects.map((project) => {
-            return <EachProject key={project._id} project={project} />
+            return <EachProject key={project._id as string} project={project} />
           })}
       </div>
     </DashboardLayout>
