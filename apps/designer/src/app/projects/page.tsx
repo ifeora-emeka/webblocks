@@ -2,12 +2,14 @@ import DashboardLayout from '@/components/layout/DashboardLayout'
 import { Button } from '@/components/ui/button'
 import EachProject from '@/app/projects/components/EachProject'
 import { connectToDataBase } from '@/lib/db.utils'
-import Projects from '@/app/api/api-services/projects/projects.schema'
+import { ProjectsDocument } from '@/app/api/api-services/projects/projects.schema'
+import axios from 'axios'
+import { CLIENT_URL } from '@/lib/constants'
 
 export default async function Page() {
   await connectToDataBase()
 
-  let projects = await Projects.find({})
+  let projects = await axios(CLIENT_URL + '/api/projects')
 
   return (
     <DashboardLayout>
@@ -21,7 +23,7 @@ export default async function Page() {
       </div>
       <div className={'grid grid-cols-3 gap-4 p-default_spacing'}>
         {projects &&
-          projects.map((project) => {
+          projects.data.map((project:ProjectsDocument) => {
             return <EachProject key={project._id as string} project={project} />
           })}
       </div>
