@@ -1,6 +1,5 @@
 import mongoose, { Schema, Document, Model } from 'mongoose';
 import htmlTags from 'html-tags';
-import { CSSProperties } from 'react';
 
 type ElementType = (typeof htmlTags)[number];
 
