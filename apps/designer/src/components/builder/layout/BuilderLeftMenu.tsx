@@ -18,11 +18,11 @@ import { Separator } from '@/components/ui/separator'
 import DefaultIconBtn from '@/components/DefaultIconBtn'
 import { useDispatch, useSelector } from 'react-redux'
 import { toggleLeftPanel } from '@/redux/features/builder/builder-view.slice'
-import { AppStore } from '@/redux/store'
+import { RootState } from '@/redux/store'
 
 export default function BuilderLeftMenu() {
   const dispatch = useDispatch()
-  const { panel } = useSelector((state: AppStore) => state.builder_view)
+  const { panel } = useSelector((state: RootState) => state.builder_view)
 
   return (
     <>
@@ -61,10 +61,10 @@ export default function BuilderLeftMenu() {
           <Separator className={'bg-muted-foreground opacity-30'} />
           <DefaultIconBtn
             Icon={TbBox}
-            tooltip={'Blocks'}
-            onClick={() => dispatch(toggleLeftPanel('blocks'))}
+            tooltip={'Components'}
+            onClick={() => dispatch(toggleLeftPanel('components'))}
             side={'right'}
-            isActive={panel === 'blocks'}
+            isActive={panel === 'components'}
           />
           <DefaultIconBtn
             Icon={TbColumns}

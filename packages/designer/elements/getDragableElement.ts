@@ -7,21 +7,21 @@ import { generateRandomId, getRandomNumber } from "designer-app/src/lib/utils";
 import React from "react";
 
 export let defaultElementData = (
-  type: React.ElementType,
-  children: DesignerElementDataDTO[] | string,
+  html_tag: React.ElementType,
+  children: DesignerElementDataDTO[] | [string],
   config: Partial<DesignerElementDataDTO>,
 ): DesignerElementDataDTO => {
   return {
     element_id: generateRandomId(getRandomNumber(8, 13)),
-    type,
-    name: `${type}`.toUpperCase(),
-    slug: type.toString(),
+    html_tag,
+    name: `${html_tag}`.toUpperCase(),
+    slug: html_tag.toString(),
     attributes: {},
     children: children as (string | DesignerElementData)[] | undefined,
     style: {},
     tailwindStyle: {},
     childrenTailwindStyle: {},
-    description: `A ${type} element`,
+    description: `A ${html_tag} element`,
     ...config,
   };
 };
@@ -32,7 +32,7 @@ export const getDraggableElement = (
   switch (type) {
     case "h1":
       return {
-        ...defaultElementData("h1", [], {}),
+        ...defaultElementData("h1", [`${type} element`], {}),
       };
     case "img":
       return {
@@ -46,12 +46,12 @@ export const getDraggableElement = (
           },
         }),
       };
-      case "column":
+    case "column":
       return {
         ...defaultElementData("div", [], {
           tailwindStyle: {
             display: "flex",
-            flexDirection: 'flex-col' as any,
+            flexDirection: "flex-col" as any,
           },
         }),
       };

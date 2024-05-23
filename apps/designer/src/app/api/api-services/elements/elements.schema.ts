@@ -29,7 +29,7 @@ const ElementsSchema: Schema = new Schema(
       required: true,
       trim: true,
     },
-    type: {
+    html_tag: {
       type: String,
       required: true,
       trim: true,

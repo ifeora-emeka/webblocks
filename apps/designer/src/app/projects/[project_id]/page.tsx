@@ -5,7 +5,7 @@ export default function Page() {
   // return <WebsiteBuilderLoading />
   return (
     <>
-      <WebsiteBuilder />
+      <WebsiteBuilder page={{} as any} elements={[]} />
     </>
   )
 }

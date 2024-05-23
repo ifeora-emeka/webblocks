@@ -26,17 +26,12 @@ import {
 
 export default function WebsiteBuilder({
   page,
-  elements: components,
+  elements,
 }: RendererProps) {
   const [show, setShow] = useState(false)
   const [activeId, setActiveId] = useState(null)
-  const [elements, setElements] = useState<DesignerElementData[]>([])
 
-  useEffect(() => {
-    if (components) {
-      setElements(components)
-    }
-  }, [components])
+
 
   useEffect(() => {
     setShow(true)
@@ -46,14 +41,6 @@ export default function WebsiteBuilder({
     setActiveId(event.active.id)
   }
 
-  const handleDragEnd = (event: any) => {
-    setActiveId(null)
-    if (event.over) {
-      // console.log('THE ACTIVE::', event.active, Object.keys(event))
-      //@ts-ignore
-      setElements((prevElements: any) => [...prevElements, event.active.id])
-    }
-  }
 
   if (!show) {
     return null
@@ -61,7 +48,7 @@ export default function WebsiteBuilder({
 
   return (
     <>
-      <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
+      <DndContext onDragStart={handleDragStart}>
         <div
           className={
             'bg-background min-h-[100vh] max-h-[100vh] flex dark flex-col '

@@ -1,12 +1,12 @@
 'use client'
 import React from 'react'
-import { DesignerElementData } from '@repo/designer/types/designer.types'
+import { DesignerElementData, DesignerElementDataDTO } from '@repo/designer/types/designer.types'
 import { cn } from '@/lib/utils'
 
-const TheElement: React.FC<{ element: DesignerElementData }> = ({
+const TheElement: React.FC<{ element: DesignerElementData | DesignerElementDataDTO }> = ({
   element,
 }) => {
-  const { type: ElementType, attributes, children, style } = element
+  const { html_tag: ElementType, attributes, children, style } = element
   const devMode = true
 
   return (
@@ -41,7 +41,7 @@ function HoverToolBar({
   element,
 }: {
   children: any
-  element: DesignerElementData
+  element: DesignerElementData | DesignerElementDataDTO
 }) {
   let devMode = true
 
@@ -61,7 +61,7 @@ function HoverToolBar({
 export default function ElementRenderer({
   element,
 }: {
-  element: DesignerElementData
+  element: DesignerElementData | DesignerElementDataDTO
 }) {
   return <TheElement element={element} />
 }

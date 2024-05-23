@@ -1,8 +1,8 @@
 import { cn } from '@/lib/utils'
-import { AppStore } from '@/redux/store'
 import React, { useState } from 'react'
 import { TbSearch } from 'react-icons/tb'
 import { useSelector } from 'react-redux'
+import { RootState } from '@/redux/store'
 
 type Props = {
   actions: any
@@ -50,7 +50,7 @@ export default function BuilderLeftPanelContainer({
 }
 
 const SearchInput = () => {
-  const { panel } = useSelector((state: AppStore) => state.builder_view)
+  const { panel } = useSelector((state: RootState) => state.builder_view)
   const [inFocus, setInFocus] = useState(false)
 
   return (

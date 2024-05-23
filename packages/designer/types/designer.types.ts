@@ -21,7 +21,7 @@ export interface DesignerElementDataDTO {
   name: string;
   slug: string;
   description?: string;
-  type: React.ElementType;
+  html_tag: React.ElementType;
   style?: CSSProperties;
   tailwindStyle: CSSProperties;
   childrenTailwindStyle?: CSSProperties;
@@ -40,7 +40,7 @@ export interface AttributeData {
 export type DesignerLeftPanel =
   | null
   | "elements"
-  | "blocks"
+  | "components"
   | "pages"
   | "outline"
   | "variables"

@@ -6,3 +6,8 @@ export type EachElementData = {
   preview: any
   data: DesignerElementDataDTO
 }
+
+export type EachBlockElement = {
+  _id: string;
+  name: string;
+}

@@ -4,29 +4,34 @@ import {
   DesignerElementData,
   DesignerPageData,
 } from '@repo/designer/types/designer.types'
-import { useDispatch } from 'react-redux'
-import ElementRenderer from './element-render/ElementRenderer'
+import { useDispatch, useSelector } from 'react-redux'
 import { DragEndEvent, useDndMonitor, useDroppable } from '@dnd-kit/core'
 import { cn } from '@/lib/utils'
+import ElementRenderer from '@/components/builder/renderer/element-render/ElementRenderer'
+import { useState } from 'react'
+import { addElement } from '@/redux/features/renderer/renderer.slice'
+import { RootState } from '@/redux/store'
 
 type Props = {
   pageData: DesignerPageData
   elements: DesignerElementData[]
 }
 
-export default function WebsiteRenderer({ pageData, elements }: Props) {
-  const dispatch = useDispatch()
+export default function WebsiteRenderer({ pageData }: Props) {
+  const dispatch = useDispatch();
+  const { allElements } = useSelector((state:RootState) => state.renderer)
   const { isOver, setNodeRef, over } = useDroppable({
     id: 'website-renderer',
-    data: {
-      isElement: true,
-    },
-  })
+    // data: {
+    //   isElement: true,
+    // },
+  });
 
   useDndMonitor({
     onDragEnd(event: DragEndEvent) {
       if (event.over) {
-        console.log('DRAG ENDED::', event)
+        console.log('DRAG ENDED::', event.active.data.current)
+        dispatch(addElement(event.active.data.current as any))
       }
     },
   })
@@ -47,9 +52,9 @@ export default function WebsiteRenderer({ pageData, elements }: Props) {
           pageData?.body?.attributes?.className || '',
         )}
       >
-        {/*{elements?.map((element) => (*/}
-        {/*  <ElementRenderer key={element.element_id} element={element} />*/}
-        {/*))}*/}
+        {allElements?.map((element) => (
+          <ElementRenderer key={element.element_id} element={element} />
+        ))}
         {isOver && (
           <div
             className={

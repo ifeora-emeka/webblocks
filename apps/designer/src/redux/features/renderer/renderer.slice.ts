@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import { DesignerElementData } from '@repo/designer/types/designer.types'
+import { DesignerElementData, DesignerElementDataDTO } from '@repo/designer/types/designer.types'
 
 export interface RendererState {
-  allElements: DesignerElementData[]
+  allElements: DesignerElementData[] | DesignerElementDataDTO[]
 }
 
 const initialState: RendererState = {
@@ -23,9 +23,21 @@ export const rendererSlice = createSlice({
         ...action.payload,
       }
     },
+    addElement: (state, action: PayloadAction<DesignerElementDataDTO>) => {
+      const newElement: DesignerElementDataDTO = {
+        ...action.payload,
+      };
+      return {
+        ...state,
+        allElements: [...state.allElements, newElement]
+      }
+    },
+    removeElement: (state, action: PayloadAction<string>) => {
+      state.allElements = state.allElements.filter(element => element.element_id !== action.payload);
+    },
   },
 })
 
-export const { setRendererState } = rendererSlice.actions
+export const { setRendererState, removeElement, addElement } = rendererSlice.actions
 
 export default rendererSlice.reducer

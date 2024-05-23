@@ -1,11 +1,11 @@
-import { AppStore } from '@/redux/store'
 import { useSelector } from 'react-redux'
 import BuilderElementOptions from './elements-options/BuilderElementOptions'
 import BuilderPageOptions from './pages-options/BuilderPagesOptions'
 import BuilderBlocksOptions from './blocks-options/BuilderBlocksOptions'
+import { RootState } from '@/redux/store'
 
 export default function LeftNavOptions() {
-  const { panel } = useSelector((state: AppStore) => state.builder_view)
+  const { panel } = useSelector((state: RootState) => state.builder_view)
   switch (panel) {
     case 'elements':
       return <BuilderElementOptions />
