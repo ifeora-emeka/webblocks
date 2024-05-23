@@ -9,36 +9,37 @@ import {
   TbVideo,
 } from 'react-icons/tb'
 import { EachElementData } from './element-data.types'
+import { getDraggableElement } from '../../../../../../../../packages/designer/elements/getDragableElement'
 
 let size = 30
 export const structureElements: EachElementData[] = [
   {
     slug: 'container-structure',
-    data: {},
+    data: getDraggableElement('container'),
     preview: <TbContainer size={size} />,
     label: 'Container',
   },
   {
     slug: 'section-structure',
-    data: {},
+    data: getDraggableElement('section'),
     preview: <TbSection size={size} />,
     label: 'Section',
   },
   {
     slug: 'row-structure',
-    data: {},
+    data: getDraggableElement('section'),
     preview: <TbArrowAutofitRight size={size} />,
     label: 'Row',
   },
   {
     slug: 'column-structure',
-    data: {},
+    data: getDraggableElement('column'),
     preview: <TbArrowAutofitDown size={size} />,
     label: 'Column',
   },
   {
     slug: 'grid-structure',
-    data: {},
+    data: getDraggableElement('grid'),
     preview: <TbLayoutGrid size={size} />,
     label: 'Grid',
   },
@@ -47,7 +48,7 @@ export const structureElements: EachElementData[] = [
 export const typographyElements: EachElementData[] = [
   {
     slug: 'heading-structure',
-    data: {},
+    data: getDraggableElement('h1'),
     preview: <TbHeading size={size} />,
     label: 'Heading',
   },
@@ -56,13 +57,13 @@ export const typographyElements: EachElementData[] = [
 export const mediaElements: EachElementData[] = [
   {
     slug: 'image-structure',
-    data: {},
+    data: getDraggableElement('img'),
     preview: <TbPhoto size={size} />,
     label: 'Image',
   },
   {
     slug: 'video-structure',
-    data: {},
+    data: getDraggableElement('video'),
     preview: <TbVideo size={size} />,
     label: 'Video',
   },

@@ -26,7 +26,7 @@ export default function WebsiteRenderer({ pageData, elements }: Props) {
       if (event.over) {
         console.log('DRAG ENDED::', event)
       }
-    },
+    }
   });
 
   return (

@@ -1,18 +1,16 @@
 'use client'
 import BuilderLeftPanelContainer from '../../layout/BuilderLeftPanelContainer'
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/ui/accordion'
+
 import {
   mediaElements,
   structureElements,
   typographyElements,
 } from './element-options-data/element-data'
 import { useDraggable } from '@dnd-kit/core'
-import { useState } from 'react'
+import {
+    getDraggableElement,
+} from '../../../../../../../packages/designer/elements/getDragableElement'
+
 
 export default function BuilderElementOptions() {
   return (
@@ -72,12 +70,11 @@ const EachElement = ({
     useDraggable({
       id: slug,
       data: {
-        slug,
-        label,
+        ...getDraggableElement('div'),
         isElement: true,
         isBlock: false,
       },
-    })
+    });
 
   const style = {
     transform: transform
