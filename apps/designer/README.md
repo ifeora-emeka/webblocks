@@ -1,14 +1,14 @@
 ### How to edit elements
+
 - sates
   - all_elements
 - element_renderer
   - This loop through the all_elements and render all child & parents
 
 ## Resources
+
 - [Server actions with react query](https://www.youtube.com/watch?v=OgVeQVXt7xU)
-- 
-
-
+-
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 

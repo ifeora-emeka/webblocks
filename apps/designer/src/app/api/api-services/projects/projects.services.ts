@@ -10,7 +10,6 @@ export const createProject = async (data: any, user_id: string) => {
       subdomain: cleanupSubdomain(data.name) + '-' + generateRandomId(),
     })
 
-
     await createPage({
       project_id: newProject?._id as string,
       route: '/',

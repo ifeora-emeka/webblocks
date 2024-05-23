@@ -39,9 +39,9 @@ export const POST = async (req: any) => {
   }
 }
 
-export const GET = async (req:any) => {
+export const GET = async (req: any) => {
   try {
-    await connectToDataBase();
+    await connectToDataBase()
     let auth = validateAuthToken(headers().get('authorization') as string)
     if (!auth) {
       return Response.json(
@@ -50,8 +50,8 @@ export const GET = async (req:any) => {
       )
     }
 
-    let projects = await Projects.find({});
-    return Response.json(projects);
+    let projects = await Projects.find({})
+    return Response.json(projects)
   } catch (error) {
     console.log('GET PROJECTS ERROR::', error)
     return Response.json({ message: 'Internal server error' }, { status: 500 })

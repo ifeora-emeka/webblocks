@@ -6,7 +6,9 @@ import { HomePage } from '@/app/mock-data'
 // Define a component to render individual elements
 
 // Define a component to render the entire page
-const HomePageRenderer: React.FC<{ pageData: DesignerPageData }> = ({ pageData }) => {
+const HomePageRenderer: React.FC<{ pageData: DesignerPageData }> = ({
+  pageData,
+}) => {
   const { elements } = pageData
 
   return (

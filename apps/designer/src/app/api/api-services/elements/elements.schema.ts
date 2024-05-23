@@ -1,15 +1,15 @@
-import mongoose, { Schema, Document, Model } from 'mongoose';
-import htmlTags from 'html-tags';
+import mongoose, { Schema, Document, Model } from 'mongoose'
+import htmlTags from 'html-tags'
 
-type ElementType = (typeof htmlTags)[number];
+type ElementType = (typeof htmlTags)[number]
 
 export interface ElementsDocument extends Document {
-  name: string;
-  slug: string;
-  type: ElementType;
-  element_id: string;
-  page: mongoose.Types.ObjectId;
-  project: mongoose.Types.ObjectId;
+  name: string
+  slug: string
+  type: ElementType
+  element_id: string
+  page: mongoose.Types.ObjectId
+  project: mongoose.Types.ObjectId
 }
 
 // const validateCSSProperties = (value: any): boolean => {
@@ -76,11 +76,11 @@ const ElementsSchema: Schema = new Schema(
       // },
     },
   },
-  { timestamps: true }
-);
+  { timestamps: true },
+)
 
 const Elements: Model<ElementsDocument> =
   mongoose.models.Elements ||
-  mongoose.model<ElementsDocument>('Elements', ElementsSchema);
+  mongoose.model<ElementsDocument>('Elements', ElementsSchema)
 
-export default Elements;
+export default Elements

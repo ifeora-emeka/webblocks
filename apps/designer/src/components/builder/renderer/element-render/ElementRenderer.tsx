@@ -3,7 +3,9 @@ import React from 'react'
 import { DesignerElementData } from '@repo/designer/types/designer.types'
 import { cn } from '@/lib/utils'
 
-const TheElement: React.FC<{ element: DesignerElementData }> = ({ element }) => {
+const TheElement: React.FC<{ element: DesignerElementData }> = ({
+  element,
+}) => {
   const { type: ElementType, attributes, children, style } = element
   const devMode = true
 

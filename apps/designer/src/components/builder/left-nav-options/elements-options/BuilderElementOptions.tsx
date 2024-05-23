@@ -7,10 +7,8 @@ import {
   typographyElements,
 } from './element-options-data/element-data'
 import { useDraggable } from '@dnd-kit/core'
-import {
-    getDraggableElement,
-} from '../../../../../../../packages/designer/elements/getDragableElement'
-
+import { getDraggableElement } from '../../../../../../../packages/designer/elements/getDragableElement'
+import { DesignerElementDataDTO } from '@repo/designer/types/designer.types'
 
 export default function BuilderElementOptions() {
   return (
@@ -20,6 +18,7 @@ export default function BuilderElementOptions() {
           {structureElements?.map((val) => {
             return (
               <EachElement
+                element={val.data}
                 slug={val.slug}
                 key={crypto.randomUUID()}
                 label={val?.label}
@@ -32,6 +31,7 @@ export default function BuilderElementOptions() {
           {typographyElements?.map((val) => {
             return (
               <EachElement
+                element={val.data}
                 slug={val.slug}
                 key={crypto.randomUUID()}
                 content={val.preview}
@@ -44,6 +44,7 @@ export default function BuilderElementOptions() {
           {mediaElements?.map((val) => {
             return (
               <EachElement
+                element={val.data}
                 slug={val.slug}
                 key={crypto.randomUUID()}
                 content={val.preview}
@@ -61,20 +62,22 @@ const EachElement = ({
   content,
   label,
   slug,
+  element,
 }: {
   label: string
   content: any
   slug: string
+  element: DesignerElementDataDTO
 }) => {
   const { attributes, listeners, setNodeRef, transform, isDragging } =
     useDraggable({
       id: slug,
       data: {
-        ...getDraggableElement('div'),
+        ...element,
         isElement: true,
         isBlock: false,
       },
-    });
+    })
 
   const style = {
     transform: transform

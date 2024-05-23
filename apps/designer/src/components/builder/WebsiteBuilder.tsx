@@ -9,8 +9,11 @@ import LeftNavOptions from './left-nav-options/LeftNavOptions'
 import WebsiteRenderer from './renderer/WebsiteRenderer'
 import { HomePage } from '@/app/mock-data'
 import { DndContext, DragOverlay } from '@dnd-kit/core'
-import { TbApps } from 'react-icons/tb';
-import { DesignerElementData, RendererProps } from '@repo/designer/types/designer.types'
+import { TbApps } from 'react-icons/tb'
+import {
+  DesignerElementData,
+  RendererProps,
+} from '@repo/designer/types/designer.types'
 
 /**
  * - Create a designer elements redux store
@@ -21,17 +24,19 @@ import { DesignerElementData, RendererProps } from '@repo/designer/types/designe
  * -
  */
 
-
-export default function WebsiteBuilder({ page, elements: components }:RendererProps) {
+export default function WebsiteBuilder({
+  page,
+  elements: components,
+}: RendererProps) {
   const [show, setShow] = useState(false)
   const [activeId, setActiveId] = useState(null)
-  const [elements, setElements] = useState<DesignerElementData[]>([]);
+  const [elements, setElements] = useState<DesignerElementData[]>([])
 
   useEffect(() => {
-    if(components) {
+    if (components) {
       setElements(components)
     }
-  },[components]);
+  }, [components])
 
   useEffect(() => {
     setShow(true)

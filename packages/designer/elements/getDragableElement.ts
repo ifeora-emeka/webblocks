@@ -1,8 +1,16 @@
-import { DesignerElementData, DesignerElementDataDTO, DraggableElement } from '../types/designer.types'
-import { generateRandomId, getRandomNumber } from 'designer-app/src/lib/utils'
-import React from 'react'
+import {
+  DesignerElementData,
+  DesignerElementDataDTO,
+  DraggableElement,
+} from "../types/designer.types";
+import { generateRandomId, getRandomNumber } from "designer-app/src/lib/utils";
+import React from "react";
 
-export let defaultElementData = (type:React.ElementType, children: DesignerElementDataDTO[] | string, config: Partial<DesignerElementDataDTO>): DesignerElementDataDTO  => {
+export let defaultElementData = (
+  type: React.ElementType,
+  children: DesignerElementDataDTO[] | string,
+  config: Partial<DesignerElementDataDTO>,
+): DesignerElementDataDTO => {
   return {
     element_id: generateRandomId(getRandomNumber(8, 13)),
     type,
@@ -14,25 +22,42 @@ export let defaultElementData = (type:React.ElementType, children: DesignerEleme
     tailwindStyle: {},
     childrenTailwindStyle: {},
     description: `A ${type} element`,
-    ...config
-  }
-}
+    ...config,
+  };
+};
 
-
-export const getDraggableElement = (type: DraggableElement): DesignerElementDataDTO => {
+export const getDraggableElement = (
+  type: DraggableElement,
+): DesignerElementDataDTO => {
   switch (type) {
-    case 'h1':
+    case "h1":
       return {
-        ...defaultElementData('h1', [], {})
+        ...defaultElementData("h1", [], {}),
       };
-    case 'img':
+    case "img":
       return {
-        ...defaultElementData('img', [], {})
+        ...defaultElementData("img", [], {}),
+      };
+    case "row":
+      return {
+        ...defaultElementData("div", [], {
+          tailwindStyle: {
+            display: "flex",
+          },
+        }),
+      };
+      case "column":
+      return {
+        ...defaultElementData("div", [], {
+          tailwindStyle: {
+            display: "flex",
+            flexDirection: 'flex-col' as any,
+          },
+        }),
       };
     default:
       return {
-        ...defaultElementData('div', [], {})
+        ...defaultElementData("div", [], {}),
       };
   }
 };
-
