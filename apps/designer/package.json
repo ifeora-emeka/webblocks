@@ -1,5 +1,5 @@
 {
-  "name": "designer",
+  "name": "designer-app",
   "version": "0.1.0",
   "private": true,
   "moduleResolution": "node",
@@ -39,7 +39,9 @@
     "slugify": "^1.6.6",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
-    "zod": "^3.23.8"
+    "zod": "^3.23.8",
+    "@repo/ui": "*",
+    "@repo/designer": "*"
   },
   "devDependencies": {
     "@types/jsonwebtoken": "^9.0.6",

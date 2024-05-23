@@ -1,10 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import { BuilderLeftPanel } from '@/types/builder.types'
+import { DesignerLeftPanel } from '@repo/designer/types/designer.types'
 
 export interface BuilderState {
   activeProject: number
-  activeLeftPanel: BuilderLeftPanel
+  activeLeftPanel: DesignerLeftPanel
 }
 
 const initialState: BuilderState = {

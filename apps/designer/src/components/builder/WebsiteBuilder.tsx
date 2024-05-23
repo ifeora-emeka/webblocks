@@ -9,12 +9,29 @@ import LeftNavOptions from './left-nav-options/LeftNavOptions'
 import WebsiteRenderer from './renderer/WebsiteRenderer'
 import { HomePage } from '@/app/mock-data'
 import { DndContext, DragOverlay } from '@dnd-kit/core'
-import { TbApps } from 'react-icons/tb'
+import { TbApps } from 'react-icons/tb';
+import { DesignerElementData, RendererProps } from '@repo/designer/types/designer.types'
 
-export default function WebsiteBuilder() {
+/**
+ * - Create a designer elements redux store
+ * - Renderer should use elements from the redux store
+ * - Redux should use local storage
+ * - Elements should be added to redux when dropped
+ * -
+ * -
+ */
+
+
+export default function WebsiteBuilder({ page, elements: components }:RendererProps) {
   const [show, setShow] = useState(false)
   const [activeId, setActiveId] = useState(null)
-  const [elements, setElements] = useState([])
+  const [elements, setElements] = useState<DesignerElementData[]>([]);
+
+  useEffect(() => {
+    if(components) {
+      setElements(components)
+    }
+  },[components]);
 
   useEffect(() => {
     setShow(true)
@@ -54,7 +71,7 @@ export default function WebsiteBuilder() {
                 `flex-grow flex justify-center min-h-[calc(100vh-${BUILDER_NAV_SIZE})] max-h-[calc(100vh-50px)] overflow-y-auto `,
               )}
             >
-              <WebsiteRenderer pageData={HomePage} />
+              <WebsiteRenderer pageData={HomePage} elements={elements} />
             </div>
             <PropertiesPanel />
           </div>

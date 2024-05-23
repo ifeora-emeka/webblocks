@@ -1,7 +1,7 @@
 import { ProjectsDocument } from '@/app/api/api-services/projects/projects.schema'
 import { TbDots, TbExternalLink } from 'react-icons/tb'
 import Link from 'next/link'
-import { CLIENT_URL, IS_DEV } from '@/lib/constants'
+import { IS_DEV, PREVIEW_URL } from '@/lib/constants'
 
 type Props = {
   project: ProjectsDocument
@@ -36,7 +36,7 @@ export default function EachProject({ project }: Props) {
         <div className={'p-default_spacing truncate'}>
           <h6 className={'truncate font-semibold'}>{project.name}</h6>
           <div className={'flex truncate'}>
-            <a rel="noopener noreferrer" target={'_blank'} href={`${IS_DEV ? "http://": "https://"}${project.subdomain}.${CLIENT_URL}`} className={'flex text-muted gap-1 hover:underline cursor-pointer truncate'}>
+            <a rel="noopener noreferrer" target={'_blank'} href={`${IS_DEV ? "http://": "https://"}${project.subdomain}.${PREVIEW_URL}`} className={'flex text-muted gap-1 hover:underline cursor-pointer truncate'}>
               <small className={'truncate text-muted flex'}>
                 {project.subdomain}
               </small>

@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import { PageElementData } from '@/types/builder.types'
+import { DesignerElementData } from '@repo/designer/types/designer.types'
 
 export interface RendererState {
-  allElements: PageElementData[]
+  allElements: DesignerElementData[]
 }
 
 const initialState: RendererState = {

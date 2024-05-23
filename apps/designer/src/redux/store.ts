@@ -5,7 +5,7 @@ import builderSlice, {
 import builderViewSlice, {
   BuilderViewState,
 } from './features/builder/builder-view.slice'
-import rendererSlice, { RendererState } from './features/builder/renderer.slice'
+import rendererSlice, { RendererState } from './features/renderer/renderer.slice'
 
 export type AppStore = {
   builder: BuilderState

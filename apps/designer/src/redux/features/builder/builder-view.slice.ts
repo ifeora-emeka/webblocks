@@ -1,9 +1,9 @@
-import { BuilderLeftPanel } from '@/types/builder.types'
+import { DesignerLeftPanel } from '@repo/designer/types/designer.types'
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 
 export interface BuilderViewState {
-  panel: BuilderLeftPanel
+  panel: DesignerLeftPanel
 }
 
 const initialState: BuilderViewState = {
@@ -23,7 +23,7 @@ export const builderViewSlice = createSlice({
         ...action.payload,
       }
     },
-    toggleLeftPanel: (state, action: PayloadAction<BuilderLeftPanel>) => {
+    toggleLeftPanel: (state, action: PayloadAction<DesignerLeftPanel>) => {
       if (state.panel === action.payload) {
         return {
           ...state,

@@ -42,6 +42,13 @@ export const POST = async (req: any) => {
 export const GET = async (req:any) => {
   try {
     await connectToDataBase();
+    let auth = validateAuthToken(headers().get('authorization') as string)
+    if (!auth) {
+      return Response.json(
+        { message: 'unauthorized' },
+        { status: StatusCodes.UNAUTHORIZED },
+      )
+    }
 
     let projects = await Projects.find({});
     return Response.json(projects);

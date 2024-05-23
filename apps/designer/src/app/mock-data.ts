@@ -1,6 +1,4 @@
-import React from 'react'
-import crypto from 'crypto'
-import { PageData, PageElementData } from '@/types/builder.types'
+import { DesignerPageData } from '@repo/designer/types/designer.types'
 
 let defaultChildrenValues = () => ({
   element_id: Date.now().toString(),
@@ -13,7 +11,7 @@ let defaultChildrenValues = () => ({
   type: 'div',
 })
 
-export const HomePage: PageData = {
+export const HomePage: DesignerPageData = {
   element_id: Date.now().toString(),
   name: 'Home',
   slug: 'home-page',
