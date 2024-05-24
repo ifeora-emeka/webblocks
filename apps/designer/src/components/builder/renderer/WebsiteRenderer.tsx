@@ -48,7 +48,7 @@ export default function WebsiteRenderer({ pageData }: Props) {
           )
         }
         className={cn(
-          'bg-card rounded-sm min-h-screen min-w-[99%] my-2',
+          'bg-white rounded-sm min-h-screen min-w-[99%] my-2',
           pageData?.body?.attributes?.className || '',
         )}
       >

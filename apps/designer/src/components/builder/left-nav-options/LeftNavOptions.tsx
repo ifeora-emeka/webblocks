@@ -11,7 +11,7 @@ export default function LeftNavOptions() {
       return <BuilderElementOptions />
     case 'pages':
       return <BuilderPageOptions />
-    case 'blocks':
+    case 'components':
       return <BuilderBlocksOptions />
     default:
       return null

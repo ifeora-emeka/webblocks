@@ -1,67 +1,46 @@
 'use client'
-import React from 'react'
+import React from 'react';
 import { DesignerElementData, DesignerElementDataDTO } from '@repo/designer/types/designer.types'
-import { cn } from '@/lib/utils'
 
-const TheElement: React.FC<{ element: DesignerElementData | DesignerElementDataDTO }> = ({
-  element,
-}) => {
-  const { html_tag: ElementType, attributes, children, style } = element
-  const devMode = true
+interface DesignerElementProps {
+  element: DesignerElementDataDTO;
+}
 
-  return (
-    <HoverToolBar element={element}>
-      <ElementType
+const DesignerElement: React.FC<DesignerElementProps> = ({ element }) => {
+  const { name, slug, description, html_tag: HtmlTag, style, tailwindStyle, children, attributes } = element;
+
+  // Render children recursively
+  const renderChildren = (children: Array<DesignerElementData | string> | undefined) => {
+    if (!children) return null;
+
+    return children.map((child, index) => {
+      if (typeof child === 'string') {
+        return child; // Render text node
+      } else {
+        return <DesignerElement key={index} element={child} />; // Render nested DesignerElement
+      }
+    });
+  };
+
+  const isVoidElement = /^(area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr)$/i.test(name);
+
+  if (isVoidElement) {
+    return (
+      <HtmlTag
+        style={{ ...style, ...tailwindStyle }}
         {...attributes}
-        style={element.style}
-        builder-id={element.element_id}
-        className={cn(
-          Object.values(element.tailwindStyle).join(' '),
-          element.attributes.className,
-        )}
+      />
+    );
+  } else {
+    return (
+      <HtmlTag
+        style={{ ...style, ...tailwindStyle }}
+        {...attributes}
       >
-        {children &&
-          children.map((child) =>
-            typeof child === 'string' ? (
-              <>{child}</>
-            ) : (
-              <TheElement
-                key={child.element_id}
-                element={child as DesignerElementData}
-              />
-            ),
-          )}
-      </ElementType>
-    </HoverToolBar>
-  )
-}
-
-function HoverToolBar({
-  children,
-  element,
-}: {
-  children: any
-  element: DesignerElementData | DesignerElementDataDTO
-}) {
-  let devMode = true
-
-  if (!devMode) {
-    return <>{children}</>
+        {renderChildren(children)}
+      </HtmlTag>
+    );
   }
+};
 
-  return (
-    <>
-      <div className="hover:outline hover:outline-1 hover:outline-red-500 hover:shadow-lg cursor-pointer">
-        {children}
-      </div>
-    </>
-  )
-}
-
-export default function ElementRenderer({
-  element,
-}: {
-  element: DesignerElementData | DesignerElementDataDTO
-}) {
-  return <TheElement element={element} />
-}
+export default DesignerElement;

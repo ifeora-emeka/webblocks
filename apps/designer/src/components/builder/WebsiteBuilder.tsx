@@ -63,7 +63,7 @@ export default function WebsiteBuilder({
                 `flex-grow flex justify-center min-h-[calc(100vh-${BUILDER_NAV_SIZE})] max-h-[calc(100vh-50px)] overflow-y-auto `,
               )}
             >
-              <WebsiteRenderer pageData={HomePage} elements={elements} />
+              <WebsiteRenderer pageData={{} as any} elements={elements} />
             </div>
             <PropertiesPanel />
           </div>
