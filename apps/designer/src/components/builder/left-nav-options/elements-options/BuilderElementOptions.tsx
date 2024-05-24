@@ -7,7 +7,6 @@ import {
   typographyElements,
 } from './element-options-data/element-data'
 import { useDraggable } from '@dnd-kit/core'
-import { getDraggableElement } from '../../../../../../../packages/designer/elements/getDragableElement'
 import { DesignerElementDataDTO } from '@repo/designer/types/designer.types'
 
 export default function BuilderElementOptions() {
@@ -17,7 +16,7 @@ export default function BuilderElementOptions() {
         <div className="grid grid-cols-3 gap-default_spacing p-default_spacing">
           {structureElements?.map((val) => {
             return (
-              <EachElement
+              <EachElementOption
                 element={val.data}
                 slug={val.slug}
                 key={crypto.randomUUID()}
@@ -30,7 +29,7 @@ export default function BuilderElementOptions() {
         <div className="grid grid-cols-3 gap-default_spacing p-default_spacing">
           {typographyElements?.map((val) => {
             return (
-              <EachElement
+              <EachElementOption
                 element={val.data}
                 slug={val.slug}
                 key={crypto.randomUUID()}
@@ -43,7 +42,7 @@ export default function BuilderElementOptions() {
         <div className="grid grid-cols-3 gap-default_spacing p-default_spacing">
           {mediaElements?.map((val) => {
             return (
-              <EachElement
+              <EachElementOption
                 element={val.data}
                 slug={val.slug}
                 key={crypto.randomUUID()}
@@ -58,7 +57,7 @@ export default function BuilderElementOptions() {
   )
 }
 
-const EachElement = ({
+export const EachElementOption = ({
   content,
   label,
   slug,
@@ -74,7 +73,7 @@ const EachElement = ({
       id: slug,
       data: {
         ...element,
-        isElement: true,
+        isFromElementPanel: true,
         isBlock: false,
       },
     })

@@ -49,7 +49,6 @@ export default function WebsiteRenderer({ pageData }: Props) {
       className={'flex-1'}
     >
       <div
-
         className={cn(
           'bg-white rounded-sm min-h-screen min-w-[99%] my-2 flex-1',
           pageData?.body?.attributes?.className || '',

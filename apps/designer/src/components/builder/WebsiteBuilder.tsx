@@ -14,6 +14,7 @@ import {
   DesignerElementData,
   RendererProps,
 } from '@repo/designer/types/designer.types'
+import DragOverlayElement from '@/components/builder/DragOverlayElement'
 
 /**
  * - Create a designer elements redux store
@@ -37,10 +38,6 @@ export default function WebsiteBuilder({
     setShow(true)
   }, [])
 
-  const handleDragStart = (event: any) => {
-    setActiveId(event.active.id)
-  }
-
 
   if (!show) {
     return null
@@ -48,7 +45,7 @@ export default function WebsiteBuilder({
 
   return (
     <>
-      <DndContext onDragStart={handleDragStart}>
+      <DndContext>
         <div
           className={
             'bg-background min-h-[100vh] max-h-[100vh] flex dark flex-col '
@@ -68,16 +65,7 @@ export default function WebsiteBuilder({
             <PropertiesPanel />
           </div>
         </div>
-        <DragOverlay>
-          {activeId ? (
-            <div
-              className="flex justify-center items-center p-2 min-h-[80px] max-h-[80px] bg-background/30 text-muted-foreground rounded-md shadow-xl flex-col gap-default_spacing bg-card dark"
-              style={{ zIndex: 1000 }}
-            >
-              <TbApps size={40} />
-            </div>
-          ) : null}
-        </DragOverlay>
+        <DragOverlayElement />
       </DndContext>
     </>
   )

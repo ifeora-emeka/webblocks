@@ -27,9 +27,11 @@ export const rendererSlice = createSlice({
       const newElement: DesignerElementDataDTO = {
         ...action.payload,
       };
-      return {
-        ...state,
-        allElements: [...state.allElements, newElement]
+      if(newElement.isFromElementPanel) {
+        return {
+          ...state,
+          allElements: [...state.allElements, { ...newElement, isFromElementPanel: false,  }]
+        }
       }
     },
     removeElement: (state, action: PayloadAction<string>) => {
