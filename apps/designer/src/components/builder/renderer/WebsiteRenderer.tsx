@@ -25,6 +25,7 @@ export default function WebsiteRenderer({ pageData }: Props) {
     // data: {
     //   isElement: true,
     // },
+
   });
 
   useDndMonitor({
@@ -33,6 +34,7 @@ export default function WebsiteRenderer({ pageData }: Props) {
         dispatch(addElement(event.active.data.current as any))
       }
     },
+
   })
 
   function handleDragEnd(event: DragEndEvent) {
@@ -56,6 +58,7 @@ export default function WebsiteRenderer({ pageData }: Props) {
 
   return (
     <>
+      {['bg-orange-500']}
       <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
         <SortableContext items={allElements.map(element => element.element_id)} strategy={verticalListSortingStrategy}>
           <div

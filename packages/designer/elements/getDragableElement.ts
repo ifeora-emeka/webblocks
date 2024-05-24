@@ -67,8 +67,9 @@ export const getDraggableElement = (
             flexDirection: "flex-col" as any,
             height: 'h-28',
             width: 'w-full',
-            backgroundColor: 'bg-pink-300'
+            backgroundColor: 'bg-purple-300 text-5xl'
           },
+          children: ["This is a column"]
         }),
       };
     default:

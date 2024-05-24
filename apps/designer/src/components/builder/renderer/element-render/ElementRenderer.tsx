@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react'
 import { DesignerElementDataDTO } from '@repo/designer/types/designer.types';
 import {CSS} from '@dnd-kit/utilities';
 import { useSortable } from '@dnd-kit/sortable'
@@ -10,6 +10,7 @@ interface DesignerElementProps {
 }
 
 const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
+  const [isActive, setIsActive] = useState(false);
   const { name, html_tag: HtmlTag, style, tailwindStyle, children, attributes } = element;
 
   const renderChildren = (children: Array<DesignerElementDataDTO | string> | undefined) => {
@@ -28,7 +29,8 @@ const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
 
   const draggable = useSortable({
     id: element.element_id,
-    data: element
+    data: element,
+    disabled: isActive
   });
 
   const mergedAttributes = { ...attributes, ...draggable.attributes };
@@ -43,10 +45,10 @@ const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
   console.log('TAILWIND CLASSES::', {tailwindClasses, obj: element.tailwindStyle })
 
   if (isVoidElement) {
-    return <HtmlTag {...mergedAttributes} style={{ ...style, ...dndStyle }}  {...draggable.listeners} ref={draggable.setNodeRef} className={cn(tailwindClasses)} />;
+    return <HtmlTag {...mergedAttributes} style={{ ...style, ...dndStyle }}  {...draggable.listeners} ref={draggable.setNodeRef} className={cn(tailwindClasses)} onClick={() => setIsActive(!isActive)} />;
   } else {
     return (
-      <HtmlTag {...mergedAttributes} style={{ ...style, ...dndStyle }}  {...draggable.listeners} ref={draggable.setNodeRef} className={cn(tailwindClasses)}>
+      <HtmlTag {...mergedAttributes} style={{ ...style, ...dndStyle }}  {...draggable.listeners} ref={draggable.setNodeRef} className={cn(tailwindClasses)} onClick={() => setIsActive(!isActive)}>
         {renderChildren(children)}
       </HtmlTag>
     );
