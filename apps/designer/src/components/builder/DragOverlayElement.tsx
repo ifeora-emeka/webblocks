@@ -20,7 +20,6 @@ export default function DragOverlayElement(){
 
   if (!draggedItem) return null;
 
-  console.log('DRAGGED ITEM:::', draggedItem)
   let node = <div>No drag overlay</div>;
 
   const isDraggedFromElementPanel = draggedItem.data?.current?.isFromElementPanel;

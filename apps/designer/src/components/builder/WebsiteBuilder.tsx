@@ -8,13 +8,24 @@ import BuilderHeader from '@/components/builder/layout/BuilderHeader'
 import LeftNavOptions from './left-nav-options/LeftNavOptions'
 import WebsiteRenderer from './renderer/WebsiteRenderer'
 import { HomePage } from '@/app/mock-data'
-import { DndContext, DragOverlay } from '@dnd-kit/core'
+import {
+  closestCenter,
+  DndContext, DragEndEvent,
+  DragOverlay,
+  KeyboardSensor,
+  PointerSensor, useDndMonitor,
+  useSensor,
+  useSensors,
+} from '@dnd-kit/core'
 import { TbApps } from 'react-icons/tb'
 import {
   DesignerElementData,
   RendererProps,
 } from '@repo/designer/types/designer.types'
 import DragOverlayElement from '@/components/builder/DragOverlayElement'
+import { sortableKeyboardCoordinates } from '@dnd-kit/sortable'
+import { useDispatch } from 'react-redux'
+import { moveElement, setRendererState } from '@/redux/features/renderer/renderer.slice'
 
 /**
  * - Create a designer elements redux store
@@ -31,6 +42,7 @@ export default function WebsiteBuilder({
 }: RendererProps) {
   const [show, setShow] = useState(false)
   const [activeId, setActiveId] = useState(null)
+  const dispatch = useDispatch();
 
 
 
@@ -39,13 +51,34 @@ export default function WebsiteBuilder({
   }, [])
 
 
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
+
+  function handleDragEnd(event: DragEndEvent) {
+    const { active, over } = event;
+
+    console.log('DRAGGED::', event)
+
+    if (active.id !== over?.id) {
+      dispatch(moveElement({ activeId: active.element_id, overId: over?.element_id }));
+    }
+  }
+
   if (!show) {
     return null
   }
 
   return (
     <>
-      <DndContext>
+      <DndContext
+        sensors={sensors}
+        collisionDetection={closestCenter}
+        onDragEnd={handleDragEnd}
+      >
         <div
           className={
             'bg-background min-h-[100vh] max-h-[100vh] flex dark flex-col '
@@ -57,7 +90,7 @@ export default function WebsiteBuilder({
             <LeftNavOptions />
             <div
               className={cn(
-                `flex-grow flex justify-center min-h-[calc(100vh-${BUILDER_NAV_SIZE})] max-h-[calc(100vh-50px)] overflow-y-auto `,
+                `min-h-[calc(100vh-${BUILDER_NAV_SIZE})] max-h-[calc(100vh-50px)] overflow-y-auto w-full`,
               )}
             >
               <WebsiteRenderer pageData={{} as any} elements={elements} />
@@ -70,3 +103,4 @@ export default function WebsiteBuilder({
     </>
   )
 }
+
