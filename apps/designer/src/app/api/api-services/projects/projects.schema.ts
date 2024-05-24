@@ -20,7 +20,7 @@ const ProjectsSchema: Schema = new Schema(
     owner: {
       type: Schema.Types.ObjectId,
       ref: 'Users',
-      required: true,
+      // required: true,
       selected: false,
     },
   },

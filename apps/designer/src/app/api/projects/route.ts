@@ -1,7 +1,5 @@
 import { connectToDataBase } from '@/lib/db.utils'
 import { StatusCodes } from 'http-status-codes'
-import { validateAuthToken } from '../api-services/auth/auth.utils'
-import { headers } from 'next/headers'
 import { createProject } from '../api-services/projects/projects.services'
 import { z } from 'zod'
 import Projects from '@/app/api/api-services/projects/projects.schema'
@@ -14,14 +12,6 @@ export const POST = async (req: any) => {
     await connectToDataBase()
     const data = await req.json()
 
-    let auth = validateAuthToken(headers().get('authorization') as string)
-    if (!auth) {
-      return Response.json(
-        { message: 'unauthorized' },
-        { status: StatusCodes.UNAUTHORIZED },
-      )
-    }
-
     const validatedData = projectSchema.safeParse(data)
     if (!validatedData.success) {
       return Response.json(
@@ -30,7 +20,7 @@ export const POST = async (req: any) => {
       )
     }
 
-    let newProject = await createProject(data, auth?.user_id as string)
+    let newProject = await createProject(data)
 
     return Response.json(newProject)
   } catch (error) {
@@ -42,13 +32,6 @@ export const POST = async (req: any) => {
 export const GET = async (req: any) => {
   try {
     await connectToDataBase()
-    let auth = validateAuthToken(headers().get('authorization') as string)
-    if (!auth) {
-      return Response.json(
-        { message: 'unauthorized' },
-        { status: StatusCodes.UNAUTHORIZED },
-      )
-    }
 
     let projects = await Projects.find({})
     return Response.json(projects)
