@@ -1,3 +1,4 @@
+'use client'
 import { cn } from '@/lib/utils'
 import DefaultIconBtn from '@/components/DefaultIconBtn'
 import {
@@ -14,8 +15,11 @@ import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import DefaultTooltip from '@/components/DefaultTooltip'
 import Link from 'next/link'
+import { setRendererState } from '@/redux/features/renderer/renderer.slice'
+import { useDispatch } from 'react-redux'
 
 export default function BuilderHeader() {
+  const dispatch = useDispatch();
   return (
     <>
       <div
@@ -62,7 +66,11 @@ export default function BuilderHeader() {
               <TbCircleCheckFilled className={'text-success'} size={20} />
             )}
             tooltip={'Project saved'}
-            onClick={() => {}}
+            onClick={() => {
+              dispatch(setRendererState({
+                allElements: []
+              }))
+            }}
           />
           <DefaultIconBtn
             Icon={() => <TbCode className={'text-mode_on'} size={20} />}

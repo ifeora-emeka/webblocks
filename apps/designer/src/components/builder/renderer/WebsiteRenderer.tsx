@@ -74,8 +74,11 @@ export default function WebsiteRenderer({ pageData }: Props) {
                 pageData?.body?.attributes?.className || '',
               )}
             >
+              {/*<div className={'h-28 bg-primary text-3xl w-full'} />*/}
               {allElements?.map((element) => (
-                <ElementRenderer key={element.element_id} element={element} id={element.element_id} />
+                <>
+                  <ElementRenderer key={element.element_id} element={element} id={element.element_id} />
+                </>
               ))}
               {isOver && (
                 <div

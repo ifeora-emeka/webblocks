@@ -2,6 +2,7 @@ import React from 'react';
 import { DesignerElementDataDTO } from '@repo/designer/types/designer.types';
 import {CSS} from '@dnd-kit/utilities';
 import { useSortable } from '@dnd-kit/sortable'
+import { cn } from '@/lib/utils'
 
 interface DesignerElementProps {
   element: DesignerElementDataDTO;
@@ -37,11 +38,15 @@ const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
     transition: draggable.transition,
   };
 
+  let tailwindClasses = Object.values(element.tailwindStyle).join(' ')
+
+  console.log('TAILWIND CLASSES::', {tailwindClasses, obj: element.tailwindStyle })
+
   if (isVoidElement) {
-    return <HtmlTag style={{ ...style, ...dndStyle }} {...mergedAttributes} {...draggable.listeners} ref={draggable.setNodeRef} />;
+    return <HtmlTag {...mergedAttributes} style={{ ...style, ...dndStyle }}  {...draggable.listeners} ref={draggable.setNodeRef} className={cn(tailwindClasses)} />;
   } else {
     return (
-      <HtmlTag style={{ ...style, ...dndStyle }} {...mergedAttributes} {...draggable.listeners} ref={draggable.setNodeRef}>
+      <HtmlTag {...mergedAttributes} style={{ ...style, ...dndStyle }}  {...draggable.listeners} ref={draggable.setNodeRef} className={cn(tailwindClasses)}>
         {renderChildren(children)}
       </HtmlTag>
     );

@@ -25,7 +25,6 @@ import {
 import DragOverlayElement from '@/components/builder/DragOverlayElement'
 import { sortableKeyboardCoordinates } from '@dnd-kit/sortable'
 import { useDispatch } from 'react-redux'
-import { moveElement, setRendererState } from '@/redux/features/renderer/renderer.slice'
 
 /**
  * - Create a designer elements redux store
