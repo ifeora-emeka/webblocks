@@ -19,6 +19,7 @@ export const rendererSlice = createSlice({
       state,
       action: PayloadAction<Partial<RendererState>>,
     ) => {
+      console.log('SETTING RENDER STATE::', action.payload)
       return {
         ...state,
         ...action.payload,
@@ -38,19 +39,9 @@ export const rendererSlice = createSlice({
     removeElement: (state, action: PayloadAction<string>) => {
       state.allElements = state.allElements.filter(element => element.element_id !== action.payload);
     },
-    moveElement: (state, action: PayloadAction<{ activeId: string, overId: string }>) => {
-      const { activeId, overId } = action.payload;
-      const oldIndex = state.allElements.findIndex(element => element.element_id === activeId);
-      const newIndex = state.allElements.findIndex(element => element.element_id === overId);
-
-      if (oldIndex !== -1 && newIndex !== -1) {
-        const [movedElement] = state.allElements.splice(oldIndex, 1);
-        state.allElements.splice(newIndex, 0, movedElement);
-      }
-    },
   },
 })
 
-export const { moveElement ,setRendererState, removeElement, addElement } = rendererSlice.actions
+export const { setRendererState, removeElement, addElement } = rendererSlice.actions
 
 export default rendererSlice.reducer

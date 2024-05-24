@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { closestCenter, DndContext, DragEndEvent, useDndMonitor, useDroppable } from '@dnd-kit/core'
 import { cn } from '@/lib/utils'
 import ElementRenderer from '@/components/builder/renderer/element-render/ElementRenderer'
-import { addElement } from '@/redux/features/renderer/renderer.slice'
+import { addElement, setRendererState } from '@/redux/features/renderer/renderer.slice'
 import { RootState } from '@/redux/store'
 import { SortableContext, verticalListSortingStrategy, arrayMove } from '@dnd-kit/sortable';
 
@@ -35,18 +35,24 @@ export default function WebsiteRenderer({ pageData }: Props) {
     },
   })
 
-  function handleDragEnd(event:DragEndEvent) {
+  function handleDragEnd(event: DragEndEvent) {
     const {active, over} = event;
-    // if (active.element_id !== over.element_id) {
-    // console.log('I MOVED::', event)
-    //   setItems((items) => {
-    //     const oldIndex = items.indexOf(active.id);
-    //     const newIndex = items.indexOf(over.id);
-    //
-    //     return arrayMove(items, oldIndex, newIndex);
-    //   });
-    // }
+    if (active?.id !== over?.id) {
+      const activeId = active?.id;
+      const overId = over?.id;
+
+      // Find the index of the active and over elements
+      const activeIndex = allElements.findIndex(element => element.element_id === activeId);
+      const overIndex = allElements.findIndex(element => element.element_id === overId);
+
+      // If both elements are found, update the state to reflect the new order
+      if (activeIndex !== -1 && overIndex !== -1) {
+        const newElements = arrayMove(allElements, activeIndex, overIndex);
+        dispatch(setRendererState({ allElements: newElements }));
+      }
+    }
   }
+
 
   return (
     <>

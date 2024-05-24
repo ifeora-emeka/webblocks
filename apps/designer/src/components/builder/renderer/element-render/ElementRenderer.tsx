@@ -1,6 +1,5 @@
 import React from 'react';
 import { DesignerElementDataDTO } from '@repo/designer/types/designer.types';
-import { useDraggable } from '@dnd-kit/core';
 import {CSS} from '@dnd-kit/utilities';
 import { useSortable } from '@dnd-kit/sortable'
 
@@ -12,13 +11,12 @@ interface DesignerElementProps {
 const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
   const { name, html_tag: HtmlTag, style, tailwindStyle, children, attributes } = element;
 
-  // Render children recursively
   const renderChildren = (children: Array<DesignerElementDataDTO | string> | undefined) => {
     if (!children) return null;
 
     return children.map((child) => {
       if (typeof child === 'string') {
-        return child; // Render text node
+        return child;
       } else {
         return <ElementRenderer key={child.element_id} element={child} id={child.element_id} />;
       }

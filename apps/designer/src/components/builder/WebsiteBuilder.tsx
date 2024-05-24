@@ -59,13 +59,13 @@ export default function WebsiteBuilder({
   );
 
   function handleDragEnd(event: DragEndEvent) {
-    const { active, over } = event;
-
-    console.log('DRAGGED::', event)
-
-    if (active.id !== over?.id) {
-      dispatch(moveElement({ activeId: active.element_id, overId: over?.element_id }));
-    }
+    // const { active, over } = event;
+    //
+    // console.log('DRAGGED::', event)
+    //
+    // if (active.id !== over?.id) {
+    //   dispatch(moveElement({ activeId: active.element_id, overId: over?.element_id }));
+    // }
   }
 
   if (!show) {
