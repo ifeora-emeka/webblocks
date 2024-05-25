@@ -19,9 +19,8 @@ export let defaultElementData = (
     attributes: {},
     children: children as (string | DesignerElementData)[] | undefined,
     style: {},
-    tailwindStyle: {
-    },
-    childrenTailwindStyle: {},
+    chakraProps: {},
+    // childrenTailwindStyle: {},
     description: `A ${html_tag} element`,
     ...config,
   };
@@ -34,8 +33,9 @@ export const getDraggableElement = (
     case "h1":
       return {
         ...defaultElementData("h1", [`${type} text element`], {
-          tailwindStyle: {
-            fontSize: 'text-3xl'
+          chakraProps: {
+            fontSize: '25px',
+            fontWeight: 'bold'
           }
         }),
       };
@@ -50,26 +50,28 @@ export const getDraggableElement = (
     case "row":
       return {
         ...defaultElementData("div", [], {
-          tailwindStyle: {
+          chakraProps: {
             display: "flex",
-            flexDirection: "flex-row" as any,
-            height: 'h-28',
-            width: 'w-full',
-            backgroundColor: 'bg-orange-400'
+            flexDirection: "row",
+            height: '200px',
+            width: '100%',
+            background: 'orange.300'
           },
         }),
       };
     case "column":
       return {
         ...defaultElementData("div", [], {
-          tailwindStyle: {
+          chakraProps: {
             display: "flex",
-            flexDirection: "flex-col" as any,
-            height: 'h-28',
-            width: 'w-full',
-            backgroundColor: 'bg-purple-300 text-5xl'
+            flexDirection: "column",
+            height: '400px',
+            width: '100%',
+            background: 'green.100',
+            color: 'green.700',
+            fontSize: '70px'
           },
-          children: ["This is a column"]
+          children: ["This is a column", "Ït's just cool"]
         }),
       };
     default:

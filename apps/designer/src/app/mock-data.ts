@@ -1,4 +1,4 @@
-import { DesignerElementData } from '@repo/designer/types/designer.types';
+import { DesignerElementData } from '@repo/designer/types/designer.types'
 
 export const HomePage: DesignerElementData = {
   _id: 'root',
@@ -19,7 +19,8 @@ export const HomePage: DesignerElementData = {
       html_tag: 'div',
       tailwindStyle: {},
       attributes: {
-        class: 'grid max-w-screen-xl px-4 pt-20 pb-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12 lg:pt-28',
+        class:
+          'grid max-w-screen-xl px-4 pt-20 pb-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12 lg:pt-28',
       },
       children: [
         {
@@ -41,7 +42,8 @@ export const HomePage: DesignerElementData = {
               html_tag: 'h1',
               tailwindStyle: {},
               attributes: {
-                class: 'max-w-2xl mb-4 text-4xl font-extrabold leading-none tracking-tight md:text-5xl xl:text-6xl dark:text-white',
+                class:
+                  'max-w-2xl mb-4 text-4xl font-extrabold leading-none tracking-tight md:text-5xl xl:text-6xl dark:text-white',
               },
               children: [
                 'Building digital ',
@@ -55,7 +57,7 @@ export const HomePage: DesignerElementData = {
                   attributes: {},
                   children: [],
                 },
-                'products & brands.'
+                'products & brands.',
               ],
             },
             {
@@ -66,7 +68,8 @@ export const HomePage: DesignerElementData = {
               html_tag: 'p',
               tailwindStyle: {},
               attributes: {
-                class: 'max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400',
+                class:
+                  'max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400',
               },
               children: [
                 'This free and open-source landing page template was built using the utility classes from ',
@@ -135,10 +138,12 @@ export const HomePage: DesignerElementData = {
               html_tag: 'div',
               tailwindStyle: {},
               style: {
-                backgroundImage: 'url(https://demo.themesberg.com/landwind/images/hero.png)',
+                backgroundImage:
+                  'url(https://demo.themesberg.com/landwind/images/hero.png)',
               },
               attributes: {
-                class: 'min-h-[200px] min-w-[200px] bg-no-repeat bg-center bg-cover',
+                class:
+                  'min-h-[200px] min-w-[200px] bg-no-repeat bg-center bg-cover',
               },
               children: [],
             },
@@ -147,6 +152,6 @@ export const HomePage: DesignerElementData = {
       ],
     },
   ],
-};
+}
 
-export default HomePage;
+export default HomePage

@@ -8,6 +8,6 @@ export type EachElementData = {
 }
 
 export type EachBlockElement = {
-  _id: string;
-  name: string;
+  _id: string
+  name: string
 }

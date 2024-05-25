@@ -43,10 +43,10 @@
   }
 
   .dark {
-    --background: var(--background-dark);
+    --background: var(--background-dark) !important;
     --foreground: #dadae1;
 
-    --card: #2b2c30;
+    --card: #2b2c30  !important;;
     --card-foreground: #dadae1;
 
     --popover: 222.2 84% 4.9%;
@@ -67,7 +67,7 @@
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: #35363d;
+    --border: #35363d !important;
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
   }

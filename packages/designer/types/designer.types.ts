@@ -1,4 +1,5 @@
 import React, { CSSProperties } from "react";
+import { BoxProps } from '@chakra-ui/react'
 
 export interface DesignerPageMetadata {
   title: string;
@@ -23,12 +24,13 @@ export interface DesignerElementDataDTO {
   description?: string;
   html_tag: React.ElementType;
   style?: CSSProperties;
-  tailwindStyle: CSSProperties;
-  childrenTailwindStyle?: CSSProperties;
   attributes: AttributeData;
   children?: Array<DesignerElementData | string>;
   isInDesigner?:boolean;
   isFromElementPanel?:boolean;
+  chakraProps: BoxProps;
+  // tailwindStyle: CSSProperties;
+  // childrenTailwindStyle?: CSSProperties;
 }
 
 export interface DesignerElementData extends DesignerElementDataDTO {

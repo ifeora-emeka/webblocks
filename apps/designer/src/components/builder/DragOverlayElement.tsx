@@ -1,32 +1,40 @@
 import { useState } from 'react'
-import { Active, DragOverlay, useDndMonitor } from "@dnd-kit/core";
+import { Active, DragOverlay, useDndMonitor } from '@dnd-kit/core'
 import { EachElementOption } from '@/components/builder/left-nav-options/elements-options/BuilderElementOptions'
 import { DesignerElementDataDTO } from '@repo/designer/types/designer.types'
 
-export default function DragOverlayElement(){
-  const [draggedItem, setDraggedItem] = useState<Active | null>(null);
+export default function DragOverlayElement() {
+  const [draggedItem, setDraggedItem] = useState<Active | null>(null)
 
   useDndMonitor({
     onDragStart: (event) => {
-      setDraggedItem(event.active);
+      setDraggedItem(event.active)
     },
     onDragCancel: () => {
-      setDraggedItem(null);
+      setDraggedItem(null)
     },
     onDragEnd: () => {
-      setDraggedItem(null);
+      setDraggedItem(null)
     },
-  });
+  })
 
-  if (!draggedItem) return null;
+  if (!draggedItem) return null
 
-  let node = <div>No drag overlay</div>;
+  let node = <div>No drag overlay</div>
 
-  const isDraggedFromElementPanel = draggedItem.data?.current?.isFromElementPanel;
+  const isDraggedFromElementPanel =
+    draggedItem.data?.current?.isFromElementPanel
   if (isDraggedFromElementPanel) {
-    const _element = draggedItem.data?.current as DesignerElementDataDTO;
-    let {html_tag, slug} = _element;
-    node = <EachElementOption element={_element} label={slug} slug={slug} content={<h1>The preview</h1>} />
+    const _element = draggedItem.data?.current as DesignerElementDataDTO
+    let { html_tag, slug } = _element
+    node = (
+      <EachElementOption
+        element={_element}
+        label={slug}
+        slug={slug}
+        content={<h1>The preview</h1>}
+      />
+    )
   }
 
   // const _element = draggedItem.data?.current as DesignerElementDataDTO;
@@ -45,6 +53,5 @@ export default function DragOverlayElement(){
   //   }
   // }
 
-  return <DragOverlay className={'dark'}>{node}</DragOverlay>;
+  return <DragOverlay className={'dark'}>{node}</DragOverlay>
 }
-

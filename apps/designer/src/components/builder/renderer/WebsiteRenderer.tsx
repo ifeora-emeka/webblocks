@@ -5,12 +5,25 @@ import {
   DesignerPageData,
 } from '@repo/designer/types/designer.types'
 import { useDispatch, useSelector } from 'react-redux'
-import { closestCenter, DndContext, DragEndEvent, useDndMonitor, useDroppable } from '@dnd-kit/core'
+import {
+  closestCenter,
+  DndContext,
+  DragEndEvent,
+  useDndMonitor,
+  useDroppable,
+} from '@dnd-kit/core'
 import { cn } from '@/lib/utils'
 import ElementRenderer from '@/components/builder/renderer/element-render/ElementRenderer'
-import { addElement, setRendererState } from '@/redux/features/renderer/renderer.slice'
+import {
+  addElement,
+  setRendererState,
+} from '@/redux/features/renderer/renderer.slice'
 import { RootState } from '@/redux/store'
-import { SortableContext, verticalListSortingStrategy, arrayMove } from '@dnd-kit/sortable';
+import {
+  SortableContext,
+  verticalListSortingStrategy,
+  arrayMove,
+} from '@dnd-kit/sortable'
 
 type Props = {
   pageData: DesignerPageData
@@ -18,15 +31,14 @@ type Props = {
 }
 
 export default function WebsiteRenderer({ pageData }: Props) {
-  const dispatch = useDispatch();
-  const { allElements } = useSelector((state:RootState) => state.renderer)
+  const dispatch = useDispatch()
+  const { allElements } = useSelector((state: RootState) => state.renderer)
   const { isOver, setNodeRef, over } = useDroppable({
     id: 'website-renderer',
     // data: {
     //   isElement: true,
     // },
-
-  });
+  })
 
   useDndMonitor({
     onDragEnd(event: DragEndEvent) {
@@ -34,33 +46,37 @@ export default function WebsiteRenderer({ pageData }: Props) {
         dispatch(addElement(event.active.data.current as any))
       }
     },
-
   })
 
   function handleDragEnd(event: DragEndEvent) {
-    const {active, over} = event;
+    const { active, over } = event
     if (active?.id !== over?.id) {
-      const activeId = active?.id;
-      const overId = over?.id;
+      const activeId = active?.id
+      const overId = over?.id
 
       // Find the index of the active and over elements
-      const activeIndex = allElements.findIndex(element => element.element_id === activeId);
-      const overIndex = allElements.findIndex(element => element.element_id === overId);
+      const activeIndex = allElements.findIndex(
+        (element) => element.element_id === activeId,
+      )
+      const overIndex = allElements.findIndex(
+        (element) => element.element_id === overId,
+      )
 
       // If both elements are found, update the state to reflect the new order
       if (activeIndex !== -1 && overIndex !== -1) {
-        const newElements = arrayMove(allElements, activeIndex, overIndex);
-        dispatch(setRendererState({ allElements: newElements }));
+        const newElements = arrayMove(allElements, activeIndex, overIndex)
+        dispatch(setRendererState({ allElements: newElements }))
       }
     }
   }
 
-
   return (
     <>
-      {['bg-orange-500']}
       <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-        <SortableContext items={allElements.map(element => element.element_id)} strategy={verticalListSortingStrategy}>
+        <SortableContext
+          items={allElements.map((element) => element.element_id)}
+          strategy={verticalListSortingStrategy}
+        >
           <div
             ref={setNodeRef}
             onClick={() =>
@@ -80,7 +96,11 @@ export default function WebsiteRenderer({ pageData }: Props) {
               {/*<div className={'h-28 bg-primary text-3xl w-full'} />*/}
               {allElements?.map((element) => (
                 <>
-                  <ElementRenderer key={element.element_id} element={element} id={element.element_id} />
+                  <ElementRenderer
+                    key={element.element_id}
+                    element={element}
+                    id={element.element_id}
+                  />
                 </>
               ))}
               {isOver && (
@@ -97,4 +117,3 @@ export default function WebsiteRenderer({ pageData }: Props) {
     </>
   )
 }
-

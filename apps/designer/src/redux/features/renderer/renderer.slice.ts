@@ -1,6 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import { DesignerElementData, DesignerElementDataDTO } from '@repo/designer/types/designer.types'
+import {
+  DesignerElementData,
+  DesignerElementDataDTO,
+} from '@repo/designer/types/designer.types'
 import { generateRandomId } from '@/lib/utils'
 
 export interface RendererState {
@@ -28,20 +31,30 @@ export const rendererSlice = createSlice({
     addElement: (state, action: PayloadAction<DesignerElementDataDTO>) => {
       const newElement: DesignerElementDataDTO = {
         ...action.payload,
-      };
-      if(newElement.isFromElementPanel) {
+      }
+      if (newElement.isFromElementPanel) {
         return {
           ...state,
-          allElements: [...state.allElements, { ...newElement, isFromElementPanel: false, element_id: generateRandomId(12)  }]
+          allElements: [
+            ...state.allElements,
+            {
+              ...newElement,
+              isFromElementPanel: false,
+              element_id: generateRandomId(12),
+            },
+          ],
         }
       }
     },
     removeElement: (state, action: PayloadAction<string>) => {
-      state.allElements = state.allElements.filter(element => element.element_id !== action.payload);
+      state.allElements = state.allElements.filter(
+        (element) => element.element_id !== action.payload,
+      )
     },
   },
 })
 
-export const { setRendererState, removeElement, addElement } = rendererSlice.actions
+export const { setRendererState, removeElement, addElement } =
+  rendererSlice.actions
 
 export default rendererSlice.reducer
