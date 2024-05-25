@@ -102,3 +102,7 @@
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.27);
 }
+
+.element_selected {
+  outline: #9966FF solid !important;
+}

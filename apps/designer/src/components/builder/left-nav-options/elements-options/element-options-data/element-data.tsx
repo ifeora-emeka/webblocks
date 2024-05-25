@@ -1,4 +1,5 @@
 import {
+  TbAppWindow,
   TbArrowAutofitDown,
   TbArrowAutofitRight,
   TbContainer,
@@ -13,6 +14,12 @@ import { getDraggableElement } from '../../../../../../../../packages/designer/e
 
 let size = 30
 export const structureElements: EachElementData[] = [
+  {
+    slug: 'hero',
+    data: getDraggableElement('hero'),
+    preview: <TbAppWindow size={size} />,
+    label: 'Hero',
+  },
   {
     slug: 'container-structure',
     data: getDraggableElement('container'),

@@ -7,11 +7,13 @@ import {
 import { generateRandomId, getRandomNumber } from '@/lib/utils'
 
 export interface RendererState {
-  allElements: DndElementData[]
+  allElements: DndElementData[];
+  active_dnd_id: string | null;
 }
 
 const initialState: RendererState = {
   allElements: [],
+  active_dnd_id: null
 }
 
 export const rendererSlice = createSlice({
@@ -41,12 +43,12 @@ export const rendererSlice = createSlice({
       if (newElement.isFromElementPanel) {
         return {
           ...state,
+          active_dnd_id: theID,
           allElements: [
             ...state.allElements,
             {
               ...newElement,
               isFromElementPanel: false,
-              // element_id: generateRandomId(12),
             },
           ],
         }

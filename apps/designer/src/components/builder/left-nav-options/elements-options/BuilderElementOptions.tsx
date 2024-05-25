@@ -7,7 +7,7 @@ import {
   typographyElements,
 } from './element-options-data/element-data'
 import { useDraggable } from '@dnd-kit/core'
-import { DesignerElementDataDTO } from '@repo/designer/types/designer.types'
+import { DesignerElementDataDTO, DndElementData } from '@repo/designer/types/designer.types'
 
 export default function BuilderElementOptions() {
   return (
@@ -66,7 +66,7 @@ export const EachElementOption = ({
   label: string
   content: any
   slug: string
-  element: DesignerElementDataDTO
+  element: DndElementData
 }) => {
   const { attributes, listeners, setNodeRef, transform, isDragging } =
     useDraggable({

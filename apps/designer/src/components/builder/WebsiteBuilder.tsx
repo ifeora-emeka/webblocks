@@ -7,7 +7,6 @@ import React, { useEffect, useState } from 'react'
 import BuilderHeader from '@/components/builder/layout/BuilderHeader'
 import LeftNavOptions from './left-nav-options/LeftNavOptions'
 import WebsiteRenderer from './renderer/WebsiteRenderer'
-import { HomePage } from '@/app/mock-data'
 import {
   closestCenter,
   DndContext,
@@ -28,6 +27,8 @@ import DragOverlayElement from '@/components/builder/DragOverlayElement'
 import { sortableKeyboardCoordinates } from '@dnd-kit/sortable'
 import { useDispatch } from 'react-redux'
 import { DesignerProvider } from '@/app/projects/[project_id]/DesignerProvider'
+import GPTElementRenderer from './renderer/WebsiteRenderer'
+import { HeroSection } from '@/app/mock-data'
 
 /**
  * - Create a designer elements redux store
@@ -90,7 +91,8 @@ export default function WebsiteBuilder({ page, elements }: RendererProps) {
                   `min-h-[calc(100vh-${BUILDER_NAV_SIZE})] max-h-[calc(100vh-50px)] overflow-y-auto w-full`,
                 )}
               >
-                <WebsiteRenderer pageData={{} as any} elements={elements} />
+                {/*<WebsiteRenderer pageData={{} as any} elements={elements} />*/}
+                <GPTElementRenderer element={HeroSection()} />
               </div>
             </DesignerProvider>
             <PropertiesPanel />

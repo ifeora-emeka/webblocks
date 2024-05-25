@@ -1,157 +1,173 @@
-import { DesignerElementData } from '@repo/designer/types/designer.types'
+import { DesignerElementDataDTO, DndElementData } from '@repo/designer/types/designer.types';
+import { generateRandomId } from '@/lib/utils';
 
-export const HomePage: DesignerElementData = {
-  _id: 'root',
-  element_id: 'root',
-  name: 'Section Element',
-  slug: 'section-element',
-  html_tag: 'section',
-  tailwindStyle: {},
-  attributes: {
-    class: 'bg-white dark:bg-gray-900',
-  },
-  children: [
-    {
-      _id: 'child1',
-      element_id: 'child1',
-      name: 'Grid Container',
-      slug: 'grid-container',
-      html_tag: 'div',
-      tailwindStyle: {},
-      attributes: {
-        class:
-          'grid max-w-screen-xl px-4 pt-20 pb-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12 lg:pt-28',
+const defaultElementData: DesignerElementDataDTO = {
+  element_id: '',
+  parent_element_id: null,
+  slug: 'jumbo',
+  name: "Jumbotron",
+  description: '',
+  attributes: {},
+  html_tag: 'div',
+  chakraProps: {},
+  style: {},
+};
+
+export const HeroSection = (): DndElementData => {
+  const sectionId = generateRandomId(15);
+  const leftColumnId = generateRandomId(15);
+  const rightColumnId = generateRandomId(15);
+  const headingId = generateRandomId(15);
+  const subheadingId = generateRandomId(15);
+  const buttonId = generateRandomId(15);
+  const imageId = generateRandomId(15);
+
+  return {
+    dnd_id: sectionId,
+    element_data: {
+      ...defaultElementData,
+      element_id: sectionId,
+      parent_element_id: null,
+      chakraProps: {
+        minH: '400px',
+        bg: '#210143',
+        display: 'grid',
+        gridTemplateColumns: '1fr 1fr',
+        gap: 4,
+        py: '150px',
+        px: '100px'
       },
-      children: [
-        {
-          _id: 'child2',
-          element_id: 'child2',
-          name: 'Content Container',
-          slug: 'content-container',
-          html_tag: 'div',
-          tailwindStyle: {},
-          attributes: {
-            class: 'mr-auto place-self-center lg:col-span-7',
-          },
-          children: [
-            {
-              _id: 'child3',
-              element_id: 'child3',
-              name: 'Heading',
-              slug: 'heading',
-              html_tag: 'h1',
-              tailwindStyle: {},
-              attributes: {
-                class:
-                  'max-w-2xl mb-4 text-4xl font-extrabold leading-none tracking-tight md:text-5xl xl:text-6xl dark:text-white',
-              },
-              children: [
-                'Building digital ',
-                {
-                  _id: 'child4',
-                  element_id: 'child4',
-                  name: 'Line Break',
-                  slug: 'line-break',
-                  html_tag: 'div',
-                  tailwindStyle: {},
-                  attributes: {},
-                  children: [],
-                },
-                'products & brands.',
-              ],
-            },
-            {
-              _id: 'child5',
-              element_id: 'child5',
-              name: 'Paragraph',
-              slug: 'paragraph',
-              html_tag: 'p',
-              tailwindStyle: {},
-              attributes: {
-                class:
-                  'max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400',
-              },
-              children: [
-                'This free and open-source landing page template was built using the utility classes from ',
-                {
-                  _id: 'child6',
-                  element_id: 'child6',
-                  name: 'Link',
-                  slug: 'link',
-                  html_tag: 'a',
-                  tailwindStyle: {},
-                  attributes: {
-                    href: 'https://tailwindcss.com',
-                    class: 'hover:underline',
-                  },
-                  children: ['Tailwind CSS'],
-                },
-                ' and based on the components from the ',
-                {
-                  _id: 'child7',
-                  element_id: 'child7',
-                  name: 'Link',
-                  slug: 'link',
-                  html_tag: 'a',
-                  tailwindStyle: {},
-                  attributes: {
-                    href: 'https://flowbite.com/docs/getting-started/introduction/',
-                    class: 'hover:underline',
-                  },
-                  children: ['Flowbite Library'],
-                },
-                ' and the ',
-                {
-                  _id: 'child8',
-                  element_id: 'child8',
-                  name: 'Link',
-                  slug: 'link',
-                  html_tag: 'a',
-                  tailwindStyle: {},
-                  attributes: {
-                    href: 'https://flowbite.com/blocks/',
-                    class: 'hover:underline',
-                  },
-                  children: ['Blocks System'],
-                },
-                '.',
-              ],
-            },
-          ],
-        },
-        {
-          _id: 'child9',
-          element_id: 'child9',
-          name: 'Image Container',
-          slug: 'image-container',
-          html_tag: 'div',
-          tailwindStyle: {},
-          attributes: {
-            class: 'hidden lg:mt-0 lg:col-span-5 lg:flex',
-          },
-          children: [
-            {
-              _id: 'child10',
-              element_id: 'child10',
-              name: 'Background Image',
-              slug: 'background-image',
-              html_tag: 'div',
-              tailwindStyle: {},
-              style: {
-                backgroundImage:
-                  'url(https://demo.themesberg.com/landwind/images/hero.png)',
-              },
-              attributes: {
-                class:
-                  'min-h-[200px] min-w-[200px] bg-no-repeat bg-center bg-cover',
-              },
-              children: [],
-            },
-          ],
-        },
-      ],
+      html_tag: 'section',
     },
-  ],
-}
-
-export default HomePage
+    children_dnd_element_data: [
+      {
+        dnd_id: leftColumnId,
+        element_data: {
+          ...defaultElementData,
+          element_id: leftColumnId,
+          parent_element_id: sectionId,
+          chakraProps: {
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            color: 'white',
+          },
+          html_tag: 'div',
+          name: 'Left Column',
+          slug: 'left-column',
+        },
+        children_dnd_element_data: [
+          {
+            dnd_id: headingId,
+            element_data: {
+              ...defaultElementData,
+              element_id: headingId,
+              parent_element_id: leftColumnId,
+              chakraProps: {
+                as: 'h1',
+                fontSize: '4xl',
+                fontWeight: 'bold',
+                mb: 4,
+              },
+              html_tag: 'h1',
+              name: 'Heading',
+              slug: 'hero-heading',
+              description: 'Hero Section Heading',
+              attributes: { innerText: 'Welcome to Our Website' },
+            },
+            children_dnd_element_data: [],
+            parent_dnd_id: leftColumnId,
+          },
+          {
+            dnd_id: subheadingId,
+            element_data: {
+              ...defaultElementData,
+              element_id: subheadingId,
+              parent_element_id: leftColumnId,
+              chakraProps: {
+                as: 'h2',
+                fontSize: '2xl',
+                mb: 4,
+              },
+              html_tag: 'h2',
+              name: 'Subheading',
+              slug: 'hero-subheading',
+              description: 'Hero Section Subheading',
+              attributes: { innerText: 'We provide the best solutions for your business' },
+            },
+            children_dnd_element_data: [],
+            parent_dnd_id: leftColumnId,
+          },
+          {
+            dnd_id: buttonId,
+            element_data: {
+              ...defaultElementData,
+              element_id: buttonId,
+              parent_element_id: leftColumnId,
+              chakraProps: {
+                as: 'button',
+                bg: 'white',
+                color: 'purple.600',
+                py: 4,
+                px: "40px",
+                borderRadius: 'md',
+                mt: 4,
+                alignSelf: 'start',
+                fontWeight: 'bold'
+              },
+              html_tag: 'button',
+              name: 'Button',
+              slug: 'hero-button',
+              description: 'Hero Section Button',
+              attributes: { innerText: 'Learn More' },
+            },
+            children_dnd_element_data: [],
+            parent_dnd_id: leftColumnId,
+          },
+        ],
+        parent_dnd_id: sectionId,
+      },
+      {
+        dnd_id: rightColumnId,
+        element_data: {
+          ...defaultElementData,
+          element_id: rightColumnId,
+          parent_element_id: sectionId,
+          chakraProps: {
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          },
+          html_tag: 'div',
+          name: 'Right Column',
+          slug: 'right-column',
+        },
+        children_dnd_element_data: [
+          {
+            dnd_id: imageId,
+            element_data: {
+              ...defaultElementData,
+              element_id: imageId,
+              parent_element_id: rightColumnId,
+              chakraProps: {
+                as: 'img',
+                maxH: '100%',
+                maxW: '100%',
+                rounded: 'lg'
+              },
+              html_tag: 'img',
+              name: 'Image',
+              slug: 'hero-image',
+              description: 'Hero Section Image',
+              attributes: { src: 'https://img.freepik.com/free-photo/front-view-woman-studio-with-smartphone_23-2148410773.jpg' },
+            },
+            children_dnd_element_data: [],
+            parent_dnd_id: rightColumnId,
+          },
+        ],
+        parent_dnd_id: sectionId,
+      },
+    ],
+    parent_dnd_id: null,
+  };
+};
