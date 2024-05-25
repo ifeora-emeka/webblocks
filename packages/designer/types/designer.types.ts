@@ -16,8 +16,21 @@ export interface DesignerPageData {
   body: Partial<DesignerElementData>;
 }
 
+export interface DndElementData {
+  element_data: DesignerElementDataDTO;
+  children_dnd_element_data?: DndElementData[] | [string];
+
+  dnd_id: string;
+  parent_dnd_id: string | null;
+  is_draggable?: boolean;
+  is_active?: boolean;
+  isInDesigner?:boolean;
+  isFromElementPanel?:boolean;
+};
+
 export interface DesignerElementDataDTO {
   element_id: string;
+  parent_element_id: string | null;
   // index: number;
   name: string;
   slug: string;
@@ -25,16 +38,14 @@ export interface DesignerElementDataDTO {
   html_tag: React.ElementType;
   style?: CSSProperties;
   attributes: AttributeData;
-  children?: Array<DesignerElementData | string>;
-  isInDesigner?:boolean;
-  isFromElementPanel?:boolean;
+  // children?: Array<DesignerElementData | string>;
   chakraProps: BoxProps;
-  // tailwindStyle: CSSProperties;
-  // childrenTailwindStyle?: CSSProperties;
 }
 
 export interface DesignerElementData extends DesignerElementDataDTO {
   _id: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface AttributeData {

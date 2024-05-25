@@ -85,13 +85,13 @@ export default function WebsiteBuilder({ page, elements }: RendererProps) {
             <BuilderLeftMenu />
             <LeftNavOptions />
             <DesignerProvider>
-            <div
-              className={cn(
-                `min-h-[calc(100vh-${BUILDER_NAV_SIZE})] max-h-[calc(100vh-50px)] overflow-y-auto w-full`,
-              )}
-            >
-              <WebsiteRenderer pageData={{} as any} elements={elements} />
-            </div>
+              <div
+                className={cn(
+                  `min-h-[calc(100vh-${BUILDER_NAV_SIZE})] max-h-[calc(100vh-50px)] overflow-y-auto w-full`,
+                )}
+              >
+                <WebsiteRenderer pageData={{} as any} elements={elements} />
+              </div>
             </DesignerProvider>
             <PropertiesPanel />
           </div>

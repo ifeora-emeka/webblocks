@@ -1,82 +1,98 @@
 import {
   DesignerElementData,
-  DesignerElementDataDTO,
+  DesignerElementDataDTO, DndElementData,
   DraggableElement,
-} from "../types/designer.types";
+} from '../types/designer.types'
 import { generateRandomId, getRandomNumber } from "designer-app/src/lib/utils";
 import React from "react";
+import { createContainerStyling } from 'designer-app/src/lib/designer.utils'
+
 
 export let defaultElementData = (
   html_tag: React.ElementType,
-  children: DesignerElementDataDTO[] | [string],
+  children: DndElementData[] | [string],
   config: Partial<DesignerElementDataDTO>,
+  theID: string
 ): DesignerElementDataDTO => {
   return {
-    element_id: generateRandomId(getRandomNumber(8, 13)),
-    html_tag,
-    name: `${html_tag}`.toUpperCase(),
-    slug: html_tag.toString(),
-    attributes: {},
-    children: children as (string | DesignerElementData)[] | undefined,
-    style: {},
-    chakraProps: {},
-    // childrenTailwindStyle: {},
-    description: `A ${html_tag} element`,
-    ...config,
+      element_id: theID,
+      html_tag,
+      name: `${html_tag}`.toUpperCase(),
+      slug: html_tag.toString(),
+      attributes: {},
+      style: {},
+      chakraProps: {},
+      // childrenTailwindStyle: {},
+      description: `A ${html_tag} element`,
+      parent_element_id: null,
+      ...config,
   };
 };
 
+export let defaultDndElement = (html_tag: React.ElementType, children: DndElementData[] | [string], config: Partial<DesignerElementDataDTO>): DndElementData => {
+let theID = generateRandomId(getRandomNumber(8, 13))
+  return {
+    dnd_id: theID,
+    parent_dnd_id: null,
+    children_dnd_element_data: children,
+    element_data: defaultElementData(html_tag, children, config, theID)
+  }
+}
+
 export const getDraggableElement = (
   type: DraggableElement,
-): DesignerElementDataDTO => {
+): DndElementData => {
   switch (type) {
     case "h1":
       return {
-        ...defaultElementData("h1", [`${type} text element`], {
+        ...defaultDndElement('h1', ["I am a simple heading text"], {
           chakraProps: {
-            fontSize: '25px',
+            fontSize: 'xl',
             fontWeight: 'bold'
           }
         }),
       };
     case "img":
       return {
-        ...defaultElementData("img", [], {
-          attributes: {
-            src: '/designer/img/img-placeholder.jpg'
-          }
-        }),
+        ...defaultDndElement('img', [], {}),
       };
     case "row":
       return {
-        ...defaultElementData("div", [], {
+        ...defaultDndElement('div', [], {
           chakraProps: {
-            display: "flex",
-            flexDirection: "row",
-            height: '200px',
-            width: '100%',
-            background: 'orange.300'
+            display: 'flex',
+            flexDir: 'row',
+            bg: 'blue.50',
+            color: 'blue.600'
           },
         }),
       };
     case "column":
       return {
-        ...defaultElementData("div", [], {
+        ...defaultDndElement('div', [], {
           chakraProps: {
-            display: "flex",
-            flexDirection: "column",
-            height: '400px',
-            width: '100%',
-            background: 'green.100',
-            color: 'green.700',
-            fontSize: '70px'
+            display: 'flex',
+            flexDir: 'column',
+            bg: 'blue.50',
+            color: 'blue.600'
           },
-          children: ["This is a column", "Ït's just cool"]
         }),
+
       };
+    case 'container':
+      return {
+        ...defaultDndElement('section', ['I am a container'], {
+          chakraProps: {
+            ...createContainerStyling(),
+            bg: 'blue.50',
+            color: 'blue.600'
+          },
+        }),
+      }
     default:
       return {
-        ...defaultElementData("div", [], {}),
+        ...defaultDndElement('div', [], {}),
+        // ...defaultElementData("div", [], {}),
       };
   }
 };

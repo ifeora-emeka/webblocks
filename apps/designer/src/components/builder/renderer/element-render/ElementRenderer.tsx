@@ -1,21 +1,22 @@
 import React, { useState } from 'react'
-import { DesignerElementDataDTO } from '@repo/designer/types/designer.types'
+import { DndElementData } from '@repo/designer/types/designer.types'
 import { CSS } from '@dnd-kit/utilities'
 import { useSortable } from '@dnd-kit/sortable'
 import { cn } from '@/lib/utils'
 import { Box } from '@chakra-ui/react'
 
 interface DesignerElementProps {
-  element: DesignerElementDataDTO
+  element: DndElementData
   id: string
 }
 
 const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
   const [isActive, setIsActive] = useState(false)
-  const { name, html_tag, style, children, attributes, chakraProps } = element
+  const { name, html_tag, style, attributes, chakraProps } = element.element_data;
+  const children = element.children_dnd_element_data;
 
   const renderChildren = (
-    children: Array<DesignerElementDataDTO | string> | undefined,
+    children: Array<DndElementData | string> | undefined,
   ) => {
     if (!children) return null
 
@@ -25,9 +26,9 @@ const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
       } else {
         return (
           <ElementRenderer
-            key={child.element_id}
+            key={child.dnd_id}
             element={child}
-            id={child.element_id}
+            id={child.dnd_id}
           />
         )
       }
@@ -40,9 +41,9 @@ const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
     )
 
   const draggable = useSortable({
-    id: element.element_id,
+    id: element.element_data.element_id,
     data: element,
-    disabled: isActive,
+    disabled: element.is_draggable,
   })
 
   const mergedAttributes = { ...attributes, ...draggable.attributes }
@@ -56,17 +57,19 @@ const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
   //   return <Box {...mergedAttributes} style={{ ...style, ...dndStyle }}  {...draggable.listeners} ref={draggable.setNodeRef} onClick={() => setIsActive(!isActive)} />;
   // } else {
   return (
-    <Box
-      as={html_tag}
-      {...mergedAttributes}
-      style={{ ...style, ...dndStyle }}
-      {...draggable.listeners}
-      ref={draggable.setNodeRef}
-      onClick={() => setIsActive(!isActive)}
-      {...chakraProps}
-    >
-      {renderChildren(children)}
-    </Box>
+    <>
+      <Box
+        as={html_tag}
+        style={{ ...style, ...dndStyle }}
+        {...draggable.listeners}
+        ref={draggable.setNodeRef}
+        onClick={() => setIsActive(!isActive)}
+        {...chakraProps}
+        {...mergedAttributes}
+      >
+        {renderChildren(children)}
+      </Box>
+    </>
   )
   // }
 }

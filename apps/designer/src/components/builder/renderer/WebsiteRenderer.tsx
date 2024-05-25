@@ -56,10 +56,10 @@ export default function WebsiteRenderer({ pageData }: Props) {
 
       // Find the index of the active and over elements
       const activeIndex = allElements.findIndex(
-        (element) => element.element_id === activeId,
+        (element) => element.element_data.element_id === activeId,
       )
       const overIndex = allElements.findIndex(
-        (element) => element.element_id === overId,
+        (element) => element.element_data.element_id === overId,
       )
 
       // If both elements are found, update the state to reflect the new order
@@ -74,7 +74,7 @@ export default function WebsiteRenderer({ pageData }: Props) {
     <>
       <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
         <SortableContext
-          items={allElements.map((element) => element.element_id)}
+          items={allElements.map((element) => element.element_data.element_id)}
           strategy={verticalListSortingStrategy}
         >
           <div
@@ -97,9 +97,9 @@ export default function WebsiteRenderer({ pageData }: Props) {
               {allElements?.map((element) => (
                 <>
                   <ElementRenderer
-                    key={element.element_id}
+                    key={element.element_data.element_id}
                     element={element}
-                    id={element.element_id}
+                    id={element.element_data.element_id}
                   />
                 </>
               ))}
