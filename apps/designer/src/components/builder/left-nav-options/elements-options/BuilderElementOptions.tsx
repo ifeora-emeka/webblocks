@@ -7,7 +7,10 @@ import {
   typographyElements,
 } from './element-options-data/element-data'
 import { useDraggable } from '@dnd-kit/core'
-import { DesignerElementDataDTO, DndElementData } from '@repo/designer/types/designer.types'
+import {
+  DesignerElementDataDTO,
+  DndElementData,
+} from '@repo/designer/types/designer.types'
 
 export default function BuilderElementOptions() {
   return (

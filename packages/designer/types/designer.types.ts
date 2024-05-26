@@ -17,6 +17,7 @@ export interface DesignerPageData {
 }
 
 export interface DndElementData {
+  index: number;
   element_data: DesignerElementDataDTO;
   children_dnd_element_data?: DndElementData[] | [string];
 
@@ -31,7 +32,7 @@ export interface DndElementData {
 export interface DesignerElementDataDTO {
   element_id: string;
   parent_element_id: string | null;
-  // index: number;
+  index: number;
   name: string;
   slug: string;
   description?: string;
@@ -40,6 +41,7 @@ export interface DesignerElementDataDTO {
   attributes: AttributeData;
   // children?: Array<DesignerElementData | string>;
   chakraProps: BoxProps;
+  can_delete?: boolean;
 }
 
 export interface DesignerElementData extends DesignerElementDataDTO {
@@ -66,7 +68,7 @@ export type DesignerLeftPanel =
 
 export type RendererProps = {
   page: DesignerPageData;
-  elements: DesignerElementData[];
+  elements: DndElementData[];
 };
 
 export type DraggableElement =

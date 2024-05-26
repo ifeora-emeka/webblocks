@@ -25,10 +25,11 @@ import {
 } from '@repo/designer/types/designer.types'
 import DragOverlayElement from '@/components/builder/DragOverlayElement'
 import { sortableKeyboardCoordinates } from '@dnd-kit/sortable'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { DesignerProvider } from '@/app/projects/[project_id]/DesignerProvider'
 import GPTElementRenderer from './renderer/WebsiteRenderer'
 import { HeroSection } from '@/app/mock-data'
+import { AppStore, RootState } from '@/redux/store'
 
 /**
  * - Create a designer elements redux store
@@ -41,8 +42,7 @@ import { HeroSection } from '@/app/mock-data'
 
 export default function WebsiteBuilder({ page, elements }: RendererProps) {
   const [show, setShow] = useState(false)
-  const [activeId, setActiveId] = useState(null)
-  const dispatch = useDispatch()
+  const { allElements } = useSelector((state: AppStore) => state.renderer);
 
   useEffect(() => {
     setShow(true)
@@ -91,8 +91,7 @@ export default function WebsiteBuilder({ page, elements }: RendererProps) {
                   `min-h-[calc(100vh-${BUILDER_NAV_SIZE})] max-h-[calc(100vh-50px)] overflow-y-auto w-full`,
                 )}
               >
-                {/*<WebsiteRenderer pageData={{} as any} elements={elements} />*/}
-                <GPTElementRenderer element={HeroSection()} />
+                <GPTElementRenderer elements={allElements} />
               </div>
             </DesignerProvider>
             <PropertiesPanel />
