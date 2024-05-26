@@ -109,7 +109,7 @@ const ElementToolBox = ({ element }: { element: DndElementData }) => {
   return (
     <div
       className={cn(
-        'bg-card absolute p-2 rounded-md shadow-xl border z-50 min-w-[200px] min-h-10  right-2 border-border text-muted-foreground flex items-center gap-default_spacing justify-between opacity-70- hover:opacity-100',
+        'bg-card absolute p-2 rounded-md shadow-xl border z-50 min-w-[200px] min-h-10  right-2 border-border text-muted-foreground flex items-center gap-default_spacing justify-between opacity-100 hover:opacity-100 ',
         {
           'top-5 right-5': !parentID,
           '-top-14': parentID,
