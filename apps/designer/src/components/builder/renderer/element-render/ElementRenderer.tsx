@@ -22,28 +22,21 @@ const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
   const { active_dnd_id } = useSelector((state: RootState) => state.renderer)
 
   const renderChildren = (
-    children: Array<DndElementData | string> | undefined,
+    children: Array<DndElementData> | undefined,
   ) => {
     if (!children) return null
 
     const sortedChildren = children.slice().sort((a, b) => {
-      if (typeof a === 'string' || typeof b === 'string') {
-        return 0
-      }
       return a.index - b.index
     })
 
     return sortedChildren.map((child) => {
-      if (typeof child === 'string') {
-        return child
-      } else {
         return (
           <ElementRenderer
             key={child.dnd_id}
             element={child}
           />
         )
-      }
     })
   }
 
