@@ -1,13 +1,13 @@
-import { DesignerElementDataDTO } from '@repo/designer/types/designer.types'
+import { DndElementData } from '@repo/designer/types/designer.types'
 
 export type EachElementData = {
   slug: string
   label: string
   preview: any
-  data: DesignerElementDataDTO
+  data: DndElementData
 }
 
 export type EachBlockElement = {
-  _id: string;
-  name: string;
+  _id: string
+  name: string
 }

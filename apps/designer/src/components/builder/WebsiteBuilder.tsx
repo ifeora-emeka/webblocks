@@ -7,13 +7,14 @@ import React, { useEffect, useState } from 'react'
 import BuilderHeader from '@/components/builder/layout/BuilderHeader'
 import LeftNavOptions from './left-nav-options/LeftNavOptions'
 import WebsiteRenderer from './renderer/WebsiteRenderer'
-import { HomePage } from '@/app/mock-data'
 import {
   closestCenter,
-  DndContext, DragEndEvent,
+  DndContext,
+  DragEndEvent,
   DragOverlay,
   KeyboardSensor,
-  PointerSensor, useDndMonitor,
+  PointerSensor,
+  useDndMonitor,
   useSensor,
   useSensors,
 } from '@dnd-kit/core'
@@ -24,7 +25,11 @@ import {
 } from '@repo/designer/types/designer.types'
 import DragOverlayElement from '@/components/builder/DragOverlayElement'
 import { sortableKeyboardCoordinates } from '@dnd-kit/sortable'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { DesignerProvider } from '@/app/projects/[project_id]/DesignerProvider'
+import GPTElementRenderer from './renderer/WebsiteRenderer'
+import { HeroSection } from '@/app/mock-data'
+import { AppStore, RootState } from '@/redux/store'
 
 /**
  * - Create a designer elements redux store
@@ -35,27 +40,20 @@ import { useDispatch } from 'react-redux'
  * -
  */
 
-export default function WebsiteBuilder({
-  page,
-  elements,
-}: RendererProps) {
+export default function WebsiteBuilder({ page, elements }: RendererProps) {
   const [show, setShow] = useState(false)
-  const [activeId, setActiveId] = useState(null)
-  const dispatch = useDispatch();
-
-
+  const { allElements } = useSelector((state: AppStore) => state.renderer);
 
   useEffect(() => {
     setShow(true)
   }, [])
 
-
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
-    })
-  );
+    }),
+  )
 
   function handleDragEnd(event: DragEndEvent) {
     // const { active, over } = event;
@@ -87,13 +85,15 @@ export default function WebsiteBuilder({
           <div className={'flex-1 flex'}>
             <BuilderLeftMenu />
             <LeftNavOptions />
-            <div
-              className={cn(
-                `min-h-[calc(100vh-${BUILDER_NAV_SIZE})] max-h-[calc(100vh-50px)] overflow-y-auto w-full`,
-              )}
-            >
-              <WebsiteRenderer pageData={{} as any} elements={elements} />
-            </div>
+            <DesignerProvider>
+              <div
+                className={cn(
+                  `min-h-[calc(100vh-${BUILDER_NAV_SIZE})] max-h-[calc(100vh-50px)] overflow-y-auto w-full`,
+                )}
+              >
+                <GPTElementRenderer elements={allElements} />
+              </div>
+            </DesignerProvider>
             <PropertiesPanel />
           </div>
         </div>
@@ -102,4 +102,3 @@ export default function WebsiteBuilder({
     </>
   )
 }
-

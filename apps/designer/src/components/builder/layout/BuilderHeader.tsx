@@ -19,7 +19,7 @@ import { setRendererState } from '@/redux/features/renderer/renderer.slice'
 import { useDispatch } from 'react-redux'
 
 export default function BuilderHeader() {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
   return (
     <>
       <div
@@ -67,9 +67,11 @@ export default function BuilderHeader() {
             )}
             tooltip={'Project saved'}
             onClick={() => {
-              dispatch(setRendererState({
-                allElements: []
-              }))
+              dispatch(
+                setRendererState({
+                  allElements: [],
+                }),
+              )
             }}
           />
           <DefaultIconBtn

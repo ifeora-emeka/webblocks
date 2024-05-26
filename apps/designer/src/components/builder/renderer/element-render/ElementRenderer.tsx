@@ -1,56 +1,137 @@
-import React from 'react';
-import { DesignerElementDataDTO } from '@repo/designer/types/designer.types';
-import {CSS} from '@dnd-kit/utilities';
-import { useSortable } from '@dnd-kit/sortable'
+import React from 'react'
+import { DndElementData } from '@repo/designer/types/designer.types'
+import { Box, ChakraProps } from '@chakra-ui/react'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from '@/redux/store'
+import { moveElement, setRendererState } from '@/redux/features/renderer/renderer.slice'
 import { cn } from '@/lib/utils'
+import { Button } from '@/components/ui/button'
+import { TbArrowDown, TbArrowUp, TbTrash } from 'react-icons/tb'
 
 interface DesignerElementProps {
-  element: DesignerElementDataDTO;
-  id: string;
+  element: DndElementData
 }
 
 const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
-  const { name, html_tag: HtmlTag, style, tailwindStyle, children, attributes } = element;
+  const isVoidElement = (tag: string) =>
+    /^(area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr)$/i.test(tag)
 
-  const renderChildren = (children: Array<DesignerElementDataDTO | string> | undefined) => {
-    if (!children) return null;
+  const { element_data, children_dnd_element_data } = element
+  const { html_tag, chakraProps, attributes, style } = element_data
+  const dispatch = useDispatch()
+  const { active_dnd_id } = useSelector((state: RootState) => state.renderer)
 
-    return children.map((child) => {
-      if (typeof child === 'string') {
-        return child;
-      } else {
-        return <ElementRenderer key={child.element_id} element={child} id={child.element_id} />;
+  const renderChildren = (
+    children: Array<DndElementData | string> | undefined,
+  ) => {
+    if (!children) return null
+
+    const sortedChildren = children.slice().sort((a, b) => {
+      if (typeof a === 'string' || typeof b === 'string') {
+        return 0
       }
-    });
-  };
+      return a.index - b.index
+    })
 
-  const isVoidElement = /^(area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr)$/i.test(name);
-
-  const draggable = useSortable({
-    id: element.element_id,
-    data: element
-  });
-
-  const mergedAttributes = { ...attributes, ...draggable.attributes };
-
-  const dndStyle = {
-    transform: CSS.Transform.toString(draggable.transform),
-    transition: draggable.transition,
-  };
-
-  let tailwindClasses = Object.values(element.tailwindStyle).join(' ')
-
-  console.log('TAILWIND CLASSES::', {tailwindClasses, obj: element.tailwindStyle })
-
-  if (isVoidElement) {
-    return <HtmlTag {...mergedAttributes} style={{ ...style, ...dndStyle }}  {...draggable.listeners} ref={draggable.setNodeRef} className={cn(tailwindClasses)} />;
-  } else {
-    return (
-      <HtmlTag {...mergedAttributes} style={{ ...style, ...dndStyle }}  {...draggable.listeners} ref={draggable.setNodeRef} className={cn(tailwindClasses)}>
-        {renderChildren(children)}
-      </HtmlTag>
-    );
+    return sortedChildren.map((child) => {
+      if (typeof child === 'string') {
+        return child
+      } else {
+        return (
+          <ElementRenderer
+            key={child.dnd_id}
+            element={child}
+          />
+        )
+      }
+    })
   }
-};
 
-export default ElementRenderer;
+  const isActive = active_dnd_id === element.dnd_id
+
+  if (isVoidElement(html_tag as string)) {
+    return (
+      <Box
+        as={html_tag}
+        {...(chakraProps as ChakraProps)}
+        style={style}
+        {...attributes}
+        onClick={() => {
+          dispatch(
+            setRendererState({
+              active_dnd_id: element.dnd_id,
+            }),
+          )
+        }}
+      />
+    )
+  }
+
+  return (
+    <Box
+      as={html_tag}
+      {...(chakraProps as ChakraProps)}
+      style={style}
+      {...attributes}
+      className={cn(attributes.className, 'relative', {
+        'element_selected shadow-lg': isActive,
+      })}
+      onClick={(e) => {
+        e.stopPropagation()
+        dispatch(
+          setRendererState({
+            active_dnd_id: element.dnd_id,
+          }),
+        )
+      }}
+    >
+      {isActive && <ElementToolBox element={element} />}
+      {attributes.innerText}
+      {renderChildren(children_dnd_element_data)}
+    </Box>
+  )
+}
+
+export default ElementRenderer
+
+
+const ElementToolBox = ({ element }: { element: DndElementData }) => {
+  const dispatch = useDispatch();
+  let parentID = element.parent_dnd_id;
+
+  const move = (direction: 'up' | 'down') => {
+    dispatch(moveElement({
+      element_id: element.dnd_id,
+      direction
+    }))
+  }
+
+  return (
+    <div
+      className={cn(
+        'bg-card absolute p-2 rounded-md shadow-xl border z-50 min-w-[200px] min-h-10  right-2 border-border text-muted-foreground flex items-center gap-default_spacing justify-between opacity-70- hover:opacity-100',
+        {
+          'top-5 right-5': !parentID,
+          '-top-14': parentID,
+        },
+      )}
+      onClick={(e) => {
+        e.stopPropagation()
+      }}
+    >
+      <div className={'flex items-center gap-1'}>
+        <Button variant="outline" size="icon">
+          <TbTrash className="h-4 w-4" />
+        </Button>
+      </div>
+      <div className={'flex items-center gap-1'}>
+        <Button variant="outline" size="icon" onClick={() => move('down')}>
+          <TbArrowDown className="h-4 w-4" />
+        </Button>
+        <Button variant="outline" size="icon" onClick={() => move('up')}>
+          <TbArrowUp className="h-4 w-4" />
+        </Button>
+      </div>
+    </div>
+  )
+}
