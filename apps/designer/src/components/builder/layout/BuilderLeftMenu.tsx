@@ -5,7 +5,8 @@ import {
   TbBrandHipchat,
   TbBrush,
   TbColumns,
-  TbDatabase, TbDiamonds,
+  TbDatabase,
+  TbDiamonds,
   TbFile,
   TbListTree,
   TbPhoto,
@@ -89,8 +90,9 @@ export default function BuilderLeftMenu() {
           <DefaultIconBtn
             Icon={TbPhoto}
             tooltip={'Asset browser'}
-            onClick={() => {}}
+            onClick={() => dispatch(toggleLeftPanel('assets'))}
             side={'right'}
+            isActive={panel === 'assets'}
           />
           <DefaultIconBtn
             Icon={TbDatabase}

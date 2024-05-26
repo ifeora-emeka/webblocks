@@ -14,6 +14,7 @@ const initialState: RendererState = {
   active_dnd_id: null,
 }
 
+
 export const rendererSlice = createSlice({
   name: 'renderer',
   initialState,
@@ -59,59 +60,48 @@ export const rendererSlice = createSlice({
     },
     moveElement: (
       state,
-      action: PayloadAction<{ element_id: string; direction: 'up' | 'down' }>,
+      action: PayloadAction<{ element_id: string; direction: 'up' | 'down' }>
     ) => {
-      const _state: RendererState = JSON.parse(JSON.stringify(state))
-      const { element_id, direction } = action.payload
+      const { element_id, direction } = action.payload;
+      const elementIndex = state.allElements.findIndex(
+        (element) => element.dnd_id === element_id
+      );
 
-      const targetElement = _state.allElements.find(
-        (el: DndElementData) => el.dnd_id === element_id,
-      )
+      if (elementIndex === -1) return; // Element not found
 
-      if (!targetElement) return
+      const elementToMove = state.allElements[elementIndex];
+      const parentID = elementToMove.parent_dnd_id;
 
-      const siblings: DndElementData[] = _state.allElements.filter(
-        (el: DndElementData) =>
-          el.parent_dnd_id === targetElement.parent_dnd_id,
-      )
+      const siblings = state.allElements.filter(
+        (element) => element.parent_dnd_id === parentID
+      );
 
-      console.log('OLD SIBLINGS:::', siblings)
+      const siblingIndex = siblings.findIndex(
+        (sibling) => sibling.dnd_id === element_id
+      );
 
-      const targetIndex = siblings.findIndex(
-        (el) => el.dnd_id === targetElement.dnd_id,
-      )
+      if (siblingIndex === -1) return;
 
-      if (targetIndex === -1) return
+      const newIndex =
+        direction === 'up' ? siblingIndex - 1 : siblingIndex + 1;
 
-      let newIndex = direction === 'up' ? targetIndex - 1 : targetIndex + 1
-      if (newIndex < 0) newIndex = siblings.length - 1
-      if (newIndex >= siblings.length) newIndex = 0
+      if (newIndex < 0 || newIndex >= siblings.length) return;
 
-      const temp = siblings[targetIndex]
-      siblings[targetIndex] = siblings[newIndex]
-      siblings[newIndex] = temp
+      [siblings[siblingIndex], siblings[newIndex]] = [
+        siblings[newIndex],
+        siblings[siblingIndex],
+      ];
 
       siblings.forEach((sibling, index) => {
-        sibling.element_data.index = index
-        sibling.index = index
-      })
+        sibling.index = index;
+      });
 
-      let updatedElements = _state.allElements.map((el) => {
-        let siblingIndex = siblings.findIndex((x) => x.dnd_id === el.dnd_id)
-        if (siblingIndex !== -1) {
-          return siblings[siblingIndex]
-        } else {
-          return el
-        }
-      })
-
-      console.log('NEW SIBLINGS:::', siblings)
-
-      return {
-        ..._state,
-        allElements: updatedElements,
-      }
-    },
+      state.allElements = state.allElements.map((element) =>
+        element.parent_dnd_id === parentID
+          ? siblings.find((sibling) => sibling.dnd_id === element.dnd_id) || element
+          : element
+      );
+    }
   },
 })
 
