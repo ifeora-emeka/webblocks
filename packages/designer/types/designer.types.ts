@@ -58,6 +58,7 @@ export type DesignerLeftPanel =
   | null
   | "elements"
   | "components"
+  | "blocks"
   | "pages"
   | "outline"
   | "variables"
@@ -72,6 +73,7 @@ export type RendererProps = {
 };
 
 export type DraggableElement =
+  | 'hero'
   | "div"
   | "img"
   | "h1"

@@ -42,7 +42,7 @@ import { AppStore, RootState } from '@/redux/store'
 
 export default function WebsiteBuilder({ page, elements }: RendererProps) {
   const [show, setShow] = useState(false)
-  const { allElements } = useSelector((state: AppStore) => state.renderer);
+  const { allElements } = useSelector((state: AppStore) => state.renderer)
 
   useEffect(() => {
     setShow(true)

@@ -36,19 +36,19 @@ export const HeroSection = (): DndElementData[] => {
         parent_element_id: null,
         index: 0,
         chakraProps: {
-          minH: '400px',
+          minH: '800px',
           // bg: '#210143',
-          bgGradient: "linear(to-b, #210143, #16012d)",
+          bgGradient: 'linear(to-b, #210143, #16012d)',
           display: 'grid',
           gridTemplateColumns: '1fr 1fr',
           gap: {
             lg: '9rem',
-            base: 4
+            base: 4,
           },
           py: '150px',
           px: {
             base: '30px',
-            lg: '140px'
+            lg: '140px',
           },
         },
         html_tag: 'section',
@@ -135,14 +135,15 @@ export const HeroSection = (): DndElementData[] => {
         name: 'Subheading',
         description: 'Hero Section Subheading',
         attributes: {
-          innerText: 'The best platform for building a chat bot tailored to the needs of your customers',
+          innerText:
+            'The best platform for building a chat bot tailored to the needs of your customers',
         },
         html_tag: 'h2',
         chakraProps: {
           as: 'h2',
           fontSize: 'lg',
           mb: 4,
-          opacity: '0.7'
+          opacity: '0.7',
         },
         style: {},
       },
@@ -196,7 +197,7 @@ export const HeroSection = (): DndElementData[] => {
           maxH: '100%',
           maxW: '100%',
           rounded: 'lg',
-          zIndex: 50
+          zIndex: 50,
         },
         style: {},
       },
@@ -221,16 +222,15 @@ export const HeroSection = (): DndElementData[] => {
           as: 'img',
           left: '10px',
           minW: {
-            base: "29rem",
-            lg: "50rem"
+            base: '29rem',
+            lg: '50rem',
           },
-          position: 'absolute'
+          position: 'absolute',
         },
         style: {},
       },
       children_dnd_element_data: [],
       parent_dnd_id: rightColumnId,
     },
-
   ]
 }

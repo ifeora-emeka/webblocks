@@ -15,6 +15,7 @@ export let defaultElementData = (
   theID: string
 ): DesignerElementDataDTO => {
   return {
+      index: 0,
       element_id: theID,
       html_tag,
       name: `${html_tag}`.toUpperCase(),
@@ -29,9 +30,10 @@ export let defaultElementData = (
   };
 };
 
-export let defaultDndElement = (html_tag: React.ElementType, children: DndElementData[] | [string], config: Partial<DesignerElementDataDTO>): DndElementData => {
+export let defaultDndElement = (html_tag: React.ElementType, children: DndElementData[], config: Partial<DesignerElementDataDTO>): DndElementData => {
 let theID = generateRandomId(getRandomNumber(8, 13))
   return {
+    index: 0,
     dnd_id: theID,
     parent_dnd_id: null,
     children_dnd_element_data: children,
@@ -45,7 +47,7 @@ export const getDraggableElement = (
   switch (type) {
     case "h1":
       return {
-        ...defaultDndElement('h1', ["I am a simple heading text"], {
+        ...defaultDndElement('h1', [], {
           chakraProps: {
             fontSize: 'xl',
             fontWeight: 'bold'
@@ -81,7 +83,7 @@ export const getDraggableElement = (
       };
     case 'container':
       return {
-        ...defaultDndElement('section', ['I am a container'], {
+        ...defaultDndElement('section', [], {
           chakraProps: {
             ...createContainerStyling(),
             bg: 'blue.50',

@@ -16,10 +16,9 @@ import { Separator } from '@/components/ui/separator'
 import Link from 'next/link'
 
 export default function BuilderHeader() {
-
   const clearAllTheShit = () => {
-    sessionStorage.clear();
-    window.location.reload();
+    sessionStorage.clear()
+    window.location.reload()
   }
 
   return (

@@ -1,9 +1,15 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit'
 import { persistStore, persistReducer } from 'redux-persist'
 import sessionStorage from 'redux-persist/lib/storage/session'
-import builderSlice, { BuilderState } from '@/redux/features/builder/builder.slice'
-import builderViewSlice, { BuilderViewState } from './features/builder/builder-view.slice'
-import rendererSlice, { RendererState } from './features/renderer/renderer.slice'
+import builderSlice, {
+  BuilderState,
+} from '@/redux/features/builder/builder.slice'
+import builderViewSlice, {
+  BuilderViewState,
+} from './features/builder/builder-view.slice'
+import rendererSlice, {
+  RendererState,
+} from './features/renderer/renderer.slice'
 import RendererSlice from './features/renderer/renderer.slice'
 
 const rootReducer = combineReducers({
@@ -30,7 +36,7 @@ export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch
 
 export type AppStore = {
-  renderer: RendererState;
-  builder: BuilderState;
-  builder_view: BuilderViewState;
+  renderer: RendererState
+  builder: BuilderState
+  builder_view: BuilderViewState
 }

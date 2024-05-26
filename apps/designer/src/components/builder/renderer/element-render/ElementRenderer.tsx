@@ -3,7 +3,10 @@ import { DndElementData } from '@repo/designer/types/designer.types'
 import { Box, ChakraProps } from '@chakra-ui/react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@/redux/store'
-import { moveElement, setRendererState } from '@/redux/features/renderer/renderer.slice'
+import {
+  moveElement,
+  setRendererState,
+} from '@/redux/features/renderer/renderer.slice'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { TbArrowDown, TbArrowUp, TbTrash } from 'react-icons/tb'
@@ -14,16 +17,16 @@ interface DesignerElementProps {
 
 const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
   const isVoidElement = (tag: string) =>
-    /^(area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr)$/i.test(tag)
+    /^(area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr)$/i.test(
+      tag,
+    )
 
   const { element_data, children_dnd_element_data } = element
   const { html_tag, chakraProps, attributes, style } = element_data
   const dispatch = useDispatch()
   const { active_dnd_id } = useSelector((state: RootState) => state.renderer)
 
-  const renderChildren = (
-    children: Array<DndElementData> | undefined,
-  ) => {
+  const renderChildren = (children: Array<DndElementData> | undefined) => {
     if (!children) return null
 
     const sortedChildren = children.slice().sort((a, b) => {
@@ -31,12 +34,7 @@ const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
     })
 
     return sortedChildren.map((child) => {
-        return (
-          <ElementRenderer
-            key={child.dnd_id}
-            element={child}
-          />
-        )
+      return <ElementRenderer key={child.dnd_id} element={child} />
     })
   }
 
@@ -89,22 +87,24 @@ const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
 
 export default ElementRenderer
 
-
 const ElementToolBox = ({ element }: { element: DndElementData }) => {
-  const dispatch = useDispatch();
-  let parentID = element.parent_dnd_id;
+  const dispatch = useDispatch()
+  let parentID = element.parent_dnd_id
 
   const move = (direction: 'up' | 'down') => {
-    dispatch(moveElement({
-      element_id: element.dnd_id,
-      direction
-    }))
+    dispatch(
+      moveElement({
+        element_id: element.dnd_id,
+        direction,
+      }),
+    )
   }
 
   return (
-    <div
+    <Box
+      opacity={1}
       className={cn(
-        'bg-card absolute p-2 rounded-md shadow-xl border z-50 min-w-[200px] min-h-10  right-2 border-border text-muted-foreground flex items-center gap-default_spacing justify-between opacity-100 hover:opacity-100 ',
+        'element_toolbox bg-card absolute p-2 rounded-md shadow-xl border z-50 min-w-[200px] min-h-10  right-2 border-border text-muted-foreground flex items-center gap-default_spacing justify-between opacity-100 hover:opacity-100 ',
         {
           'top-5 right-5': !parentID,
           '-top-14': parentID,
@@ -127,6 +127,6 @@ const ElementToolBox = ({ element }: { element: DndElementData }) => {
           <TbArrowUp className="h-4 w-4" />
         </Button>
       </div>
-    </div>
+    </Box>
   )
 }

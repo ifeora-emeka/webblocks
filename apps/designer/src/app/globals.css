@@ -106,3 +106,6 @@
 .element_selected {
   outline: #9966ff solid !important;
 }
+.element_toolbox {
+  opacity: 1 !important;
+}
