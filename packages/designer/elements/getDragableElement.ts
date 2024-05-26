@@ -19,7 +19,8 @@ export let defaultElementData = (
     attributes: {},
     children: children as (string | DesignerElementData)[] | undefined,
     style: {},
-    tailwindStyle: {},
+    tailwindStyle: {
+    },
     childrenTailwindStyle: {},
     description: `A ${html_tag} element`,
     ...config,
@@ -32,17 +33,29 @@ export const getDraggableElement = (
   switch (type) {
     case "h1":
       return {
-        ...defaultElementData("h1", [`${type} element`], {}),
+        ...defaultElementData("h1", [`${type} text element`], {
+          tailwindStyle: {
+            fontSize: 'text-3xl'
+          }
+        }),
       };
     case "img":
       return {
-        ...defaultElementData("img", [], {}),
+        ...defaultElementData("img", [], {
+          attributes: {
+            src: '/designer/img/img-placeholder.jpg'
+          }
+        }),
       };
     case "row":
       return {
         ...defaultElementData("div", [], {
           tailwindStyle: {
             display: "flex",
+            flexDirection: "flex-row" as any,
+            height: 'h-28',
+            width: 'w-full',
+            backgroundColor: 'bg-orange-400'
           },
         }),
       };
@@ -52,6 +65,9 @@ export const getDraggableElement = (
           tailwindStyle: {
             display: "flex",
             flexDirection: "flex-col" as any,
+            height: 'h-28',
+            width: 'w-full',
+            backgroundColor: 'bg-pink-300'
           },
         }),
       };

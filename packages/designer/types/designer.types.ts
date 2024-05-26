@@ -27,6 +27,8 @@ export interface DesignerElementDataDTO {
   childrenTailwindStyle?: CSSProperties;
   attributes: AttributeData;
   children?: Array<DesignerElementData | string>;
+  isInDesigner?:boolean;
+  isFromElementPanel?:boolean;
 }
 
 export interface DesignerElementData extends DesignerElementDataDTO {
