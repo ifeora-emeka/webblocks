@@ -135,7 +135,7 @@ export const HeroSection = (): DndElementData[] => {
         name: 'Subheading',
         description: 'Hero Section Subheading',
         attributes: {
-          innerText: 'The best platform for building a chat box tailor to the needs of your customers',
+          innerText: 'The best platform for building a chat bot tailored to the needs of your customers',
         },
         html_tag: 'h2',
         chakraProps: {
