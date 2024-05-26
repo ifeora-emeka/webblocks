@@ -37,12 +37,19 @@ export const HeroSection = (): DndElementData[] => {
         index: 0,
         chakraProps: {
           minH: '400px',
-          bg: '#210143',
+          // bg: '#210143',
+          bgGradient: "linear(to-b, #210143, #16012d)",
           display: 'grid',
           gridTemplateColumns: '1fr 1fr',
-          gap: 4,
+          gap: {
+            lg: '9rem',
+            base: 4
+          },
           py: '150px',
-          px: '100px',
+          px: {
+            base: '30px',
+            lg: '140px'
+          },
         },
         html_tag: 'section',
       },
@@ -104,7 +111,7 @@ export const HeroSection = (): DndElementData[] => {
         slug: 'hero-heading',
         name: 'Heading',
         description: 'Hero Section Heading',
-        attributes: { innerText: 'Welcome to Our Website' },
+        attributes: { innerText: 'Welcome to BlimpNix' },
         html_tag: 'h1',
         chakraProps: {
           as: 'h1',
@@ -128,13 +135,14 @@ export const HeroSection = (): DndElementData[] => {
         name: 'Subheading',
         description: 'Hero Section Subheading',
         attributes: {
-          innerText: 'We provide the best solutions for your business',
+          innerText: 'The best platform for building a chat box tailor to the needs of your customers',
         },
         html_tag: 'h2',
         chakraProps: {
           as: 'h2',
-          fontSize: '2xl',
+          fontSize: 'lg',
           mb: 4,
+          opacity: '0.7'
         },
         style: {},
       },
@@ -151,7 +159,7 @@ export const HeroSection = (): DndElementData[] => {
         slug: 'hero-button',
         name: 'Button',
         description: 'Hero Section Button',
-        attributes: { innerText: 'Learn More' },
+        attributes: { innerText: 'Get Started' },
         html_tag: 'button',
         chakraProps: {
           as: 'button',
@@ -178,9 +186,9 @@ export const HeroSection = (): DndElementData[] => {
         index: 0,
         slug: 'hero-image',
         name: 'Image',
-        description: 'Hero Section Image',
+        description: 'Hero Section Image of the product',
         attributes: {
-          src: 'https://img.freepik.com/free-photo/front-view-woman-studio-with-smartphone_23-2148410773.jpg',
+          src: 'https://clockify.me/help/wp-content/uploads/2021/11/pumble-team-chat-screenshot-1.png',
         },
         html_tag: 'img',
         chakraProps: {
@@ -188,11 +196,41 @@ export const HeroSection = (): DndElementData[] => {
           maxH: '100%',
           maxW: '100%',
           rounded: 'lg',
+          zIndex: 50
         },
         style: {},
       },
       children_dnd_element_data: [],
       parent_dnd_id: rightColumnId,
     },
+    {
+      dnd_id: imageId + Date.now(),
+      index: 4,
+      element_data: {
+        element_id: imageId + Date.now(),
+        parent_element_id: sectionId,
+        index: 4,
+        slug: 'hero-image',
+        name: 'Image',
+        description: 'Hero Section  blob image behind the product image',
+        attributes: {
+          src: 'https://png.pngtree.com/png-clipart/20230131/ourmid/pngtree-purple-blob-element-png-image_6579443.png',
+        },
+        html_tag: 'img',
+        chakraProps: {
+          as: 'img',
+          left: '10px',
+          minW: {
+            base: "29rem",
+            lg: "50rem"
+          },
+          position: 'absolute'
+        },
+        style: {},
+      },
+      children_dnd_element_data: [],
+      parent_dnd_id: rightColumnId,
+    },
+
   ]
 }

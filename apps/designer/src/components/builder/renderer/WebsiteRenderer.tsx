@@ -13,7 +13,7 @@ const GPTElementRenderer: React.FC<ElementRendererProps> = ({ elements }) => {
   return (
     <>
       <div className={'p-default_spacing'}>
-        <div className={cn('bg-white ', {
+        <div className={cn('bg-white  overflow-hidden', {
           "min-h-[calc(100vh-50px-1rem)]": elements.length == 0
         })}>
           {
