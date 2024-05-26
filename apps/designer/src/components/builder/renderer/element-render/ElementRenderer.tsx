@@ -45,6 +45,7 @@ const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
   if (isVoidElement(html_tag as string)) {
     return (
       <Box
+        ds-index={element.index}
         as={html_tag}
         {...(chakraProps as ChakraProps)}
         style={style}
@@ -62,6 +63,7 @@ const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
 
   return (
     <Box
+      ds-index={element.index}
       as={html_tag}
       {...(chakraProps as ChakraProps)}
       style={style}
