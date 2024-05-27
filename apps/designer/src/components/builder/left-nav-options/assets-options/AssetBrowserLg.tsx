@@ -29,7 +29,7 @@ export default function AssetBrowserLg(){
           </Button>
         </div>
         <div className={'min-h-[calc(100vh-50px-50px)] max-h-[calc(100vh-50px-50px)] flex flex-grow overflow-y-auto flex-col'}>
-          <div className={'grid grid-cols-6 gap-default_spacing p-default_spacing'}>
+          <div className={'grid grid-cols-5 gap-default_spacing p-default_spacing'}>
           {
             new Array(35).fill(null).map((_) => {
               return  <EachFile
