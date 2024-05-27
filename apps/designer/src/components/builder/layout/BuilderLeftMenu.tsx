@@ -6,6 +6,7 @@ import {
   TbBrush,
   TbColumns,
   TbDatabase,
+  TbDiamonds,
   TbFile,
   TbListTree,
   TbPhoto,
@@ -58,13 +59,20 @@ export default function BuilderLeftMenu() {
             side={'right'}
             isActive={panel === 'outline'}
           />
-          <Separator className={'bg-muted-foreground opacity-30'} />
           <DefaultIconBtn
-            Icon={TbBox}
+            Icon={TbDiamonds}
             tooltip={'Components'}
             onClick={() => dispatch(toggleLeftPanel('components'))}
             side={'right'}
             isActive={panel === 'components'}
+          />
+          <Separator className={'bg-muted-foreground opacity-30'} />
+          <DefaultIconBtn
+            Icon={TbBox}
+            tooltip={'Blocks'}
+            onClick={() => dispatch(toggleLeftPanel('blocks'))}
+            side={'right'}
+            isActive={panel === 'blocks'}
           />
           <DefaultIconBtn
             Icon={TbColumns}
@@ -82,8 +90,9 @@ export default function BuilderLeftMenu() {
           <DefaultIconBtn
             Icon={TbPhoto}
             tooltip={'Asset browser'}
-            onClick={() => {}}
+            onClick={() => dispatch(toggleLeftPanel('assets'))}
             side={'right'}
+            isActive={panel === 'assets'}
           />
           <DefaultIconBtn
             Icon={TbDatabase}

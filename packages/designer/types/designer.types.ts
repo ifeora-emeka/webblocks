@@ -1,5 +1,5 @@
 import React, { CSSProperties } from "react";
-import { BoxProps } from '@chakra-ui/react'
+import { BoxProps } from "@chakra-ui/react";
 
 export interface DesignerPageMetadata {
   title: string;
@@ -25,9 +25,9 @@ export interface DndElementData {
   parent_dnd_id: string | null;
   is_draggable?: boolean;
   is_active?: boolean;
-  isInDesigner?:boolean;
-  isFromElementPanel?:boolean;
-};
+  isInDesigner?: boolean;
+  isFromElementPanel?: boolean;
+}
 
 export interface DesignerElementDataDTO {
   element_id: string;
@@ -58,6 +58,7 @@ export type DesignerLeftPanel =
   | null
   | "elements"
   | "components"
+  | "blocks"
   | "pages"
   | "outline"
   | "variables"
@@ -72,6 +73,7 @@ export type RendererProps = {
 };
 
 export type DraggableElement =
+  | "hero"
   | "div"
   | "img"
   | "h1"

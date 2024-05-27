@@ -1,9 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import
-{
-  DndElementData,
-} from '@repo/designer/types/designer.types';
+import { DndElementData } from '@repo/designer/types/designer.types';
 import { generateRandomId, getRandomNumber } from '@/lib/utils';
 import { HeroSection } from '@/app/mock-data';
 
@@ -17,6 +14,7 @@ const initialState: RendererState = {
   allElements: HeroSection(),
   active_dnd_id: null,
 };
+
 
 export const rendererSlice = createSlice({
   name: 'renderer',
@@ -161,7 +159,6 @@ export const rendererSlice = createSlice({
 
 
     }
-
   },
 });
 

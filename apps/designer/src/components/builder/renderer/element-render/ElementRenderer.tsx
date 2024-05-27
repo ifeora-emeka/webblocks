@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef, useState } from 'react'
 import { DndElementData } from '@repo/designer/types/designer.types'
 import { Box, ChakraProps } from '@chakra-ui/react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -25,10 +25,10 @@ const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
   const { html_tag, chakraProps, attributes, style } = element_data
   const dispatch = useDispatch()
   const { active_dnd_id } = useSelector((state: RootState) => state.renderer)
+  const childRef = useRef<HTMLHeadingElement>(null)
 
   const renderChildren = (children: Array<DndElementData> | undefined) => {
     if (!children) return null
-
     const sortedChildren = children.slice().sort((a, b) => {
       return a.index - b.index
     })
@@ -39,6 +39,12 @@ const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
   }
 
   const isActive = active_dnd_id === element.dnd_id
+
+  const handleInput = () => {
+    if (childRef?.current) {
+      //todo: save text context in redux
+    }
+  }
 
   if (isVoidElement(html_tag as string)) {
     return (
@@ -61,6 +67,10 @@ const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
 
   return (
     <Box
+      contentEditable={isActive}
+      ref={childRef}
+      onInput={handleInput}
+      suppressContentEditableWarning={true}
       ds-index={element.index}
       as={html_tag}
       {...(chakraProps as ChakraProps)}
@@ -101,9 +111,10 @@ const ElementToolBox = ({ element }: { element: DndElementData }) => {
   }
 
   return (
-    <div
+    <Box
+      opacity={1}
       className={cn(
-        'bg-card absolute p-2 rounded-md shadow-xl border z-50 min-w-[200px] min-h-10  right-2 border-border text-muted-foreground flex items-center gap-default_spacing justify-between opacity-100 hover:opacity-100 ',
+        'element_toolbox bg-card absolute p-2 rounded-md shadow-xl border z-50 min-w-[200px] min-h-10  right-2 border-border text-muted-foreground flex items-center gap-default_spacing justify-between opacity-100 hover:opacity-100 ',
         {
           'top-5 right-5': !parentID,
           '-top-14': parentID,
@@ -126,6 +137,6 @@ const ElementToolBox = ({ element }: { element: DndElementData }) => {
           <TbArrowUp className="h-4 w-4" />
         </Button>
       </div>
-    </div>
+    </Box>
   )
 }
