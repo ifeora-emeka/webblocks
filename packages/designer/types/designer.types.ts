@@ -19,7 +19,7 @@ export interface DesignerPageData {
 export interface DndElementData {
   index: number;
   element_data: DesignerElementDataDTO;
-  children_dnd_element_data?: DndElementData[] | [string];
+  children_dnd_element_data?: DndElementData[];
 
   dnd_id: string;
   parent_dnd_id: string | null;
