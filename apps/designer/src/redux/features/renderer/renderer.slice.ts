@@ -67,62 +67,6 @@ export const rendererSlice = createSlice({
       action: PayloadAction<{ element_id: string; direction: 'up' | 'down'; }>,
     ) =>
     {
-      // const _state: RendererState = JSON.parse(JSON.stringify(state));
-      // const { element_id, direction } = action.payload;
-
-
-
-      // console.log(direction);
-
-      // const targetElement = _state.allElements.find(
-      //   (el: DndElementData) => el.dnd_id === element_id,
-      // );
-
-      // if (!targetElement) return;
-
-      // const siblings: DndElementData[] = _state.allElements.filter(
-      //   (el: DndElementData) => el.parent_dnd_id === targetElement.parent_dnd_id,
-      // );
-
-      // console.log('OLD SIBLINGS:::', siblings);
-
-      // const targetIndex = siblings.findIndex(el => el.dnd_id === targetElement.dnd_id);
-
-      // if (targetIndex === -1) return;
-
-      // let newIndex = direction === 'up' ? targetIndex - 1 : targetIndex + 1;
-      // if (newIndex < 0) newIndex = siblings.length - 1;
-      // if (newIndex >= siblings.length) newIndex = 0;
-
-      // const temp = siblings[ targetIndex ];
-      // siblings[ targetIndex ] = siblings[ newIndex ];
-      // siblings[ newIndex ] = temp;
-
-      // siblings.forEach((sibling, index) =>
-      // {
-      //   sibling.element_data.index = index;
-      //   sibling.index = index;
-      // });
-
-
-      // let updatedElements = _state.allElements.map(el =>
-      // {
-      //   let siblingIndex = siblings.findIndex(x => x.dnd_id === el.dnd_id);
-      //   if (siblingIndex !== -1) {
-      //     return siblings[ siblingIndex ];
-      //   } else {
-      //     return el;
-      //   }
-      // });
-
-      // console.log('NEW SIBLINGS:::', siblings);
-
-      // return {
-      //   ..._state,
-      //   allElements: updatedElements
-      // };
-
-
       const { element_id, direction } = action.payload;
 
       const elementIndex = state.allElements.findIndex(
@@ -152,10 +96,6 @@ export const rendererSlice = createSlice({
         element.element_data.index = index;
         element.index = index;
       });
-
-
-      console.log(elementIndex);
-
 
 
     }
