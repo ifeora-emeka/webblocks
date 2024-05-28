@@ -3,12 +3,12 @@ import { DndElementData } from '@repo/designer/types/designer.types'
 import { Box, ChakraProps } from '@chakra-ui/react'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppStore, RootState, store } from '@/redux/store'
-import {
-  setRendererState,
-} from '@/redux/features/renderer/renderer.slice'
+import { setRendererState } from '@/redux/features/renderer/renderer.slice'
 import { cn } from '@/lib/utils'
 import ElementToolbar from '@/components/builder/renderer/element-render/ElementToolbox'
 import { TbPlus } from 'react-icons/tb'
+import { useBuilder } from '../../hooks/builder.hooks'
+import { staticHeadingElement } from './static-element-data/heading-element'
 
 interface DesignerElementProps {
   element: DndElementData
@@ -19,15 +19,15 @@ const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
     /^(area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr)$/i.test(
       tag,
     )
-  const theStore: AppStore = store.getState();
-  let allElements = theStore.renderer.allElements;
+  const theStore: AppStore = store.getState()
+  let allElements = theStore.renderer.allElements
 
   // console.log('THE PARENT::', theParent);
 
   const { element_data, children_dnd_element_data } = element
   const { html_tag, chakraProps, attributes, style } = element_data
   const dispatch = useDispatch()
-  const { active_dnd_id } = useSelector((state: RootState) => state.renderer)
+  const { active_element } = useSelector((state: RootState) => state.renderer)
   const childRef = useRef<HTMLHeadingElement>(null)
 
   const renderChildren = (children: Array<DndElementData> | undefined) => {
@@ -41,11 +41,15 @@ const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
     })
   }
 
-  const isActive = active_dnd_id === element.dnd_id;
-  let theParent = allElements.find(el => el.parent_dnd_id === element.parent_dnd_id);
-  let appendDirection: 'horizontal' | 'vertical' = theParent?.element_data.chakraProps?.flexDirection === 'column' ? "vertical" : "horizontal";
+  const isActive = active_element?.dnd_id === element.dnd_id
+  let theParent =
+    allElements.find((el) => el.dnd_id === element.parent_dnd_id) || null
+  let appendDirection: 'horizontal' | 'vertical' =
+    theParent?.element_data.chakraProps?.flexDirection === 'column'
+      ? 'horizontal'
+      : 'vertical'
 
-  console.log(theParent)
+  // console.log("PARENT ELEMENT:::",theParent, ":  OF  :", element)
 
   const handleInput = () => {
     if (childRef?.current) {
@@ -64,7 +68,7 @@ const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
         onClick={() => {
           dispatch(
             setRendererState({
-              active_dnd_id: element.dnd_id,
+              active_element: element,
             }),
           )
         }}
@@ -89,39 +93,86 @@ const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
         })}
         onClick={(e) => {
           e.stopPropagation()
-
-          if(active_dnd_id !== element.dnd_id) {
-          dispatch(
-            setRendererState({
-              active_dnd_id: element.dnd_id,
-            }),
-          )
+          if (!isActive) {
+            dispatch(
+              setRendererState({
+                active_element: element,
+              }),
+            )
           }
-
         }}
       >
-        {isActive && <ElementAppender position={appendDirection === 'vertical' ? 'top' : 'left'} />}
+        {isActive && (
+          <ElementAppender
+            orientation={appendDirection}
+            position="up"
+            parent_element={theParent}
+            element={element}
+          />
+        )}
         {isActive && <ElementToolbar element={element} />}
         {attributes.innerText}
         {renderChildren(children_dnd_element_data)}
-        {isActive && <ElementAppender position={appendDirection === 'vertical' ? 'bottom' : 'right'} />}
+        {isActive && (
+          <ElementAppender
+            orientation={appendDirection}
+            position="down"
+            parent_element={theParent}
+            element={element}
+          />
+        )}
       </Box>
     </>
   )
 }
 
-
 export default ElementRenderer
 
+const ElementAppender = ({
+  orientation,
+  position,
+  parent_element,
+  element
+}: {
+  orientation: 'horizontal' | 'vertical'
+  position: 'up' | 'down'
+  parent_element: DndElementData | null;
+  element: DndElementData;
+}) => {
+  const { addElementToPage } = useBuilder()
 
-const ElementAppender = ({ position }: { position: 'top' | 'bottom' | 'left' | 'right' }) => {
-  return <>
-    <button
-      className={'absolute left-1/2 transform -translate-x-1/2  hover:bg-primary rounded-full bg-primary text-white shadow-lg min-h-8 min-w-8 flex justify-center items-center z-50'}
-            style={{ [position]: '-40px', left: '50%'}}
-    >
-      <TbPlus className="h-4 w-4" />
-    </button>
-  </>
+  // console.log({ orientation, position })
+
+  const addElement = () => {
+    if (element) {
+      addElementToPage({
+        element: staticHeadingElement({
+          index: element.index > 0 ? (position == 'up' ? element.index : element.index + 1) : 0,
+          parent_id: parent_element?.dnd_id as string,
+        }),
+      })
+    }
+  }
+
+  return (
+    <>
+      <button
+        onClick={addElement}
+        className={cn(
+          'absolute hover:bg-primary rounded-full bg-primary text-white shadow-lg max-h-8 min-h-8 min-w-8 max-w-8 flex justify-center items-center z-50',
+          {
+            'left-1/2 transform-x-1/2 -top-10':
+              orientation === 'vertical' && position === 'up',
+            'left-1/2 transform-x-1/2 -bottom-10':
+              orientation === 'vertical' && position === 'down',
+            '': orientation === 'horizontal' && position === 'up',
+            '': orientation === 'horizontal' && position === 'down',
+          },
+        )}
+        // style={{ [position]: '-40px', left: '50%' }}
+      >
+        <TbPlus className="h-4 w-4" />
+      </button>
+    </>
+  )
 }
-

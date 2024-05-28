@@ -8,7 +8,6 @@ export const defaultRootElement = (data:StaticElementParams):DndElementData => {
   return {
     dnd_id: id,
     children_dnd_element_data: [],
-    is_active: true,
     index: data.index,
     parent_dnd_id: data.parent_id,
     element_data: {
@@ -16,16 +15,18 @@ export const defaultRootElement = (data:StaticElementParams):DndElementData => {
       index: data.index,
       parent_element_id: data.parent_id,
       attributes: {},
-      html_tag: 'h1',
+      html_tag: 'div',
       chakraProps: {
         minH: '90vh',
         bg: '#ffff',
+        px: '60px',
+        py: '220px'
       },
       style: {},
       name: 'Root body element',
       slug: 'body-body-element',
       description: '',
-      can_delete: true
+      can_delete: false
     }
   }
 }

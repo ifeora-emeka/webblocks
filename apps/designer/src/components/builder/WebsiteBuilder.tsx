@@ -10,35 +10,23 @@ import {
   closestCenter,
   DndContext,
   DragEndEvent,
-  DragOverlay,
   KeyboardSensor,
   PointerSensor,
-  useDndMonitor,
   useSensor,
   useSensors,
 } from '@dnd-kit/core'
-import { TbApps } from 'react-icons/tb'
 import {
-  DesignerElementData,
   RendererProps,
 } from '@repo/designer/types/designer.types'
 import { sortableKeyboardCoordinates } from '@dnd-kit/sortable'
 import { useDispatch, useSelector } from 'react-redux'
 import { DesignerProvider } from '@/app/projects/[project_id]/DesignerProvider'
 import GPTElementRenderer from './renderer/WebsiteRenderer'
-import { HeroSection } from '@/app/mock-data'
 import { AppStore, RootState } from '@/redux/store'
 import { setRendererState } from '@/redux/features/renderer/renderer.slice'
 import { defaultRootElement } from '@/components/builder/renderer/element-render/static-element-data/default-body'
+import { staticHeadingElement } from './renderer/element-render/static-element-data/heading-element'
 
-/**
- * - Create a designer elements redux store
- * - Renderer should use elements from the redux store
- * - Redux should use local storage
- * - Elements should be added to redux when dropped
- * -
- * -
- */
 
 export default function WebsiteBuilder({ page, elements }: RendererProps) {
   const [show, setShow] = useState(false)
@@ -72,9 +60,16 @@ export default function WebsiteBuilder({ page, elements }: RendererProps) {
         index: 0,
         parent_id: null
       });
-      dispatch(setRendererState({
-        allElements: [rootEl]
-      }))
+      let heading = staticHeadingElement({
+        index: 0,
+        parent_id: rootEl.dnd_id
+      }) 
+
+      dispatch(
+        setRendererState({
+          allElements: [rootEl, heading],
+        }),
+      )
     }
   }, [allElements])
 

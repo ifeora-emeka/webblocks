@@ -23,10 +23,6 @@ export interface DndElementData {
 
   dnd_id: string;
   parent_dnd_id: string | null;
-  is_draggable?: boolean;
-  is_active?: boolean;
-  isInDesigner?: boolean;
-  isFromElementPanel?: boolean;
 }
 
 export interface DesignerElementDataDTO {

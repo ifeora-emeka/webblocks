@@ -5,21 +5,24 @@ import { Button } from '@/components/ui/button'
 import { TbArrowDown, TbArrowUp, TbTrash } from 'react-icons/tb'
 import React from 'react'
 import { DndElementData } from '@repo/designer/types/designer.types'
-import { AppStore } from '@/redux/store'
-import { moveElement } from '@/redux/features/renderer/renderer.slice'
+import { useBuilder } from '../../hooks/builder.hooks'
 
 export default function ElementToolbar({ element }: { element: DndElementData }){
-  const dispatch = useDispatch()
+  const { changeElementPosition, removeElementFromPage } = useBuilder()
   let parentID = element.parent_dnd_id
 
   const move = (direction: 'up' | 'down') => {
-    dispatch(
-      moveElement({
-        element_id: element.dnd_id,
-        direction,
-      }),
-    )
+    changeElementPosition({
+      element_id: element.dnd_id,
+      direction,
+    })
   }
+
+  const remove = () => {
+    removeElementFromPage({
+      dnd_id: element.dnd_id
+    })
+  } 
 
   return (
     <Box
@@ -36,7 +39,7 @@ export default function ElementToolbar({ element }: { element: DndElementData })
       }}
     >
       <div className={'flex items-center gap-1'}>
-        <Button variant="outline" size="icon">
+        <Button variant="outline" size="icon" onClick={remove}>
           <TbTrash className="h-4 w-4" />
         </Button>
       </div>

@@ -3,25 +3,32 @@ import {
   StaticElementParams
 } from './static-element.types'
 import { generateRandomId } from '@/lib/utils'
+import { store } from '@/redux/store';
 
-export const headingElement = (data: StaticElementParams):DndElementData => {
-  let id = generateRandomId(14) + '-heading'
+export const staticHeadingElement = (data: StaticElementParams):DndElementData => {
+  let id = generateRandomId(14) + '-heading';
+  let headings = store?.getState().renderer.allElements.filter(x => x.element_data.slug == 'heading');
+  
   return {
     dnd_id: id,
     children_dnd_element_data: [],
-    is_active: true,
     index: data.index,
     parent_dnd_id: data.parent_id,
     element_data: {
       element_id: id,
       index: data.index,
       parent_element_id: data.parent_id,
-      attributes: {},
+      attributes: {
+        innerText: `Heading text element (${headings.length})`
+      },
       html_tag: 'h1',
-      chakraProps: {},
+      chakraProps: {
+        fontSize: '4xl',
+        fontWeight: 'bold'
+      },
       style: {},
       name: 'Heading element',
-      slug: 'heading-element',
+      slug: 'heading',
       description: '',
       can_delete: true
     }

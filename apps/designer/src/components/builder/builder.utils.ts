@@ -23,7 +23,6 @@ export const compileAllDndElements = (
     }
   })
 
-  console.log('ROOT ELEMENT:::', rootElement)
 
   if (!rootElement) {
     throw new Error('No root element found')
