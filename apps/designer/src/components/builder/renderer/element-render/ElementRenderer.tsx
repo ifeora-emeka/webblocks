@@ -2,14 +2,13 @@ import React, { useRef, useState } from 'react'
 import { DndElementData } from '@repo/designer/types/designer.types'
 import { Box, ChakraProps } from '@chakra-ui/react'
 import { useDispatch, useSelector } from 'react-redux'
-import { RootState } from '@/redux/store'
+import { AppStore, RootState, store } from '@/redux/store'
 import {
-  moveElement,
   setRendererState,
 } from '@/redux/features/renderer/renderer.slice'
 import { cn } from '@/lib/utils'
-import { Button } from '@/components/ui/button'
-import { TbArrowDown, TbArrowUp, TbTrash } from 'react-icons/tb'
+import ElementToolbar from '@/components/builder/renderer/element-render/ElementToolbox'
+import { TbPlus } from 'react-icons/tb'
 
 interface DesignerElementProps {
   element: DndElementData
@@ -20,6 +19,10 @@ const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
     /^(area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr)$/i.test(
       tag,
     )
+  const theStore: AppStore = store.getState();
+  let allElements = theStore.renderer.allElements;
+
+  // console.log('THE PARENT::', theParent);
 
   const { element_data, children_dnd_element_data } = element
   const { html_tag, chakraProps, attributes, style } = element_data
@@ -38,11 +41,15 @@ const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
     })
   }
 
-  const isActive = active_dnd_id === element.dnd_id
+  const isActive = active_dnd_id === element.dnd_id;
+  let theParent = allElements.find(el => el.parent_dnd_id === element.parent_dnd_id);
+  let appendDirection: 'horizontal' | 'vertical' = theParent?.element_data.chakraProps?.flexDirection === 'column' ? "vertical" : "horizontal";
+
+  console.log(theParent)
 
   const handleInput = () => {
     if (childRef?.current) {
-      //todo: save text context in redux
+      //todo: save text content in redux
     }
   }
 
@@ -66,77 +73,55 @@ const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
   }
 
   return (
-    <Box
-      contentEditable={isActive}
-      ref={childRef}
-      onInput={handleInput}
-      suppressContentEditableWarning={true}
-      ds-index={element.index}
-      as={html_tag}
-      {...(chakraProps as ChakraProps)}
-      style={style}
-      {...attributes}
-      className={cn(attributes.className, 'relative', {
-        'element_selected shadow-lg': isActive,
-      })}
-      onClick={(e) => {
-        e.stopPropagation()
-        dispatch(
-          setRendererState({
-            active_dnd_id: element.dnd_id,
-          }),
-        )
-      }}
-    >
-      {isActive && <ElementToolBox element={element} />}
-      {attributes.innerText}
-      {renderChildren(children_dnd_element_data)}
-    </Box>
+    <>
+      <Box
+        contentEditable={isActive}
+        ref={childRef}
+        onInput={handleInput}
+        suppressContentEditableWarning={true}
+        ds-index={element.index}
+        as={html_tag}
+        {...(chakraProps as ChakraProps)}
+        style={style}
+        {...attributes}
+        className={cn(attributes.className, 'relative', {
+          'element_selected shadow-lg': isActive,
+        })}
+        onClick={(e) => {
+          e.stopPropagation()
+
+          if(active_dnd_id !== element.dnd_id) {
+          dispatch(
+            setRendererState({
+              active_dnd_id: element.dnd_id,
+            }),
+          )
+          }
+
+        }}
+      >
+        {isActive && <ElementAppender position={appendDirection === 'vertical' ? 'top' : 'left'} />}
+        {isActive && <ElementToolbar element={element} />}
+        {attributes.innerText}
+        {renderChildren(children_dnd_element_data)}
+        {isActive && <ElementAppender position={appendDirection === 'vertical' ? 'bottom' : 'right'} />}
+      </Box>
+    </>
   )
 }
+
 
 export default ElementRenderer
 
-const ElementToolBox = ({ element }: { element: DndElementData }) => {
-  const dispatch = useDispatch()
-  let parentID = element.parent_dnd_id
 
-  const move = (direction: 'up' | 'down') => {
-    dispatch(
-      moveElement({
-        element_id: element.dnd_id,
-        direction,
-      }),
-    )
-  }
-
-  return (
-    <Box
-      opacity={1}
-      className={cn(
-        'element_toolbox bg-card absolute p-2 rounded-md shadow-xl border z-50 min-w-[200px] min-h-10  right-2 border-border text-muted-foreground flex items-center gap-default_spacing justify-between opacity-100 hover:opacity-100 ',
-        {
-          'top-5 right-5': !parentID,
-          '-top-14': parentID,
-        },
-      )}
-      onClick={(e) => {
-        e.stopPropagation()
-      }}
+const ElementAppender = ({ position }: { position: 'top' | 'bottom' | 'left' | 'right' }) => {
+  return <>
+    <button
+      className={'absolute left-1/2 transform -translate-x-1/2  hover:bg-primary rounded-full bg-primary text-white shadow-lg min-h-8 min-w-8 flex justify-center items-center z-50'}
+            style={{ [position]: '-40px', left: '50%'}}
     >
-      <div className={'flex items-center gap-1'}>
-        <Button variant="outline" size="icon">
-          <TbTrash className="h-4 w-4" />
-        </Button>
-      </div>
-      <div className={'flex items-center gap-1'}>
-        <Button variant="outline" size="icon" onClick={() => move('down')}>
-          <TbArrowDown className="h-4 w-4" />
-        </Button>
-        <Button variant="outline" size="icon" onClick={() => move('up')}>
-          <TbArrowUp className="h-4 w-4" />
-        </Button>
-      </div>
-    </Box>
-  )
+      <TbPlus className="h-4 w-4" />
+    </button>
+  </>
 }
+

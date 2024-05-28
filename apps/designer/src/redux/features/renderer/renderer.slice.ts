@@ -11,7 +11,7 @@ export interface RendererState
 }
 
 const initialState: RendererState = {
-  allElements: HeroSection(),
+  allElements: [],
   active_dnd_id: null,
 };
 

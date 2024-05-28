@@ -30,6 +30,8 @@ const config = {
         success: '#4E8054',
         mode_on: '#8D6FC2',
 
+        active: "var(--b-active)",
+
         border: 'var(--border)',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',

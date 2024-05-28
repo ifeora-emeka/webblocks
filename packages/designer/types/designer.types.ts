@@ -56,7 +56,6 @@ export interface AttributeData {
 
 export type DesignerLeftPanel =
   | null
-  | "elements"
   | "components"
   | "blocks"
   | "pages"

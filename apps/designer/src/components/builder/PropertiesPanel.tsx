@@ -98,6 +98,7 @@ export default function PropertiesPanel() {
   return (
     <div
       className={`min-h-[calc(100vh-${BUILDER_NAV_SIZE})] max-h-[calc(100vh-${BUILDER_NAV_SIZE})] bg-card min-w-[350px] max-w-[350px] overflow-x-hidden text-foreground select-none`}
+      style={{ zIndex: 500 }}
     >
       <Tabs defaultValue="styling" className={`max-h-[${BUILDER_NAV_SIZE}]`}>
         <TabsList

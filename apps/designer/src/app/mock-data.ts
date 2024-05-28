@@ -143,7 +143,6 @@ export const HeroSection = (): DndElementData[] => {
           as: 'h2',
           fontSize: 'lg',
           mb: 4,
-          opacity: '0.7',
         },
         style: {},
       },
@@ -234,3 +233,5 @@ export const HeroSection = (): DndElementData[] => {
     },
   ]
 }
+
+

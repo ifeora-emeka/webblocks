@@ -9,25 +9,26 @@ import { AppStore } from '@/redux/store'
 import { moveElement } from '@/redux/features/renderer/renderer.slice'
 
 export default function ElementToolbar({ element }: { element: DndElementData }){
-    const { allElements } = useSelector((state:AppStore) => state.renderer);
-    const dispatch = useDispatch()
-    let parentID = element.parent_dnd_id
+  const dispatch = useDispatch()
+  let parentID = element.parent_dnd_id
 
   const move = (direction: 'up' | 'down') => {
-    dispatch(moveElement({
-      element_id: element.dnd_id,
-      direction
-    }))
-  };
+    dispatch(
+      moveElement({
+        element_id: element.dnd_id,
+        direction,
+      }),
+    )
+  }
 
-  return <>
+  return (
     <Box
       opacity={1}
       className={cn(
-        'element_toolbox bg-card absolute p-2 rounded-md shadow-xl border z-50 min-w-[200px] min-h-10  right-2 border-border text-muted-foreground flex items-center gap-default_spacing justify-between opacity-100 hover:opacity-100 ',
+        'element_toolbox bg-card absolute p-2 rounded-md shadow-xl border z-50 min-w-[200px] min-h-10 border-border text-muted-foreground flex items-center gap-default_spacing justify-between opacity-100 hover:opacity-100 ',
         {
           'top-5 right-5': !parentID,
-          '-top-14': parentID,
+          '-top-28 left-0': parentID,
         },
       )}
       onClick={(e) => {
@@ -48,5 +49,5 @@ export default function ElementToolbar({ element }: { element: DndElementData })
         </Button>
       </div>
     </Box>
-  </>
+  )
 }

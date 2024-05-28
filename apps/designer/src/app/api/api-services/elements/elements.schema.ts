@@ -80,7 +80,7 @@ const ElementsSchema: Schema = new Schema(
 )
 
 const Elements: Model<ElementsDocument> =
-  mongoose.models.Elements ||
+  mongoose.models?.Elements ||
   mongoose.model<ElementsDocument>('Elements', ElementsSchema)
 
 export default Elements

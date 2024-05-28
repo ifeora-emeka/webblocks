@@ -6,7 +6,6 @@ import BuilderLeftMenu from '@/components/builder/layout/BuilderLeftMenu'
 import React, { useEffect, useState } from 'react'
 import BuilderHeader from '@/components/builder/layout/BuilderHeader'
 import LeftNavOptions from './left-nav-options/LeftNavOptions'
-import WebsiteRenderer from './renderer/WebsiteRenderer'
 import {
   closestCenter,
   DndContext,
@@ -23,13 +22,14 @@ import {
   DesignerElementData,
   RendererProps,
 } from '@repo/designer/types/designer.types'
-import DragOverlayElement from '@/components/builder/DragOverlayElement'
 import { sortableKeyboardCoordinates } from '@dnd-kit/sortable'
 import { useDispatch, useSelector } from 'react-redux'
 import { DesignerProvider } from '@/app/projects/[project_id]/DesignerProvider'
 import GPTElementRenderer from './renderer/WebsiteRenderer'
 import { HeroSection } from '@/app/mock-data'
 import { AppStore, RootState } from '@/redux/store'
+import { setRendererState } from '@/redux/features/renderer/renderer.slice'
+import { defaultRootElement } from '@/components/builder/renderer/element-render/static-element-data/default-body'
 
 /**
  * - Create a designer elements redux store
@@ -42,7 +42,8 @@ import { AppStore, RootState } from '@/redux/store'
 
 export default function WebsiteBuilder({ page, elements }: RendererProps) {
   const [show, setShow] = useState(false)
-  const { allElements } = useSelector((state: AppStore) => state.renderer)
+  const { allElements } = useSelector((state: AppStore) => state.renderer);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setShow(true)
@@ -64,6 +65,18 @@ export default function WebsiteBuilder({ page, elements }: RendererProps) {
     //   dispatch(moveElement({ activeId: active.element_id, overId: over?.element_id }));
     // }
   }
+
+  useEffect(() => {
+    if(allElements.length == 0){
+      let rootEl = defaultRootElement({
+        index: 0,
+        parent_id: null
+      });
+      dispatch(setRendererState({
+        allElements: [rootEl]
+      }))
+    }
+  }, [allElements])
 
   if (!show) {
     return null
@@ -97,7 +110,6 @@ export default function WebsiteBuilder({ page, elements }: RendererProps) {
             <PropertiesPanel />
           </div>
         </div>
-        <DragOverlayElement />
       </DndContext>
     </>
   )
