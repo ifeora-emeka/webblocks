@@ -25,16 +25,7 @@ export const rendererSlice = createSlice({
         ...action.payload,
       }
     },
-    addElement: (state, action: PayloadAction<{ element: DndElementData }>) => {
-      /**
-       * - create an empty array ✔️
-       * - get the elements below and above the target index ✔️
-       * - push the elements above the target index to the empty array ✔️
-       * - push the target element into the empty array (make sure the index is correct) ✔️
-       * - increment the idexes of the below element ✔️
-       * - push the updated below element into the empty array ✔️
-       */
-
+    addElement: (state, action: PayloadAction<{ element: DndElementData; position: 'up' | 'down' }>) => {
       let newElements: DndElementData[] = []
 
       // above elements

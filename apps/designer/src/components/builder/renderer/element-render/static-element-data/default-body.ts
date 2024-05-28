@@ -18,15 +18,18 @@ export const defaultRootElement = (data:StaticElementParams):DndElementData => {
       html_tag: 'div',
       chakraProps: {
         minH: '90vh',
-        bg: '#ffff',
+        // bg: '#ffff',
         px: '60px',
-        py: '220px'
+        py: '220px',
+        bg: 'url(https://img.freepik.com/free-vector/beautiful-summer-gradient-background-blue-yellow_53876-120751.jpg?size=626&ext=jpg&ga=GA1.1.2082370165.1716768000&semt=ais_user)',
+        bgPosition: 'center',
+        bgSize: 'cover'
       },
       style: {},
       name: 'Root body element',
       slug: 'body-body-element',
       description: '',
-      can_delete: false
-    }
+      can_delete: false,
+    },
   }
 }

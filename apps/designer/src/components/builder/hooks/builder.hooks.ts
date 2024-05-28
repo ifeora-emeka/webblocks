@@ -9,8 +9,8 @@ import {
 export const useBuilder = () => {
   const dispatch = useDispatch()
 
-  const addElementToPage = ({ element }: { element: DndElementData }) => {
-    dispatch(addElement({ element }))
+  const addElementToPage = ({ element, position }: { element: DndElementData; position: 'up' | 'down' }) => {
+    dispatch(addElement({ element, position }))
   }
 
   const removeElementFromPage = ({ dnd_id }: { dnd_id: string }) => {

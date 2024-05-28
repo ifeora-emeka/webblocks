@@ -141,18 +141,18 @@ const ElementAppender = ({
 }) => {
   const { addElementToPage } = useBuilder()
 
-  // console.log({ orientation, position })
-
   const addElement = () => {
     if (element) {
       addElementToPage({
         element: staticHeadingElement({
-          index: element.index > 0 ? (position == 'up' ? element.index : element.index + 1) : 0,
+          index: position == 'up' ? element.index  : element.index + 1,
           parent_id: parent_element?.dnd_id as string,
         }),
+        position
       })
     }
   }
+
 
   return (
     <>
