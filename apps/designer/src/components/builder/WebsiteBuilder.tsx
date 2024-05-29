@@ -15,9 +15,7 @@ import {
   useSensor,
   useSensors,
 } from '@dnd-kit/core'
-import {
-  RendererProps,
-} from '@repo/designer/types/designer.types'
+import { RendererProps } from '@repo/designer/types/designer.types'
 import { sortableKeyboardCoordinates } from '@dnd-kit/sortable'
 import { useDispatch, useSelector } from 'react-redux'
 import { DesignerProvider } from '@/app/projects/[project_id]/DesignerProvider'
@@ -27,11 +25,10 @@ import { setRendererState } from '@/redux/features/renderer/renderer.slice'
 import { defaultRootElement } from '@/components/builder/renderer/element-render/static-element-data/default-body'
 import { staticHeadingElement } from './renderer/element-render/static-element-data/heading-element'
 
-
 export default function WebsiteBuilder({ page, elements }: RendererProps) {
   const [show, setShow] = useState(false)
-  const { allElements } = useSelector((state: AppStore) => state.renderer);
-  const dispatch = useDispatch();
+  const { allElements } = useSelector((state: AppStore) => state.renderer)
+  const dispatch = useDispatch()
 
   useEffect(() => {
     setShow(true)
@@ -55,15 +52,15 @@ export default function WebsiteBuilder({ page, elements }: RendererProps) {
   }
 
   useEffect(() => {
-    if(allElements.length == 0){
+    if (allElements.length == 0) {
       let rootEl = defaultRootElement({
         index: 0,
-        parent_id: null
-      });
+        parent_id: null,
+      })
       let heading = staticHeadingElement({
         index: 0,
-        parent_id: rootEl.dnd_id
-      }) 
+        parent_id: rootEl.dnd_id,
+      })
 
       dispatch(
         setRendererState({
@@ -72,6 +69,22 @@ export default function WebsiteBuilder({ page, elements }: RendererProps) {
       )
     }
   }, [allElements])
+
+  // useEffect(() => {
+  //   const htmlElement = document.documentElement
+
+  //   htmlElement.classList.remove('light')
+  //   htmlElement.classList.add('dark')
+  //   htmlElement.setAttribute('data-theme', 'dark')
+  //   htmlElement.style.colorScheme = 'dark'
+
+  //   return () => {
+  //     htmlElement.classList.remove('dark')
+  //     htmlElement.classList.add('light')
+  //     htmlElement.setAttribute('data-theme', 'light')
+  //     htmlElement.style.colorScheme = 'light'
+  //   }
+  // }, [])
 
   if (!show) {
     return null
@@ -86,7 +99,7 @@ export default function WebsiteBuilder({ page, elements }: RendererProps) {
       >
         <div
           className={
-            'bg-background min-h-[100vh] max-h-[100vh] flex dark flex-col '
+            'bg-background min-h-[100vh] max-h-[100vh] flex dark flex-col dark'
           }
         >
           <BuilderHeader />
@@ -96,7 +109,7 @@ export default function WebsiteBuilder({ page, elements }: RendererProps) {
             <DesignerProvider>
               <div
                 className={cn(
-                  `min-h-[calc(100vh-${BUILDER_NAV_SIZE})] max-h-[calc(100vh-50px)] overflow-y-auto w-full`,
+                  `min-h-[calc(100vh-${BUILDER_NAV_SIZE})] max-h-[calc(100vh-50px)] overflow-y-auto w-full light`,
                 )}
               >
                 <GPTElementRenderer elements={allElements} />

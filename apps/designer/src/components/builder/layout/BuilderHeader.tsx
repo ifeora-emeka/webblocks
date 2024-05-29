@@ -18,6 +18,7 @@ import Link from 'next/link'
 export default function BuilderHeader() {
   const clearAllTheShit = () => {
     sessionStorage.clear()
+    localStorage.clear()
     window.location.reload()
   }
 

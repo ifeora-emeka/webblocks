@@ -28,9 +28,12 @@ const config = {
       },
       colors: {
         success: '#4E8054',
+        danger: '#D96243',
         mode_on: '#8D6FC2',
 
-        active: "var(--b-active)",
+        primary_lighter: "#3474f01f",
+
+        active: 'var(--b-active)',
 
         border: 'var(--border)',
         input: 'hsl(var(--input))',
