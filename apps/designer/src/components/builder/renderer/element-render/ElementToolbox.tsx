@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Box } from '@chakra-ui/react'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
-import { TbArrowDown, TbArrowUp, TbTrash } from 'react-icons/tb'
+import { TbArrowDown, TbArrowUp, TbCopy, TbTrash } from 'react-icons/tb'
 import React from 'react'
 import { DndElementData } from '@repo/designer/types/designer.types'
 import { useBuilder } from '../../hooks/builder.hooks'
@@ -41,6 +41,11 @@ export default function ElementToolbar({ element }: { element: DndElementData })
       <div className={'flex items-center gap-1'}>
         <Button variant="outline" size="icon" onClick={remove}>
           <TbTrash className="h-4 w-4" />
+        </Button>
+      </div>
+      <div className={'flex items-center gap-1'}>
+        <Button variant="outline" size="icon" onClick={remove}>
+          <TbCopy className="h-4 w-4" />
         </Button>
       </div>
       <div className={'flex items-center gap-1'}>

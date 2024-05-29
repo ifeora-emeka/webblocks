@@ -39,13 +39,6 @@ export default function BuilderLeftMenu() {
           }
         >
           <DefaultIconBtn
-            Icon={TbPlus}
-            tooltip={'Add elements'}
-            onClick={() => dispatch(toggleLeftPanel('elements'))}
-            side={'right'}
-            isActive={panel === 'elements'}
-          />
-          <DefaultIconBtn
             Icon={TbFile}
             tooltip={'Pages'}
             onClick={() => dispatch(toggleLeftPanel('pages'))}

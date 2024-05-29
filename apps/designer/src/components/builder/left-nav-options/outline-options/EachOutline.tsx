@@ -9,12 +9,12 @@ import {
   TbBracketsContain,
   TbLock,
   TbCaretRightFilled,
+  TbCopy,
 } from 'react-icons/tb'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
@@ -79,6 +79,9 @@ export default function EachOutline({ isActive, children }: Props) {
           <DropdownMenuContent className="dark bg-card">
             <DropdownMenuItem className="gap-default_spacing">
               <TbEyeClosed /> Hide
+            </DropdownMenuItem>
+            <DropdownMenuItem className="gap-default_spacing">
+              <TbCopy /> Duplicate
             </DropdownMenuItem>
             <DropdownMenuItem className="gap-default_spacing">
               <TbBracketsContain /> Group
