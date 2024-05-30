@@ -1,5 +1,5 @@
 import { cn } from '@/lib/utils'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { TbSearch } from 'react-icons/tb'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/redux/store'
@@ -8,13 +8,15 @@ type Props = {
   actions: any
   children: any
   heading: string
+  onSearch: (keyword:string) => void;
 }
 
 export default function BuilderLeftPanelContainer({
-  actions,
-  children,
-  heading,
-}: Props) {
+                                                    actions,
+                                                    children,
+                                                    heading,
+                                                    onSearch
+                                                  }: Props) {
   return (
     <>
       <aside
@@ -37,7 +39,7 @@ export default function BuilderLeftPanelContainer({
             `h-[2.25rem] max-h-[2.25rem] border-b flex items-center px-default_spacing`,
           )}
         >
-          <SearchInput />
+          <SearchInput onSearch={onSearch} />
         </div>
         <div
           className={`flex-grow max-h-[calc(100vh-50px-2.25rem-2.25rem)] overflow-y-auto overflow-x-hidden`}
@@ -49,9 +51,14 @@ export default function BuilderLeftPanelContainer({
   )
 }
 
-const SearchInput = () => {
+const SearchInput = ({ onSearch }: { onSearch: (keyword:string) => void;}) => {
   const { panel } = useSelector((state: RootState) => state.builder_view)
-  const [inFocus, setInFocus] = useState(false)
+  const [inFocus, setInFocus] = useState(false);
+  const [keyword, setKeyword] = useState('');
+
+  useEffect(() => {
+    onSearch(keyword)
+  }, [keyword])
 
   return (
     <>
@@ -65,6 +72,8 @@ const SearchInput = () => {
       >
         <TbSearch />
         <input
+          onChange={e => setKeyword(e.target.value)}
+          value={keyword}
           onFocus={() => setInFocus(true)}
           onBlur={() => setInFocus(false)}
           placeholder={`Search ${panel}...`}

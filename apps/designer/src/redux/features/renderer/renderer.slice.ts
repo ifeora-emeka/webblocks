@@ -92,10 +92,25 @@ export const rendererSlice = createSlice({
         element.index = index
       })
     },
+    updateElement: (state, action: PayloadAction<{element_id:string; update:DndElementData}>) => {
+      const { element_id, update } = action.payload
+      const elementIndex = state.allElements.findIndex(
+        (element) => element.dnd_id === element_id
+      )
+
+      if (elementIndex !== -1) {
+        let targetElement = state.allElements[elementIndex];
+        //@ts-ignore
+        state.allElements[elementIndex] = {
+          ...targetElement,
+          ...update
+        }
+      }
+    }
   },
 })
 
-export const { moveElement, setRendererState, removeElement, addElement } =
+export const { moveElement, setRendererState, removeElement, addElement, updateElement } =
   rendererSlice.actions
 
 export default rendererSlice.reducer

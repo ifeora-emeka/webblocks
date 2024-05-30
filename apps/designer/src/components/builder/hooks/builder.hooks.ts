@@ -3,8 +3,9 @@ import { DndElementData } from '@repo/designer/types/designer.types'
 import {
   addElement,
   moveElement,
-  removeElement,
+  removeElement, RendererState, setRendererState, updateElement,
 } from '@/redux/features/renderer/renderer.slice'
+
 
 export const useBuilder = () => {
   const dispatch = useDispatch()
@@ -30,11 +31,24 @@ export const useBuilder = () => {
         direction,
       }),
     )
+  };
+
+  const updateRenderer = (newState: Partial<RendererState>) => {
+    dispatch(setRendererState(newState))
+  }
+
+  const updateElementData = ({ data, element_id }:{ element_id: string; data: DndElementData}) => {
+    dispatch(updateElement({
+      element_id,
+      update: data
+    }))
   }
 
   return {
     addElementToPage,
     removeElementFromPage,
     changeElementPosition,
+    updateElementData,
+    updateRenderer
   }
 }

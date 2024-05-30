@@ -8,6 +8,7 @@ export default function BuilderPageOptions() {
   return (
     <>
       <BuilderLeftPanelContainer
+        onSearch={() => {}}
         heading="Pages"
         actions={
           <div>

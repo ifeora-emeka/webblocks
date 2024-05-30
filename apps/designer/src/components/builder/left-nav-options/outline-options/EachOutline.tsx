@@ -1,5 +1,5 @@
 import { cn } from '@/lib/utils'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { PiRowsFill } from 'react-icons/pi'
 import {
   TbCaretDownFilled,
@@ -19,27 +19,65 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { DndElementData } from '@repo/designer/types/designer.types'
+import { useSelector } from 'react-redux'
+import { AppStore } from '@/redux/store'
+import { useBuilder } from '@/components/builder/hooks/builder.hooks'
+import slugify from 'slugify'
+import withRenderer, { WithRendererProps } from '@/components/builder/HOCs/WithRenderer'
 
 type Props = {
   element: DndElementData;
-  isActive?: boolean
   children?: any;
-  isRoot?: boolean;
-}
+} & WithRendererProps;
 
 //https://dribbble.com/shots/18864162-Updated-Nav-Icons
-export default function EachOutline({ isActive, children, element }: Props) {
+function EachOutline({ children, element, rendererState, builderHook }: Props) {
+  const { updateElementData, updateRenderer } = builderHook;
+  const { active_element } = rendererState;
   const [menuOpen, setMenuOpen] = useState(false)
-  const [showChildren, setShowChildren] = useState(false);
   const { element_data } = element
+
+  const isRoot = element.dnd_id.includes('-root__')
+  const [showChildren, setShowChildren] = useState(isRoot);
+  const isActive = active_element && active_element.dnd_id === element.dnd_id;
+  const [edit, setEdit] = useState(false);
+  const [name, setName] = useState('');
+
+  const handleNameUpdate = () => {
+    setEdit(false);
+    if(!name) return setName(element.element_data.name);
+
+    updateElementData({
+      element_id: element.dnd_id,
+      data: {
+        ...element,
+        element_data: {
+          ...element.element_data,
+          name,
+          slug: slugify(name)
+        }
+      }
+    })
+
+  }
+
+  useEffect(() => {
+    setName(element.element_data.name)
+  }, [element])
 
   return (
     <>
       <div
+        onClick={() => updateRenderer({ active_element: element })}
+        onDoubleClick={() => {
+          if(!isRoot) {
+            setEdit(true)
+          }
+        }}
         className={cn(
           'max-h-[31px] p-default_spacing text-xs rounded-lg hover:bg-accent hover:text-white/80 cursor-pointer flex gap-default_spacing items-center dark',
           {
-            'bg-primary text-white hover:bg-priamry hover:text-white': isActive,
+            'bg-primary text-white hover:bg-primary hover:text-white': isActive,
             group: !menuOpen,
             'bg-accent text-white/80': menuOpen && !isActive,
           },
@@ -64,10 +102,13 @@ export default function EachOutline({ isActive, children, element }: Props) {
         >
           <PiRowsFill />
         </div>
-        <span className="truncate flex-grow">{element_data.name}</span>
+        {
+          edit ? <input onBlur={() => handleNameUpdate()} className="truncate flex-grow outline-none border-0 bg-inherit bg-none" value={name} onChange={e => setName(e.target.value)}  /> : <span className="truncate flex-grow">{name}</span>
+        }
 
-        <DropdownMenu onOpenChange={setMenuOpen}>
-          <DropdownMenuTrigger className={'py-0'}>
+        {
+          !isRoot &&<DropdownMenu onOpenChange={setMenuOpen}>
+            <DropdownMenuTrigger className={'py-0'}>
             <span
               className={cn('opacity-0 hidden group-hover:block', {
                 'group-hover:opacity-100': !isActive,
@@ -76,26 +117,27 @@ export default function EachOutline({ isActive, children, element }: Props) {
             >
               <TbDots size={18} />
             </span>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent className="dark bg-card">
-            <DropdownMenuItem className="gap-default_spacing">
-              <TbEyeClosed /> Hide
-            </DropdownMenuItem>
-            <DropdownMenuItem className="gap-default_spacing">
-              <TbCopy /> Duplicate
-            </DropdownMenuItem>
-            <DropdownMenuItem className="gap-default_spacing">
-              <TbBracketsContain /> Group
-            </DropdownMenuItem>
-            <DropdownMenuItem className="gap-default_spacing">
-              <TbLock /> Lock
-            </DropdownMenuItem>
-            <DropdownMenuSeparator className="bg-white/20" />
-            <DropdownMenuItem className="gap-default_spacing">
-              <TbTrash /> Delete
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="dark bg-card">
+              <DropdownMenuItem className="gap-default_spacing">
+                <TbEyeClosed /> Hide
+              </DropdownMenuItem>
+              <DropdownMenuItem className="gap-default_spacing">
+                <TbCopy /> Duplicate
+              </DropdownMenuItem>
+              <DropdownMenuItem className="gap-default_spacing">
+                <TbBracketsContain /> Group
+              </DropdownMenuItem>
+              <DropdownMenuItem className="gap-default_spacing">
+                <TbLock /> Lock
+              </DropdownMenuItem>
+              <DropdownMenuSeparator className="bg-white/20" />
+              <DropdownMenuItem className="gap-default_spacing">
+                <TbTrash /> Delete
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        }
       </div>
       {showChildren && (
         <div className="border-l rounded-lg flex flex-col gap-default_spacing pl-[1rem]">
@@ -105,3 +147,5 @@ export default function EachOutline({ isActive, children, element }: Props) {
     </>
   )
 }
+
+export default withRenderer(EachOutline);

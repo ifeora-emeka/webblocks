@@ -3,6 +3,7 @@ import {
 } from './static-element.types'
 import { DndElementData } from '@repo/designer/types/designer.types'
 
+//todo: move this to DB and delete it
 export const defaultRootElement = (data:StaticElementParams):DndElementData => {
   let id ='__designer-root__'; // ⚠️ don't change this ⚠️
   return {
@@ -23,7 +24,9 @@ export const defaultRootElement = (data:StaticElementParams):DndElementData => {
         py: '220px',
         bg: 'url(https://img.freepik.com/free-vector/beautiful-summer-gradient-background-blue-yellow_53876-120751.jpg?size=626&ext=jpg&ga=GA1.1.2082370165.1716768000&semt=ais_user)',
         bgPosition: 'center',
-        bgSize: 'cover'
+        bgSize: 'cover',
+        display: 'flex',
+        flexDirection: 'column'
       },
       style: {},
       name: '_root_',
