@@ -106,6 +106,9 @@ export const rendererSlice = createSlice({
           ...update
         }
       }
+    },
+    duplicateElement: (state, action: PayloadAction<{ element_id: string;}>) => {
+
     }
   },
 })

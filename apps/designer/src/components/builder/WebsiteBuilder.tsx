@@ -24,6 +24,7 @@ import { AppStore, RootState } from '@/redux/store'
 import { setRendererState } from '@/redux/features/renderer/renderer.slice'
 import { defaultRootElement } from '@/components/builder/renderer/element-render/static-element-data/default-body'
 import { staticHeadingElement } from './renderer/element-render/static-element-data/heading-element'
+import BuilderKeyMapper from '@/components/builder/BuilderKeyMapper'
 
 export default function WebsiteBuilder({ page, elements }: RendererProps) {
   const [show, setShow] = useState(false)
@@ -97,6 +98,7 @@ export default function WebsiteBuilder({ page, elements }: RendererProps) {
         collisionDetection={closestCenter}
         onDragEnd={handleDragEnd}
       >
+        <BuilderKeyMapper />
         <div
           className={
             'bg-background min-h-[100vh] max-h-[100vh] flex dark flex-col dark'
