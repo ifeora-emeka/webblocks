@@ -27,7 +27,7 @@ export const staticHeadingElement = (data: StaticElementParams):DndElementData =
         fontWeight: 'bold'
       },
       style: {},
-      name: 'Heading element',
+      name: 'Heading element ' + headings.length,
       slug: 'heading',
       description: '',
       can_delete: true

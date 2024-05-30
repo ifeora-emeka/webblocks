@@ -26,8 +26,8 @@ export const defaultRootElement = (data:StaticElementParams):DndElementData => {
         bgSize: 'cover'
       },
       style: {},
-      name: 'Root body element',
-      slug: 'body-body-element',
+      name: '_root_',
+      slug: 'root-element',
       description: '',
       can_delete: false,
     },

@@ -18,17 +18,20 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import { DndElementData } from '@repo/designer/types/designer.types'
 
 type Props = {
+  element: DndElementData;
   isActive?: boolean
-  element_children: any[]
-  children?: any
+  children?: any;
+  isRoot?: boolean;
 }
 
 //https://dribbble.com/shots/18864162-Updated-Nav-Icons
-export default function EachOutline({ isActive, children }: Props) {
+export default function EachOutline({ isActive, children, element }: Props) {
   const [menuOpen, setMenuOpen] = useState(false)
-  const [showChildren, setShowChildren] = useState(false)
+  const [showChildren, setShowChildren] = useState(false);
+  const { element_data } = element
 
   return (
     <>
@@ -61,9 +64,7 @@ export default function EachOutline({ isActive, children }: Props) {
         >
           <PiRowsFill />
         </div>
-        <span className="truncate flex-grow">
-          This is one very very long name
-        </span>
+        <span className="truncate flex-grow">{element_data.name}</span>
 
         <DropdownMenu onOpenChange={setMenuOpen}>
           <DropdownMenuTrigger className={'py-0'}>
