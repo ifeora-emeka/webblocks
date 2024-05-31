@@ -6,8 +6,8 @@ import withRenderer, {
 type Props = {} & WithRendererProps
 
 function BuilderKeyMapper({ builderHook, rendererState }: Props) {
-  const { removeElementFromPage, changeElementPosition, duplicateElementData } =
-    builderHook
+  const { removeElementFromPage, changeElementPosition, duplicateElementData, groupSelectedElementData } =
+    builderHook;
   const { active_element } = rendererState
 
   const initializeHotkeys = () => {
@@ -43,9 +43,14 @@ function BuilderKeyMapper({ builderHook, rendererState }: Props) {
             duplicateElementData({ element_id: active_element[0].dnd_id })
           }
           break
-          // builderHook.selectMultipleElementData({
-          //   elements: active_element
-          // })
+         case 'g':
+          if (event.ctrlKey && active_element.length > 1) {
+            event.preventDefault();
+            console.log('SHORT CUT WORKED::')
+            groupSelectedElementData();
+          }
+          break
+
       }
     }
 

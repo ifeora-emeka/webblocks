@@ -30,6 +30,7 @@ const config = {
         success: '#4E8054',
         danger: '#D96243',
         mode_on: '#8D6FC2',
+        mode_on_light: '#d9f0ff',
 
         primary_lighter: '#3474f01f',
 

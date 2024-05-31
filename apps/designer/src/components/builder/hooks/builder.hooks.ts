@@ -2,7 +2,7 @@ import { useDispatch } from 'react-redux'
 import { DndElementData } from '@repo/designer/types/designer.types'
 import {
   addElement,
-  duplicateElement,
+  duplicateElement, groupElements,
   moveElement,
   removeElement,
   RendererState, selectMultipleElement,
@@ -83,6 +83,10 @@ export const useBuilder = () => {
     }))
   };
 
+  const groupSelectedElementData = () => {
+    dispatch(groupElements())
+  };
+
   return {
     addElementToPage,
     removeElementFromPage,
@@ -91,6 +95,7 @@ export const useBuilder = () => {
     updateRenderer,
     duplicateElementData,
     selectOneElementData,
-    selectMultipleElementData
+    selectMultipleElementData,
+    groupSelectedElementData
   }
 }

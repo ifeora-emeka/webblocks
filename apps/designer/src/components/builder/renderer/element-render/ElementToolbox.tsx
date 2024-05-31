@@ -30,7 +30,7 @@ export default function ElementToolbar({
     })
   }
 
-  if(active_element.length > 1){
+  if(active_element?.length > 1){
     return null;
   }
 
