@@ -9,10 +9,12 @@ export type WithRendererProps = {
   rendererState: RendererState
 }
 
-const withRenderer = <P extends WithRendererProps>(WrappedComponent: React.ComponentType<P>) => {
+const withRenderer = <P extends WithRendererProps>(
+  WrappedComponent: React.ComponentType<P>,
+) => {
   return (props: any) => {
-    const builderHook = useBuilder();
-    const rendererState = useSelector((state: AppStore) => state.renderer);
+    const builderHook = useBuilder()
+    const rendererState = useSelector((state: AppStore) => state.renderer)
 
     return (
       <WrappedComponent

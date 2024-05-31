@@ -6,28 +6,35 @@ import { useSelector } from 'react-redux'
 import { AppStore } from '@/redux/store'
 import { compileAllDndElements } from '../../builder.utils'
 import { DndElementData } from '@repo/designer/types/designer.types'
-import withRenderer, { WithRendererProps } from '@/components/builder/HOCs/WithRenderer'
+import withRenderer, {
+  WithRendererProps,
+} from '@/components/builder/HOCs/WithRenderer'
 
-type Props = {} & WithRendererProps;
+type Props = {} & WithRendererProps
 
 function BuilderOutlineOptions({ rendererState }: Props) {
-  const { allElements } = rendererState;
-  const compiledElement = compileAllDndElements(allElements);
-  const [keyword, setKeyword] = useState('');
+  const { allElements } = rendererState
+  const compiledElement = compileAllDndElements(allElements)
+  const [keyword, setKeyword] = useState('')
 
-  const filterElements = (element: DndElementData, keyword: string): boolean => {
+  const filterElements = (
+    element: DndElementData,
+    keyword: string,
+  ): boolean => {
     if (
       element.element_data.name.toLowerCase().includes(keyword.toLowerCase()) ||
       element.element_data.slug.toLowerCase().includes(keyword.toLowerCase()) ||
       (element.element_data.description &&
-        element.element_data.description.toLowerCase().includes(keyword.toLowerCase()))
+        element.element_data.description
+          .toLowerCase()
+          .includes(keyword.toLowerCase()))
     ) {
       return true
     }
 
     if (element.children_dnd_element_data) {
       return element.children_dnd_element_data.some((child) =>
-        filterElements(child, keyword)
+        filterElements(child, keyword),
       )
     }
 

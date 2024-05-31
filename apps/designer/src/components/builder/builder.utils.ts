@@ -23,7 +23,6 @@ export const compileAllDndElements = (
     }
   })
 
-
   if (!rootElement) {
     throw new Error('No root element found')
   }

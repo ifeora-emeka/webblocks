@@ -132,12 +132,12 @@ const ElementAppender = ({
   orientation,
   position,
   parent_element,
-  element
+  element,
 }: {
   orientation: 'horizontal' | 'vertical'
   position: 'up' | 'down'
-  parent_element: DndElementData | null;
-  element: DndElementData;
+  parent_element: DndElementData | null
+  element: DndElementData
 }) => {
   const { addElementToPage } = useBuilder()
 
@@ -145,14 +145,13 @@ const ElementAppender = ({
     if (element) {
       addElementToPage({
         element: staticHeadingElement({
-          index: position == 'up' ? element.index  : element.index + 1,
+          index: position == 'up' ? element.index : element.index + 1,
           parent_id: parent_element?.dnd_id as string,
         }),
-        position
+        position,
       })
     }
   }
-
 
   return (
     <>

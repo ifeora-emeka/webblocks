@@ -3,14 +3,22 @@ import { DndElementData } from '@repo/designer/types/designer.types'
 import {
   addElement,
   moveElement,
-  removeElement, RendererState, setRendererState, updateElement,
+  removeElement,
+  RendererState,
+  setRendererState,
+  updateElement,
 } from '@/redux/features/renderer/renderer.slice'
-
 
 export const useBuilder = () => {
   const dispatch = useDispatch()
 
-  const addElementToPage = ({ element, position }: { element: DndElementData; position: 'up' | 'down' }) => {
+  const addElementToPage = ({
+    element,
+    position,
+  }: {
+    element: DndElementData
+    position: 'up' | 'down'
+  }) => {
     dispatch(addElement({ element, position }))
   }
 
@@ -31,17 +39,25 @@ export const useBuilder = () => {
         direction,
       }),
     )
-  };
+  }
 
   const updateRenderer = (newState: Partial<RendererState>) => {
     dispatch(setRendererState(newState))
   }
 
-  const updateElementData = ({ data, element_id }:{ element_id: string; data: DndElementData}) => {
-    dispatch(updateElement({
-      element_id,
-      update: data
-    }))
+  const updateElementData = ({
+    data,
+    element_id,
+  }: {
+    element_id: string
+    data: DndElementData
+  }) => {
+    dispatch(
+      updateElement({
+        element_id,
+        update: data,
+      }),
+    )
   }
 
   return {
@@ -49,6 +65,6 @@ export const useBuilder = () => {
     removeElementFromPage,
     changeElementPosition,
     updateElementData,
-    updateRenderer
+    updateRenderer,
   }
 }

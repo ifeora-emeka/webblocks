@@ -8,15 +8,15 @@ type Props = {
   actions: any
   children: any
   heading: string
-  onSearch: (keyword:string) => void;
+  onSearch: (keyword: string) => void
 }
 
 export default function BuilderLeftPanelContainer({
-                                                    actions,
-                                                    children,
-                                                    heading,
-                                                    onSearch
-                                                  }: Props) {
+  actions,
+  children,
+  heading,
+  onSearch,
+}: Props) {
   return (
     <>
       <aside
@@ -51,10 +51,10 @@ export default function BuilderLeftPanelContainer({
   )
 }
 
-const SearchInput = ({ onSearch }: { onSearch: (keyword:string) => void;}) => {
+const SearchInput = ({ onSearch }: { onSearch: (keyword: string) => void }) => {
   const { panel } = useSelector((state: RootState) => state.builder_view)
-  const [inFocus, setInFocus] = useState(false);
-  const [keyword, setKeyword] = useState('');
+  const [inFocus, setInFocus] = useState(false)
+  const [keyword, setKeyword] = useState('')
 
   useEffect(() => {
     onSearch(keyword)
@@ -72,7 +72,7 @@ const SearchInput = ({ onSearch }: { onSearch: (keyword:string) => void;}) => {
       >
         <TbSearch />
         <input
-          onChange={e => setKeyword(e.target.value)}
+          onChange={(e) => setKeyword(e.target.value)}
           value={keyword}
           onFocus={() => setInFocus(true)}
           onBlur={() => setInFocus(false)}

@@ -5,7 +5,6 @@ import { cn } from '@/lib/utils'
 import ElementRenderer from '@/components/builder/renderer/element-render/ElementRenderer'
 import { compileAllDndElements } from '@/components/builder/builder.utils'
 
-
 interface ElementRendererProps {
   elements: DndElementData[]
 }

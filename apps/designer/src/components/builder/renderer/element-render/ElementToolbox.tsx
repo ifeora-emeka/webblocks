@@ -7,7 +7,11 @@ import React from 'react'
 import { DndElementData } from '@repo/designer/types/designer.types'
 import { useBuilder } from '../../hooks/builder.hooks'
 
-export default function ElementToolbar({ element }: { element: DndElementData }){
+export default function ElementToolbar({
+  element,
+}: {
+  element: DndElementData
+}) {
   const { changeElementPosition, removeElementFromPage } = useBuilder()
   let parentID = element.parent_dnd_id
 
@@ -20,9 +24,9 @@ export default function ElementToolbar({ element }: { element: DndElementData })
 
   const remove = () => {
     removeElementFromPage({
-      dnd_id: element.dnd_id
+      dnd_id: element.dnd_id,
     })
-  } 
+  }
 
   return (
     <Box

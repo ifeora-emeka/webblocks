@@ -31,7 +31,7 @@ const config = {
         danger: '#D96243',
         mode_on: '#8D6FC2',
 
-        primary_lighter: "#3474f01f",
+        primary_lighter: '#3474f01f',
 
         active: 'var(--b-active)',
 

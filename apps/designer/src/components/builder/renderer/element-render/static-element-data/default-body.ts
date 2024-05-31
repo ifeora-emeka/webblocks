@@ -1,11 +1,11 @@
-import {
-  StaticElementParams
-} from './static-element.types'
+import { StaticElementParams } from './static-element.types'
 import { DndElementData } from '@repo/designer/types/designer.types'
 
 //todo: move this to DB and delete it
-export const defaultRootElement = (data:StaticElementParams):DndElementData => {
-  let id ='__designer-root__'; // ⚠️ don't change this ⚠️
+export const defaultRootElement = (
+  data: StaticElementParams,
+): DndElementData => {
+  let id = '__designer-root__' // ⚠️ don't change this ⚠️
   return {
     dnd_id: id,
     children_dnd_element_data: [],
@@ -26,7 +26,7 @@ export const defaultRootElement = (data:StaticElementParams):DndElementData => {
         bgPosition: 'center',
         bgSize: 'cover',
         display: 'flex',
-        flexDirection: 'column'
+        flexDirection: 'column',
       },
       style: {},
       name: '_root_',
