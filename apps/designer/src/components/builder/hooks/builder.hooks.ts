@@ -5,8 +5,7 @@ import {
   duplicateElement,
   moveElement,
   removeElement,
-  RendererState,
-  selectOneElement,
+  RendererState, selectMultipleElement,
   setRendererState,
   updateElement,
 } from '@/redux/features/renderer/renderer.slice'
@@ -72,11 +71,17 @@ export const useBuilder = () => {
 
   const selectOneElementData = ({ element }: { element: DndElementData }) => {
     dispatch(
-      selectOneElement({
-        element,
+      setRendererState({
+        active_element: [element]
       }),
     )
   }
+
+  const selectMultipleElementData = ({ element }: { element: DndElementData }) => {
+    dispatch(selectMultipleElement({
+      element
+    }))
+  };
 
   return {
     addElementToPage,
@@ -86,5 +91,6 @@ export const useBuilder = () => {
     updateRenderer,
     duplicateElementData,
     selectOneElementData,
+    selectMultipleElementData
   }
 }

@@ -22,7 +22,7 @@ const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
     )
   const theStore: AppStore = store.getState()
   let allElements = theStore.renderer.allElements
-  const { updateElementData, selectOneElementData } = useBuilder()
+  const { updateElementData, selectMultipleElementData } = useBuilder()
 
   const { element_data, children_dnd_element_data } = element
   const { html_tag, chakraProps, attributes, style } = element_data
@@ -41,11 +41,7 @@ const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
     })
   }
 
-  const targetElement = active_element.filter(
-    (x: DndElementData) => x.dnd_id === element.dnd_id,
-  )
-  const isActive: boolean =
-    targetElement?.length > 0 && targetElement[0]?.dnd_id === element.dnd_id;
+  const isActive = active_element.map(el => el.dnd_id).includes(element.dnd_id);
 
   let theParent =
     allElements.find((el) => el.dnd_id === element.parent_dnd_id) || null
@@ -84,7 +80,22 @@ const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
         })
       }
     }
-  }
+  };
+
+  const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    e.stopPropagation();
+    if (e.altKey) {
+        selectMultipleElementData({
+          element: element,
+        });
+    } else {
+      dispatch(
+        setRendererState({
+          active_element: [element],
+        })
+      );
+    }
+  };
 
   const debouncedHandleInput = useCallback(debounce(handleInput, 700), [
     element,
@@ -98,13 +109,7 @@ const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
         {...(chakraProps as ChakraProps)}
         style={style}
         {...attributes}
-        onClick={() => {
-          dispatch(
-            setRendererState({
-              active_element: [element],
-            }),
-          )
-        }}
+        onClick={handleClick}
       />
     )
   }
@@ -126,14 +131,7 @@ const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
         className={cn(attributes.className, 'relative', {
           'element_selected shadow-lg': isActive,
         })}
-        onClick={(e) => {
-          e.stopPropagation()
-          if (!isActive) {
-            selectOneElementData({
-              element
-            })
-          }
-        }}
+        onClick={handleClick}
       >
         {isActive && (
           <ElementAppender

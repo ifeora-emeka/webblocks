@@ -179,14 +179,29 @@ export const rendererSlice = createSlice({
         state.active_element = [duplicate as any]
       }
     },
-
-    selectOneElement: (
+    selectMultipleElement: (
       state,
       action: PayloadAction<{ element: DndElementData }>,
     ) => {
-      return {
-        ...state,
-        active_element: [action.payload.element],
+      let allIDs = state.active_element.map((el: DndElementData) => el.dnd_id);
+      let alreadyAdded = allIDs.includes(action.payload.element.dnd_id)
+      console.log('ALREADY EXIST::', { allIDs, alreadyAdded, el:action.payload.element })
+
+      if(alreadyAdded) {
+        console.log('REMOVING ELEMENTS')
+        return {
+          ...state,
+          active_element: state.active_element.filter((el: DndElementData) => el.dnd_id !== action.payload.element.dnd_id)
+        }
+      }else {
+        console.log('ADDING ELEMENT')
+        return {
+          ...state,
+          active_element: [
+            ...state.active_element,
+            action.payload.element
+          ],
+        }
       }
     },
   },
@@ -199,7 +214,7 @@ export const {
   addElement,
   updateElement,
   duplicateElement,
-  selectOneElement,
+  selectMultipleElement,
 } = rendererSlice.actions
 
 export default rendererSlice.reducer

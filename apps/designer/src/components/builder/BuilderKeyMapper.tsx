@@ -43,6 +43,9 @@ function BuilderKeyMapper({ builderHook, rendererState }: Props) {
             duplicateElementData({ element_id: active_element[0].dnd_id })
           }
           break
+          // builderHook.selectMultipleElementData({
+          //   elements: active_element
+          // })
       }
     }
 
