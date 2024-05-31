@@ -1,4 +1,3 @@
-import { useDispatch, useSelector } from 'react-redux'
 import { Box } from '@chakra-ui/react'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
@@ -24,7 +23,7 @@ export default function ElementToolbar({
 
   const remove = () => {
     removeElementFromPage({
-      dnd_id: element.dnd_id,
+      dnd_ids: [element.dnd_id],
     })
   }
 

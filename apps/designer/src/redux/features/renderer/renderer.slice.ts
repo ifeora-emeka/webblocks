@@ -6,12 +6,12 @@ import { generateRandomId } from '@/lib/utils'
 
 export interface RendererState {
   allElements: DndElementData[]
-  active_element: DndElementData | null
+  active_element: DndElementData[]
 }
 
 const initialState: RendererState = {
   allElements: [],
-  active_element: null,
+  active_element: [],
 }
 
 export const rendererSlice = createSlice({
@@ -36,14 +36,11 @@ export const rendererSlice = createSlice({
     ) => {
       let newElements: DndElementData[] = []
 
-      // above elements
-      ;(newElements = state.allElements.filter(
+      newElements = state.allElements.filter(
         (x) => x.index < action.payload.element.index,
-      )),
-        // target element
-        newElements.push(action.payload.element)
+      )
+      newElements.push(action.payload.element)
 
-      // element below
       state.allElements
         .filter((x) => x.index >= action.payload.element.index)
         .forEach((el: DndElementData) => {
@@ -60,13 +57,22 @@ export const rendererSlice = createSlice({
       return {
         ...state,
         allElements: newElements,
-        active_element: action.payload.element,
+        active_element: [action.payload.element],
       }
     },
-    removeElement: (state, action: PayloadAction<string>) => {
-      state.allElements = state.allElements.filter(
-        (element) => element.element_data.element_id !== action.payload,
-      )
+    removeElement: (state, action: PayloadAction<string[]>) => {
+      console.log('THE LIST::', action.payload)
+      let newElements: DndElementData[] = []
+        state.allElements.map((el: DndElementData) => {
+        if(!action.payload.includes(el.dnd_id)) {
+          newElements.push(el)
+        }
+      });
+
+      return {
+        ...state,
+        allElements: newElements
+      }
     },
     moveElement: (
       state,
@@ -110,7 +116,10 @@ export const rendererSlice = createSlice({
         (element) => element.dnd_id === element_id,
       )
 
-      if (elementIndex !== -1 && !String(state.allElements[elementIndex]?.dnd_id).includes('-root__')) {
+      if (
+        elementIndex !== -1 &&
+        !String(state.allElements[elementIndex]?.dnd_id).includes('-root__')
+      ) {
         let targetElement = state.allElements[elementIndex]
         //@ts-ignore
         state.allElements[elementIndex] = {
@@ -130,7 +139,7 @@ export const rendererSlice = createSlice({
 
       if (elementIndex !== -1) {
         let targetElement = state.allElements[elementIndex]
-        let duplicateID =  generateRandomId(13)
+        let duplicateID = generateRandomId(13)
         let duplicate: DndElementData = {
           ...targetElement,
           dnd_id: duplicateID,
@@ -167,7 +176,17 @@ export const rendererSlice = createSlice({
 
         //add the duplicates
         state.allElements.push(duplicate as any)
-        state.active_element = duplicate as any
+        state.active_element = [duplicate as any]
+      }
+    },
+
+    selectOneElement: (
+      state,
+      action: PayloadAction<{ element: DndElementData }>,
+    ) => {
+      return {
+        ...state,
+        active_element: [action.payload.element],
       }
     },
   },
@@ -180,6 +199,7 @@ export const {
   addElement,
   updateElement,
   duplicateElement,
+  selectOneElement,
 } = rendererSlice.actions
 
 export default rendererSlice.reducer

@@ -19,7 +19,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { DndElementData } from '@repo/designer/types/designer.types'
-import {DebounceInput} from 'react-debounce-input';
+import { DebounceInput } from 'react-debounce-input'
 import slugify from 'slugify'
 import withRenderer, {
   WithRendererProps,
@@ -39,7 +39,11 @@ function EachOutline({ children, element, rendererState, builderHook }: Props) {
 
   const isRoot = element.dnd_id.includes('-root__')
   const [showChildren, setShowChildren] = useState(isRoot)
-  const isActive = active_element && active_element.dnd_id === element.dnd_id
+  const targetElement = active_element.filter(
+    (x: DndElementData) => x.dnd_id === element.dnd_id,
+  )
+  const isActive: boolean =
+    targetElement?.length > 0 && targetElement[0]?.dnd_id === element.dnd_id;
   const [edit, setEdit] = useState(false)
   const [name, setName] = useState('')
 
@@ -67,7 +71,7 @@ function EachOutline({ children, element, rendererState, builderHook }: Props) {
   return (
     <>
       <div
-        onClick={() => updateRenderer({ active_element: element })}
+        onClick={() => updateRenderer({ active_element: [element] })}
         onDoubleClick={() => {
           if (!isRoot) {
             setEdit(true)

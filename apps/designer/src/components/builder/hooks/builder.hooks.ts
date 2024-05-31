@@ -6,6 +6,7 @@ import {
   moveElement,
   removeElement,
   RendererState,
+  selectOneElement,
   setRendererState,
   updateElement,
 } from '@/redux/features/renderer/renderer.slice'
@@ -23,8 +24,8 @@ export const useBuilder = () => {
     dispatch(addElement({ element, position }))
   }
 
-  const removeElementFromPage = ({ dnd_id }: { dnd_id: string }) => {
-    dispatch(removeElement(dnd_id))
+  const removeElementFromPage = ({ dnd_ids }: { dnd_ids: string[] }) => {
+    dispatch(removeElement(dnd_ids))
   }
 
   const changeElementPosition = ({
@@ -69,6 +70,14 @@ export const useBuilder = () => {
     )
   }
 
+  const selectOneElementData = ({ element }: { element: DndElementData }) => {
+    dispatch(
+      selectOneElement({
+        element,
+      }),
+    )
+  }
+
   return {
     addElementToPage,
     removeElementFromPage,
@@ -76,5 +85,6 @@ export const useBuilder = () => {
     updateElementData,
     updateRenderer,
     duplicateElementData,
+    selectOneElementData,
   }
 }

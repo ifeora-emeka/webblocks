@@ -1,65 +1,74 @@
-import React, { useRef, useState, useCallback } from 'react';
-import { DndElementData } from '@repo/designer/types/designer.types';
-import { Box, ChakraProps } from '@chakra-ui/react';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppStore, RootState, store } from '@/redux/store';
-import { setRendererState } from '@/redux/features/renderer/renderer.slice';
-import { cn } from '@/lib/utils';
-import ElementToolbar from '@/components/builder/renderer/element-render/ElementToolbox';
-import { TbPlus } from 'react-icons/tb';
-import { useBuilder } from '../../hooks/builder.hooks';
-import { staticHeadingElement } from './static-element-data/heading-element';
-import slugify from 'slugify';
+import React, { useRef, useState, useCallback } from 'react'
+import { DndElementData } from '@repo/designer/types/designer.types'
+import { Box, ChakraProps } from '@chakra-ui/react'
+import { useDispatch, useSelector } from 'react-redux'
+import { AppStore, RootState, store } from '@/redux/store'
+import { setRendererState } from '@/redux/features/renderer/renderer.slice'
+import { cn } from '@/lib/utils'
+import ElementToolbar from '@/components/builder/renderer/element-render/ElementToolbox'
+import { TbPlus } from 'react-icons/tb'
+import { useBuilder } from '../../hooks/builder.hooks'
+import { staticHeadingElement } from './static-element-data/heading-element'
 import { debounce } from '@/components/builder/builder.utils'
 
 interface DesignerElementProps {
-  element: DndElementData;
+  element: DndElementData
 }
 
 const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
   const isVoidElement = (tag: string) =>
     /^(area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr)$/i.test(
       tag,
-    );
-  const theStore: AppStore = store.getState();
-  let allElements = theStore.renderer.allElements;
-  const { updateElementData } = useBuilder();
+    )
+  const theStore: AppStore = store.getState()
+  let allElements = theStore.renderer.allElements
+  const { updateElementData, selectOneElementData } = useBuilder()
 
-  const { element_data, children_dnd_element_data } = element;
-  const { html_tag, chakraProps, attributes, style } = element_data;
-  const dispatch = useDispatch();
-  const { active_element } = useSelector((state: RootState) => state.renderer);
-  const childRef = useRef<HTMLHeadingElement>(null);
+  const { element_data, children_dnd_element_data } = element
+  const { html_tag, chakraProps, attributes, style } = element_data
+  const dispatch = useDispatch()
+  const { active_element } = useSelector((state: RootState) => state.renderer)
+  const childRef = useRef<HTMLHeadingElement>(null)
 
   const renderChildren = (children: Array<DndElementData> | undefined) => {
-    if (!children) return null;
+    if (!children) return null
     const sortedChildren = children.slice().sort((a, b) => {
-      return a.index - b.index;
-    });
+      return a.index - b.index
+    })
 
     return sortedChildren.map((child) => {
-      return <ElementRenderer key={child.dnd_id} element={child} />;
-    });
-  };
+      return <ElementRenderer key={child.dnd_id} element={child} />
+    })
+  }
 
-  const isActive = active_element?.dnd_id === element.dnd_id;
+  const targetElement = active_element.filter(
+    (x: DndElementData) => x.dnd_id === element.dnd_id,
+  )
+  const isActive: boolean =
+    targetElement?.length > 0 && targetElement[0]?.dnd_id === element.dnd_id;
+
   let theParent =
-    allElements.find((el) => el.dnd_id === element.parent_dnd_id) || null;
+    allElements.find((el) => el.dnd_id === element.parent_dnd_id) || null
   let appendDirection: 'horizontal' | 'vertical' =
     theParent?.element_data.chakraProps?.flexDirection === 'column'
       ? 'horizontal'
-      : 'vertical';
+      : 'vertical'
 
   const handleInput = () => {
     if (childRef?.current) {
-      const newText = childRef.current.innerText;
-      let elementInnerText = element.element_data?.attributes?.innerText;
+      const newText = childRef.current.innerText
+      let elementInnerText = element.element_data?.attributes?.innerText
 
-      console.log('INNER TEXT::', elementInnerText);
+      console.log('INNER TEXT::', elementInnerText)
 
-      elementInnerText === undefined ? elementInnerText = " " : elementInnerText;
+      elementInnerText === undefined
+        ? (elementInnerText = ' ')
+        : elementInnerText
 
-      if (elementInnerText !== undefined && element.element_data.name !== newText) {
+      if (
+        elementInnerText !== undefined &&
+        element.element_data.name !== newText
+      ) {
         updateElementData({
           element_id: element.dnd_id,
           data: {
@@ -72,12 +81,14 @@ const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
               },
             },
           },
-        });
+        })
       }
     }
-  };
+  }
 
-  const debouncedHandleInput = useCallback(debounce(handleInput, 700), [element]);
+  const debouncedHandleInput = useCallback(debounce(handleInput, 700), [
+    element,
+  ])
 
   if (isVoidElement(html_tag as string)) {
     return (
@@ -90,12 +101,12 @@ const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
         onClick={() => {
           dispatch(
             setRendererState({
-              active_element: element,
+              active_element: [element],
             }),
-          );
+          )
         }}
       />
-    );
+    )
   }
 
   return (
@@ -103,7 +114,7 @@ const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
       <Box
         contentEditable={isActive}
         ref={childRef}
-        onInput={debouncedHandleInput} // Use the debounced function here
+        onInput={debouncedHandleInput}
         suppressContentEditableWarning={true}
         autoFocus
         ds-index={element.index}
@@ -116,13 +127,11 @@ const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
           'element_selected shadow-lg': isActive,
         })}
         onClick={(e) => {
-          e.stopPropagation();
+          e.stopPropagation()
           if (!isActive) {
-            dispatch(
-              setRendererState({
-                active_element: element,
-              }),
-            );
+            selectOneElementData({
+              element
+            })
           }
         }}
       >
@@ -147,23 +156,23 @@ const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
         )}
       </Box>
     </>
-  );
-};
+  )
+}
 
-export default ElementRenderer;
+export default ElementRenderer
 
 const ElementAppender = ({
-                           orientation,
-                           position,
-                           parent_element,
-                           element,
-                         }: {
-  orientation: 'horizontal' | 'vertical';
-  position: 'up' | 'down';
-  parent_element: DndElementData | null;
-  element: DndElementData;
+  orientation,
+  position,
+  parent_element,
+  element,
+}: {
+  orientation: 'horizontal' | 'vertical'
+  position: 'up' | 'down'
+  parent_element: DndElementData | null
+  element: DndElementData
 }) => {
-  const { addElementToPage } = useBuilder();
+  const { addElementToPage } = useBuilder()
 
   const addElement = () => {
     if (element) {
@@ -173,9 +182,9 @@ const ElementAppender = ({
           parent_id: parent_element?.dnd_id as string,
         }),
         position,
-      });
+      })
     }
-  };
+  }
 
   return (
     <>
@@ -197,5 +206,5 @@ const ElementAppender = ({
         <TbPlus className="h-4 w-4" />
       </button>
     </>
-  );
-};
+  )
+}
