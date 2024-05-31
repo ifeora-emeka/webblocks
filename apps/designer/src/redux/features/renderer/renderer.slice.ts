@@ -2,7 +2,6 @@ import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { DndElementData } from '@repo/designer/types/designer.types'
 import slugify from 'slugify'
-import { filter } from '@chakra-ui/react'
 import { generateRandomId } from '@/lib/utils'
 
 export interface RendererState {
@@ -111,7 +110,7 @@ export const rendererSlice = createSlice({
         (element) => element.dnd_id === element_id,
       )
 
-      if (elementIndex !== -1) {
+      if (elementIndex !== -1 && !String(state.allElements[elementIndex]?.dnd_id).includes('-root__')) {
         let targetElement = state.allElements[elementIndex]
         //@ts-ignore
         state.allElements[elementIndex] = {
@@ -131,7 +130,7 @@ export const rendererSlice = createSlice({
 
       if (elementIndex !== -1) {
         let targetElement = state.allElements[elementIndex]
-        let duplicateID = targetElement.dnd_id + '_copy_' + generateRandomId(12)
+        let duplicateID =  generateRandomId(13)
         let duplicate: DndElementData = {
           ...targetElement,
           dnd_id: duplicateID,
@@ -140,7 +139,9 @@ export const rendererSlice = createSlice({
             ...targetElement.element_data,
             element_id: duplicateID,
             index: targetElement.index + 1,
-            name: targetElement.element_data.name + ' (copy)',
+            name: targetElement.element_data.name.includes('copy')
+              ? targetElement.element_data.name
+              : targetElement.element_data.name + ' (copy)',
             slug: slugify(targetElement.element_data.name + ' (copy)'),
           },
         }
@@ -155,17 +156,18 @@ export const rendererSlice = createSlice({
           ) {
             state.allElements[index] = {
               ...state.allElements[index],
-              index: state.allElements[index] + 1,
+              index: state.allElements[index].index + 1,
               element_data: {
                 ...state.allElements[index].element_data,
-                index: state.allElements[index].element_data.index + 1
-              }
+                index: state.allElements[index].element_data.index + 1,
+              },
             }
           }
         })
 
         //add the duplicates
-        state.allElements.push(duplicate)
+        state.allElements.push(duplicate as any)
+        state.active_element = duplicate as any
       }
     },
   },
@@ -177,7 +179,7 @@ export const {
   removeElement,
   addElement,
   updateElement,
-  duplicateElement
+  duplicateElement,
 } = rendererSlice.actions
 
 export default rendererSlice.reducer

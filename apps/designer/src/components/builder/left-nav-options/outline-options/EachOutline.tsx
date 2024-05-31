@@ -19,9 +19,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { DndElementData } from '@repo/designer/types/designer.types'
-import { useSelector } from 'react-redux'
-import { AppStore } from '@/redux/store'
-import { useBuilder } from '@/components/builder/hooks/builder.hooks'
+import {DebounceInput} from 'react-debounce-input';
 import slugify from 'slugify'
 import withRenderer, {
   WithRendererProps,
@@ -104,7 +102,9 @@ function EachOutline({ children, element, rendererState, builderHook }: Props) {
           <PiRowsFill />
         </div>
         {edit ? (
-          <input
+          <DebounceInput
+            minLength={2}
+            debounceTimeout={600}
             onBlur={() => handleNameUpdate()}
             className="truncate flex-grow outline-none border-0 bg-inherit bg-none"
             value={name}

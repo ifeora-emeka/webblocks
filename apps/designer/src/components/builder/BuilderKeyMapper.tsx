@@ -6,7 +6,8 @@ import withRenderer, {
 type Props = {} & WithRendererProps
 
 function BuilderKeyMapper({ builderHook, rendererState }: Props) {
-  const { removeElementFromPage, changeElementPosition } = builderHook
+  const { removeElementFromPage, changeElementPosition, duplicateElementData } =
+    builderHook
   const { active_element } = rendererState
 
   const initializeHotkeys = () => {
@@ -14,11 +15,13 @@ function BuilderKeyMapper({ builderHook, rendererState }: Props) {
       switch (event.key) {
         case 'Delete':
           if (active_element) {
+            event.preventDefault()
             removeElementFromPage({ dnd_id: active_element.dnd_id })
           }
           break
         case 'ArrowUp':
-          if (event.ctrlKey && active_element) {
+          if (event.altKey && active_element) {
+            event.preventDefault()
             changeElementPosition({
               element_id: active_element.dnd_id,
               direction: 'up',
@@ -26,11 +29,18 @@ function BuilderKeyMapper({ builderHook, rendererState }: Props) {
           }
           break
         case 'ArrowDown':
-          if (event.ctrlKey && active_element) {
+          if (event.altKey && active_element) {
+            event.preventDefault()
             changeElementPosition({
               element_id: active_element.dnd_id,
               direction: 'down',
             })
+          }
+          break
+        case 'd':
+          if (event.ctrlKey && active_element) {
+            event.preventDefault()
+            duplicateElementData({ element_id: active_element.dnd_id })
           }
           break
       }

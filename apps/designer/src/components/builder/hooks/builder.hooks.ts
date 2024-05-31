@@ -2,6 +2,7 @@ import { useDispatch } from 'react-redux'
 import { DndElementData } from '@repo/designer/types/designer.types'
 import {
   addElement,
+  duplicateElement,
   moveElement,
   removeElement,
   RendererState,
@@ -60,11 +61,20 @@ export const useBuilder = () => {
     )
   }
 
+  const duplicateElementData = ({ element_id }: { element_id: string }) => {
+    dispatch(
+      duplicateElement({
+        element_id,
+      }),
+    )
+  }
+
   return {
     addElementToPage,
     removeElementFromPage,
     changeElementPosition,
     updateElementData,
     updateRenderer,
+    duplicateElementData,
   }
 }
