@@ -58,14 +58,11 @@ export default function WebsiteBuilder({ page, elements }: RendererProps) {
         index: 0,
         parent_id: null,
       })
-      let heading = staticHeadingElement({
-        index: 0,
-        parent_id: rootEl.dnd_id,
-      })
 
       dispatch(
         setRendererState({
-          allElements: [rootEl, heading],
+          allElements: [rootEl],
+          active_element: [rootEl],
         }),
       )
     }

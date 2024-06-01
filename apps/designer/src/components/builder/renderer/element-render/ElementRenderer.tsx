@@ -27,6 +27,7 @@ const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
   const dispatch = useDispatch()
   const { active_element } = useSelector((state: RootState) => state.renderer)
   const childRef = useRef<HTMLHeadingElement>(null)
+  const [editInnerText, setEditInnerText] = useState(false)
 
   const renderChildren = (children: Array<DndElementData> | undefined) => {
     if (!children) return null
@@ -55,35 +56,30 @@ const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
       const newText = childRef.current.innerText
       let elementInnerText = element.element_data?.attributes?.innerText
 
-
       elementInnerText === undefined
         ? (elementInnerText = ' ')
         : elementInnerText
 
-      if (
-        elementInnerText !== undefined &&
-        element.element_data.name !== newText
-      ) {
-        updateElementData({
-          element_id: element.dnd_id,
-          data: {
-            ...element,
-            element_data: {
-              ...element.element_data,
-              attributes: {
-                ...element.element_data.attributes,
-                innerText: newText,
-              },
+      updateElementData({
+        element_id: element.dnd_id,
+        data: {
+          ...element,
+          element_data: {
+            ...element.element_data,
+            attributes: {
+              ...element.element_data.attributes,
+              innerText: newText,
             },
           },
-        })
-      }
+        },
+      })
     }
   }
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.stopPropagation()
-    if (e.altKey) {
+    if (e.shiftKey) {
+      e.preventDefault()
       selectMultipleElementData({
         element: element,
       })
@@ -116,24 +112,33 @@ const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
   return (
     <>
       <Box
-        contentEditable={isActive && String(element.element_data.attributes?.innerText || '')?.length > 0}
-        ref={childRef}
-        onInput={debouncedHandleInput}
-        suppressContentEditableWarning={true}
-        autoFocus
+        contentEditable={
+          isActive &&
+          String(element.element_data.attributes?.innerText || '')?.length >
+            0 &&
+          active_element.length === 1 &&
+          editInnerText
+        }
+        // ref={childRef}
+        // onInput={debouncedHandleInput}
+        // suppressContentEditableWarning={true}
+        // autoFocus
+        // {...attributes}
         ds-index={element.index}
         ds-id={element.dnd_id}
         as={html_tag}
         {...(chakraProps as ChakraProps)}
         style={style}
-        {...attributes}
         className={cn(attributes.className, 'relative', {
           'element_selected shadow-lg': isActive,
         })}
         onClick={handleClick}
+        onDoubleClick={() => setEditInnerText(!editInnerText)}
       >
         {isActive && <ElementToolbar element={element} />}
+
         {attributes?.innerText}
+
         {renderChildren(children_dnd_element_data)}
       </Box>
     </>

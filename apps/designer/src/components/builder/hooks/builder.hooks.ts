@@ -10,16 +10,19 @@ import {
   selectMultipleElement,
   setRendererState,
   updateElement,
+  updateElementChakraStyle,
 } from '@/redux/features/renderer/renderer.slice'
+import { ChakraProps } from '@chakra-ui/react'
 
 export const useBuilder = () => {
   const dispatch = useDispatch()
 
   const appendChildToParentElement = ({
-   parent_id,
-    newChild
+    parent_id,
+    newChild,
   }: {
-    parent_id:string, newChild: DndElementData
+    parent_id: string
+    newChild: DndElementData
   }) => {
     dispatch(appendChildToParent({ parent_id, newChild }))
   }
@@ -94,6 +97,21 @@ export const useBuilder = () => {
     dispatch(groupElements())
   }
 
+  const updateElementChakraStyleData = ({
+    newChakraStyle,
+    element_id,
+  }: {
+    element_id: string
+    newChakraStyle: ChakraProps
+  }) => {
+    dispatch(
+      updateElementChakraStyle({
+        element_id,
+        newChakraStyle,
+      }),
+    )
+  }
+
   return {
     appendChildToParentElement,
     removeElementFromPage,
@@ -104,5 +122,6 @@ export const useBuilder = () => {
     selectOneElementData,
     selectMultipleElementData,
     groupSelectedElementData,
+    updateElementChakraStyleData,
   }
 }

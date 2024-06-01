@@ -3,8 +3,4 @@ export type StaticElementParams = {
   parent_id: string | null
 }
 
-export type StaticElement =
-  'heading'|
-  'paragraph'|
-  'image'|
-  'frame'
+export type StaticElement = 'heading' | 'paragraph' | 'image' | 'frame'

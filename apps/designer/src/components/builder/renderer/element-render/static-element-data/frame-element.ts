@@ -3,6 +3,7 @@ import { StaticElementParams } from './static-element.types'
 import { generateRandomId } from '@/lib/utils'
 import { store } from '@/redux/store'
 import { DEFAULT_FRAME_COLOR } from '@/components/builder/builder.constants'
+import { staticFrameChakraStyle } from '@/components/builder/renderer/element-render/static-element-data/static-chakra-style'
 
 export const staticFrameElement = (
   data: StaticElementParams,
@@ -21,8 +22,15 @@ export const staticFrameElement = (
       attributes: {},
       html_tag: 'div',
       chakraProps: {
+        ...staticFrameChakraStyle,
+        display: 'flex',
+        flexFlow: 'column',
         minH: '20px',
+        minW: '20px',
         bg: DEFAULT_FRAME_COLOR,
+        padding: '10px',
+        placeContent: 'center',
+        alignItems: 'center',
       },
       style: {},
       name: 'Frame',

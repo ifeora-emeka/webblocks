@@ -4,6 +4,7 @@ import { DndElementData } from '@repo/designer/types/designer.types'
 import slugify from 'slugify'
 import { generateRandomId } from '@/lib/utils'
 import { staticFrameElement } from '@/components/builder/renderer/element-render/static-element-data/frame-element'
+import { ChakraProps } from '@chakra-ui/react'
 
 export interface RendererState {
   allElements: DndElementData[]
@@ -31,18 +32,18 @@ export const rendererSlice = createSlice({
     appendChildToParent: (
       state,
       action: PayloadAction<{
-        parent_id: string;
-        newChild: DndElementData;
+        parent_id: string
+        newChild: DndElementData
       }>,
     ) => {
-      const { parent_id, newChild } = action.payload;
+      const { parent_id, newChild } = action.payload
 
       const siblingElements = state.allElements.filter(
-        (el: DndElementData) => el.parent_dnd_id === parent_id
-      );
+        (el: DndElementData) => el.parent_dnd_id === parent_id,
+      )
 
       const newElements = state.allElements.map((el: DndElementData) => {
-        if (siblingElements.map(sib => sib.dnd_id).includes(el.dnd_id)) {
+        if (siblingElements.map((sib) => sib.dnd_id).includes(el.dnd_id)) {
           return {
             ...el,
             index: el.index + 1,
@@ -50,11 +51,11 @@ export const rendererSlice = createSlice({
               ...el.element_data,
               index: el.index + 1,
             },
-          };
+          }
         } else {
-          return el;
+          return el
         }
-      });
+      })
 
       const newChildElement = {
         ...newChild,
@@ -65,12 +66,13 @@ export const rendererSlice = createSlice({
           index: 0,
           parent_element_id: parent_id,
         },
-      };
+      }
 
       return {
         ...state,
         allElements: [...newElements, newChildElement],
-      };
+        active_element: [newChildElement],
+      }
     },
     moveElement: (
       state,
@@ -83,6 +85,10 @@ export const rendererSlice = createSlice({
       )
 
       if (elementIndex === -1) return state
+
+      let targetElement: DndElementData = state.allElements[elementIndex]
+
+      if (!targetElement.element_data.parent_element_id) return state
 
       let newIndex = elementIndex
 
@@ -268,6 +274,45 @@ export const rendererSlice = createSlice({
         active_element: [newFrameElement, ...newActiveElements],
       }
     },
+    updateElementChakraStyle: (
+      state,
+      action: PayloadAction<{
+        element_id: string
+        newChakraStyle: ChakraProps
+      }>,
+    ) => {
+      const { element_id, newChakraStyle } = action.payload
+
+      let elementIndex = state.allElements.findIndex(
+        (el: DndElementData) => el.element_data.element_id === element_id,
+      )
+
+      if (elementIndex === -1) return state
+
+      let targetElement: DndElementData = state.allElements[elementIndex]
+
+      let updatedElement: DndElementData = {
+        ...targetElement,
+        element_data: {
+          ...targetElement.element_data,
+          chakraProps: {
+            ...targetElement.element_data.chakraProps,
+            ...newChakraStyle,
+          },
+        },
+      }
+
+      let newElements = [
+        ...state.allElements.slice(0, elementIndex),
+        updatedElement,
+        ...state.allElements.slice(elementIndex + 1),
+      ]
+
+      return {
+        ...state,
+        allElements: newElements,
+      }
+    },
   },
 })
 
@@ -280,6 +325,7 @@ export const {
   duplicateElement,
   selectMultipleElement,
   groupElements,
+  updateElementChakraStyle,
 } = rendererSlice.actions
 
 export default rendererSlice.reducer

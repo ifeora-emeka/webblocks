@@ -1,11 +1,7 @@
 import { cn } from '@/lib/utils'
 import React, { useEffect, useState } from 'react'
 import { PiRowsFill } from 'react-icons/pi'
-import {
-  TbCaretDownFilled,
-  TbDots,
-  TbCaretRightFilled,
-} from 'react-icons/tb'
+import { TbCaretDownFilled, TbDots, TbCaretRightFilled } from 'react-icons/tb'
 import { DndElementData } from '@repo/designer/types/designer.types'
 import { DebounceInput } from 'react-debounce-input'
 import slugify from 'slugify'
@@ -21,7 +17,8 @@ type Props = {
 
 //https://dribbble.com/shots/18864162-Updated-Nav-Icons
 function EachOutline({ children, element, rendererState, builderHook }: Props) {
-  const { updateElementData, updateRenderer } = builderHook
+  const { updateElementData, updateRenderer, selectMultipleElementData } =
+    builderHook
   const { active_element } = rendererState
   const [menuOpen, setMenuOpen] = useState(false)
   const { element_data } = element
@@ -53,6 +50,22 @@ function EachOutline({ children, element, rendererState, builderHook }: Props) {
     })
   }
 
+  const handleSingleClick = (
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
+  ) => {
+    e.stopPropagation()
+    if (e.shiftKey) {
+      e.preventDefault()
+      selectMultipleElementData({
+        element: element,
+      })
+    } else {
+      updateRenderer({
+        active_element: [element],
+      })
+    }
+  }
+
   useEffect(() => {
     setName(element.element_data.name)
   }, [element])
@@ -60,7 +73,7 @@ function EachOutline({ children, element, rendererState, builderHook }: Props) {
   return (
     <>
       <div
-        onClick={() => updateRenderer({ active_element: [element] })}
+        onClick={handleSingleClick}
         onDoubleClick={() => {
           if (!isRoot) {
             setEdit(true)
@@ -107,18 +120,16 @@ function EachOutline({ children, element, rendererState, builderHook }: Props) {
           <span className="truncate flex-grow">{name}</span>
         )}
 
-        {!isRoot && (
-          <ElementMenu onOpenChange={setMenuOpen} element={element}>
-            <span
-              className={cn('opacity-0 hidden group-hover:block', {
-                'group-hover:opacity-100': !isActive,
-                'opacity-100 block': isActive || menuOpen,
-              })}
-            >
-                <TbDots size={18} />
-              </span>
-          </ElementMenu>
-        )}
+        <ElementMenu onOpenChange={setMenuOpen} element={element}>
+          <span
+            className={cn('opacity-0 hidden group-hover:block', {
+              'group-hover:opacity-100': !isActive,
+              'opacity-100 block': isActive || menuOpen,
+            })}
+          >
+            <TbDots size={18} />
+          </span>
+        </ElementMenu>
       </div>
       {showChildren && (
         <div className="border-l rounded-lg flex flex-col gap-default_spacing pl-[1rem]">
