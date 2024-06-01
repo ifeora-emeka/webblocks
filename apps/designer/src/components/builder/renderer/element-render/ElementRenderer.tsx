@@ -8,7 +8,6 @@ import { cn } from '@/lib/utils'
 import ElementToolbar from '@/components/builder/renderer/element-render/ElementToolbox'
 import { useBuilder } from '../../hooks/builder.hooks'
 import { debounce } from '@/components/builder/builder.utils'
-import ElementAppender from '@/components/builder/renderer/element-render/ElementAppender'
 
 interface DesignerElementProps {
   element: DndElementData
@@ -56,7 +55,6 @@ const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
       const newText = childRef.current.innerText
       let elementInnerText = element.element_data?.attributes?.innerText
 
-      console.log('INNER TEXT::', elementInnerText)
 
       elementInnerText === undefined
         ? (elementInnerText = ' ')
@@ -118,7 +116,7 @@ const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
   return (
     <>
       <Box
-        contentEditable={isActive}
+        contentEditable={isActive && String(element.element_data.attributes?.innerText || '')?.length > 0}
         ref={childRef}
         onInput={debouncedHandleInput}
         suppressContentEditableWarning={true}
@@ -134,25 +132,9 @@ const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
         })}
         onClick={handleClick}
       >
-        {isActive && (
-          <ElementAppender
-            orientation={appendDirection}
-            position="up"
-            parent_element={theParent}
-            element={element}
-          />
-        )}
         {isActive && <ElementToolbar element={element} />}
-        {attributes.innerText}
+        {attributes?.innerText}
         {renderChildren(children_dnd_element_data)}
-        {isActive && (
-          <ElementAppender
-            orientation={appendDirection}
-            position="down"
-            parent_element={theParent}
-            element={element}
-          />
-        )}
       </Box>
     </>
   )

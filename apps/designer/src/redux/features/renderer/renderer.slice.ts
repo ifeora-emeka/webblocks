@@ -28,52 +28,49 @@ export const rendererSlice = createSlice({
         ...action.payload,
       }
     },
-    addElement: (
+    appendChildToParent: (
       state,
       action: PayloadAction<{
-        element: DndElementData
-        position: 'up' | 'down'
+        parent_id: string;
+        newChild: DndElementData;
       }>,
     ) => {
-      let newElements: DndElementData[] = []
+      const { parent_id, newChild } = action.payload;
 
-      newElements = state.allElements.filter(
-        (x) => x.index < action.payload.element.index,
-      )
-      newElements.push(action.payload.element)
+      const siblingElements = state.allElements.filter(
+        (el: DndElementData) => el.parent_dnd_id === parent_id
+      );
 
-      state.allElements
-        .filter((x) => x.index >= action.payload.element.index)
-        .forEach((el: DndElementData) => {
-          newElements.push({
+      const newElements = state.allElements.map((el: DndElementData) => {
+        if (siblingElements.map(sib => sib.dnd_id).includes(el.dnd_id)) {
+          return {
             ...el,
             index: el.index + 1,
             element_data: {
               ...el.element_data,
               index: el.index + 1,
             },
-          })
-        })
-
-      return {
-        ...state,
-        allElements: newElements,
-        active_element: [action.payload.element],
-      }
-    },
-    removeElement: (state, action: PayloadAction<string[]>) => {
-      //todo: delete it's children as well
-      let newElements: DndElementData[] = []
-      state.allElements.map((el: DndElementData) => {
-        if (!action.payload.includes(el.dnd_id)) {
-          newElements.push(el)
+          };
+        } else {
+          return el;
         }
-      })
+      });
+
+      const newChildElement = {
+        ...newChild,
+        index: 0,
+        parent_dnd_id: parent_id,
+        element_data: {
+          ...newChild.element_data,
+          index: 0,
+          parent_element_id: parent_id,
+        },
+      };
 
       return {
         ...state,
-        allElements: newElements,
-      }
+        allElements: [...newElements, newChildElement],
+      };
     },
     moveElement: (
       state,
@@ -107,6 +104,20 @@ export const rendererSlice = createSlice({
         element.element_data.index = index
         element.index = index
       })
+    },
+    removeElement: (state, action: PayloadAction<string[]>) => {
+      //todo: delete it's children as well
+      let newElements: DndElementData[] = []
+      state.allElements.map((el: DndElementData) => {
+        if (!action.payload.includes(el.dnd_id)) {
+          newElements.push(el)
+        }
+      })
+
+      return {
+        ...state,
+        allElements: newElements,
+      }
     },
     updateElement: (
       state,
@@ -264,7 +275,7 @@ export const {
   moveElement,
   setRendererState,
   removeElement,
-  addElement,
+  appendChildToParent,
   updateElement,
   duplicateElement,
   selectMultipleElement,

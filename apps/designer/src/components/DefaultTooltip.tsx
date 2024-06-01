@@ -21,7 +21,7 @@ export default function DefaultTooltip({
     <>
       <TooltipProvider>
         <Tooltip>
-          <TooltipTrigger>{children}</TooltipTrigger>
+          <TooltipTrigger asChild>{children}</TooltipTrigger>
           <TooltipContent
             side={side || 'top'}
             className={cn('bg-accent text-white text-center', className)}

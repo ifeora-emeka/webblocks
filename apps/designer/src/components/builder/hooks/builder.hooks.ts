@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux'
 import { DndElementData } from '@repo/designer/types/designer.types'
 import {
-  addElement,
+  appendChildToParent,
   duplicateElement,
   groupElements,
   moveElement,
@@ -15,14 +15,13 @@ import {
 export const useBuilder = () => {
   const dispatch = useDispatch()
 
-  const addElementToPage = ({
-    element,
-    position,
+  const appendChildToParentElement = ({
+   parent_id,
+    newChild
   }: {
-    element: DndElementData
-    position: 'up' | 'down'
+    parent_id:string, newChild: DndElementData
   }) => {
-    dispatch(addElement({ element, position }))
+    dispatch(appendChildToParent({ parent_id, newChild }))
   }
 
   const removeElementFromPage = ({ dnd_ids }: { dnd_ids: string[] }) => {
@@ -96,7 +95,7 @@ export const useBuilder = () => {
   }
 
   return {
-    addElementToPage,
+    appendChildToParentElement,
     removeElementFromPage,
     changeElementPosition,
     updateElementData,

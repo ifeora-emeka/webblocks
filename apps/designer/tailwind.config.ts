@@ -1,6 +1,6 @@
 import type { Config } from 'tailwindcss'
 import {
-  BUILDER_DEFAULT_SPACING,
+  BUILDER_DEFAULT_SPACING, BUILDER_DEFAULT_SPACING_LG,
   BUILDER_NAV_SIZE,
 } from './src/components/builder/builder.constants'
 
@@ -25,6 +25,7 @@ const config = {
       spacing: {
         builder_nav_size: BUILDER_NAV_SIZE,
         default_spacing: BUILDER_DEFAULT_SPACING,
+        default_spacing_lg: BUILDER_DEFAULT_SPACING_LG,
       },
       colors: {
         success: '#4E8054',

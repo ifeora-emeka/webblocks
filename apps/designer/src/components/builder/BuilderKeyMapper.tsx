@@ -26,7 +26,7 @@ function BuilderKeyMapper({ builderHook, rendererState }: Props) {
           }
           break
         case 'ArrowUp':
-          if (event.altKey && active_element && active_element.length === 1) {
+          if (event.ctrlKey && active_element && active_element.length === 1) {
             event.preventDefault()
             changeElementPosition({
               element_id: active_element[0].dnd_id,
@@ -35,7 +35,7 @@ function BuilderKeyMapper({ builderHook, rendererState }: Props) {
           }
           break
         case 'ArrowDown':
-          if (event.altKey && active_element && active_element.length === 1) {
+          if (event.ctrlKey && active_element && active_element.length === 1) {
             event.preventDefault()
             changeElementPosition({
               element_id: active_element[0].dnd_id,

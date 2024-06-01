@@ -1,12 +1,13 @@
 import { Box } from '@chakra-ui/react'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
-import { TbArrowDown, TbArrowUp, TbCopy, TbTrash } from 'react-icons/tb'
+import { TbArrowDown, TbArrowUp, TbChevronDown, TbChevronRight, TbCopy, TbPlus, TbTrash } from 'react-icons/tb'
 import React from 'react'
 import { DndElementData } from '@repo/designer/types/designer.types'
 import { useBuilder } from '../../hooks/builder.hooks'
 import { useSelector } from 'react-redux'
 import { AppStore } from '@/redux/store'
+import ElementMenu from '@/components/builder/renderer/element-render/ElementMenu'
 
 export default function ElementToolbar({
   element,
@@ -38,10 +39,10 @@ export default function ElementToolbar({
     <Box
       opacity={1}
       className={cn(
-        'element_toolbox bg-card absolute p-2 rounded-md shadow-xl border z-50 min-w-[200px] min-h-10 border-border text-muted-foreground flex items-center gap-default_spacing justify-between opacity-100 hover:opacity-100 ',
+        'element_toolbox bg-card absolute p-2 rounded-md shadow-xl border z-50 min-w-[200px] min-h-10 border-border text-muted-foreground flex items-center gap-default_spacing_lg justify-between opacity-100 hover:opacity-100 ',
         {
           'top-5 right-5': !parentID,
-          '-top-28 left-0': parentID,
+          '-top-20 left-0': parentID,
         },
       )}
       onClick={(e) => {
@@ -54,11 +55,6 @@ export default function ElementToolbar({
         </Button>
       </div>
       <div className={'flex items-center gap-1'}>
-        <Button variant="outline" size="icon" onClick={remove}>
-          <TbCopy className="h-4 w-4" />
-        </Button>
-      </div>
-      <div className={'flex items-center gap-1'}>
         <Button variant="outline" size="icon" onClick={() => move('down')}>
           <TbArrowDown className="h-4 w-4" />
         </Button>
@@ -66,6 +62,17 @@ export default function ElementToolbar({
           <TbArrowUp className="h-4 w-4" />
         </Button>
       </div>
+
+      <div className={'flex items-center gap-1'}>
+        <Button variant="outline" size="icon" onClick={remove}>
+          <TbCopy className="h-4 w-4" />
+        </Button>
+        <ElementMenu onOpenChange={() => {}} element={element}>
+          <Button variant="outline" size="icon">
+            <TbChevronDown className="h-4 w-4" />
+          </Button>
+        </ElementMenu>
+      </div>
     </Box>
-  )
+)
 }

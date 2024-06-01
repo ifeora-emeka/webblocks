@@ -4,35 +4,15 @@ import { PiRowsFill } from 'react-icons/pi'
 import {
   TbCaretDownFilled,
   TbDots,
-  TbTrash,
-  TbEyeClosed,
-  TbBracketsContain,
-  TbLock,
   TbCaretRightFilled,
-  TbCopy,
-  TbPlus,
-  TbFrame,
-  TbPhoto,
-  TbHeading,
-  TbTextSize,
 } from 'react-icons/tb'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuPortal,
-  DropdownMenuSeparator,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
 import { DndElementData } from '@repo/designer/types/designer.types'
 import { DebounceInput } from 'react-debounce-input'
 import slugify from 'slugify'
 import withRenderer, {
   WithRendererProps,
 } from '@/components/builder/HOCs/WithRenderer'
+import ElementMenu from '@/components/builder/renderer/element-render/ElementMenu'
 
 type Props = {
   element: DndElementData
@@ -128,61 +108,16 @@ function EachOutline({ children, element, rendererState, builderHook }: Props) {
         )}
 
         {!isRoot && (
-          <DropdownMenu onOpenChange={setMenuOpen}>
-            <DropdownMenuTrigger className={'py-0'}>
-              <span
-                className={cn('opacity-0 hidden group-hover:block', {
-                  'group-hover:opacity-100': !isActive,
-                  'opacity-100 block': isActive || menuOpen,
-                })}
-              >
+          <ElementMenu onOpenChange={setMenuOpen} element={element}>
+            <span
+              className={cn('opacity-0 hidden group-hover:block', {
+                'group-hover:opacity-100': !isActive,
+                'opacity-100 block': isActive || menuOpen,
+              })}
+            >
                 <TbDots size={18} />
               </span>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="dark bg-card">
-              <DropdownMenuSub>
-                <DropdownMenuSubTrigger className="gap-default_spacing">
-                  <TbPlus /> Add element
-                </DropdownMenuSubTrigger>
-                <DropdownMenuPortal>
-                  <DropdownMenuSubContent
-                    className={'dark bg-card text-card-foreground'}
-                  >
-                    <DropdownMenuItem className="gap-default_spacing">
-                      <TbHeading /> Heading
-                    </DropdownMenuItem>
-                    <DropdownMenuItem className="gap-default_spacing">
-                      <TbTextSize /> Paragraph
-                    </DropdownMenuItem>
-                    <DropdownMenuItem className="gap-default_spacing">
-                      <TbFrame /> Frame
-                    </DropdownMenuItem>
-                    <DropdownMenuItem className="gap-default_spacing">
-                      <TbPhoto /> Image
-                    </DropdownMenuItem>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem>More...</DropdownMenuItem>
-                  </DropdownMenuSubContent>
-                </DropdownMenuPortal>
-              </DropdownMenuSub>
-              <DropdownMenuItem className="gap-default_spacing">
-                <TbEyeClosed /> Hide
-              </DropdownMenuItem>
-              <DropdownMenuItem className="gap-default_spacing">
-                <TbCopy /> Duplicate
-              </DropdownMenuItem>
-              <DropdownMenuItem className="gap-default_spacing">
-                <TbBracketsContain /> Group
-              </DropdownMenuItem>
-              <DropdownMenuItem className="gap-default_spacing">
-                <TbLock /> Lock
-              </DropdownMenuItem>
-              <DropdownMenuSeparator className="bg-white/20" />
-              <DropdownMenuItem className="gap-default_spacing">
-                <TbTrash /> Delete
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          </ElementMenu>
         )}
       </div>
       {showChildren && (
