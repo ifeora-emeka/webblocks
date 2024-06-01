@@ -64,15 +64,15 @@ export const rendererSlice = createSlice({
     removeElement: (state, action: PayloadAction<string[]>) => {
       //todo: delete it's children as well
       let newElements: DndElementData[] = []
-        state.allElements.map((el: DndElementData) => {
-        if(!action.payload.includes(el.dnd_id)) {
+      state.allElements.map((el: DndElementData) => {
+        if (!action.payload.includes(el.dnd_id)) {
           newElements.push(el)
         }
-      });
+      })
 
       return {
         ...state,
-        allElements: newElements
+        allElements: newElements,
       }
     },
     moveElement: (
@@ -112,7 +112,6 @@ export const rendererSlice = createSlice({
       state,
       action: PayloadAction<{ element_id: string; update: DndElementData }>,
     ) => {
-
       const { element_id, update } = action.payload
       const elementIndex = state.allElements.findIndex(
         (element) => element.dnd_id === element_id,
@@ -186,37 +185,36 @@ export const rendererSlice = createSlice({
       state,
       action: PayloadAction<{ element: DndElementData }>,
     ) => {
-      let allIDs = state.active_element.map((el: DndElementData) => el.dnd_id);
+      let allIDs = state.active_element.map((el: DndElementData) => el.dnd_id)
       let alreadyAdded = allIDs.includes(action.payload.element.dnd_id)
 
-      if(alreadyAdded) {
+      if (alreadyAdded) {
         return {
           ...state,
-          active_element: state.active_element.filter((el: DndElementData) => el.dnd_id !== action.payload.element.dnd_id)
+          active_element: state.active_element.filter(
+            (el: DndElementData) => el.dnd_id !== action.payload.element.dnd_id,
+          ),
         }
-      }else {
+      } else {
         return {
           ...state,
-          active_element: [
-            ...state.active_element,
-            action.payload.element
-          ],
+          active_element: [...state.active_element, action.payload.element],
         }
       }
     },
     groupElements: (state) => {
       if (state.active_element.length === 0) {
-        return state;
+        return state
       }
 
-      const newFrameID = generateRandomId(13);
+      const newFrameID = generateRandomId(13)
       const newFrameElement = staticFrameElement({
-        index: Math.min(...state.active_element.map(el => el.index)),
+        index: Math.min(...state.active_element.map((el) => el.index)),
         parent_id: state.active_element[0].element_data.parent_element_id,
-      });
+      })
 
-      newFrameElement.dnd_id = newFrameID;
-      newFrameElement.element_data.element_id = newFrameID;
+      newFrameElement.dnd_id = newFrameID
+      newFrameElement.element_data.element_id = newFrameID
 
       const newAllElements = state.allElements.map((el) => {
         if (state.active_element.some((ae) => ae.dnd_id === el.dnd_id)) {
@@ -227,7 +225,7 @@ export const rendererSlice = createSlice({
               ...el.element_data,
               parent_element_id: newFrameID,
             },
-          };
+          }
         } else if (el.index >= newFrameElement.index) {
           return {
             ...el,
@@ -236,13 +234,13 @@ export const rendererSlice = createSlice({
               ...el.element_data,
               index: el.index + 1,
             },
-          };
+          }
         } else {
-          return el;
+          return el
         }
-      });
+      })
 
-      newAllElements.push(newFrameElement as any);
+      newAllElements.push(newFrameElement as any)
 
       const newActiveElements = state.active_element.map((el, idx) => ({
         ...el,
@@ -251,14 +249,14 @@ export const rendererSlice = createSlice({
           ...el.element_data,
           index: idx,
         },
-      }));
+      }))
 
       return {
         ...state,
         allElements: newAllElements,
         active_element: [newFrameElement, ...newActiveElements],
-      };
-    }
+      }
+    },
   },
 })
 
@@ -270,7 +268,7 @@ export const {
   updateElement,
   duplicateElement,
   selectMultipleElement,
-  groupElements
+  groupElements,
 } = rendererSlice.actions
 
 export default rendererSlice.reducer

@@ -29,7 +29,7 @@ export const staticHeadingElement = (
         fontWeight: 'bold',
       },
       style: {},
-      name: 'Heading element ' + headings.length,
+      name: 'Heading ' + headings.length,
       slug: 'heading',
       description: '',
       can_delete: true,

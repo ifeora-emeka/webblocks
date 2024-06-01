@@ -46,14 +46,13 @@ function BuilderOutlineOptions({ rendererState }: Props) {
 
     return (
       <EachOutline key={element.dnd_id} element={element}>
-        {
-          element.children_dnd_element_data.length > 0 ?
-        <>
-          {element.children_dnd_element_data.map((child) =>
-            renderOutline(child),
-          )}
-        </>: null
-        }
+        {element.children_dnd_element_data.length > 0 ? (
+          <>
+            {element.children_dnd_element_data.map((child) =>
+              renderOutline(child),
+            )}
+          </>
+        ) : null}
       </EachOutline>
     )
   }

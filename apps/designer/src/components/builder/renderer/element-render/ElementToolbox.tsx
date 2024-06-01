@@ -14,8 +14,8 @@ export default function ElementToolbar({
   element: DndElementData
 }) {
   const { changeElementPosition, removeElementFromPage } = useBuilder()
-  let parentID = element.parent_dnd_id;
-  const { active_element } = useSelector((state:AppStore) => state.renderer);
+  let parentID = element.parent_dnd_id
+  const { active_element } = useSelector((state: AppStore) => state.renderer)
 
   const move = (direction: 'up' | 'down') => {
     changeElementPosition({
@@ -30,8 +30,8 @@ export default function ElementToolbar({
     })
   }
 
-  if(active_element?.length > 1){
-    return null;
+  if (active_element?.length > 1) {
+    return null
   }
 
   return (

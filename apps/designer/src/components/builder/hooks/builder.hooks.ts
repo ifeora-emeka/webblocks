@@ -2,10 +2,12 @@ import { useDispatch } from 'react-redux'
 import { DndElementData } from '@repo/designer/types/designer.types'
 import {
   addElement,
-  duplicateElement, groupElements,
+  duplicateElement,
+  groupElements,
   moveElement,
   removeElement,
-  RendererState, selectMultipleElement,
+  RendererState,
+  selectMultipleElement,
   setRendererState,
   updateElement,
 } from '@/redux/features/renderer/renderer.slice'
@@ -72,20 +74,26 @@ export const useBuilder = () => {
   const selectOneElementData = ({ element }: { element: DndElementData }) => {
     dispatch(
       setRendererState({
-        active_element: [element]
+        active_element: [element],
       }),
     )
   }
 
-  const selectMultipleElementData = ({ element }: { element: DndElementData }) => {
-    dispatch(selectMultipleElement({
-      element
-    }))
-  };
+  const selectMultipleElementData = ({
+    element,
+  }: {
+    element: DndElementData
+  }) => {
+    dispatch(
+      selectMultipleElement({
+        element,
+      }),
+    )
+  }
 
   const groupSelectedElementData = () => {
     dispatch(groupElements())
-  };
+  }
 
   return {
     addElementToPage,
@@ -96,6 +104,6 @@ export const useBuilder = () => {
     duplicateElementData,
     selectOneElementData,
     selectMultipleElementData,
-    groupSelectedElementData
+    groupSelectedElementData,
   }
 }

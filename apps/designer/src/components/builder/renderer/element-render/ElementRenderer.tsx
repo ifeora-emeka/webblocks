@@ -40,7 +40,9 @@ const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
     })
   }
 
-  const isActive = active_element.map(el => el.dnd_id).includes(element.dnd_id);
+  const isActive = active_element
+    .map((el) => el.dnd_id)
+    .includes(element.dnd_id)
 
   let theParent =
     allElements.find((el) => el.dnd_id === element.parent_dnd_id) || null
@@ -79,22 +81,22 @@ const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
         })
       }
     }
-  };
+  }
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    e.stopPropagation();
+    e.stopPropagation()
     if (e.altKey) {
-        selectMultipleElementData({
-          element: element,
-        });
+      selectMultipleElementData({
+        element: element,
+      })
     } else {
       dispatch(
         setRendererState({
           active_element: [element],
-        })
-      );
+        }),
+      )
     }
-  };
+  }
 
   const debouncedHandleInput = useCallback(debounce(handleInput, 700), [
     element,
@@ -157,4 +159,3 @@ const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
 }
 
 export default ElementRenderer
-

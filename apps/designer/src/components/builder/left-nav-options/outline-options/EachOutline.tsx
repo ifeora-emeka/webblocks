@@ -10,12 +10,21 @@ import {
   TbLock,
   TbCaretRightFilled,
   TbCopy,
+  TbPlus,
+  TbFrame,
+  TbPhoto,
+  TbHeading,
+  TbTextSize,
 } from 'react-icons/tb'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuPortal,
   DropdownMenuSeparator,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { DndElementData } from '@repo/designer/types/designer.types'
@@ -43,7 +52,7 @@ function EachOutline({ children, element, rendererState, builderHook }: Props) {
     (x: DndElementData) => x.dnd_id === element.dnd_id,
   )
   const isActive: boolean =
-    targetElement?.length > 0 && targetElement[0]?.dnd_id === element.dnd_id;
+    targetElement?.length > 0 && targetElement[0]?.dnd_id === element.dnd_id
   const [edit, setEdit] = useState(false)
   const [name, setName] = useState('')
 
@@ -131,6 +140,31 @@ function EachOutline({ children, element, rendererState, builderHook }: Props) {
               </span>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="dark bg-card">
+              <DropdownMenuSub>
+                <DropdownMenuSubTrigger className="gap-default_spacing">
+                  <TbPlus /> Add element
+                </DropdownMenuSubTrigger>
+                <DropdownMenuPortal>
+                  <DropdownMenuSubContent
+                    className={'dark bg-card text-card-foreground'}
+                  >
+                    <DropdownMenuItem className="gap-default_spacing">
+                      <TbHeading /> Heading
+                    </DropdownMenuItem>
+                    <DropdownMenuItem className="gap-default_spacing">
+                      <TbTextSize /> Paragraph
+                    </DropdownMenuItem>
+                    <DropdownMenuItem className="gap-default_spacing">
+                      <TbFrame /> Frame
+                    </DropdownMenuItem>
+                    <DropdownMenuItem className="gap-default_spacing">
+                      <TbPhoto /> Image
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem>More...</DropdownMenuItem>
+                  </DropdownMenuSubContent>
+                </DropdownMenuPortal>
+              </DropdownMenuSub>
               <DropdownMenuItem className="gap-default_spacing">
                 <TbEyeClosed /> Hide
               </DropdownMenuItem>

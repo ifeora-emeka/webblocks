@@ -6,8 +6,12 @@ import withRenderer, {
 type Props = {} & WithRendererProps
 
 function BuilderKeyMapper({ builderHook, rendererState }: Props) {
-  const { removeElementFromPage, changeElementPosition, duplicateElementData, groupSelectedElementData } =
-    builderHook;
+  const {
+    removeElementFromPage,
+    changeElementPosition,
+    duplicateElementData,
+    groupSelectedElementData,
+  } = builderHook
   const { active_element } = rendererState
 
   const initializeHotkeys = () => {
@@ -16,7 +20,9 @@ function BuilderKeyMapper({ builderHook, rendererState }: Props) {
         case 'Delete':
           if (active_element) {
             event.preventDefault()
-            removeElementFromPage({ dnd_ids: active_element.map(el => el.dnd_id) })
+            removeElementFromPage({
+              dnd_ids: active_element.map((el) => el.dnd_id),
+            })
           }
           break
         case 'ArrowUp':
@@ -43,14 +49,13 @@ function BuilderKeyMapper({ builderHook, rendererState }: Props) {
             duplicateElementData({ element_id: active_element[0].dnd_id })
           }
           break
-         case 'g':
+        case 'g':
           if (event.ctrlKey && active_element.length > 1) {
-            event.preventDefault();
+            event.preventDefault()
             console.log('SHORT CUT WORKED::')
-            groupSelectedElementData();
+            groupSelectedElementData()
           }
           break
-
       }
     }
 

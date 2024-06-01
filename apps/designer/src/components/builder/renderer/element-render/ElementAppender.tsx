@@ -7,23 +7,22 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { AppStore } from '@/redux/store'
 
-
-function ElementAppender ({
-                           orientation,
-                           position,
-                           parent_element,
-                           element,
-                         }: {
+function ElementAppender({
+  orientation,
+  position,
+  parent_element,
+  element,
+}: {
   orientation: 'horizontal' | 'vertical'
   position: 'up' | 'down'
   parent_element: DndElementData | null
   element: DndElementData
-})  {
-  const { addElementToPage } = useBuilder();
-  const { active_element } = useSelector((state: AppStore) => state.renderer);
+}) {
+  const { addElementToPage } = useBuilder()
+  const { active_element } = useSelector((state: AppStore) => state.renderer)
 
-  if(active_element.length > 1) {
-    return null;
+  if (active_element.length > 1) {
+    return null
   }
 
   const addElement = () => {
@@ -45,9 +44,9 @@ function ElementAppender ({
         className={cn(
           'absolute hover:bg-primary rounded-full bg-primary text-white shadow-lg max-h-8 min-h-8 min-w-8 max-w-8 flex justify-center items-center z-50',
           {
-            'left-1/2 transform-x-1/2 -top-10':
+            'left-1/2 -transform-x-1/2 -top-10':
               orientation === 'vertical' && position === 'up',
-            'left-1/2 transform-x-1/2 -bottom-10':
+            'left-1/2 -transform-x-1/2 -bottom-10':
               orientation === 'vertical' && position === 'down',
             '': orientation === 'horizontal' && position === 'up',
             '': orientation === 'horizontal' && position === 'down',
@@ -61,4 +60,4 @@ function ElementAppender ({
   )
 }
 
-export default ElementAppender;
+export default ElementAppender

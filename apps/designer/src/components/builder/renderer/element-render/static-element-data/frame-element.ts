@@ -18,12 +18,11 @@ export const staticFrameElement = (
       element_id: id,
       index: data.index,
       parent_element_id: data.parent_id,
-      attributes: {
-      },
+      attributes: {},
       html_tag: 'div',
       chakraProps: {
-        minH: "20px",
-        bg: DEFAULT_FRAME_COLOR
+        minH: '20px',
+        bg: DEFAULT_FRAME_COLOR,
       },
       style: {},
       name: 'Frame',
