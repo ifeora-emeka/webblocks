@@ -1,5 +1,10 @@
 import React, { CSSProperties } from "react";
-import { BoxProps } from "@chakra-ui/react";
+import { ChakraProps } from "@chakra-ui/react";
+import { ElementBreakpoint } from "../../../apps/designer/src/components/builder/types/element-style.types";
+
+export type ResponsiveChakraProps = {
+  [key: string]: ElementBreakpoint;
+};
 
 export interface DesignerPageMetadata {
   title: string;
@@ -36,7 +41,7 @@ export interface DesignerElementDataDTO {
   style?: CSSProperties;
   attributes: AttributeData;
   // children?: Array<DesignerElementData | string>;
-  chakraProps: BoxProps;
+  chakraProps: ResponsiveChakraProps;
   can_delete?: boolean;
 }
 
@@ -79,3 +84,5 @@ export type DraggableElement =
   | "grid"
   | "row"
   | "column";
+
+export type BuilderBreakpoints = 'md' | 'base' | 'sm' | 'lg' | '2xl' | 'xl'
