@@ -112,18 +112,46 @@ export const rendererSlice = createSlice({
       })
     },
     removeElement: (state, action: PayloadAction<string[]>) => {
-      //todo: delete it's children as well
-      let newElements: DndElementData[] = []
-      state.allElements.map((el: DndElementData) => {
-        if (!action.payload.includes(el.dnd_id)) {
-          newElements.push(el)
-        }
-      })
+      let IDs = action.payload;
+
+      const rootIDs = IDs.filter(id => id.includes("-root__"));
+      if (rootIDs.length > 0) {
+        // Remove root ID from the list
+        IDs = IDs.filter(id => !id.includes("-root__"));
+      }
+
+      const removeElementAndChildren = (elements: DndElementData[], idsToRemove: string[]) => {
+        let newElements: DndElementData[] = [];
+
+        const findAllChildren = (id: string) => {
+          return elements
+            .filter(el => el.parent_dnd_id === id)
+            .map(child => child.dnd_id);
+        };
+
+        const recursiveRemove = (id: string) => {
+          const children = findAllChildren(id);
+          children.forEach(childId => recursiveRemove(childId));
+          idsToRemove.push(id);
+        };
+
+        idsToRemove.forEach(id => recursiveRemove(id));
+
+        elements.forEach(el => {
+          if (!idsToRemove.includes(el.dnd_id)) {
+            newElements.push(el);
+          }
+        });
+
+        return newElements;
+      };
+
+      let newElements = removeElementAndChildren(state.allElements, [...IDs]);
 
       return {
         ...state,
         allElements: newElements,
-      }
+      };
     },
     updateElement: (
       state,

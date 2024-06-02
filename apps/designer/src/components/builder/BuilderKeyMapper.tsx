@@ -18,7 +18,7 @@ function BuilderKeyMapper({ builderHook, rendererState }: Props) {
     const handleKeyDown = (event: KeyboardEvent) => {
       switch (event.key) {
         case 'Delete':
-          if (active_element) {
+          if (active_element && event.ctrlKey) {
             event.preventDefault()
             removeElementFromPage({
               dnd_ids: active_element.map((el) => el.dnd_id),

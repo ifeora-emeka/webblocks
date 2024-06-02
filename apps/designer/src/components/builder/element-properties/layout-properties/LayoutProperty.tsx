@@ -5,8 +5,23 @@ import {
 } from '@/components/ui/accordion'
 import DefaultBtnTab from '@/components/DefaultBtnTab'
 import FlexDisplayProperties from '@/components/builder/element-properties/layout-properties/FlexDisplayProperties'
+import EachPropertyLayout from '@/components/builder/element-properties/EachPropertyLayout'
+import GridDisplayProperties from '@/components/builder/element-properties/layout-properties/GridDisplayProperties'
+import { Input } from '@/components/ui/input'
+import { TbSquare } from 'react-icons/tb'
+import withRenderer, { WithRendererProps } from '@/components/builder/HOCs/WithRenderer'
 
-export default function LayoutProperty() {
+type Props = {
+
+} & WithRendererProps;
+
+function LayoutProperty({ builderHook, rendererState }:Props) {
+  const { updateElementChakraStyleData } = builderHook;
+  const { active_element } = rendererState;
+  const { chakraProps } = active_element[0]?.element_data;
+
+
+
   return (
     <>
       <AccordionItem value="layout">
@@ -17,14 +32,13 @@ export default function LayoutProperty() {
           <div
             className={'p-default_spacing flex flex-col gap-default_spacing'}
           >
-            <div className={'flex flex-col gap-default_spacing'}>
-              <small>Display</small>
+            <EachPropertyLayout label={'Display'}>
               <DefaultBtnTab
-                value={'flex'}
+                value={'stack'}
                 data={[
                   {
-                    value: 'block',
-                    label: 'Block',
+                    value: 'stack',
+                    label: 'Stack',
                     tooltip: (
                       <p>
                         Display block: This stacks <br /> element on top each
@@ -33,28 +47,43 @@ export default function LayoutProperty() {
                     ),
                   },
                   {
-                    value: 'flex',
-                    label: 'Flex',
-                    tooltip: '',
-                  },
-                  {
                     value: 'grid',
                     label: 'Grid',
                     tooltip: '',
-                  },
-                  {
-                    value: 'none',
-                    label: 'None',
-                    tooltip: '',
-                  },
+                  }
                 ]}
                 onChange={(e) => {}}
               />
-            </div>
+            </EachPropertyLayout>
             <FlexDisplayProperties />
+            <EachPropertyLayout label={'Padding'}>
+              <div className={'flex items-center gap-1 justify-between'}>
+                <Input type={'number'} className={'bg-background text-card-foreground w-12'} />
+                <DefaultBtnTab
+                  className={'flex-1'}
+                  value={'single'}
+                  data={[
+                    {
+                      value: 'single',
+                      label: <TbSquare size={16} />,
+                      tooltip: <p>Row: This will stack element horizontally</p>,
+                    },
+                    {
+                      value: 'multiple',
+                      label: <TbSquare size={16} />,
+                      tooltip: <p>Colum: This will stack element vertically</p>,
+                    },
+                  ]}
+                  onChange={(e) => {}}
+                />
+              </div>
+            </EachPropertyLayout>
+            <GridDisplayProperties />
           </div>
         </AccordionContent>
       </AccordionItem>
     </>
   )
 }
+
+export default withRenderer(LayoutProperty);

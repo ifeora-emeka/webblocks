@@ -56,9 +56,9 @@ const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
       const newText = childRef.current.innerText
       let elementInnerText = element.element_data?.attributes?.innerText
 
-      elementInnerText === undefined
-        ? (elementInnerText = ' ')
-        : elementInnerText
+      // elementInnerText === undefined
+      //   ? (elementInnerText = ' ')
+      //   : elementInnerText
 
       updateElementData({
         element_id: element.dnd_id,
@@ -119,11 +119,11 @@ const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
           active_element.length === 1 &&
           editInnerText
         }
-        // ref={childRef}
-        // onInput={debouncedHandleInput}
-        // suppressContentEditableWarning={true}
-        // autoFocus
-        // {...attributes}
+        ref={childRef}
+        onInput={debouncedHandleInput}
+        suppressContentEditableWarning={true}
+        autoFocus
+        {...attributes}
         ds-index={element.index}
         ds-id={element.dnd_id}
         as={html_tag}
