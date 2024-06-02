@@ -1,3 +1,4 @@
+import { generateStaticBreakpoints } from '@/lib/designer.utils'
 import { StaticElementParams } from './static-element.types'
 import { DndElementData } from '@repo/designer/types/designer.types'
 
@@ -18,16 +19,16 @@ export const defaultRootElement = (
       attributes: {},
       html_tag: 'div',
       chakraProps: {
-        minH: '90vh',
+        minH: generateStaticBreakpoints('90vh'),
         // bg: '#ffff',
-        px: '60px',
-        py: '220px',
-        bg: 'url(https://img.freepik.com/premium-photo/soft-blur-nature-background-abstract-modern-website-graphics-with-smooth-gradient-background_532332-40.jpg)',
+        px: generateStaticBreakpoints('60px'),
+        py: generateStaticBreakpoints('220px'),
+        bg: generateStaticBreakpoints('url(https://img.freepik.com/premium-photo/soft-blur-nature-background-abstract-modern-website-graphics-with-smooth-gradient-background_532332-40.jpg)'),
         // bg: 'url(https://img.freepik.com/free-vector/beautiful-summer-gradient-background-blue-yellow_53876-120751.jpg?size=626&ext=jpg&ga=GA1.1.2082370165.1716768000&semt=ais_user)',
-        bgPosition: 'center',
-        bgSize: 'cover',
-        display: 'flex',
-        flexDirection: 'column',
+        bgPosition: generateStaticBreakpoints('center'),
+        bgSize: generateStaticBreakpoints('cover'),
+        display: generateStaticBreakpoints('flex'),
+        flexFlow: generateStaticBreakpoints('column'),
       },
       style: {},
       name: '_root_',

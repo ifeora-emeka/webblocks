@@ -1,15 +1,17 @@
+import { generateStaticBreakpoints } from '@/lib/designer.utils'
 import { ChakraProps } from '@chakra-ui/react'
+import { ResponsiveChakraProps } from '@repo/designer/types/designer.types'
 
-export const staticFrameChakraStyle: ChakraProps = {
+export const staticFrameChakraStyle: ResponsiveChakraProps = {
   // overflow: 'hidden',
-  gap: 6,
-  padding: '0px',
-  margin: '0px',
-  position: 'relative',
-  minWidth: 'auto',
-  maxWidth: 'auto',
-  minHeight: 'auto',
-  maxHeight: 'auto',
-  display: 'flex',
-  flexFlow: 'column'
+  gap: generateStaticBreakpoints('6'),
+  padding: generateStaticBreakpoints('0px'),
+  margin: generateStaticBreakpoints('0px'),
+  position: generateStaticBreakpoints('relative'),
+  minWidth: generateStaticBreakpoints('auto'),
+  maxWidth: generateStaticBreakpoints('auto'),
+  minHeight: generateStaticBreakpoints('auto'),
+  maxHeight: generateStaticBreakpoints('auto'),
+  display: generateStaticBreakpoints('flex'),
+  flexFlow: generateStaticBreakpoints('column')
 }

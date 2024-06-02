@@ -4,7 +4,7 @@ import { DesignerLeftPanel } from '@repo/designer/types/designer.types'
 
 export interface BuilderState {
   activeProject: number
-  activeLeftPanel: DesignerLeftPanel
+  activeLeftPanel: DesignerLeftPanel;
 }
 
 const initialState: BuilderState = {

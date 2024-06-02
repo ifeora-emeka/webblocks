@@ -1,17 +1,52 @@
 import DefaultBtnTab from '@/components/DefaultBtnTab'
-import { TbArrowDown, TbArrowRight, TbSquare } from 'react-icons/tb'
+import { TbArrowDown, TbArrowRight } from 'react-icons/tb'
 import EachPropertyLayout from '@/components/builder/element-properties/EachPropertyLayout'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Slider } from '@/components/ui/slider'
 import { Input } from '@/components/ui/input'
 import { PiAlignCenterHorizontalSimpleFill, PiAlignRightSimpleFill, PiAlignTopSimpleFill } from 'react-icons/pi'
+import withRenderer, { WithRendererProps } from '../../HOCs/WithRenderer'
+import { useEffect, useState } from 'react'
+import { ResponsiveValue } from '@chakra-ui/react'
+import { ElementBreakpoint } from '../../types/element-style.types'
+import {  } from '@chakra-ui/next-js'
 
-export default function FlexDisplayProperties() {
+type Props = {
+
+} & WithRendererProps;
+
+
+type DirectionValue = 'row' | 'column';
+
+function FlexDisplayProperties({ builderHook, rendererState }:Props) {
+  const { updateElementChakraStyleData } = builderHook;
+  const { active_element, activeBreakpoint } = rendererState;
+  const activeElement = active_element[0];
+  const { chakraProps } = active_element[0]?.element_data;
+
+  const [direction, setDirection] = useState<ElementBreakpoint>(chakraProps.flexFlow as ElementBreakpoint);
+
+  console.log('DIRECTION::', direction)
+
+  useEffect(() => {
+    updateElementChakraStyleData({
+      element_id: activeElement.element_data.element_id,
+      newChakraStyle: {
+        //@ts-ignore
+        direction: direction,
+      }
+    })
+  }, [direction])
+
+  useEffect(() => {
+
+  },[rendererState])
+
   return (
     <>
       <EachPropertyLayout label={'Direction'}>
         <DefaultBtnTab
-          value={'row'}
+          value={direction[activeBreakpoint]}
           data={[
             {
               value: 'row',
@@ -24,7 +59,7 @@ export default function FlexDisplayProperties() {
               tooltip: <p>Colum: This will stack element vertically</p>,
             },
           ]}
-          onChange={(e) => {}}
+          onChange={(e) => {console.log(e)}}
         />
       </EachPropertyLayout>
       <EachPropertyLayout label={'Distribution'}>
@@ -93,3 +128,5 @@ export default function FlexDisplayProperties() {
     </>
 )
 }
+
+export default withRenderer(FlexDisplayProperties);

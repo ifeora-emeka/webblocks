@@ -17,10 +17,10 @@ type Props = {
 
 function LayoutProperty({ builderHook, rendererState }:Props) {
   const { updateElementChakraStyleData } = builderHook;
-  const { active_element } = rendererState;
+  const { active_element, activeBreakpoint } = rendererState;
   const { chakraProps } = active_element[0]?.element_data;
 
-
+  const display = chakraProps.display;
 
   return (
     <>
@@ -34,10 +34,10 @@ function LayoutProperty({ builderHook, rendererState }:Props) {
           >
             <EachPropertyLayout label={'Display'}>
               <DefaultBtnTab
-                value={'stack'}
+                value={display[activeBreakpoint]}
                 data={[
                   {
-                    value: 'stack',
+                    value: 'flex',
                     label: 'Stack',
                     tooltip: (
                       <p>

@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import { DndElementData } from '@repo/designer/types/designer.types'
+import { BuilderBreakpoints, DndElementData } from '@repo/designer/types/designer.types'
 import slugify from 'slugify'
 import { generateRandomId } from '@/lib/utils'
 import { staticFrameElement } from '@/components/builder/renderer/element-render/static-element-data/frame-element'
@@ -9,11 +9,13 @@ import { ChakraProps } from '@chakra-ui/react'
 export interface RendererState {
   allElements: DndElementData[]
   active_element: DndElementData[]
+  activeBreakpoint: BuilderBreakpoints;
 }
 
 const initialState: RendererState = {
   allElements: [],
   active_element: [],
+  activeBreakpoint: 'lg'
 }
 
 export const rendererSlice = createSlice({
