@@ -18,7 +18,7 @@ export interface RendererState {
 const initialState: RendererState = {
   allElements: [],
   active_element: [],
-  activeBreakpoint: 'lg',
+  activeBreakpoint: 'xl',
 }
 
 export const rendererSlice = createSlice({

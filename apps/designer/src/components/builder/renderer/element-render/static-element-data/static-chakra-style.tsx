@@ -37,4 +37,7 @@ export const staticFrameChakraStyle: ResponsiveChakraProps = {
   placeContent: generateStaticBreakpoints('center'),
   alignItems: generateStaticBreakpoints('center'),
   flexWrap: generateStaticBreakpoints('nowrap'),
+
+  //border
+  borderRadius: generateStaticBreakpoints('0px 0px 0px 0px'),
 }
