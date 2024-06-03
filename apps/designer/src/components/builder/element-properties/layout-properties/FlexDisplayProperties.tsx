@@ -31,34 +31,32 @@ function FlexDisplayProperties({ builderHook, rendererState }: Props) {
   const activeElement = active_element[0]
   const { chakraProps } = active_element[0]?.element_data
 
-  const [styleUpdate, setStyleUpdate] = useState(chakraProps);
-  const { gap, placeContent, flexFlow  } = styleUpdate;
+  const [styleUpdate, setStyleUpdate] = useState(chakraProps)
+  const { gap, placeContent, flexFlow, alignItems, flexWrap } = styleUpdate
 
   const updateStyle = (newStyle: ResponsiveChakraProps) => {
-    setStyleUpdate(prev => ({
+    setStyleUpdate((prev) => ({
       ...prev,
-      ...newStyle
+      ...newStyle,
     }))
   }
 
   const debouncedSetGap = debounce((newGap: ElementBreakpoint) => {
     updateStyle({
-      gap: newGap
+      gap: newGap,
     })
-  }, 300);
+  }, 300)
 
   useEffect(() => {
     updateElementChakraStyleData({
       element_id: activeElement.element_data.element_id,
-      newChakraStyle: styleUpdate
+      newChakraStyle: styleUpdate,
     })
   }, [styleUpdate])
 
   useEffect(() => {
     setStyleUpdate(chakraProps)
   }, [chakraProps])
-
-  console.log('GAP VALUE::', parseInt(gap[activeBreakpoint]))
 
   return (
     <>
@@ -82,7 +80,7 @@ function FlexDisplayProperties({ builderHook, rendererState }: Props) {
               flexFlow: {
                 ...flexFlow,
                 [activeBreakpoint]: e,
-              }
+              },
             })
           }}
         />
@@ -95,7 +93,7 @@ function FlexDisplayProperties({ builderHook, rendererState }: Props) {
               placeContent: {
                 ...placeContent,
                 [activeBreakpoint]: e,
-              }
+              },
             })
           }
         >
@@ -120,21 +118,27 @@ function FlexDisplayProperties({ builderHook, rendererState }: Props) {
             onChange={(e) =>
               debouncedSetGap({
                 ...gap,
-                [activeBreakpoint]: e.target.value + "px"
+                [activeBreakpoint]: e.target.value + 'px',
               })
             }
           />
-          <Slider defaultValue={[parseInt(gap[activeBreakpoint])]} max={100} step={1} className={'w-full'} onValueChange={e => {
-            debouncedSetGap({
-              ...gap,
-              [activeBreakpoint]: `${e[0]}px`
-            });
-          }} />
+          <Slider
+            defaultValue={[parseInt(gap[activeBreakpoint])]}
+            max={100}
+            step={1}
+            className={'w-full'}
+            onValueChange={(e) => {
+              debouncedSetGap({
+                ...gap,
+                [activeBreakpoint]: `${e[0]}px`,
+              })
+            }}
+          />
         </div>
       </EachPropertyLayout>
       <EachPropertyLayout label={'Align'}>
         <DefaultBtnTab
-          value={'center'}
+          value={alignItems[activeBreakpoint]}
           data={[
             {
               value: 'start',
@@ -152,26 +156,40 @@ function FlexDisplayProperties({ builderHook, rendererState }: Props) {
               tooltip: <p>Colum: This will stack element vertically</p>,
             },
           ]}
-          onChange={(e) => {}}
+          onChange={(e) =>
+            updateStyle({
+              alignItems: {
+                ...alignItems,
+                [activeBreakpoint]: e,
+              },
+            })
+          }
         />
       </EachPropertyLayout>
       <EachPropertyLayout label={'wrap'}>
         <DefaultBtnTab
           className={'flex-1'}
-          value={'no'}
+          value={flexWrap[activeBreakpoint]}
           data={[
             {
-              value: 'yes',
+              value: 'wrap',
               label: 'Yes',
               tooltip: <p>Row: This will stack element horizontally</p>,
             },
             {
-              value: 'no',
+              value: 'nowrap',
               label: 'No',
               tooltip: <p>Colum: This will stack element vertically</p>,
             },
           ]}
-          onChange={(e) => {}}
+          onChange={(e) =>
+            updateStyle({
+              flexWrap: {
+                ...flexFlow,
+                [activeBreakpoint]: e,
+              },
+            })
+          }
         />
       </EachPropertyLayout>
     </>

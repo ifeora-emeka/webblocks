@@ -8,10 +8,13 @@ import FlexDisplayProperties from '@/components/builder/element-properties/layou
 import EachPropertyLayout from '@/components/builder/element-properties/EachPropertyLayout'
 import GridDisplayProperties from '@/components/builder/element-properties/layout-properties/GridDisplayProperties'
 import { Input } from '@/components/ui/input'
-import { TbSquare } from 'react-icons/tb'
+import { TbArrowsMaximize, TbLink } from 'react-icons/tb'
 import withRenderer, {
   WithRendererProps,
 } from '@/components/builder/HOCs/WithRenderer'
+import { useEffect, useState } from 'react'
+import { ResponsiveChakraProps } from '@repo/designer/types/designer.types'
+import { generateStaticBreakpoints } from '@/lib/designer.utils'
 
 type Props = {} & WithRendererProps
 
@@ -19,12 +22,44 @@ function LayoutProperty({ builderHook, rendererState }: Props) {
   //todo: remove all the state from here to prevent re-rendering
   const { updateElementChakraStyleData } = builderHook
   const { active_element, activeBreakpoint } = rendererState
-  const { chakraProps } = active_element[0]?.element_data
-  const display = chakraProps.display
+  const { chakraProps } = active_element[0]?.element_data || {}
+  const [styleUpdate, setStyleUpdate] = useState(chakraProps)
 
-  if (!activeBreakpoint || active_element.length === 0) {
+  const [padding, setPadding] = useState(chakraProps?.paddingTop?.lg)
+
+  const [unit, setUnit] = useState('px')
+
+  const updateStyle = (newStyle: ResponsiveChakraProps) => {
+    setStyleUpdate((prev) => ({
+      ...prev,
+      ...newStyle,
+    }))
+  }
+
+  useEffect(() => {
+    if (padding) {
+      updateElementChakraStyleData({
+        element_id: active_element[0].element_data.element_id,
+        newChakraStyle: {
+          paddingTop: generateStaticBreakpoints(padding),
+          paddingBottom: generateStaticBreakpoints(padding),
+          paddingLeft: generateStaticBreakpoints(padding),
+          paddingRight: generateStaticBreakpoints(padding),
+        } as any,
+      })
+    }
+  }, [padding])
+
+  if (
+    !activeBreakpoint ||
+    active_element.length === 0 ||
+    active_element.length > 1
+  ) {
     return null
   }
+
+  const { paddingLeft, paddingRight, paddingBottom, paddingTop } = chakraProps
+  const display = chakraProps.display
 
   return (
     <>
@@ -64,7 +99,9 @@ function LayoutProperty({ builderHook, rendererState }: Props) {
               <div className={'flex items-center gap-1 justify-between'}>
                 <Input
                   type={'number'}
+                  value={parseInt(padding)}
                   className={'bg-background text-card-foreground w-12'}
+                  onChange={(e) => setPadding(e.target.value + unit)}
                 />
                 <DefaultBtnTab
                   className={'flex-1'}
@@ -72,12 +109,12 @@ function LayoutProperty({ builderHook, rendererState }: Props) {
                   data={[
                     {
                       value: 'single',
-                      label: <TbSquare size={16} />,
+                      label: <TbLink size={16} />,
                       tooltip: <p>Row: This will stack element horizontally</p>,
                     },
                     {
                       value: 'multiple',
-                      label: <TbSquare size={16} />,
+                      label: <TbArrowsMaximize size={16} />,
                       tooltip: <p>Colum: This will stack element vertically</p>,
                     },
                   ]}
