@@ -46,8 +46,8 @@ export default function PropertiesPanel() {
               defaultValue={['layout', 'size', 'style']}
             >
               <LayoutProperty />
-              <DefaultPropertyPanel />
               <StyleProperty />
+              <DefaultPropertyPanel />
               <AccordionItem value="item-3">
                 <AccordionTrigger
                   className={'px-default_spacing py-default_spacing'}

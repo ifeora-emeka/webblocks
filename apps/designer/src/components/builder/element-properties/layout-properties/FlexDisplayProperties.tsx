@@ -22,6 +22,7 @@ import { ElementBreakpoint } from '../../types/element-style.types'
 import {} from '@chakra-ui/next-js'
 import { debounce } from '@/components/builder/builder.utils'
 import { ResponsiveChakraProps } from '@repo/designer/types/designer.types'
+import DefaultSliderInput from '@/components/DefaultSliderInput'
 
 type Props = {} & WithRendererProps
 
@@ -87,7 +88,7 @@ function FlexDisplayProperties({ builderHook, rendererState }: Props) {
       </EachPropertyLayout>
       <EachPropertyLayout label={'Justify'}>
         <Select
-          defaultValue={placeContent[activeBreakpoint]}
+          value={placeContent[activeBreakpoint]}
           onValueChange={(e) =>
             updateStyle({
               placeContent: {
@@ -110,31 +111,16 @@ function FlexDisplayProperties({ builderHook, rendererState }: Props) {
         </Select>
       </EachPropertyLayout>
       <EachPropertyLayout label={'Gap'}>
-        <div className={'flex items-center gap-default_spacing'}>
-          <Input
-            type={'number'}
-            className={'bg-background text-card-foreground w-14'}
-            value={parseInt(gap[activeBreakpoint])}
-            onChange={(e) =>
-              debouncedSetGap({
-                ...gap,
-                [activeBreakpoint]: e.target.value + 'px',
-              })
-            }
-          />
-          <Slider
-            defaultValue={[parseInt(gap[activeBreakpoint])]}
-            max={100}
-            step={1}
-            className={'w-full'}
-            onValueChange={(e) => {
-              debouncedSetGap({
-                ...gap,
-                [activeBreakpoint]: `${e[0]}px`,
-              })
-            }}
-          />
-        </div>
+        <DefaultSliderInput
+          value={parseInt(gap[activeBreakpoint])}
+          onChange={(e) =>
+            debouncedSetGap({
+              ...gap,
+              [activeBreakpoint]: e + 'px',
+            })}
+          max={100}
+          step={1}
+        />
       </EachPropertyLayout>
       <EachPropertyLayout label={'Align'}>
         <DefaultBtnTab
@@ -188,6 +174,10 @@ function FlexDisplayProperties({ builderHook, rendererState }: Props) {
                 ...flexFlow,
                 [activeBreakpoint]: e,
               },
+              // placeContent: {
+              //   ...placeContent,
+              //   [activeBreakpoint]: 'start'
+              // }
             })
           }
         />
