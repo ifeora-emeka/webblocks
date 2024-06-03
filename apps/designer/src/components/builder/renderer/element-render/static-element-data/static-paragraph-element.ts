@@ -2,9 +2,7 @@ import { DndElementData } from '@repo/designer/types/designer.types'
 import { StaticElementParams } from './static-element.types'
 import { generateRandomId } from '@/lib/utils'
 import { store } from '@/redux/store'
-import {
-  staticFrameChakraStyle
-} from '@/components/builder/renderer/element-render/static-element-data/static-chakra-style'
+import { staticFrameChakraStyle } from '@/components/builder/renderer/element-render/static-element-data/static-chakra-style'
 
 export const staticParagraphElement = (
   data: StaticElementParams,

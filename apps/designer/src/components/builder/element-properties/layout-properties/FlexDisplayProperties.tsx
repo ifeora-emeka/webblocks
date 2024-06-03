@@ -1,52 +1,70 @@
 import DefaultBtnTab from '@/components/DefaultBtnTab'
 import { TbArrowDown, TbArrowRight } from 'react-icons/tb'
 import EachPropertyLayout from '@/components/builder/element-properties/EachPropertyLayout'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 import { Slider } from '@/components/ui/slider'
 import { Input } from '@/components/ui/input'
-import { PiAlignCenterHorizontalSimpleFill, PiAlignRightSimpleFill, PiAlignTopSimpleFill } from 'react-icons/pi'
+import {
+  PiAlignCenterHorizontalSimpleFill,
+  PiAlignRightSimpleFill,
+  PiAlignTopSimpleFill,
+} from 'react-icons/pi'
 import withRenderer, { WithRendererProps } from '../../HOCs/WithRenderer'
 import { useEffect, useState } from 'react'
 import { ResponsiveValue } from '@chakra-ui/react'
 import { ElementBreakpoint } from '../../types/element-style.types'
-import {  } from '@chakra-ui/next-js'
+import {} from '@chakra-ui/next-js'
+import { debounce } from '@/components/builder/builder.utils'
+import { ResponsiveChakraProps } from '@repo/designer/types/designer.types'
 
-type Props = {
+type Props = {} & WithRendererProps
 
-} & WithRendererProps;
+function FlexDisplayProperties({ builderHook, rendererState }: Props) {
+  const { updateElementChakraStyleData } = builderHook
+  const { active_element, activeBreakpoint } = rendererState
+  const activeElement = active_element[0]
+  const { chakraProps } = active_element[0]?.element_data
 
+  const [styleUpdate, setStyleUpdate] = useState(chakraProps);
+  const { gap, placeContent, flexFlow  } = styleUpdate;
 
-type DirectionValue = 'row' | 'column';
+  const updateStyle = (newStyle: ResponsiveChakraProps) => {
+    setStyleUpdate(prev => ({
+      ...prev,
+      ...newStyle
+    }))
+  }
 
-function FlexDisplayProperties({ builderHook, rendererState }:Props) {
-  const { updateElementChakraStyleData } = builderHook;
-  const { active_element, activeBreakpoint } = rendererState;
-  const activeElement = active_element[0];
-  const { chakraProps } = active_element[0]?.element_data;
-
-  const [direction, setDirection] = useState<ElementBreakpoint>(chakraProps.flexFlow as ElementBreakpoint);
-
-  console.log('DIRECTION::', direction)
+  const debouncedSetGap = debounce((newGap: ElementBreakpoint) => {
+    updateStyle({
+      gap: newGap
+    })
+  }, 300);
 
   useEffect(() => {
     updateElementChakraStyleData({
       element_id: activeElement.element_data.element_id,
-      newChakraStyle: {
-        //@ts-ignore
-        direction: direction,
-      }
+      newChakraStyle: styleUpdate
     })
-  }, [direction])
+  }, [styleUpdate])
 
   useEffect(() => {
+    setStyleUpdate(chakraProps)
+  }, [chakraProps])
 
-  },[rendererState])
+  console.log('GAP VALUE::', parseInt(gap[activeBreakpoint]))
 
   return (
     <>
       <EachPropertyLayout label={'Direction'}>
         <DefaultBtnTab
-          value={direction[activeBreakpoint]}
+          value={flexFlow[activeBreakpoint]}
           data={[
             {
               value: 'row',
@@ -59,15 +77,32 @@ function FlexDisplayProperties({ builderHook, rendererState }:Props) {
               tooltip: <p>Colum: This will stack element vertically</p>,
             },
           ]}
-          onChange={(e) => {console.log(e)}}
+          onChange={(e) => {
+            updateStyle({
+              flexFlow: {
+                ...flexFlow,
+                [activeBreakpoint]: e,
+              }
+            })
+          }}
         />
       </EachPropertyLayout>
-      <EachPropertyLayout label={'Distribution'}>
-        <Select defaultValue={'center'}>
+      <EachPropertyLayout label={'Justify'}>
+        <Select
+          defaultValue={placeContent[activeBreakpoint]}
+          onValueChange={(e) =>
+            updateStyle({
+              placeContent: {
+                ...placeContent,
+                [activeBreakpoint]: e,
+              }
+            })
+          }
+        >
           <SelectTrigger className={'bg-background'}>
             <SelectValue placeholder="Select one:" />
           </SelectTrigger>
-          <SelectContent className={'dark'} >
+          <SelectContent className={'dark'}>
             <SelectItem value="start">Start</SelectItem>
             <SelectItem value="center">Center</SelectItem>
             <SelectItem value="end">End</SelectItem>
@@ -78,8 +113,23 @@ function FlexDisplayProperties({ builderHook, rendererState }:Props) {
       </EachPropertyLayout>
       <EachPropertyLayout label={'Gap'}>
         <div className={'flex items-center gap-default_spacing'}>
-          <Input type={'number'} className={'bg-background text-card-foreground w-14'} />
-          <Slider defaultValue={[33]} max={100} step={1} className={'w-full'} />
+          <Input
+            type={'number'}
+            className={'bg-background text-card-foreground w-14'}
+            value={parseInt(gap[activeBreakpoint])}
+            onChange={(e) =>
+              debouncedSetGap({
+                ...gap,
+                [activeBreakpoint]: e.target.value + "px"
+              })
+            }
+          />
+          <Slider defaultValue={[parseInt(gap[activeBreakpoint])]} max={100} step={1} className={'w-full'} onValueChange={e => {
+            debouncedSetGap({
+              ...gap,
+              [activeBreakpoint]: `${e[0]}px`
+            });
+          }} />
         </div>
       </EachPropertyLayout>
       <EachPropertyLayout label={'Align'}>
@@ -112,21 +162,20 @@ function FlexDisplayProperties({ builderHook, rendererState }:Props) {
           data={[
             {
               value: 'yes',
-              label: "Yes",
+              label: 'Yes',
               tooltip: <p>Row: This will stack element horizontally</p>,
             },
             {
               value: 'no',
-              label: "No",
+              label: 'No',
               tooltip: <p>Colum: This will stack element vertically</p>,
             },
           ]}
           onChange={(e) => {}}
-          />
+        />
       </EachPropertyLayout>
-
     </>
-)
+  )
 }
 
-export default withRenderer(FlexDisplayProperties);
+export default withRenderer(FlexDisplayProperties)

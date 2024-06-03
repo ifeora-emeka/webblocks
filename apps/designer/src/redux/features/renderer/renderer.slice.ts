@@ -1,6 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import { BuilderBreakpoints, DndElementData } from '@repo/designer/types/designer.types'
+import {
+  BuilderBreakpoints,
+  DndElementData,
+} from '@repo/designer/types/designer.types'
 import slugify from 'slugify'
 import { generateRandomId } from '@/lib/utils'
 import { staticFrameElement } from '@/components/builder/renderer/element-render/static-element-data/frame-element'
@@ -9,13 +12,13 @@ import { ChakraProps } from '@chakra-ui/react'
 export interface RendererState {
   allElements: DndElementData[]
   active_element: DndElementData[]
-  activeBreakpoint: BuilderBreakpoints;
+  activeBreakpoint: BuilderBreakpoints
 }
 
 const initialState: RendererState = {
   allElements: [],
   active_element: [],
-  activeBreakpoint: 'lg'
+  activeBreakpoint: 'lg',
 }
 
 export const rendererSlice = createSlice({
@@ -114,46 +117,50 @@ export const rendererSlice = createSlice({
       })
     },
     removeElement: (state, action: PayloadAction<string[]>) => {
-      let IDs = action.payload;
+      let IDs = action.payload
 
-      const rootIDs = IDs.filter(id => id.includes("-root__"));
+      const rootIDs = IDs.filter((id) => id.includes('-root__'))
       if (rootIDs.length > 0) {
         // Remove root ID from the list
-        IDs = IDs.filter(id => !id.includes("-root__"));
+        IDs = IDs.filter((id) => !id.includes('-root__'))
       }
 
-      const removeElementAndChildren = (elements: DndElementData[], idsToRemove: string[]) => {
-        let newElements: DndElementData[] = [];
+      const removeElementAndChildren = (
+        elements: DndElementData[],
+        idsToRemove: string[],
+      ) => {
+        let newElements: DndElementData[] = []
 
         const findAllChildren = (id: string) => {
           return elements
-            .filter(el => el.parent_dnd_id === id)
-            .map(child => child.dnd_id);
-        };
+            .filter((el) => el.parent_dnd_id === id)
+            .map((child) => child.dnd_id)
+        }
 
         const recursiveRemove = (id: string) => {
-          const children = findAllChildren(id);
-          children.forEach(childId => recursiveRemove(childId));
-          idsToRemove.push(id);
-        };
+          const children = findAllChildren(id)
+          children.forEach((childId) => recursiveRemove(childId))
+          idsToRemove.push(id)
+        }
 
-        idsToRemove.forEach(id => recursiveRemove(id));
+        idsToRemove.forEach((id) => recursiveRemove(id))
 
-        elements.forEach(el => {
+        elements.forEach((el) => {
           if (!idsToRemove.includes(el.dnd_id)) {
-            newElements.push(el);
+            newElements.push(el)
           }
-        });
+        })
 
-        return newElements;
-      };
+        return newElements
+      }
 
-      let newElements = removeElementAndChildren(state.allElements, [...IDs]);
+      let newElements = removeElementAndChildren(state.allElements, [...IDs])
 
       return {
         ...state,
         allElements: newElements,
-      };
+        active_element: [],
+      }
     },
     updateElement: (
       state,

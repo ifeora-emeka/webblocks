@@ -104,6 +104,7 @@ export const useBuilder = () => {
     element_id: string
     newChakraStyle: ChakraProps
   }) => {
+    console.log('UPDATING CHAKRA STYLE::', newChakraStyle)
     dispatch(
       updateElementChakraStyle({
         element_id,

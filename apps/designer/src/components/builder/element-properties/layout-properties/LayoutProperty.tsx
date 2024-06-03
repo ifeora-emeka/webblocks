@@ -9,18 +9,22 @@ import EachPropertyLayout from '@/components/builder/element-properties/EachProp
 import GridDisplayProperties from '@/components/builder/element-properties/layout-properties/GridDisplayProperties'
 import { Input } from '@/components/ui/input'
 import { TbSquare } from 'react-icons/tb'
-import withRenderer, { WithRendererProps } from '@/components/builder/HOCs/WithRenderer'
+import withRenderer, {
+  WithRendererProps,
+} from '@/components/builder/HOCs/WithRenderer'
 
-type Props = {
+type Props = {} & WithRendererProps
 
-} & WithRendererProps;
+function LayoutProperty({ builderHook, rendererState }: Props) {
+  //todo: remove all the state from here to prevent re-rendering
+  const { updateElementChakraStyleData } = builderHook
+  const { active_element, activeBreakpoint } = rendererState
+  const { chakraProps } = active_element[0]?.element_data
+  const display = chakraProps.display
 
-function LayoutProperty({ builderHook, rendererState }:Props) {
-  const { updateElementChakraStyleData } = builderHook;
-  const { active_element, activeBreakpoint } = rendererState;
-  const { chakraProps } = active_element[0]?.element_data;
-
-  const display = chakraProps.display;
+  if (!activeBreakpoint || active_element.length === 0) {
+    return null
+  }
 
   return (
     <>
@@ -50,7 +54,7 @@ function LayoutProperty({ builderHook, rendererState }:Props) {
                     value: 'grid',
                     label: 'Grid',
                     tooltip: '',
-                  }
+                  },
                 ]}
                 onChange={(e) => {}}
               />
@@ -58,7 +62,10 @@ function LayoutProperty({ builderHook, rendererState }:Props) {
             <FlexDisplayProperties />
             <EachPropertyLayout label={'Padding'}>
               <div className={'flex items-center gap-1 justify-between'}>
-                <Input type={'number'} className={'bg-background text-card-foreground w-12'} />
+                <Input
+                  type={'number'}
+                  className={'bg-background text-card-foreground w-12'}
+                />
                 <DefaultBtnTab
                   className={'flex-1'}
                   value={'single'}
@@ -86,4 +93,4 @@ function LayoutProperty({ builderHook, rendererState }:Props) {
   )
 }
 
-export default withRenderer(LayoutProperty);
+export default withRenderer(LayoutProperty)

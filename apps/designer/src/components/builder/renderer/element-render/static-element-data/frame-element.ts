@@ -29,7 +29,7 @@ export const staticFrameElement = (
         minHeight: generateStaticBreakpoints('20px'),
         minWidth: generateStaticBreakpoints('20px'),
         width: generateStaticBreakpoints('100%'),
-        bg: generateStaticBreakpoints(DEFAULT_FRAME_COLOR) ,
+        bg: generateStaticBreakpoints(DEFAULT_FRAME_COLOR),
         padding: generateStaticBreakpoints('10px'),
         placeContent: generateStaticBreakpoints('center'),
         alignItems: generateStaticBreakpoints('center'),

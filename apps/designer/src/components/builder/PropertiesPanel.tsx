@@ -40,7 +40,11 @@ export default function PropertiesPanel() {
             value="styling"
             className={`flex-1 flex-col flex h-full overflow-y-auto max-h-[calc(100vh-${BUILDER_NAV_SIZE}-80px)] min-h-[calc(100vh-${BUILDER_NAV_SIZE}-35px)] pb-[35px] text-white/70`}
           >
-            <Accordion type="multiple" className="w-full" defaultValue={["layout", "size", "style"]}>
+            <Accordion
+              type="multiple"
+              className="w-full"
+              defaultValue={['layout', 'size', 'style']}
+            >
               <LayoutProperty />
               <DefaultPropertyPanel />
               <StyleProperty />
