@@ -46,10 +46,7 @@ const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
 
   let theParent =
     allElements.find((el) => el.dnd_id === element.parent_dnd_id) || null
-  let appendDirection: 'horizontal' | 'vertical' =
-    theParent?.element_data.chakraProps?.flexDirection === 'column'
-      ? 'horizontal'
-      : 'vertical'
+
 
   const handleInput = () => {
     if (childRef?.current) {
@@ -84,11 +81,13 @@ const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
         element: element,
       })
     } else {
-      dispatch(
-        setRendererState({
-          active_element: [element],
-        }),
-      )
+      if(active_element.length > 0 && element.element_data.element_id !== active_element[0]?.element_data.element_id) {
+        dispatch(
+          setRendererState({
+            active_element: [element],
+          }),
+        )
+      }
     }
   }
 

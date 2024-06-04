@@ -36,6 +36,7 @@ function FlexDisplayProperties({ builderHook, rendererState }: Props) {
   const { gap, placeContent, flexFlow, alignItems, flexWrap } = styleUpdate
 
   const updateStyle = (newStyle: ResponsiveChakraProps) => {
+    // console.log('UPDATING STYLES::', newStyle)
     setStyleUpdate((prev) => ({
       ...prev,
       ...newStyle,
@@ -89,14 +90,14 @@ function FlexDisplayProperties({ builderHook, rendererState }: Props) {
       <EachPropertyLayout label={'Justify'}>
         <Select
           value={placeContent[activeBreakpoint]}
-          onValueChange={(e) =>
+          onValueChange={(e) => {
             updateStyle({
               placeContent: {
                 ...placeContent,
                 [activeBreakpoint]: e,
               },
             })
-          }
+          }}
         >
           <SelectTrigger className={'bg-background'}>
             <SelectValue placeholder="Select one:" />
@@ -117,7 +118,8 @@ function FlexDisplayProperties({ builderHook, rendererState }: Props) {
             debouncedSetGap({
               ...gap,
               [activeBreakpoint]: e + 'px',
-            })}
+            })
+          }
           max={100}
           step={1}
         />
@@ -168,18 +170,14 @@ function FlexDisplayProperties({ builderHook, rendererState }: Props) {
               tooltip: <p>Colum: This will stack element vertically</p>,
             },
           ]}
-          onChange={(e) =>
+          onChange={(e) => {
             updateStyle({
               flexWrap: {
-                ...flexFlow,
+                ...flexWrap,
                 [activeBreakpoint]: e,
               },
-              // placeContent: {
-              //   ...placeContent,
-              //   [activeBreakpoint]: 'start'
-              // }
             })
-          }
+          }}
         />
       </EachPropertyLayout>
     </>

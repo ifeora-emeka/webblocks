@@ -15,6 +15,7 @@ import withRenderer, {
 import { useEffect, useState } from 'react'
 import { ResponsiveChakraProps } from '@repo/designer/types/designer.types'
 import { generateStaticBreakpoints } from '@/lib/designer.utils'
+import DefaultEdgeInput from '@/components/DefaultEdgeInput'
 
 type Props = {} & WithRendererProps
 
@@ -96,31 +97,10 @@ function LayoutProperty({ builderHook, rendererState }: Props) {
             </EachPropertyLayout>
             <FlexDisplayProperties />
             <EachPropertyLayout label={'Padding'}>
-              <div className={'flex items-center gap-1 justify-between'}>
-                <Input
-                  type={'number'}
-                  value={parseInt(padding)}
-                  className={'bg-background text-card-foreground w-12'}
-                  onChange={(e) => setPadding(e.target.value + unit)}
-                />
-                <DefaultBtnTab
-                  className={'flex-1'}
-                  value={'single'}
-                  data={[
-                    {
-                      value: 'single',
-                      label: <TbLink size={16} />,
-                      tooltip: <p>Row: This will stack element horizontally</p>,
-                    },
-                    {
-                      value: 'multiple',
-                      label: <TbArrowsMaximize size={16} />,
-                      tooltip: <p>Colum: This will stack element vertically</p>,
-                    },
-                  ]}
-                  onChange={(e) => {}}
-                />
-              </div>
+              <DefaultEdgeInput
+                value={parseInt(padding)}
+                onChange={(e) => setPadding(e + unit)}
+              />
             </EachPropertyLayout>
             <GridDisplayProperties />
           </div>
