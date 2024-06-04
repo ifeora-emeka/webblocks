@@ -3,18 +3,16 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion'
-import DefaultSliderInput from '@/components/DefaultSliderInput'
 import EachPropertyLayout from '@/components/builder/element-properties/EachPropertyLayout'
 import { useEffect, useState } from 'react'
 import withRenderer, {
   WithRendererProps,
 } from '@/components/builder/HOCs/WithRenderer'
-import { debounce } from '@/components/builder/builder.utils'
 import { ResponsiveChakraProps } from '@repo/designer/types/designer.types'
-import { generateStaticBreakpoints } from '@/lib/designer.utils'
 import DefaultEdgeInput from '@/components/DefaultEdgeInput'
 import DefaultFillInput from '@/components/DefaultFillInput'
-import { ChakraProps } from '@chakra-ui/react'
+import { ChakraProps } from '@chakra-ui/react';
+import ColorPicker from 'react-best-gradient-color-picker'
 
 type Props = {} & WithRendererProps
 
@@ -28,7 +26,6 @@ function StyleProperty({ builderHook, rendererState }: Props) {
     backgroundColor: chakraProps?.backgroundColor as any,
     ...chakraProps
   });
-
   const { borderRadius } = styleUpdate;
 
   const updateStyle = (newStyle: ResponsiveChakraProps) => {
@@ -49,7 +46,7 @@ function StyleProperty({ builderHook, rendererState }: Props) {
 
   useEffect(() => {
     setStyleUpdate(chakraProps as any);
-  },[])
+  },[active_element])
 
   return (
     <>
@@ -70,7 +67,8 @@ function StyleProperty({ builderHook, rendererState }: Props) {
               })}} />
             </EachPropertyLayout>
             <EachPropertyLayout label={'Fill'}>
-              <DefaultFillInput value={''} onChange={e => {}} />
+              <DefaultFillInput value={styleUpdate.backgroundColor[activeBreakpoint] || ''} onChange={e => {}} />
+
             </EachPropertyLayout>
             <EachPropertyLayout label={'Border'}>
               <DefaultFillInput value={''} onChange={e => {}} />
