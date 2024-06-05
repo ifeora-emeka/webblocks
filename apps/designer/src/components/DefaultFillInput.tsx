@@ -1,6 +1,6 @@
 import { TbX } from 'react-icons/tb';
 import ColorPicker from 'react-best-gradient-color-picker'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 type Props = {
   value: string;
@@ -10,6 +10,16 @@ type Props = {
 export default function DefaultFillInput({ value, onChange }:Props){
   const [show, setShow] = useState(false);
   const [color, setColor] = useState(value);
+
+  useEffect(() => {
+    setColor(value)
+  },[])
+
+  useEffect(() => {
+    if(color) {
+      onChange(color)
+    }
+  },[color])
 
   return <>
     {
@@ -27,10 +37,10 @@ export default function DefaultFillInput({ value, onChange }:Props){
     <div
       className={'bg-background p-default_spacing rounded-md flex items-center gap-default_spacing min-h-10 dark relative'}>
       <div className={'min-h-6 min-w-6 max-w-6 rounded-sm cursor-pointer'} style={{ background: color }} onClick={() => setShow(!show)} />
-      <div className={'flex-grow'}>
-        <span className={'truncate'}>
-          {value}
-        </span>
+      <div className={'flex w-full max-w-[65%] flex-1 '}>
+          <span className={'truncate'}>
+            {value}
+          </span>
       </div>
       <button className={'text-muted-foreground hover:text-white/80'}>
         <TbX />

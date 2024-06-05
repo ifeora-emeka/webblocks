@@ -37,7 +37,7 @@ function StyleProperty({ builderHook, rendererState }: Props) {
   useEffect(() => {
     if(styleUpdate) {
       updateElementChakraStyleData({
-        element_id: active_element[0].element_data.element_id,
+        element_id: active_element[0]?.element_data?.element_id,
         newChakraStyle: styleUpdate
       })
     }
@@ -66,8 +66,12 @@ function StyleProperty({ builderHook, rendererState }: Props) {
               })}} />
             </EachPropertyLayout>
             <EachPropertyLayout label={'Fill'}>
-              <DefaultFillInput value={styleUpdate.backgroundColor[activeBreakpoint] || ''} onChange={e => {}} />
-
+              <DefaultFillInput value={styleUpdate.backgroundColor[activeBreakpoint] || ''} onChange={e => updateStyle({
+                backgroundColor: {
+                  ...styleUpdate.backgroundColor,
+                  [activeBreakpoint]: e
+                }
+              })} />
             </EachPropertyLayout>
             <EachPropertyLayout label={'Border'}>
               <DefaultFillInput value={''} onChange={e => {}} />
