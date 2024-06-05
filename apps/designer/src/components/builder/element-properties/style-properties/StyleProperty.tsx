@@ -12,7 +12,6 @@ import { ResponsiveChakraProps } from '@repo/designer/types/designer.types'
 import DefaultEdgeInput from '@/components/DefaultEdgeInput'
 import DefaultFillInput from '@/components/DefaultFillInput'
 import { ChakraProps } from '@chakra-ui/react';
-import ColorPicker from 'react-best-gradient-color-picker'
 
 type Props = {} & WithRendererProps
 

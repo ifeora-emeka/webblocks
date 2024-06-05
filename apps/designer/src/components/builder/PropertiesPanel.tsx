@@ -8,14 +8,14 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import LayoutProperty from '@/components/builder/element-properties/layout-properties/LayoutProperty'
 import DefaultPropertyPanel from '@/components/builder/element-properties/DefaultElementPropertyPanel'
-import StyleProperty from '@/components/builder/element-properties/style-properties/StyleProperty'
+import StyleProperty from '@/components/builder/element-properties/style-properties/StyleProperty';
 
 export default function PropertiesPanel() {
   return (
     <>
       <Tabs
         defaultValue="styling"
-        className={`min-h-[calc(100vh-${BUILDER_NAV_SIZE})] max-h-[calc(100vh-${BUILDER_NAV_SIZE})] bg-card min-w-[260px] max-w-[260px] overflow-x-hidden overflow-y-hidden text-foreground select-none flex flex-col`}
+        className={`min-h-[calc(100vh-${BUILDER_NAV_SIZE})] max-h-[calc(100vh-${BUILDER_NAV_SIZE})] bg-card min-w-[260px] max-w-[260px] overflow-x-hidden overflow-y-hidden text-foreground select-none flex flex-col z-50`}
       >
         <div
           defaultValue="styling"
@@ -38,7 +38,7 @@ export default function PropertiesPanel() {
           </div>
           <TabsContent
             value="styling"
-            className={`flex-1 flex-col flex h-full overflow-y-auto max-h-[calc(100vh-${BUILDER_NAV_SIZE}-80px)] min-h-[calc(100vh-${BUILDER_NAV_SIZE}-35px)] pb-[35px] text-white/70`}
+            className={`flex-1 flex-col flex h-full overflow-y-auto max-h-[calc(100vh-${BUILDER_NAV_SIZE}-80px)] min-h-[calc(100vh-${BUILDER_NAV_SIZE}-35px)] pb-[35px] text-white/70 z-50`}
           >
             <Accordion
               type="multiple"

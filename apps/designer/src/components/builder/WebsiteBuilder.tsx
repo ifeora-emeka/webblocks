@@ -98,11 +98,11 @@ export default function WebsiteBuilder({ page, elements }: RendererProps) {
         <BuilderKeyMapper />
         <div
           className={
-            'bg-background min-h-[100vh] max-h-[100vh] flex dark flex-col dark'
+            'bg-background min-h-[100vh] max-h-[100vh] flex dark flex-col dark overflow-hidden'
           }
         >
           <BuilderHeader />
-          <div className={'flex-1 flex'}>
+          <div className={'flex-1 flex overflow-hidden'}>
             <BuilderLeftMenu />
             <LeftNavOptions />
             <DesignerProvider>
