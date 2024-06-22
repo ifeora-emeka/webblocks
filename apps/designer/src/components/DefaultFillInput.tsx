@@ -13,7 +13,7 @@ export default function DefaultFillInput({ value, onChange }:Props){
 
   useEffect(() => {
     setColor(value)
-  },[])
+  },[value])
 
   useEffect(() => {
     if(color) {

@@ -1,6 +1,6 @@
 import DashboardLayout from '@/components/layout/DashboardLayout'
 import { Button } from '@/components/ui/button'
-import EachProject from '@/app/projects/components/EachProject'
+import EachProject from '@/components/projects/EachProject'
 import { connectToDataBase } from '@/lib/db.utils'
 import { ProjectsDocument } from '@/app/api/api-services/projects/projects.schema'
 import axios from 'axios'
