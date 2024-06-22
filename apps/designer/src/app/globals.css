@@ -111,3 +111,15 @@
 .element_toolbox {
   opacity: 1 !important;
 }
+
+/* Add this to your CSS file or in a style block */
+.react-resizable-handle {
+  width: 10px;
+  height: 100%;
+  right: 0;
+  top: 0;
+  cursor: ew-resize;
+  background-color: rgba(0, 0, 0, 0.2); /* Semi-transparent background */
+  position: absolute;
+  z-index: 1;
+}

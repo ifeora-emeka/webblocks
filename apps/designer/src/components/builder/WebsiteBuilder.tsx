@@ -23,8 +23,9 @@ import GPTElementRenderer from './renderer/WebsiteRenderer'
 import { AppStore, RootState } from '@/redux/store'
 import { setRendererState } from '@/redux/features/renderer/renderer.slice'
 import { defaultRootElement } from '@/components/builder/renderer/element-render/static-element-data/default-body'
-import { staticHeadingElement } from './renderer/element-render/static-element-data/heading-element'
+import Frame from 'react-frame-component';
 import BuilderKeyMapper from '@/components/builder/BuilderKeyMapper'
+import ResizableIframe from '@/components/builder/renderer/ResizeableFrame'
 
 export default function WebsiteBuilder({ page, elements }: RendererProps) {
   const [show, setShow] = useState(false)
@@ -108,10 +109,12 @@ export default function WebsiteBuilder({ page, elements }: RendererProps) {
             <DesignerProvider>
               <div
                 className={cn(
-                  `min-h-[calc(100vh-${BUILDER_NAV_SIZE})] max-h-[calc(100vh-50px)] overflow-y-auto w-full light`,
+                  `min-h-[calc(100vh-${BUILDER_NAV_SIZE})] max-h-[calc(100vh-50px)] overflow-y-auto w-full light flex justify-center`,
                 )}
               >
-                <GPTElementRenderer elements={allElements} />
+                <ResizableIframe>
+                  <GPTElementRenderer elements={allElements} />
+                </ResizableIframe>
               </div>
             </DesignerProvider>
             <PropertiesPanel />
