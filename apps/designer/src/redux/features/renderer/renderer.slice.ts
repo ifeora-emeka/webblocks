@@ -311,45 +311,6 @@ export const rendererSlice = createSlice({
         active_element: [newFrameElement, ...newActiveElements],
       }
     },
-    updateElementChakraStyle: (
-      state,
-      action: PayloadAction<{
-        element_id: string
-        newChakraStyle: ChakraProps
-      }>,
-    ) => {
-      const { element_id, newChakraStyle } = action.payload
-
-      let elementIndex = state.allElements.findIndex(
-        (el: DndElementData) => el.element_data.element_id === element_id,
-      )
-
-      if (elementIndex === -1) return state
-
-      let targetElement: DndElementData = state.allElements[elementIndex]
-
-      let updatedElement: DndElementData = {
-        ...targetElement,
-        element_data: {
-          ...targetElement.element_data,
-          chakraProps: {
-            ...targetElement.element_data.chakraProps,
-            ...newChakraStyle,
-          },
-        },
-      }
-
-      let newElements = [
-        ...state.allElements.slice(0, elementIndex),
-        updatedElement,
-        ...state.allElements.slice(elementIndex + 1),
-      ]
-
-      return {
-        ...state,
-        allElements: newElements,
-      }
-    },
   },
 })
 
@@ -362,7 +323,6 @@ export const {
   duplicateElement,
   selectMultipleElement,
   groupElements,
-  updateElementChakraStyle,
 } = rendererSlice.actions
 
 export default rendererSlice.reducer

@@ -17,20 +17,13 @@ import {
 } from '@dnd-kit/core'
 import { RendererProps } from '@repo/designer/types/designer.types'
 import { sortableKeyboardCoordinates } from '@dnd-kit/sortable'
-import { useDispatch, useSelector } from 'react-redux'
 import { DesignerProvider } from '@/app/projects/[project_id]/DesignerProvider'
-import GPTElementRenderer from './renderer/WebsiteRenderer'
-import { AppStore, RootState } from '@/redux/store'
-import { setRendererState } from '@/redux/features/renderer/renderer.slice'
-import { defaultRootElement } from '@/components/builder/renderer/element-render/static-element-data/default-body'
-import Frame from 'react-frame-component';
 import BuilderKeyMapper from '@/components/builder/BuilderKeyMapper'
 import ResizableIframe from '@/components/builder/renderer/ResizeableFrame'
+import WebsiteRenderer from './renderer/WebsiteRenderer'
 
 export default function WebsiteBuilder({ page, elements }: RendererProps) {
   const [show, setShow] = useState(false)
-  const { allElements } = useSelector((state: AppStore) => state.renderer)
-  const dispatch = useDispatch()
 
   useEffect(() => {
     setShow(true)
@@ -52,38 +45,6 @@ export default function WebsiteBuilder({ page, elements }: RendererProps) {
     //   dispatch(moveElement({ activeId: active.element_id, overId: over?.element_id }));
     // }
   }
-
-  useEffect(() => {
-    if (allElements.length == 0) {
-      let rootEl = defaultRootElement({
-        index: 0,
-        parent_id: null,
-      })
-
-      dispatch(
-        setRendererState({
-          allElements: [rootEl],
-          active_element: [rootEl],
-        }),
-      )
-    }
-  }, [allElements])
-
-  // useEffect(() => {
-  //   const htmlElement = document.documentElement
-
-  //   htmlElement.classList.remove('light')
-  //   htmlElement.classList.add('dark')
-  //   htmlElement.setAttribute('data-theme', 'dark')
-  //   htmlElement.style.colorScheme = 'dark'
-
-  //   return () => {
-  //     htmlElement.classList.remove('dark')
-  //     htmlElement.classList.add('light')
-  //     htmlElement.setAttribute('data-theme', 'light')
-  //     htmlElement.style.colorScheme = 'light'
-  //   }
-  // }, [])
 
   if (!show) {
     return null
@@ -113,7 +74,7 @@ export default function WebsiteBuilder({ page, elements }: RendererProps) {
                 )}
               >
                 <ResizableIframe>
-                  <GPTElementRenderer elements={allElements} />
+                  <WebsiteRenderer />
                 </ResizableIframe>
               </div>
             </DesignerProvider>

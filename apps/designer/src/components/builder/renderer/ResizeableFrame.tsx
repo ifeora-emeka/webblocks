@@ -39,8 +39,8 @@ const ResizableIframe: React.FC<{ children: React.ReactNode }> = ({ children }) 
         <FrameContextConsumer>
           {({ document, window }) => (
             <>
+              {/*This renders the website being built*/}
               {children}
-              <h1>We are out here!</h1>
             </>
           )}
         </FrameContextConsumer>

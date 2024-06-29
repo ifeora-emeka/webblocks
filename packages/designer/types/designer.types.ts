@@ -40,8 +40,6 @@ export interface DesignerElementDataDTO {
   html_tag: React.ElementType;
   style?: CSSProperties;
   attributes: AttributeData;
-  // children?: Array<DesignerElementData | string>;
-  chakraProps: ResponsiveChakraProps;
   can_delete?: boolean;
 }
 

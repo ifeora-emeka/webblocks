@@ -10,7 +10,6 @@ import {
   selectMultipleElement,
   setRendererState,
   updateElement,
-  updateElementChakraStyle,
 } from '@/redux/features/renderer/renderer.slice'
 import { ChakraProps } from '@chakra-ui/react'
 
@@ -105,12 +104,7 @@ export const useBuilder = () => {
     newChakraStyle: ChakraProps
   }) => {
     console.log('UPDATING CHAKRA STYLE::', newChakraStyle)
-    dispatch(
-      updateElementChakraStyle({
-        element_id,
-        newChakraStyle,
-      }),
-    )
+    alert("You've changed this, check the code")
   }
 
   return {
