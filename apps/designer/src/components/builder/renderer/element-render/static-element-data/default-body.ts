@@ -21,15 +21,14 @@ export const defaultRootElement = (
       },
       html_tag: 'div',
       jss_style: {
-        background: 'hotpink',
         minHeight: '300px',
-        '@media (max-width: 600px)': {
-          background: 'blueviolet',
-          minHeight: '150px',
+        background: 'darkorange', // Default background (mobile)
+        '@media (min-width: 768px)': {
+          background: 'lightblue', // Tablet background
         },
-        '@media (min-width: 601px) and (max-width: 1024px)': {
-          background: 'lightblue',
-        }
+        '@media (min-width: 1024px)': {
+          background: 'lightgreen', // Desktop background
+        },
       },
       style: {},
       name: '_root_',
