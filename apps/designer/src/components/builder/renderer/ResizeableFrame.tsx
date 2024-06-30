@@ -37,12 +37,13 @@ const ResizableIframe: React.FC<{ children: React.ReactNode }> = ({ children }) 
     >
       <Frame width="100%" height="600px" className="bg-white min-h-[calc(100vh-50px)]">
         <FrameContextConsumer>
-          {({ document, window }) => (
-            <>
-              {/*This renders the website being built*/}
+          {({ document, window,  }) =>{
+            return  <>
+              <h1>{window?.screen.width}</h1>
               {children}
+              <h1>We are out here!</h1>
             </>
-          )}
+          }}
         </FrameContextConsumer>
       </Frame>
     </Resizable>

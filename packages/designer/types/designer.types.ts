@@ -1,6 +1,7 @@
 import React, { CSSProperties } from "react";
 import { ChakraProps } from "@chakra-ui/react";
 import { ElementBreakpoint } from "../../../apps/designer/src/components/builder/types/element-style.types";
+import { CSSObject } from 'cxs'
 
 export type ResponsiveChakraProps = {
   [key: string]: ElementBreakpoint;
@@ -41,6 +42,7 @@ export interface DesignerElementDataDTO {
   style?: CSSProperties;
   attributes: AttributeData;
   can_delete?: boolean;
+  jss_style: CSSObject
 }
 
 export interface DesignerElementData extends DesignerElementDataDTO {

@@ -34,21 +34,29 @@ const WebsiteRenderer: React.FC<ElementRendererProps> = ({ }) => {
 
   return (
     <>
-      <div className={'p-default_spacing'}>
-        <div
-          className={cn('bg-white  overflow-hidden', {
-            'min-h-[calc(100vh-50px-1rem)]': allElements.length == 0,
-          })}
-        >
-          {allElements.length > 0 ? (
-            <>
-              <FrameElementRenderer element={compileAllDndElements(allElements)} />
-            </>
-          ) : null}
-        </div>
-      </div>
+        {allElements.length > 0 ? (
+          <>
+            <FrameElementRenderer element={compileAllDndElements(allElements)} />
+          </>
+        ) : null}
     </>
   )
+
+  // return (
+  //   <>
+  //       <div
+  //         className={cn('bg-white  overflow-hidden', {
+  //           'min-h-[calc(100vh-50px-1rem)]': allElements.length == 0,
+  //         })}
+  //       >
+  //         {allElements.length > 0 ? (
+  //           <>
+  //             <FrameElementRenderer element={compileAllDndElements(allElements)} />
+  //           </>
+  //         ) : null}
+  //       </div>
+  //   </>
+  // )
 }
 
 export default WebsiteRenderer

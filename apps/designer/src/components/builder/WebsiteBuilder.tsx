@@ -67,7 +67,6 @@ export default function WebsiteBuilder({ page, elements }: RendererProps) {
           <div className={'flex-1 flex overflow-hidden'}>
             <BuilderLeftMenu />
             <LeftNavOptions />
-            <DesignerProvider>
               <div
                 className={cn(
                   `min-h-[calc(100vh-${BUILDER_NAV_SIZE})] max-h-[calc(100vh-50px)] overflow-y-auto w-full light flex justify-center`,
@@ -77,8 +76,7 @@ export default function WebsiteBuilder({ page, elements }: RendererProps) {
                   <WebsiteRenderer />
                 </ResizableIframe>
               </div>
-            </DesignerProvider>
-            <PropertiesPanel />
+            {/* <PropertiesPanel /> */}
           </div>
         </div>
       </DndContext>
