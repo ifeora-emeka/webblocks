@@ -1,5 +1,4 @@
 import React, { CSSProperties } from "react";
-import { ChakraProps } from "@chakra-ui/react";
 import { ElementBreakpoint } from "../../../apps/designer/src/components/builder/types/element-style.types";
 import { CSSObject } from 'cxs'
 
