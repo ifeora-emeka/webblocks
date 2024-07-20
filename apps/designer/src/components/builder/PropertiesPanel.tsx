@@ -45,8 +45,8 @@ export default function PropertiesPanel() {
               className="w-full"
               defaultValue={['layout', 'size', 'style']}
             >
-              <LayoutProperty />
-              <StyleProperty />
+              {/* <LayoutProperty />
+              <StyleProperty /> */}
               <DefaultPropertyPanel />
               <AccordionItem value="item-3">
                 <AccordionTrigger

@@ -14,6 +14,15 @@ import {
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import Link from 'next/link'
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 
 export default function BuilderHeader() {
   const clearAllTheShit = () => {
@@ -26,7 +35,7 @@ export default function BuilderHeader() {
     <>
       <div
         className={cn(
-          `min-h-builder_nav_size max-h-builder_nav_size bg-card w-full flex justify-between h-full px-default_spacing items-center z-10 border-b select-none`,
+          `min-h-builder_nav_size max-h-builder_nav_size bg-card w-full flex justify-between h-full px-default_spacing items-center z-[90] border-b select-none`,
         )}
       >
         <div className={'flex gap-default_spacing items-center'}>
@@ -75,11 +84,24 @@ export default function BuilderHeader() {
             tooltip={'Dev mode: ON'}
             onClick={() => {}}
           />
-          <DefaultIconBtn
-            Icon={TbDeviceDesktop}
-            tooltip={'Viewport width'}
-            onClick={() => {}}
-          />
+          <DropdownMenu>
+            <DropdownMenuTrigger>
+              <DefaultIconBtn
+                Icon={TbDeviceDesktop}
+                tooltip={'Viewport width'}
+                onClick={() => { }}
+              />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className='dark'>
+              <DropdownMenuCheckboxItem
+                checked={true}
+                onCheckedChange={() => {}}
+              >
+                Status Bar
+              </DropdownMenuCheckboxItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+          
           <DefaultIconBtn
             Icon={TbUserPlus}
             tooltip={'Invite teammates'}
