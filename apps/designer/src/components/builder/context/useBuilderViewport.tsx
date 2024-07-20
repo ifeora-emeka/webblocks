@@ -8,7 +8,7 @@ type ViewPortState = {
 type ViewPortContextType = {
   viewportState: ViewPortState
   setViewportState: (newState: ViewPortState) => void
-  getViewportWidth: (viewport: BuilderViewport) => void
+  getViewportWidth: (viewport: BuilderViewport) => string
 }
 
 const ViewPortContext = createContext<ViewPortContextType | undefined>(

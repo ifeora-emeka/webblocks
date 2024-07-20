@@ -11,15 +11,21 @@ interface ElementRendererProps {
 }
 
 const GPTElementRenderer: React.FC<ElementRendererProps> = ({ elements }) => {
-  const { viewportState, getViewportWidth } = useBuilderViewPort();
+  const { viewportState: { viewport }, getViewportWidth } = useBuilderViewPort();
   return (
     <>
       <div className={'p-default_spacing flex justify-center'}>
         <div
-          style={{ minWidth: getViewportWidth }}
-          className={cn('bg-white select-none overflow-hidden min-w-[700px] max-w-[700px]', {
-            'min-h-[calc(100vh-50px-1rem)]': elements.length == 0,
-          })}
+          style={{
+            minWidth: getViewportWidth(viewport),
+            maxWidth: getViewportWidth(viewport),
+          }}
+          className={cn(
+            'bg-white select-none overflow-hidden min-w-[700px] max-w-[700px]',
+            {
+              'min-h-[calc(100vh-50px-1rem)]': elements.length == 0,
+            },
+          )}
         >
           {elements.length > 0 ? (
             <>
