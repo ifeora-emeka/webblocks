@@ -86,3 +86,5 @@ export type DraggableElement =
   | "column";
 
 export type BuilderBreakpoints = 'md' | 'base' | 'sm' | 'lg' | '2xl' | 'xl'
+
+export type BuilderViewport = 'desktop' | 'mobile' | 'tablet';

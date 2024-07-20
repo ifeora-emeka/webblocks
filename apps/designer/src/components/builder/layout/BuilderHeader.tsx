@@ -6,6 +6,8 @@ import {
   TbCircleCheckFilled,
   TbCode,
   TbDeviceDesktop,
+  TbDeviceMobile,
+  TbDeviceTablet,
   TbFile,
   TbPlayerPlay,
   TbRocket,
@@ -89,19 +91,34 @@ export default function BuilderHeader() {
               <DefaultIconBtn
                 Icon={TbDeviceDesktop}
                 tooltip={'Viewport width'}
-                onClick={() => { }}
+                onClick={() => {}}
               />
             </DropdownMenuTrigger>
-            <DropdownMenuContent className='dark'>
+            <DropdownMenuContent className="dark">
               <DropdownMenuCheckboxItem
                 checked={true}
                 onCheckedChange={() => {}}
+                className="flex gap-default_spacing"
               >
-                Status Bar
+                <TbDeviceDesktop size={20} /> Desktop
+              </DropdownMenuCheckboxItem>
+              <DropdownMenuCheckboxItem
+                checked={true}
+                onCheckedChange={() => {}}
+                className="flex gap-default_spacing"
+              >
+                <TbDeviceMobile size={20} /> Mobile
+              </DropdownMenuCheckboxItem>
+              <DropdownMenuCheckboxItem
+                checked={true}
+                onCheckedChange={() => {}}
+                className="flex gap-default_spacing"
+              >
+                <TbDeviceTablet size={20} /> Tablet
               </DropdownMenuCheckboxItem>
             </DropdownMenuContent>
           </DropdownMenu>
-          
+
           <DefaultIconBtn
             Icon={TbUserPlus}
             tooltip={'Invite teammates'}
