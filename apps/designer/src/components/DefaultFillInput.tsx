@@ -1,7 +1,10 @@
-import { TbX } from 'react-icons/tb';
+import { TbLayersLinked, TbX } from 'react-icons/tb'
 import ColorPicker from 'react-best-gradient-color-picker'
 import ReactGPicker from 'react-gcolor-picker';
 import { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
+import { AppStore } from '@/redux/store'
+import DefaultTooltip from '@/components/DefaultTooltip'
 
 type Props = {
   value: string;
@@ -9,14 +12,15 @@ type Props = {
 }
 
 export default function DefaultFillInput({ value, onChange }:Props){
+  const { active_element } = useSelector((state: AppStore) => state.renderer)
   const [show, setShow] = useState(false);
   const [color, setColor] = useState(value);
 
   useEffect(() => {
-    if(value) {
+    if(value && active_element.length > 0) {
       setColor(value)
     }
-  },[value])
+  },[value, active_element])
 
 
   const updateFillColor = (color:string) => {
@@ -35,20 +39,22 @@ export default function DefaultFillInput({ value, onChange }:Props){
           </button>
         </header>
         {/*<ColorPicker value={value} onChange={e => setColor(e)} height={100} width={300} />*/}
-        <ReactGPicker format={'hex'} value={value} onChange={updateFillColor} />
+        <ReactGPicker format={'hex'} value={color} onChange={updateFillColor} debounce debounceMS={150} showInputs  />
       </div>
     }
     <div
-      className={'bg-background p-default_spacing rounded-md flex items-center gap-default_spacing min-h-10 dark relative'}>
-      <div className={'min-h-6 min-w-6 max-w-6 rounded-sm cursor-pointer'} style={{ background: color }} onClick={() => setShow(!show)} />
+      className={'bg-background p-default_spacing rounded-md flex items-center gap-default_spacing min-h-8 max-h-8 dark relative w-full'}>
+      <div className={'min-h-5 min-w-5 max-w-5 rounded-sm cursor-pointer'} style={{ background: color }} onClick={() => setShow(!show)} />
       <div className={'flex w-full max-w-[65%] flex-1 '}>
-          <span className={'truncate'}>
-            {value}
-          </span>
+          <small className={'truncate'}>
+            {color}
+          </small>
       </div>
-      <button className={'text-muted-foreground hover:text-white/80'}>
-        <TbX />
-      </button>
+      <DefaultTooltip content={<p>Link variable</p>}>
+        <button className={'text-muted-foreground hover:text-white/80'}>
+          <TbLayersLinked />
+        </button>
+      </DefaultTooltip>
     </div>
   </>
 }

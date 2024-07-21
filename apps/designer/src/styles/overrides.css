@@ -1,0 +1,19 @@
+/* ----------- COLOR PICKER OVERRIDE --------------*/
+.popup_tabs {
+    background: none !important;
+    width: 100% !important;
+}
+.popup_tabs-body {
+    padding: 0 !important;
+}
+.colorpicker, .color-picker-panel  {
+    background: none !important;
+}
+.input_rgba-hex > input, .input_rgba-alpha > input {
+    background: none !important;
+    color: inherit !important;
+    outline: none;
+    border-color: var(--border-dark);
+}
+
+/*------------------------------------------------*/

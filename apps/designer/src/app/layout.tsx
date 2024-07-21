@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
+import '../styles/overrides.css';
 import { APP_NAME } from '@/lib/constants'
 import Providers from '@/components/Providers'
 import 'animate.css'

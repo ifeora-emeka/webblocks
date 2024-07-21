@@ -6,8 +6,6 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import LayoutProperty from '@/components/builder/element-properties/layout-properties/LayoutProperty'
-import DefaultPropertyPanel from '@/components/builder/element-properties/DefaultElementPropertyPanel'
 import StyleProperty from '@/components/builder/element-properties/style-properties/StyleProperty';
 
 export default function PropertiesPanel() {
@@ -45,9 +43,7 @@ export default function PropertiesPanel() {
               className="w-full"
               defaultValue={['layout', 'size', 'style']}
             >
-              <LayoutProperty />
               <StyleProperty />
-              <DefaultPropertyPanel />
               <AccordionItem value="item-3">
                 <AccordionTrigger
                   className={'px-default_spacing py-default_spacing'}

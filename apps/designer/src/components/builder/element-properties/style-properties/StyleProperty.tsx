@@ -3,20 +3,9 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion'
-import EachPropertyLayout from '@/components/builder/element-properties/EachPropertyLayout'
-import withRenderer, {
-  WithRendererProps,
-} from '@/components/builder/HOCs/WithRenderer'
-import DefaultEdgeInput from '@/components/DefaultEdgeInput'
-import DefaultFillInput from '@/components/DefaultFillInput'
 import FillProperty from '@/components/builder/element-properties/style-properties/FillProperty'
 
-type Props = {} & WithRendererProps
-
-function StyleProperty({ builderHook, rendererState }: Props) {
-  const { updateElementChakraStyleData } = builderHook
-  const { active_element, activeBreakpoint } = rendererState;
-  const { chakraProps } = active_element[0]?.element_data;
+function StyleProperty() {
 
 
   return (
@@ -29,9 +18,6 @@ function StyleProperty({ builderHook, rendererState }: Props) {
           <div
             className={'p-default_spacing flex flex-col gap-default_spacing'}
           >
-            <EachPropertyLayout label={'Radius'}>
-              <DefaultEdgeInput value={3} onChange={e=> {}} />
-            </EachPropertyLayout>
             <FillProperty />
             {/*<EachPropertyLayout label={'Border'}>*/}
             {/*  <DefaultFillInput value={''} onChange={e => {}} />*/}
@@ -43,4 +29,4 @@ function StyleProperty({ builderHook, rendererState }: Props) {
   )
 }
 
-export default withRenderer(StyleProperty)
+export default StyleProperty

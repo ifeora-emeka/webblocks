@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux'
-import { BuilderBreakpoints, DndElementData } from '@repo/designer/types/designer.types'
+import { BuilderBreakpoints, DndElementData, ResponsiveChakraProps } from '@repo/designer/types/designer.types'
 import {
   appendChildToParent,
   duplicateElement,
@@ -102,7 +102,7 @@ export const useBuilder = () => {
     element_id,
   }: {
     element_id: string
-    newChakraStyle: ChakraProps
+    newChakraStyle: ResponsiveChakraProps
   }) => {
     console.log('UPDATING CHAKRA STYLE::', newChakraStyle)
     dispatch(
