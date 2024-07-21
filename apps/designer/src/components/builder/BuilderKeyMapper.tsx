@@ -1,5 +1,7 @@
 import { useEffect } from 'react'
-import withRenderer, { WithRendererProps } from '@/components/builder/HOCs/WithRenderer'
+import withRenderer, {
+  WithRendererProps,
+} from '@/components/builder/HOCs/WithRenderer'
 import { getStaticElement } from '@/components/builder/renderer/element-render/static-element-data/static-element.utils'
 import { DndElementData } from '@repo/designer/types/designer.types'
 
@@ -11,7 +13,7 @@ function BuilderKeyMapper({ builderHook, rendererState }: Props) {
     changeElementPosition,
     duplicateElementData,
     groupSelectedElementData,
-    appendChildToParentElement
+    appendChildToParentElement,
   } = builderHook
   const { active_element } = rendererState
 
@@ -20,7 +22,11 @@ function BuilderKeyMapper({ builderHook, rendererState }: Props) {
       const addElement = (type: string) => {
         if (active_element && active_element.length === 1) {
           const parent_id = active_element[0].dnd_id
-          const newChild: DndElementData = getStaticElement({ type, parent_id, index: 0 })
+          const newChild: DndElementData = getStaticElement({
+            type,
+            parent_id,
+            index: 0,
+          })
           appendChildToParentElement({ parent_id, newChild })
         }
       }

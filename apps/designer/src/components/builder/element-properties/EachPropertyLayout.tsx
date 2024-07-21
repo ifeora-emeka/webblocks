@@ -3,12 +3,17 @@ import { TbPlus } from 'react-icons/tb'
 
 type Props = {
   label: string
-  children: React.ReactNode;
-  isEmpty?: boolean;
-  onAddValue: () => void;
+  children: React.ReactNode
+  isEmpty?: boolean
+  onAddValue: () => void
 }
 
-export default function EachPropertyLayout({ children, label, isEmpty, onAddValue }: Props) {
+export default function EachPropertyLayout({
+  children,
+  label,
+  isEmpty,
+  onAddValue,
+}: Props) {
   return (
     <>
       <div
@@ -16,15 +21,22 @@ export default function EachPropertyLayout({ children, label, isEmpty, onAddValu
       >
         <small>{label}</small>
         <div className={'min-w-[70%] max-w-[70%] flex gap-default_spacing'}>
-          {
-            isEmpty ? <>
+          {isEmpty ? (
+            <>
               <div className={'w-full flex justify-end'}>
-                <button onClick={onAddValue} className={'flex px-3 py-1 rounded-md items-center gap-default_spacing text-xs text-muted-foreground hover:text-card-foreground hover:bg-accent'}>
+                <button
+                  onClick={onAddValue}
+                  className={
+                    'flex px-3 py-1 rounded-md items-center gap-default_spacing text-xs text-muted-foreground hover:text-card-foreground hover:bg-accent'
+                  }
+                >
                   Add <TbPlus />
                 </button>
               </div>
-            </>: children
-          }
+            </>
+          ) : (
+            children
+          )}
         </div>
       </div>
     </>

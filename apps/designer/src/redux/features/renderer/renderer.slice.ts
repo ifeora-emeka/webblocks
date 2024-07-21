@@ -2,7 +2,8 @@ import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import {
   BuilderBreakpoints,
-  DndElementData, ResponsiveChakraProps,
+  DndElementData,
+  ResponsiveChakraProps,
 } from '@repo/designer/types/designer.types'
 import slugify from 'slugify'
 import { generateRandomId } from '@/lib/utils'
@@ -339,7 +340,7 @@ export const rendererSlice = createSlice({
         },
       }
 
-      console.log("UPDATED ELEMENT :::", updatedElement)
+      console.log('UPDATED ELEMENT :::', updatedElement)
 
       let newElements = [
         ...state.allElements.slice(0, elementIndex),

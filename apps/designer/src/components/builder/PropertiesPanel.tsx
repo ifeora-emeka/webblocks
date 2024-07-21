@@ -6,7 +6,7 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import StyleProperty from '@/components/builder/element-properties/style-properties/StyleProperty';
+import StyleProperty from '@/components/builder/element-properties/style-properties/StyleProperty'
 
 export default function PropertiesPanel() {
   return (

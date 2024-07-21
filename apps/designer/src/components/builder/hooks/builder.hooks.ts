@@ -1,5 +1,9 @@
 import { useDispatch } from 'react-redux'
-import { BuilderBreakpoints, DndElementData, ResponsiveChakraProps } from '@repo/designer/types/designer.types'
+import {
+  BuilderBreakpoints,
+  DndElementData,
+  ResponsiveChakraProps,
+} from '@repo/designer/types/designer.types'
 import {
   appendChildToParent,
   duplicateElement,
@@ -111,11 +115,11 @@ export const useBuilder = () => {
         newChakraStyle,
       }),
     )
-  };
+  }
 
-  const getViewportWidth = (breakpoint:BuilderBreakpoints):string => {
+  const getViewportWidth = (breakpoint: BuilderBreakpoints): string => {
     switch (breakpoint) {
-      case "base":
+      case 'base':
         return '400px'
       case 'md':
         return '700px'
@@ -137,6 +141,6 @@ export const useBuilder = () => {
     selectMultipleElementData,
     groupSelectedElementData,
     updateElementChakraStyleData,
-    getViewportWidth
+    getViewportWidth,
   }
 }

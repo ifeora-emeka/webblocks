@@ -1,5 +1,8 @@
 import React, { useRef, useState, useCallback } from 'react'
-import { BuilderBreakpoints, DndElementData } from '@repo/designer/types/designer.types'
+import {
+  BuilderBreakpoints,
+  DndElementData,
+} from '@repo/designer/types/designer.types'
 import { Box, ChakraProps } from '@chakra-ui/react'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppStore, RootState, store } from '@/redux/store'
@@ -26,10 +29,15 @@ const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
   const { element_data, children_dnd_element_data } = element
   const { html_tag, chakraProps, attributes, style } = element_data
   const dispatch = useDispatch()
-  const { active_element, activeBreakpoint } = useSelector((state: RootState) => state.renderer)
+  const { active_element, activeBreakpoint } = useSelector(
+    (state: RootState) => state.renderer,
+  )
   const childRef = useRef<HTMLHeadingElement>(null)
-  const [editInnerText, setEditInnerText] = useState(false);
-  const responsiveChakraProps = getResponsiveProps(chakraProps, activeBreakpoint as BuilderBreakpoints);
+  const [editInnerText, setEditInnerText] = useState(false)
+  const responsiveChakraProps = getResponsiveProps(
+    chakraProps,
+    activeBreakpoint as BuilderBreakpoints,
+  )
 
   const renderChildren = (children: Array<DndElementData> | undefined) => {
     if (!children) return null
@@ -48,7 +56,6 @@ const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
 
   let theParent =
     allElements.find((el) => el.dnd_id === element.parent_dnd_id) || null
-
 
   const handleInput = () => {
     if (childRef?.current) {
@@ -83,7 +90,11 @@ const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
         element: element,
       })
     } else {
-      if(active_element.length > 0 && element.element_data.element_id !== active_element[0]?.element_data.element_id) {
+      if (
+        active_element.length > 0 &&
+        element.element_data.element_id !==
+          active_element[0]?.element_data.element_id
+      ) {
         dispatch(
           setRendererState({
             active_element: [element],

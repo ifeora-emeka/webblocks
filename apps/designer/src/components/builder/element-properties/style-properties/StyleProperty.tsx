@@ -6,8 +6,6 @@ import {
 import FillProperty from '@/components/builder/element-properties/style-properties/FillProperty'
 
 function StyleProperty() {
-
-
   return (
     <>
       <AccordionItem value="style">

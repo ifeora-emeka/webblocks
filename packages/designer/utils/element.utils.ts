@@ -1,6 +1,12 @@
-import { BuilderBreakpoints, ResponsiveChakraProps } from '@repo/designer/types/designer.types';
+import {
+  BuilderBreakpoints,
+  ResponsiveChakraProps,
+} from "@repo/designer/types/designer.types";
 
-export const getResponsiveProps = (props: ResponsiveChakraProps, activeBreakpoint: BuilderBreakpoints) => {
+export const getResponsiveProps = (
+  props: ResponsiveChakraProps,
+  activeBreakpoint: BuilderBreakpoints,
+) => {
   const responsiveProps: Record<string, any> = {};
   for (const key in props) {
     //@ts-ignore

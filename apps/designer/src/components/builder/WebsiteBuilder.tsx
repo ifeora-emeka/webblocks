@@ -110,7 +110,7 @@ export default function WebsiteBuilder({ page, elements }: RendererProps) {
                   `min-h-[calc(100vh-${BUILDER_NAV_SIZE})] max-h-[calc(100vh-50px)] overflow-y-auto w-full light`,
                 )}
               >
-                  <GPTElementRenderer elements={allElements} />
+                <GPTElementRenderer elements={allElements} />
               </div>
             </DesignerProvider>
             <PropertiesPanel />

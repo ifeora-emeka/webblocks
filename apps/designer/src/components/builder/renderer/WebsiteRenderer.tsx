@@ -5,16 +5,21 @@ import { cn } from '@/lib/utils'
 import ElementRenderer from '@/components/builder/renderer/element-render/ElementRenderer'
 import { compileAllDndElements } from '@/components/builder/builder.utils'
 import { BUILDER_NAV_SIZE } from '@/components/builder/builder.constants'
-import withRenderer, { WithRendererProps } from '@/components/builder/HOCs/WithRenderer'
-
+import withRenderer, {
+  WithRendererProps,
+} from '@/components/builder/HOCs/WithRenderer'
 
 type Props = {
   elements: DndElementData[]
-} & WithRendererProps;
+} & WithRendererProps
 
-const GPTElementRenderer = ({ elements, rendererState, builderHook }:Props) => {
-  const { activeBreakpoint } = rendererState;
-  const { getViewportWidth } = builderHook;
+const GPTElementRenderer = ({
+  elements,
+  rendererState,
+  builderHook,
+}: Props) => {
+  const { activeBreakpoint } = rendererState
+  const { getViewportWidth } = builderHook
 
   return (
     <>
@@ -42,4 +47,4 @@ const GPTElementRenderer = ({ elements, rendererState, builderHook }:Props) => {
   )
 }
 
-export default withRenderer(GPTElementRenderer);
+export default withRenderer(GPTElementRenderer)

@@ -21,14 +21,16 @@ import {
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import withRenderer, { WithRendererProps } from '@/components/builder/HOCs/WithRenderer'
+} from '@/components/ui/dropdown-menu'
+import withRenderer, {
+  WithRendererProps,
+} from '@/components/builder/HOCs/WithRenderer'
 
-type Props = {} & WithRendererProps;
+type Props = {} & WithRendererProps
 
-function BuilderHeader({rendererState, builderHook}:Props) {
-  const { activeBreakpoint } = rendererState;
-  const { updateRenderer } = builderHook;
+function BuilderHeader({ rendererState, builderHook }: Props) {
+  const { activeBreakpoint } = rendererState
+  const { updateRenderer } = builderHook
 
   const clearAllTheShit = () => {
     sessionStorage.clear()
@@ -101,27 +103,33 @@ function BuilderHeader({rendererState, builderHook}:Props) {
               <DropdownMenuCheckboxItem
                 checked={activeBreakpoint === 'lg'}
                 className="flex gap-default_spacing"
-                onCheckedChange={() =>updateRenderer({
-                  activeBreakpoint: 'lg'
-                })}
+                onCheckedChange={() =>
+                  updateRenderer({
+                    activeBreakpoint: 'lg',
+                  })
+                }
               >
                 <TbDeviceDesktop size={20} /> Desktop
               </DropdownMenuCheckboxItem>
               <DropdownMenuCheckboxItem
                 checked={activeBreakpoint === 'md'}
                 className="flex gap-default_spacing"
-                onCheckedChange={() =>updateRenderer({
-                  activeBreakpoint: 'md'
-                })}
+                onCheckedChange={() =>
+                  updateRenderer({
+                    activeBreakpoint: 'md',
+                  })
+                }
               >
                 <TbDeviceTablet size={20} /> Tablet
               </DropdownMenuCheckboxItem>
               <DropdownMenuCheckboxItem
                 checked={activeBreakpoint === 'base'}
                 className="flex gap-default_spacing"
-                onCheckedChange={() =>updateRenderer({
-                  activeBreakpoint: 'base'
-                })}
+                onCheckedChange={() =>
+                  updateRenderer({
+                    activeBreakpoint: 'base',
+                  })
+                }
               >
                 <TbDeviceMobile size={20} /> Mobile
               </DropdownMenuCheckboxItem>
