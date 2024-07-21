@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux'
-import { DndElementData } from '@repo/designer/types/designer.types'
+import { BuilderBreakpoints, DndElementData } from '@repo/designer/types/designer.types'
 import {
   appendChildToParent,
   duplicateElement,
@@ -111,6 +111,19 @@ export const useBuilder = () => {
         newChakraStyle,
       }),
     )
+  };
+
+  const getViewportWidth = (breakpoint:BuilderBreakpoints):string => {
+    switch (breakpoint) {
+      case "base":
+        return '400px'
+      case 'md':
+        return '700px'
+      case 'lg':
+        return '100%'
+      default:
+        return '100%'
+    }
   }
 
   return {
@@ -124,5 +137,6 @@ export const useBuilder = () => {
     selectMultipleElementData,
     groupSelectedElementData,
     updateElementChakraStyleData,
+    getViewportWidth
   }
 }

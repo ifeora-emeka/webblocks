@@ -15,7 +15,7 @@ export default function PropertiesPanel() {
     <>
       <Tabs
         defaultValue="styling"
-        className={`min-h-[calc(100vh-${BUILDER_NAV_SIZE})] max-h-[calc(100vh-${BUILDER_NAV_SIZE})] bg-card min-w-[260px] max-w-[260px] overflow-x-hidden overflow-y-hidden text-foreground select-none flex flex-col z-50`}
+        className={`min-h-[calc(100vh-${BUILDER_NAV_SIZE})] max-h-[calc(100vh-${BUILDER_NAV_SIZE})] bg-card min-w-[240px] max-w-[240px] overflow-x-hidden overflow-y-hidden text-foreground select-none flex flex-col z-50`}
       >
         <div
           defaultValue="styling"
@@ -45,8 +45,8 @@ export default function PropertiesPanel() {
               className="w-full"
               defaultValue={['layout', 'size', 'style']}
             >
-              {/* <LayoutProperty />
-              <StyleProperty /> */}
+              <LayoutProperty />
+              <StyleProperty />
               <DefaultPropertyPanel />
               <AccordionItem value="item-3">
                 <AccordionTrigger

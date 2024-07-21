@@ -19,7 +19,6 @@ import {
   TbHeading,
   TbLayout,
   TbLayoutGrid,
-  TbLayoutList,
   TbLayoutRows,
   TbLink,
   TbLock,

@@ -1,5 +1,6 @@
 import { TbX } from 'react-icons/tb';
 import ColorPicker from 'react-best-gradient-color-picker'
+import ReactGPicker from 'react-gcolor-picker';
 import { useEffect, useState } from 'react'
 
 type Props = {
@@ -12,14 +13,16 @@ export default function DefaultFillInput({ value, onChange }:Props){
   const [color, setColor] = useState(value);
 
   useEffect(() => {
-    setColor(value)
+    if(value) {
+      setColor(value)
+    }
   },[value])
 
-  useEffect(() => {
-    if(color) {
-      onChange(color)
-    }
-  },[color])
+
+  const updateFillColor = (color:string) => {
+    setColor(color)
+    onChange(color)
+  }
 
   return <>
     {
@@ -31,7 +34,8 @@ export default function DefaultFillInput({ value, onChange }:Props){
             <TbX />
           </button>
         </header>
-        <ColorPicker value={value} onChange={e => setColor(e)} height={100} width={300} />
+        {/*<ColorPicker value={value} onChange={e => setColor(e)} height={100} width={300} />*/}
+        <ReactGPicker format={'hex'} value={value} onChange={updateFillColor} />
       </div>
     }
     <div

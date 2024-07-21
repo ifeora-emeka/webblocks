@@ -23,9 +23,7 @@ import GPTElementRenderer from './renderer/WebsiteRenderer'
 import { AppStore, RootState } from '@/redux/store'
 import { setRendererState } from '@/redux/features/renderer/renderer.slice'
 import { defaultRootElement } from '@/components/builder/renderer/element-render/static-element-data/default-body'
-import { staticHeadingElement } from './renderer/element-render/static-element-data/heading-element'
 import BuilderKeyMapper from '@/components/builder/BuilderKeyMapper'
-import { ViewPortProvider } from './context/useBuilderViewport'
 
 export default function WebsiteBuilder({ page, elements }: RendererProps) {
   const [show, setShow] = useState(false)
@@ -112,9 +110,7 @@ export default function WebsiteBuilder({ page, elements }: RendererProps) {
                   `min-h-[calc(100vh-${BUILDER_NAV_SIZE})] max-h-[calc(100vh-50px)] overflow-y-auto w-full light`,
                 )}
               >
-                <ViewPortProvider>
                   <GPTElementRenderer elements={allElements} />
-                </ViewPortProvider>
               </div>
             </DesignerProvider>
             <PropertiesPanel />

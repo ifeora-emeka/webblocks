@@ -22,7 +22,7 @@ export const defaultRootElement = (
       html_tag: 'div',
       chakraProps: {
         ...staticFrameChakraStyle,
-        backgroundColor: generateStaticBreakpoints(DEFAULT_FRAME_COLOR),
+        background: generateStaticBreakpoints(DEFAULT_FRAME_COLOR),
         placeContent: generateStaticBreakpoints('start'),
         gap: generateStaticBreakpoints('0'),
         minH: generateStaticBreakpoints('90vh'),

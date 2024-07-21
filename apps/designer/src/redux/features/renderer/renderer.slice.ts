@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import {
   BuilderBreakpoints,
-  DndElementData,
+  DndElementData, ResponsiveChakraProps,
 } from '@repo/designer/types/designer.types'
 import slugify from 'slugify'
 import { generateRandomId } from '@/lib/utils'
@@ -18,7 +18,7 @@ export interface RendererState {
 const initialState: RendererState = {
   allElements: [],
   active_element: [],
-  activeBreakpoint: 'xl',
+  activeBreakpoint: 'lg',
 }
 
 export const rendererSlice = createSlice({
@@ -315,7 +315,7 @@ export const rendererSlice = createSlice({
       state,
       action: PayloadAction<{
         element_id: string
-        newChakraStyle: ChakraProps
+        newChakraStyle: ResponsiveChakraProps
       }>,
     ) => {
       const { element_id, newChakraStyle } = action.payload
@@ -338,6 +338,8 @@ export const rendererSlice = createSlice({
           },
         },
       }
+
+      console.log("UPDATED ELEMENT :::", updatedElement)
 
       let newElements = [
         ...state.allElements.slice(0, elementIndex),

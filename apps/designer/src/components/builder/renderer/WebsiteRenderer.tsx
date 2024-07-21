@@ -4,24 +4,28 @@ import { DndElementData } from '@repo/designer/types/designer.types'
 import { cn } from '@/lib/utils'
 import ElementRenderer from '@/components/builder/renderer/element-render/ElementRenderer'
 import { compileAllDndElements } from '@/components/builder/builder.utils'
-import { useBuilderViewPort } from '../context/useBuilderViewport'
+import { BUILDER_NAV_SIZE } from '@/components/builder/builder.constants'
+import withRenderer, { WithRendererProps } from '@/components/builder/HOCs/WithRenderer'
 
-interface ElementRendererProps {
+
+type Props = {
   elements: DndElementData[]
-}
+} & WithRendererProps;
 
-const GPTElementRenderer: React.FC<ElementRendererProps> = ({ elements }) => {
-  const { viewportState: { viewport }, getViewportWidth } = useBuilderViewPort();
+const GPTElementRenderer = ({ elements, rendererState, builderHook }:Props) => {
+  const { activeBreakpoint } = rendererState;
+  const { getViewportWidth } = builderHook;
+
   return (
     <>
-      <div className={'p-default_spacing flex justify-center'}>
+      <div className={'flex justify-center'}>
         <div
           style={{
-            minWidth: getViewportWidth(viewport),
-            maxWidth: getViewportWidth(viewport),
+            minWidth: getViewportWidth(activeBreakpoint),
+            maxWidth: getViewportWidth(activeBreakpoint),
           }}
           className={cn(
-            'bg-white select-none overflow-hidden min-w-[700px] max-w-[700px]',
+            `bg-white select-none overflow-hidden min-w-[700px] max-w-[700px] max-h-[calc(100vh-${BUILDER_NAV_SIZE})] min-h-[calc(100vh-${BUILDER_NAV_SIZE})] overflow-y-auto`,
             {
               'min-h-[calc(100vh-50px-1rem)]': elements.length == 0,
             },
@@ -38,4 +42,4 @@ const GPTElementRenderer: React.FC<ElementRendererProps> = ({ elements }) => {
   )
 }
 
-export default GPTElementRenderer
+export default withRenderer(GPTElementRenderer);

@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
-import withRenderer, {
-  WithRendererProps,
-} from '@/components/builder/HOCs/WithRenderer'
+import withRenderer, { WithRendererProps } from '@/components/builder/HOCs/WithRenderer'
+import { getStaticElement } from '@/components/builder/renderer/element-render/static-element-data/static-element.utils'
+import { DndElementData } from '@repo/designer/types/designer.types'
 
 type Props = {} & WithRendererProps
 
@@ -11,11 +11,51 @@ function BuilderKeyMapper({ builderHook, rendererState }: Props) {
     changeElementPosition,
     duplicateElementData,
     groupSelectedElementData,
+    appendChildToParentElement
   } = builderHook
   const { active_element } = rendererState
 
   const initializeHotkeys = () => {
     const handleKeyDown = (event: KeyboardEvent) => {
+      const addElement = (type: string) => {
+        if (active_element && active_element.length === 1) {
+          const parent_id = active_element[0].dnd_id
+          const newChild: DndElementData = getStaticElement({ type, parent_id, index: 0 })
+          appendChildToParentElement({ parent_id, newChild })
+        }
+      }
+
+      if (event.altKey) {
+        switch (event.key) {
+          case 'h':
+            event.preventDefault()
+            addElement('heading')
+            break
+          case 'f':
+            event.preventDefault()
+            addElement('frame')
+            break
+          case 'p':
+            event.preventDefault()
+            addElement('paragraph')
+            break
+          case 'b':
+            event.preventDefault()
+            addElement('button')
+            break
+          case 'i':
+            event.preventDefault()
+            addElement('image')
+            break
+          case 'l':
+            event.preventDefault()
+            addElement('link')
+            break
+          default:
+            break
+        }
+      }
+
       switch (event.key) {
         case 'Delete':
           if (active_element && event.ctrlKey) {
@@ -52,9 +92,10 @@ function BuilderKeyMapper({ builderHook, rendererState }: Props) {
         case 'g':
           if (event.ctrlKey && active_element.length > 1) {
             event.preventDefault()
-            console.log('SHORT CUT WORKED::')
             groupSelectedElementData()
           }
+          break
+        default:
           break
       }
     }

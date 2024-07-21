@@ -26,7 +26,7 @@ export default function DefaultBtnTab({
       <div className={'flex'}>
         <div
           className={cn(
-            'p-1 flex-1 bg-background rounded-lg w-auto flex gap-default_spacing h-9',
+            'p-1 flex-1 bg-background rounded-lg w-auto flex gap-default_spacing h-8',
             className,
           )}
         >
@@ -36,7 +36,7 @@ export default function DefaultBtnTab({
                 <button
                   onClick={() => onChange(btn.value)}
                   className={cn(
-                    'w-full text-center px-4 rounded-sm py-1 hover:bg-card text-xs flex justify-center items-center',
+                    'w-full text-center px-1 rounded-sm over:bg-card text-xs flex justify-center items-center',
                     {
                       'bg-card': value === btn.value,
                     },

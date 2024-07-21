@@ -20,13 +20,16 @@ import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import withRenderer, { WithRendererProps } from '@/components/builder/HOCs/WithRenderer'
 
-export default function BuilderHeader() {
+type Props = {} & WithRendererProps;
+
+function BuilderHeader({rendererState, builderHook}:Props) {
+  const { activeBreakpoint } = rendererState;
+  const { updateRenderer } = builderHook;
+
   const clearAllTheShit = () => {
     sessionStorage.clear()
     localStorage.clear()
@@ -96,25 +99,31 @@ export default function BuilderHeader() {
             </DropdownMenuTrigger>
             <DropdownMenuContent className="dark">
               <DropdownMenuCheckboxItem
-                checked={true}
-                onCheckedChange={() => {}}
+                checked={activeBreakpoint === 'lg'}
                 className="flex gap-default_spacing"
+                onCheckedChange={() =>updateRenderer({
+                  activeBreakpoint: 'lg'
+                })}
               >
                 <TbDeviceDesktop size={20} /> Desktop
               </DropdownMenuCheckboxItem>
               <DropdownMenuCheckboxItem
-                checked={true}
-                onCheckedChange={() => {}}
+                checked={activeBreakpoint === 'md'}
                 className="flex gap-default_spacing"
-              >
-                <TbDeviceMobile size={20} /> Mobile
-              </DropdownMenuCheckboxItem>
-              <DropdownMenuCheckboxItem
-                checked={true}
-                onCheckedChange={() => {}}
-                className="flex gap-default_spacing"
+                onCheckedChange={() =>updateRenderer({
+                  activeBreakpoint: 'md'
+                })}
               >
                 <TbDeviceTablet size={20} /> Tablet
+              </DropdownMenuCheckboxItem>
+              <DropdownMenuCheckboxItem
+                checked={activeBreakpoint === 'base'}
+                className="flex gap-default_spacing"
+                onCheckedChange={() =>updateRenderer({
+                  activeBreakpoint: 'base'
+                })}
+              >
+                <TbDeviceMobile size={20} /> Mobile
               </DropdownMenuCheckboxItem>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -138,3 +147,5 @@ export default function BuilderHeader() {
     </>
   )
 }
+
+export default withRenderer(BuilderHeader)

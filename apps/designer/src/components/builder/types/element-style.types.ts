@@ -1,8 +1,8 @@
 export interface ElementBreakpoint {
   base: string
-  sm: string
+  // sm: string
   md: string
   lg: string
-  xl: string
-  '2xl': string
+  // xl: string
+  // '2xl': string
 }

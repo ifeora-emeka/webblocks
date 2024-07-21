@@ -23,6 +23,7 @@ import {} from '@chakra-ui/next-js'
 import { debounce } from '@/components/builder/builder.utils'
 import { ResponsiveChakraProps } from '@repo/designer/types/designer.types'
 import DefaultSliderInput from '@/components/DefaultSliderInput'
+import { cn } from '@/lib/utils'
 
 type Props = {} & WithRendererProps
 
@@ -99,7 +100,7 @@ function FlexDisplayProperties({ builderHook, rendererState }: Props) {
             })
           }}
         >
-          <SelectTrigger className={'bg-background'}>
+          <SelectTrigger className={cn('bg-background h-8 text-sm')}>
             <SelectValue placeholder="Select one:" />
           </SelectTrigger>
           <SelectContent className={'dark'}>
