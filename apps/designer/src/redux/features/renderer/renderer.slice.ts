@@ -353,6 +353,31 @@ export const rendererSlice = createSlice({
         allElements: newElements,
       }
     },
+    removeElementChakraStyle: (
+      state,
+      action: PayloadAction<{ element_id: string; property: string }>,
+    ) => {
+      const { element_id, property } = action.payload
+
+      const elementIndex = state.allElements.findIndex(
+        (el: DndElementData) => el.element_data.element_id === element_id,
+      )
+
+      if (elementIndex !== -1) {
+        const targetElement = state.allElements[elementIndex]
+        const newChakraProps = { ...targetElement.element_data.chakraProps }
+
+        delete newChakraProps[property]
+
+        state.allElements[elementIndex] = {
+          ...targetElement,
+          element_data: {
+            ...targetElement.element_data,
+            chakraProps: newChakraProps,
+          },
+        }
+      }
+    },
   },
 })
 
@@ -366,6 +391,7 @@ export const {
   selectMultipleElement,
   groupElements,
   updateElementChakraStyle,
+  removeElementChakraStyle,
 } = rendererSlice.actions
 
 export default rendererSlice.reducer

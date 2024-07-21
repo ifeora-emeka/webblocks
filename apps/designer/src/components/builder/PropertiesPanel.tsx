@@ -7,6 +7,7 @@ import {
 } from '@/components/ui/accordion'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import StyleProperty from '@/components/builder/element-properties/style-properties/StyleProperty'
+import LayoutProperty from '@/components/builder/element-properties/layout-properties/LayoutProperty'
 
 export default function PropertiesPanel() {
   return (
@@ -43,6 +44,7 @@ export default function PropertiesPanel() {
               className="w-full"
               defaultValue={['layout', 'size', 'style']}
             >
+              <LayoutProperty />
               <StyleProperty />
               <AccordionItem value="item-3">
                 <AccordionTrigger

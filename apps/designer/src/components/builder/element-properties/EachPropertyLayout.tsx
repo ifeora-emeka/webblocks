@@ -1,11 +1,13 @@
 import React from 'react'
-import { TbPlus } from 'react-icons/tb'
+import { TbPlus, TbX } from 'react-icons/tb'
+import DefaultTooltip from '@/components/DefaultTooltip'
 
 type Props = {
   label: string
   children: React.ReactNode
   isEmpty?: boolean
   onAddValue: () => void
+  onRemoveValue?: () => void
 }
 
 export default function EachPropertyLayout({
@@ -13,6 +15,7 @@ export default function EachPropertyLayout({
   label,
   isEmpty,
   onAddValue,
+  onRemoveValue,
 }: Props) {
   return (
     <>
@@ -36,6 +39,16 @@ export default function EachPropertyLayout({
             </>
           ) : (
             children
+          )}
+          {onRemoveValue && (
+            <DefaultTooltip content={'Remove'}>
+              <button
+                onClick={onRemoveValue}
+                className={'text-muted-foreground hover:text-card-foreground'}
+              >
+                <TbX />
+              </button>
+            </DefaultTooltip>
           )}
         </div>
       </div>

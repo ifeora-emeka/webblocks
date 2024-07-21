@@ -10,6 +10,7 @@ import {
   groupElements,
   moveElement,
   removeElement,
+  removeElementChakraStyle,
   RendererState,
   selectMultipleElement,
   setRendererState,
@@ -117,6 +118,21 @@ export const useBuilder = () => {
     )
   }
 
+  const removeElementChakraProperty = ({
+    element_id,
+    property,
+  }: {
+    property: keyof ChakraProps
+    element_id: string
+  }) => {
+    dispatch(
+      removeElementChakraStyle({
+        property,
+        element_id,
+      }),
+    )
+  }
+
   const getViewportWidth = (breakpoint: BuilderBreakpoints): string => {
     switch (breakpoint) {
       case 'base':
@@ -142,5 +158,6 @@ export const useBuilder = () => {
     groupSelectedElementData,
     updateElementChakraStyleData,
     getViewportWidth,
+    removeElementChakraProperty,
   }
 }

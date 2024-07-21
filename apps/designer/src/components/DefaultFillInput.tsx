@@ -65,7 +65,7 @@ export default function DefaultFillInput({ value, onChange }: Props) {
         <div className={'flex w-full max-w-[65%] flex-1 '}>
           <small className={'truncate'}>{color}</small>
         </div>
-        <DefaultTooltip content={<p>Link variable</p>}>
+        <DefaultTooltip content={<p>Link styles</p>}>
           <button className={'text-muted-foreground hover:text-white/80'}>
             <TbLayersLinked />
           </button>

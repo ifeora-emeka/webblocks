@@ -25,7 +25,7 @@ export const defaultRootElement = (
         background: generateStaticBreakpoints(DEFAULT_FRAME_COLOR),
         placeContent: generateStaticBreakpoints('start'),
         gap: generateStaticBreakpoints('0'),
-        minH: generateStaticBreakpoints('90vh'),
+        minH: generateStaticBreakpoints('100vh'),
         // bg: '#ffff',
         px: generateStaticBreakpoints('60px'),
         py: generateStaticBreakpoints('220px'),
