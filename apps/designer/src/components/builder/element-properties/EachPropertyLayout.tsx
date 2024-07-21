@@ -40,7 +40,7 @@ export default function EachPropertyLayout({
           ) : (
             children
           )}
-          {onRemoveValue && (
+          {onRemoveValue && !isEmpty && (
             <DefaultTooltip content={'Remove'}>
               <button
                 onClick={onRemoveValue}

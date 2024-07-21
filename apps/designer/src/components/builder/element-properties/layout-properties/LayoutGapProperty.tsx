@@ -6,22 +6,26 @@ import { useState, useEffect } from 'react'
 import { debounce } from '@/components/builder/builder.utils'
 
 export default function LayoutGapProperty() {
-  const [gap, setGap] = useState<number>(0)
+  const [gap, setGapState] = useState<number>(0)
   const { propertyValue, updatePropertyValue, removePropertyValue } =
     useElementProperty('gap')
 
   const debouncedUpdatePropertyValue = debounce((value: number) => {
     updatePropertyValue(value.toString() + 'px')
-  }, 400)
+  }, 600)
 
-  useEffect(() => {
-    if (propertyValue) {
-      setGap(parseInt(propertyValue))
-    }
-  }, [propertyValue])
+  const debouncedSetGap = debounce((value: number) => {
+    setGapState(value)
+  }, 10)
+
+  // useEffect(() => {
+  //   if (propertyValue) {
+  //     setGapState(parseInt(propertyValue));
+  //   }
+  // }, [propertyValue]);
 
   const handleGapChange = (value: number) => {
-    setGap(value)
+    debouncedSetGap(value)
     debouncedUpdatePropertyValue(value)
   }
 
@@ -33,17 +37,11 @@ export default function LayoutGapProperty() {
     >
       <div className={'flex items-center gap-default_spacing'}>
         <Input
-          className={'w-[40%]'}
+          className={'w-[50%] border-accent bg-background'}
           type="number"
           placeholder="Gap"
           value={gap}
           onChange={(e) => handleGapChange(Number(e.target.value))}
-        />
-        <Slider
-          defaultValue={[gap]}
-          max={100}
-          step={1}
-          onValueChange={(values) => handleGapChange(values[0])}
         />
       </div>
     </EachPropertyLayout>

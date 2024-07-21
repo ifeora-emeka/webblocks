@@ -29,9 +29,9 @@ export const defaultRootElement = (
         // bg: '#ffff',
         px: generateStaticBreakpoints('60px'),
         py: generateStaticBreakpoints('220px'),
-        bg: generateStaticBreakpoints(
-          'url(https://img.freepik.com/premium-photo/soft-blur-nature-background-abstract-modern-website-graphics-with-smooth-gradient-background_532332-40.jpg)',
-        ),
+        // bg: generateStaticBreakpoints(
+        //   'url(https://img.freepik.com/premium-photo/soft-blur-nature-background-abstract-modern-website-graphics-with-smooth-gradient-background_532332-40.jpg)',
+        // ),
         // bg: 'url(https://img.freepik.com/free-vector/beautiful-summer-gradient-background-blue-yellow_53876-120751.jpg?size=626&ext=jpg&ga=GA1.1.2082370165.1716768000&semt=ais_user)',
         bgPosition: generateStaticBreakpoints('center'),
         bgSize: generateStaticBreakpoints('cover'),

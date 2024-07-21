@@ -340,8 +340,6 @@ export const rendererSlice = createSlice({
         },
       }
 
-      console.log('UPDATED ELEMENT :::', updatedElement)
-
       let newElements = [
         ...state.allElements.slice(0, elementIndex),
         updatedElement,
