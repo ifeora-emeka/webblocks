@@ -19,11 +19,15 @@ export default function EachPropertyLayout({
 }: Props) {
   return (
     <>
-      <div
-        className={'dark flex items-center gap-default_spacing justify-between'}
-      >
-        <small>{label}</small>
-        <div className={'min-w-[70%] max-w-[70%] flex gap-default_spacing'}>
+      <div className={'dark flex items-center justify-between'}>
+        <div className={'min-w-[30%] max-w-[30%]'}>
+          <small>{label}</small>
+        </div>
+        <div
+          className={
+            'min-w-[65%] max-w-[65%] flex gap-default_spacing justify-end'
+          }
+        >
           {isEmpty ? (
             <>
               <div className={'w-full flex justify-end'}>

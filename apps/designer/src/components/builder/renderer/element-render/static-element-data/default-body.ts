@@ -25,10 +25,9 @@ export const defaultRootElement = (
         background: generateStaticBreakpoints(DEFAULT_FRAME_COLOR),
         placeContent: generateStaticBreakpoints('start'),
         gap: generateStaticBreakpoints('0'),
-        minH: generateStaticBreakpoints('100vh'),
+        minHeight: generateStaticBreakpoints('100vh'),
         // bg: '#ffff',
-        px: generateStaticBreakpoints('60px'),
-        py: generateStaticBreakpoints('220px'),
+        padding: generateStaticBreakpoints('40px 80px'),
         // bg: generateStaticBreakpoints(
         //   'url(https://img.freepik.com/premium-photo/soft-blur-nature-background-abstract-modern-website-graphics-with-smooth-gradient-background_532332-40.jpg)',
         // ),

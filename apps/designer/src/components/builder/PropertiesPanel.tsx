@@ -8,6 +8,8 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import StyleProperty from '@/components/builder/element-properties/style-properties/StyleProperty'
 import LayoutProperty from '@/components/builder/element-properties/layout-properties/LayoutProperty'
+import SizeProperty from '@/components/builder/element-properties/size-properties/SizeProperty'
+import ElementSpacingProperty from '@/components/builder/element-properties/spacing-property/ElementSpacingProperty'
 
 export default function PropertiesPanel() {
   return (
@@ -44,6 +46,8 @@ export default function PropertiesPanel() {
               className="w-full"
               defaultValue={['layout', 'size', 'style']}
             >
+              <ElementSpacingProperty />
+              <SizeProperty />
               <LayoutProperty />
               <StyleProperty />
               <AccordionItem value="item-3">

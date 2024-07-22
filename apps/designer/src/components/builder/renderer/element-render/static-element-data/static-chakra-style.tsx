@@ -6,14 +6,14 @@ export const staticFrameChakraStyle: ResponsiveChakraProps = {
   // overflow: 'hidden',
 
   //padding
-  padding: generateStaticBreakpoints('16px 16px 16px 16px'),
+  padding: generateStaticBreakpoints('6px'),
 
   //margin
-  margin: generateStaticBreakpoints('0px 0px 0px 0px'),
+  margin: generateStaticBreakpoints('0px'),
 
   //size
-  height: generateStaticBreakpoints('auto'),
-  width: generateStaticBreakpoints('auto'),
+  height: generateStaticBreakpoints('20px'),
+  width: generateStaticBreakpoints('100%'),
   //min-max size
   minWidth: generateStaticBreakpoints('auto'),
   maxWidth: generateStaticBreakpoints('auto'),
@@ -33,5 +33,5 @@ export const staticFrameChakraStyle: ResponsiveChakraProps = {
   flexWrap: generateStaticBreakpoints('nowrap'),
 
   //border
-  borderRadius: generateStaticBreakpoints('0px 0px 0px 0px'),
+  borderRadius: generateStaticBreakpoints('0px'),
 }
