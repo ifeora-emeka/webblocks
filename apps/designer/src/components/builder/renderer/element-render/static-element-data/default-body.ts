@@ -26,12 +26,6 @@ export const defaultRootElement = (
         placeContent: generateStaticBreakpoints('start'),
         gap: generateStaticBreakpoints('0'),
         minHeight: generateStaticBreakpoints('100vh'),
-        // bg: '#ffff',
-        padding: generateStaticBreakpoints('40px 80px'),
-        // bg: generateStaticBreakpoints(
-        //   'url(https://img.freepik.com/premium-photo/soft-blur-nature-background-abstract-modern-website-graphics-with-smooth-gradient-background_532332-40.jpg)',
-        // ),
-        // bg: 'url(https://img.freepik.com/free-vector/beautiful-summer-gradient-background-blue-yellow_53876-120751.jpg?size=626&ext=jpg&ga=GA1.1.2082370165.1716768000&semt=ais_user)',
         bgPosition: generateStaticBreakpoints('center'),
         bgSize: generateStaticBreakpoints('cover'),
         display: generateStaticBreakpoints('flex'),

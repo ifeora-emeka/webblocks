@@ -5,6 +5,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion'
+import ElementMarginPaddingProperty from '@/components/builder/element-properties/size-properties/ElementMarginPaddingProperty'
 
 export default function ElementSpacingProperty() {
   return (
@@ -17,13 +18,7 @@ export default function ElementSpacingProperty() {
           <div
             className={'p-default_spacing flex flex-col gap-default_spacing'}
           >
-            <EachPropertyLayout
-              label={'Width'}
-              isEmpty={false}
-              onAddValue={() => {}}
-            >
-              <Input className="w-[50px]" />
-            </EachPropertyLayout>
+            <ElementMarginPaddingProperty />
           </div>
         </AccordionContent>
       </AccordionItem>

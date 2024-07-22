@@ -10,13 +10,32 @@ import {
 import { Input } from '@/components/ui/input'
 
 export default function ElementSizeProperty() {
-  const { propertyValue, updatePropertyValue, removePropertyValue } =
-    useElementProperty('background')
+  const {
+    propertyValue: widthValue,
+    updatePropertyValue: updateWidthValue,
+    removePropertyValue: removeWidthValue,
+  } = useElementProperty('width')
+  const {
+    propertyValue: heightValue,
+    updatePropertyValue: updateHeightValue,
+    removePropertyValue: removeHeightValue,
+  } = useElementProperty('height')
 
   return (
     <>
-      <EachPropertyLayout label={'Width'} isEmpty={false} onAddValue={() => {}}>
-        <Input className="w-[50px]" />
+      <EachPropertyLayout
+        label={'Width'}
+        isEmpty={!widthValue}
+        onAddValue={() => {}}
+      >
+        <Input
+          className="w-[50px]"
+          type={'number'}
+          value={parseInt(widthValue || '0')}
+          onChange={(e) =>
+            updateWidthValue(String(parseInt(e.target.value)) + 'px')
+          }
+        />
         <Select>
           <SelectTrigger className="">
             <SelectValue placeholder="Theme" />
@@ -29,10 +48,17 @@ export default function ElementSizeProperty() {
       </EachPropertyLayout>
       <EachPropertyLayout
         label={'Height'}
-        isEmpty={false}
-        onAddValue={() => {}}
+        isEmpty={!heightValue}
+        onAddValue={() => updateWidthValue('')}
       >
-        <Input className="w-[50px]" />
+        <Input
+          className="w-[50px]"
+          type={'number'}
+          value={parseInt(heightValue || '0')}
+          onChange={(e) =>
+            updateHeightValue(String(parseInt(e.target.value)) + 'px')
+          }
+        />
         <Select>
           <SelectTrigger className="">
             <SelectValue placeholder="Theme" />

@@ -3,22 +3,7 @@ import { ChakraProps } from '@chakra-ui/react'
 import { ResponsiveChakraProps } from '@repo/designer/types/designer.types'
 
 export const staticFrameChakraStyle: ResponsiveChakraProps = {
-  // overflow: 'hidden',
-
-  //padding
-  padding: generateStaticBreakpoints('6px'),
-
-  //margin
-  margin: generateStaticBreakpoints('0px'),
-
-  //size
-  height: generateStaticBreakpoints('20px'),
-  width: generateStaticBreakpoints('100%'),
-  //min-max size
-  minWidth: generateStaticBreakpoints('auto'),
-  maxWidth: generateStaticBreakpoints('auto'),
-  minHeight: generateStaticBreakpoints('auto'),
-  maxHeight: generateStaticBreakpoints('auto'),
+  background: generateStaticBreakpoints('#ffff'),
 
   position: generateStaticBreakpoints('relative'),
 
