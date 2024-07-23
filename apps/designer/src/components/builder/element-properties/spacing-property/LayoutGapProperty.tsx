@@ -8,18 +8,18 @@ export default function LayoutGapProperty() {
     useElementProperty('gap')
 
   const debouncedUpdatePropertyValue = debounce((value: number) => {
-    updatePropertyValue(value.toString() + 'px')
-  }, 600)
+    updatePropertyValue(parseInt(String(value)) + 'px')
+  }, 30)
 
   const debouncedSetGap = debounce((value: number) => {
-    debouncedUpdatePropertyValue(value.toString() + 'px')
-  }, 10)
+    debouncedUpdatePropertyValue(parseInt(String(value)) + 'px')
+  }, 30)
 
   return (
     <EachPropertyLayout
       label={'Gap'}
       isEmpty={!propertyValue}
-      onAddValue={() => updatePropertyValue(propertyValue.toString())}
+      onAddValue={() => {}}
     >
       <div className={'flex items-center gap-default_spacing'}>
         <Input
