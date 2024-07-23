@@ -12,7 +12,8 @@ const FillProperty = () => {
       label={'Fill'}
       isEmpty={!propertyValue}
       onAddValue={() => updatePropertyValue('#ffffff')}
-      onRemoveValue={removePropertyValue}
+      // onRemoveValue={removePropertyValue}
+      onRemoveValue={() => updatePropertyValue('#0000')}
     >
       <DefaultFillInput
         value={propertyValue || ''}

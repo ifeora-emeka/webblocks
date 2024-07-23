@@ -41,8 +41,8 @@ export default function PropertiesPanel() {
               className="w-full"
               defaultValue={['layout', 'size', 'style', 'spacing']}
             >
-              <SpacingProperty />
               <SizeProperty />
+              <SpacingProperty />
               <LayoutProperty />
               <StyleProperty />
             </Accordion>

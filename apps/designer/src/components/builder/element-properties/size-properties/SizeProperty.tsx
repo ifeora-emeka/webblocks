@@ -3,7 +3,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion'
-import DefaultElementSizeProperty from '@/components/builder/element-properties/size-properties/ElementSizeProperty'
+import WidthProperty from './WidthProperty'
+import HeightProperty from './HeightProperty'
 
 export default function SizeProperty() {
   return (
@@ -16,7 +17,8 @@ export default function SizeProperty() {
           <div
             className={'p-default_spacing flex flex-col gap-default_spacing'}
           >
-            <DefaultElementSizeProperty />
+            <WidthProperty />
+            <HeightProperty />
           </div>
         </AccordionContent>
       </AccordionItem>
