@@ -17,7 +17,7 @@ export default function LayoutDisplayProperty() {
       >
         <div
           className={
-            'flex gap-default_spacing bg-background p-2 rounded-lg w-full'
+            'flex gap-default_spacing bg-background p-1 rounded-lg w-full'
           }
         >
           <EachPropertyButton

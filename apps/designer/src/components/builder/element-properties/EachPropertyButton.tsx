@@ -14,7 +14,7 @@ const EachPropertyButton = ({
       className={cn(
         'h-6 text-xs w-full rounded-md flex justify-center items-center',
         {
-          'bg-accent': isActive,
+          'bg-card': isActive,
         },
       )}
       onClick={onClick}

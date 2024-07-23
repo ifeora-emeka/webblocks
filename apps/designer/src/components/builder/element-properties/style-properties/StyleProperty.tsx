@@ -4,7 +4,7 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion'
 import FillProperty from '@/components/builder/element-properties/style-properties/FillProperty'
-import StyleGapProperty from '@/components/builder/element-properties/style-properties/StyleGapProperty'
+import BorderRadiusProperty from './BorderRadiusProperty'
 
 function StyleProperty() {
   return (
@@ -17,7 +17,7 @@ function StyleProperty() {
           <div
             className={'p-default_spacing flex flex-col gap-default_spacing'}
           >
-            <StyleGapProperty />
+            <BorderRadiusProperty />
             <FillProperty />
           </div>
         </AccordionContent>

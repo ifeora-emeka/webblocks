@@ -3,6 +3,7 @@ import { TbPlus, TbX } from 'react-icons/tb'
 import DefaultTooltip from '@/components/DefaultTooltip'
 
 type Props = {
+  
   label: string
   children: React.ReactNode
   isEmpty?: boolean
@@ -19,9 +20,11 @@ export default function EachPropertyLayout({
 }: Props) {
   return (
     <>
-      <div className={'dark flex items-center justify-between'}>
+      <div
+        className={'dark flex items-center justify-between min-h-10 max-h-10'}
+      >
         <div className={'min-w-[30%] max-w-[30%]'}>
-          <small>{label}</small>
+          <label className="text-xs text-muted-foreground">{label}</label>
         </div>
         <div
           className={

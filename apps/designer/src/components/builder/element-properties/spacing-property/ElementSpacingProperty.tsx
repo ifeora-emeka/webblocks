@@ -18,8 +18,8 @@ export default function ElementSpacingProperty() {
           <div
             className={'p-default_spacing flex flex-col gap-default_spacing'}
           >
-            <ElementPaddingProperty />
             <ElementMarginProperty />
+            <ElementPaddingProperty />
             <LayoutGapProperty />
           </div>
         </AccordionContent>

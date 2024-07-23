@@ -1,7 +1,5 @@
 import { BUILDER_NAV_SIZE } from '@/components/builder/builder.constants'
-import {
-  Accordion
-} from '@/components/ui/accordion'
+import { Accordion } from '@/components/ui/accordion'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import StyleProperty from '@/components/builder/element-properties/style-properties/StyleProperty'
 import LayoutProperty from '@/components/builder/element-properties/layout-properties/LayoutProperty'

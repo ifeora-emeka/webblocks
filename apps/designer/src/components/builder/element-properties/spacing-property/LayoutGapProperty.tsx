@@ -4,7 +4,7 @@ import { Input } from '@/components/ui/input'
 import { debounce } from '@/components/builder/builder.utils'
 
 export default function LayoutGapProperty() {
-  const { propertyValue, updatePropertyValue } =
+  const { propertyValue, updatePropertyValue, removePropertyValue } =
     useElementProperty('gap')
 
   const debouncedUpdatePropertyValue = debounce((value: number) => {
@@ -19,11 +19,14 @@ export default function LayoutGapProperty() {
     <EachPropertyLayout
       label={'Gap'}
       isEmpty={!propertyValue}
-      onAddValue={() => {}}
+      onAddValue={() => updatePropertyValue('20px')}
+      onRemoveValue={removePropertyValue}
     >
-      <div className={'flex items-center gap-default_spacing'}>
+      <div className={'flex items-center gap-default_spacing justify-end'}>
         <Input
-          className={'w-[50%] border-accent bg-background'}
+          className={
+            'w-[40%] border-accent hover:bg-background active:bg-background focus:bg-background border-0 text-center'
+          }
           type="number"
           placeholder="Gap"
           value={parseInt(propertyValue)}
