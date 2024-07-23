@@ -1,15 +1,12 @@
 import { BUILDER_NAV_SIZE } from '@/components/builder/builder.constants'
 import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
+  Accordion
 } from '@/components/ui/accordion'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import StyleProperty from '@/components/builder/element-properties/style-properties/StyleProperty'
 import LayoutProperty from '@/components/builder/element-properties/layout-properties/LayoutProperty'
 import SizeProperty from '@/components/builder/element-properties/size-properties/SizeProperty'
-import ElementSpacingProperty from '@/components/builder/element-properties/spacing-property/ElementSpacingProperty'
+import SpacingProperty from '@/components/builder/element-properties/spacing-property/ElementSpacingProperty'
 
 export default function PropertiesPanel() {
   return (
@@ -44,28 +41,12 @@ export default function PropertiesPanel() {
             <Accordion
               type="multiple"
               className="w-full"
-              defaultValue={['layout', 'size', 'style']}
+              defaultValue={['layout', 'size', 'style', 'spacing']}
             >
-              <ElementSpacingProperty />
+              <SpacingProperty />
               <SizeProperty />
               <LayoutProperty />
               <StyleProperty />
-              <AccordionItem value="item-3">
-                <AccordionTrigger
-                  className={'px-default_spacing py-default_spacing'}
-                >
-                  Is it animated?
-                </AccordionTrigger>
-                <AccordionContent>
-                  {new Array(22).fill(null).map((_) => {
-                    return (
-                      <h1 key={crypto.randomUUID()}>
-                        Yes. It adheres to the WAI-ARIA design pattern.
-                      </h1>
-                    )
-                  })}
-                </AccordionContent>
-              </AccordionItem>
             </Accordion>
           </TabsContent>
         </div>

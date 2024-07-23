@@ -1,11 +1,11 @@
-import { Input } from '@/components/ui/input'
-import EachPropertyLayout from '@/components/builder/element-properties/EachPropertyLayout'
 import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion'
-import ElementMarginPaddingProperty from '@/components/builder/element-properties/size-properties/ElementMarginPaddingProperty'
+import ElementMarginProperty from './ElementMarginProperty'
+import ElementPaddingProperty from './ElementPaddingProperty'
+import LayoutGapProperty from './LayoutGapProperty'
 
 export default function ElementSpacingProperty() {
   return (
@@ -18,7 +18,9 @@ export default function ElementSpacingProperty() {
           <div
             className={'p-default_spacing flex flex-col gap-default_spacing'}
           >
-            <ElementMarginPaddingProperty />
+            <ElementPaddingProperty />
+            <ElementMarginProperty />
+            <LayoutGapProperty />
           </div>
         </AccordionContent>
       </AccordionItem>
