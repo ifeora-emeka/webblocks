@@ -9,6 +9,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from '@/components/ui/select'
+import { UnitOfMeasurement } from '@repo/designer/types/index.types'
 
 export default function WidthProperty() {
     const {
@@ -16,6 +17,24 @@ export default function WidthProperty() {
         updatePropertyValue: updateWidthValue,
         removePropertyValue: removeWidthValue,
     } = useElementProperty('width');
+
+    let currentUnitOfMeasurement = (): UnitOfMeasurement => {
+        if (String(widthValue.trim()).includes('%')) {
+            return '%'
+        } else if (String(widthValue.trim()).includes('vh')) {
+            return 'vh'
+        } else {
+            return 'px'
+        }
+    }
+
+    const updateUnitOfMeasurement = (unit: UnitOfMeasurement) => {
+        if (unit == '%') {
+            updateWidthValue("100" + unit)
+        } else {
+            updateWidthValue(parseInt(widthValue) + unit)
+        }
+    }
 
     return (
         <>
@@ -30,10 +49,10 @@ export default function WidthProperty() {
                     type={'number'}
                     value={parseInt(widthValue || '0')}
                     onChange={(e) =>
-                        updateWidthValue(String(parseInt(e.target.value)) + 'px')
+                        updateWidthValue(String(parseInt(e.target.value)) + currentUnitOfMeasurement())
                     }
                 />
-                <Select>
+                <Select onValueChange={e => updateUnitOfMeasurement(e as UnitOfMeasurement)}>
                     <SelectTrigger className="max-w-[40%]">
                         <SelectValue placeholder={widthValue.includes("%") ? "Fill": "Fixed"} />
                     </SelectTrigger>
