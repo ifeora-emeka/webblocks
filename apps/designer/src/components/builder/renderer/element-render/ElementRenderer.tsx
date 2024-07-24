@@ -11,18 +11,15 @@ import { cn } from '@/lib/utils'
 import { useBuilder } from '../../hooks/builder.hooks'
 import { debounce } from '@/components/builder/builder.utils'
 import { getResponsiveProps } from '@repo/designer/utils/element.utils';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover"
 import ElementToolbar from './ElementToolbox'
+import TextContentPopup from '../../popups/TextContentPopup'
 
 interface DesignerElementProps {
   element: DndElementData
 }
 
 const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
+  const [textEdit, setTextEdit] = useState(false);
   const isVoidElement = (tag: string) =>
     /^(area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr)$/i.test(
       tag,
@@ -142,8 +139,13 @@ const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
           'element_selected shadow-lg': isActive,
         })}
         onClick={handleClick}
+        onDoubleClickCapture={(e) => {
+          // e.stopPropagation()
+          setTextEdit(!textEdit);
+        }}
         onDoubleClick={() => setEditInnerText(!editInnerText)}
       >
+        {textEdit && isActive && element_data?.text_content && <TextContentPopup />}
         {isActive && <ElementToolbar element={element} />}
         <>
           {element_data.text_content}
