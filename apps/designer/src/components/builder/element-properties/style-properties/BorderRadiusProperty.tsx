@@ -14,7 +14,7 @@ export default function BorderRadiusProperty() {
         onAddValue={() => updatePropertyValue('6px')}
         onRemoveValue={removePropertyValue}
       >
-        <div className={'flex items-center gap-default_spacing'}>
+        <div className={'flex items-center gap-default_spacing justify-end'}>
           <Input
             className={
               'w-[50%] border-accent hover:bg-background active:bg-background'

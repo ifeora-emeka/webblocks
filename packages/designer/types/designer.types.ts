@@ -43,6 +43,7 @@ export interface DesignerElementDataDTO {
   // children?: Array<DesignerElementData | string>;
   chakraProps: ResponsiveChakraProps;
   can_delete?: boolean;
+  text_content?: string;
 }
 
 export interface DesignerElementData extends DesignerElementDataDTO {

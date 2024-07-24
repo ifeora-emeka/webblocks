@@ -1,8 +1,6 @@
 import { DndElementData } from '@repo/designer/types/designer.types'
 import { StaticElementParams } from './static-element.types'
 import { generateRandomId } from '@/lib/utils'
-import { store } from '@/redux/store'
-import { DEFAULT_FRAME_COLOR } from '@/components/builder/builder.constants'
 import { staticFrameChakraStyle } from '@/components/builder/renderer/element-render/static-element-data/static-chakra-style'
 import { generateStaticBreakpoints } from '@/lib/designer.utils'
 

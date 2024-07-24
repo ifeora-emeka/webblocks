@@ -45,7 +45,7 @@ export default function WidthProperty() {
                 onRemoveValue={removeWidthValue}
             >
                 <Input
-                    className="w-[60px] hover:bg-background focus:bg-background active:bg-background border-0"
+                    className="w-[55px] hover:bg-background focus:bg-background active:bg-background border-0"
                     type={'number'}
                     value={parseInt(widthValue || '0')}
                     onChange={(e) =>

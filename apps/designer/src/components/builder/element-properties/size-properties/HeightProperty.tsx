@@ -31,7 +31,7 @@ export default function HeightProperty() {
             return '%'
         } else if (String(heightValue.trim()).includes('vh')) {
             return 'vh'
-        }else {
+        } else {
             return 'px'
         }
     }
@@ -45,7 +45,7 @@ export default function HeightProperty() {
                 onRemoveValue={removeHeightValue}
             >
                 <Input
-                    className="w-[60px] hover:bg-background focus:bg-background active:bg-background border-0"
+                    className="w-[55px] hover:bg-background focus:bg-background active:bg-background border-0"
                     type={'number'}
                     value={parseInt(heightValue || '0')}
                     onChange={(e) =>
@@ -53,8 +53,8 @@ export default function HeightProperty() {
                     }
                 />
                 <Select onValueChange={e => updateUnitOfMeasurement(e as UnitOfMeasurement)}>
-                    <SelectTrigger className="">
-                        <SelectValue />
+                    <SelectTrigger className="max-w-[40%]">
+                        <SelectValue placeholder={heightValue.includes("%") ? "Fill" : heightValue.includes("vh") ? "View" : "Fixed"} />
                     </SelectTrigger>
                     <SelectContent className={'dark'}>
                         <SelectItem value="%">Fill</SelectItem>

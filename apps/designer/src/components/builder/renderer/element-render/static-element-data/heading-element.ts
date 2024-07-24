@@ -18,17 +18,18 @@ export const staticHeadingElement = (
     index: data.index,
     parent_dnd_id: data.parent_id,
     element_data: {
+      attributes: {},
       element_id: id,
       index: data.index,
       parent_element_id: data.parent_id,
-      attributes: {
-        innerText: `Heading text element (${headings.length})`,
-      },
+      text_content: "Default heading text",
       html_tag: 'h1',
       chakraProps: {
-        ...staticFrameChakraStyle,
-        fontSize: '4xl',
-        fontWeight: 'bold',
+        fontSize: {
+          base: '17px',
+          lg: '17px',
+          md: '17px',
+        }
       },
       style: {},
       name: 'Heading ' + headings.length,

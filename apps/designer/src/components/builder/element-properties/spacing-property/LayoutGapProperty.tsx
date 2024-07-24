@@ -25,7 +25,7 @@ export default function LayoutGapProperty() {
       <div className={'flex items-center gap-default_spacing justify-end'}>
         <Input
           className={
-            'w-[40%] border-accent hover:bg-background active:bg-background focus:bg-background border-0 text-center'
+            'w-[40%] hover:bg-background active:bg-background focus:bg-background border-0 text-center'
           }
           type="number"
           placeholder="Gap"
