@@ -22,12 +22,14 @@ export default function LayoutFlexDirectionProperty() {
           }
         >
           <EachPropertyButton
+            toolTip='Row'
             isActive={flexFlowValue === 'row'}
             onClick={() => updateFlexFlow('row')}
           >
             <TbArrowNarrowRight size={18} />
           </EachPropertyButton>
           <EachPropertyButton
+            toolTip='Column'
             isActive={flexFlowValue === 'column'}
             onClick={() => updateFlexFlow('column')}
           >

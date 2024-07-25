@@ -23,26 +23,19 @@ export default function JustifyContentProperty() {
                 isEmpty={!propertyValue}
                 onAddValue={() => { }}
             >
-                <div
-                    className={
-                        'flex gap-default_spacing bg-background p-1 rounded-lg w-full'
-                    }
-                >
-                    <Select onValueChange={value => updatePropertyValue(value)}>
-                        <SelectTrigger>
-                            <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent className='dark'>
-                            <SelectItem value="flex-start">Start</SelectItem>
-                            <SelectItem value="center">Center</SelectItem>
-                            <SelectItem value="flex-end">End</SelectItem>
-                            <SelectItem value="space-around">Space around</SelectItem>
-                            <SelectItem value="space-between">Space between</SelectItem>
-                            <SelectItem value="space-evenly">Space evenly</SelectItem>
-                        </SelectContent>
-                    </Select>
-
-                </div>
+                <Select onValueChange={value => updatePropertyValue(value)} value={propertyValue}>
+                    <SelectTrigger className='hover:bg-background focus:bg-background'>
+                        <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent className='dark hover:bg-background'>
+                        <SelectItem value="flex-start">Start</SelectItem>
+                        <SelectItem value="center">Center</SelectItem>
+                        <SelectItem value="flex-end">End</SelectItem>
+                        <SelectItem value="space-around">Space around</SelectItem>
+                        <SelectItem value="space-between">Space between</SelectItem>
+                        <SelectItem value="space-evenly">Space evenly</SelectItem>
+                    </SelectContent>
+                </Select>
             </EachPropertyLayout>
         </>
     )
