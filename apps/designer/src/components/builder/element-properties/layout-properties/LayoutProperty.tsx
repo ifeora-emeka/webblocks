@@ -5,6 +5,7 @@ import {
 } from '@/components/ui/accordion'
 import LayoutFlexProperties from '@/components/builder/element-properties/layout-properties/LayoutFlexDirectionProperty'
 import LayoutDisplayProperty from '@/components/builder/element-properties/layout-properties/LayoutDisplayProperty'
+import JustifyContentProperty from './JustifyContentProperty'
 
 export default function LayoutProperty() {
   return (
@@ -19,6 +20,7 @@ export default function LayoutProperty() {
           >
             <LayoutDisplayProperty />
             <LayoutFlexProperties />
+            <JustifyContentProperty />
           </div>
         </AccordionContent>
       </AccordionItem>

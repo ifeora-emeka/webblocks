@@ -10,6 +10,7 @@ export const staticFrameChakraStyle: ResponsiveChakraProps = {
   //layout
   gap: generateStaticBreakpoints('0px'),
   display: generateStaticBreakpoints('flex'),
+  justifyContent: generateStaticBreakpoints('flex-start'),
 
   //flex
   flexFlow: generateStaticBreakpoints('column'),
