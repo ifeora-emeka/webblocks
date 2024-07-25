@@ -3,6 +3,7 @@ import { StaticElementParams } from './static-element.types'
 import { generateRandomId } from '@/lib/utils'
 import { store } from '@/redux/store'
 import { staticFrameChakraStyle } from '@/components/builder/renderer/element-render/static-element-data/static-chakra-style'
+import { generateStaticBreakpoints } from '@/lib/designer.utils'
 
 export const staticHeadingElement = (
   data: StaticElementParams,
@@ -25,11 +26,9 @@ export const staticHeadingElement = (
       text_content: "Default heading text",
       html_tag: 'h1',
       chakraProps: {
-        fontSize: {
-          base: '17px',
-          lg: '17px',
-          md: '17px',
-        }
+        fontSize: generateStaticBreakpoints('20px'),
+        fontWeight: generateStaticBreakpoints('bold'),
+        color: generateStaticBreakpoints('#1c1b1b'),
       },
       style: {},
       name: 'Heading ' + headings.length,

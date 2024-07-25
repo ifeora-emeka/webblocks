@@ -1,4 +1,4 @@
-import React, { useRef, useState, useCallback } from 'react'
+import React, { useRef, useState, useCallback, useEffect } from 'react'
 import {
   BuilderBreakpoints,
   DndElementData,
@@ -109,6 +109,10 @@ const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
     element,
   ])
 
+  useEffect(() => {
+    setTextEdit(false);
+  },[active_element])
+
   if (isVoidElement(html_tag as string)) {
     return (
       <Box
@@ -141,11 +145,11 @@ const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
         onClick={handleClick}
         onDoubleClickCapture={(e) => {
           // e.stopPropagation()
-          setTextEdit(!textEdit);
+          setTextEdit(true);
         }}
         onDoubleClick={() => setEditInnerText(!editInnerText)}
       >
-        {textEdit && isActive && element_data?.text_content && <TextContentPopup />}
+        {textEdit && isActive && element_data?.text_content && <TextContentPopup text_content={element_data.text_content} />}
         {isActive && <ElementToolbar element={element} />}
         <>
           {element_data.text_content}

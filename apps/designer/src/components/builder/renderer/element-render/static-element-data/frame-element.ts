@@ -23,6 +23,7 @@ export const staticFrameElement = (
       chakraProps: {
         ...staticFrameChakraStyle,
         display: generateStaticBreakpoints('flex'),
+        padding: generateStaticBreakpoints('15px'),
         flexFlow: generateStaticBreakpoints('column'),
         minHeight: generateStaticBreakpoints('20px'),
         minWidth: generateStaticBreakpoints('20px'),

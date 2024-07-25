@@ -19,7 +19,7 @@ export default function LayoutAlignmentProperty() {
             >
                 <div
                     className={
-                        'flex gap-default_spacing bg-background p-1 rounded-lg w-full'
+                        'flex bg-background p-1 rounded-lg w-full'
                     }
                 >
                     <EachPropertyButton

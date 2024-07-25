@@ -3,6 +3,7 @@ import { StaticElementParams } from './static-element.types'
 import { generateRandomId } from '@/lib/utils'
 import { store } from '@/redux/store'
 import { staticFrameChakraStyle } from '@/components/builder/renderer/element-render/static-element-data/static-chakra-style'
+import { generateStaticBreakpoints } from '@/lib/designer.utils'
 
 export const staticParagraphElement = (
   data: StaticElementParams,
@@ -22,19 +23,13 @@ export const staticParagraphElement = (
       index: data.index,
       parent_element_id: data.parent_id,
       attributes: {
-        innerText: `Default paragraph text`,
       },
       html_tag: 'p',
+      text_content: 'Default paragraph text',
       chakraProps: {
         ...staticFrameChakraStyle,
-        fontSize: '16px',
-        fontWeight: 400,
-        letterSpacing: 0,
-        textTransform: 'none',
-        fontStyle: 'normal',
-        textDecoration: 'none',
-        lineHeight: '1.2em',
-        textAlign: 'start',
+        fontSize: generateStaticBreakpoints('16px'),
+        color: generateStaticBreakpoints('#4b4848'),
       },
       style: {},
       name: 'Paragraph',
