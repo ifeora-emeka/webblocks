@@ -109,9 +109,9 @@ const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
     element,
   ])
 
-  useEffect(() => {
-    setTextEdit(false);
-  },[active_element])
+  // useEffect(() => {
+  //   setTextEdit(false);
+  // },[active_element])
 
   if (isVoidElement(html_tag as string)) {
     return (

@@ -13,8 +13,6 @@ import { useSelector } from 'react-redux';
 import { AppStore } from '@/redux/store';
 import { useBuilder } from '../hooks/builder.hooks';
 
-
-
 type Props = {
     text_content?: string;
 }
@@ -58,6 +56,7 @@ export default function TextContentPopup({ text_content }: Props) {
                         <DialogDescription>
                             <div className='flex flex-col gap-default_spacing'>
                                 <Textarea
+                                    rows={textContent?.length || 0 > 260 ? 15 : 8}
                                     onChange={e => setTextContent(e.target.value)}
                                     className='text-card-foreground border-border focus:bg-background' value={textContent} />
                                 <Button disabled={!textContent} onClick={handleSave}>Save</Button>
