@@ -49,7 +49,7 @@ function BuilderKeyMapper({ builderHook, rendererState }: Props) {
             event.preventDefault()
             addElement('button')
             break
-          case 'i':
+          case 'm':
             event.preventDefault()
             addElement('image')
             break

@@ -6,6 +6,7 @@ import LayoutProperty from '@/components/builder/element-properties/layout-prope
 import SizeProperty from '@/components/builder/element-properties/size-properties/SizeProperty'
 import SpacingProperty from '@/components/builder/element-properties/spacing-property/ElementSpacingProperty'
 import TypographyProperties from './element-properties/typography-properties/TypographyProperties'
+import ElementAttributeProperties from './element-properties/attribute-properties/ElementAttributeProperties'
 
 export default function PropertiesPanel() {
   return (
@@ -40,8 +41,9 @@ export default function PropertiesPanel() {
             <Accordion
               type="multiple"
               className="w-full"
-              defaultValue={['layout', 'size', 'style', 'spacing']}
+              defaultValue={['attributes', 'layout', 'size', 'style', 'spacing']}
             >
+              <ElementAttributeProperties />
               <SizeProperty />
               <SpacingProperty />
               <LayoutProperty />

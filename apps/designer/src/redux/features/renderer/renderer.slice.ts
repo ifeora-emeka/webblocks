@@ -216,7 +216,7 @@ export const rendererSlice = createSlice({
         state.allElements.map((el: DndElementData, index) => {
           if (
             el.element_data.parent_element_id ===
-              targetElement.element_data.parent_element_id &&
+            targetElement.element_data.parent_element_id &&
             el.element_data.index > targetElement.element_data.index &&
             el.element_data.element_id !== targetElement.element_data.element_id
           ) {
@@ -376,6 +376,29 @@ export const rendererSlice = createSlice({
         }
       }
     },
+    updateElementAttributes: (state, action: PayloadAction<{
+      element_id: string;
+      newAttributes: Record<string, string>;
+    }>) => {
+      const { element_id, newAttributes } = action.payload;
+      const element = state.allElements.find(el => el.dnd_id === element_id);
+      if (element) {
+        element.element_data.attributes = {
+          ...element.element_data.attributes,
+          ...newAttributes,
+        };
+      }
+    },
+    removeElementAttribute: (state, action: PayloadAction<{
+      element_id: string;
+      property: string;
+    }>) => {
+      const { element_id, property } = action.payload;
+      const element = state.allElements.find(el => el.dnd_id === element_id);
+      if (element && element.element_data.attributes) {
+        delete element.element_data.attributes[property];
+      }
+    },
   },
 })
 
@@ -390,6 +413,8 @@ export const {
   groupElements,
   updateElementChakraStyle,
   removeElementChakraStyle,
+  updateElementAttributes, 
+  removeElementAttribute
 } = rendererSlice.actions
 
 export default rendererSlice.reducer

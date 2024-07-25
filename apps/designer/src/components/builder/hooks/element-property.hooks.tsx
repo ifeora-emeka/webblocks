@@ -21,8 +21,8 @@ const useElementProperty = (property: keyof ChakraProps) => {
   )
   const chakraProps = activeElement && activeElement.element_data.chakraProps
 
-  //@ts-ignore
   const [propertyValue, setPropertyValue] = useState<string>(
+    //@ts-ignore
     chakraProps?.[property]?.[activeBreakpoint] || '',
   )
 

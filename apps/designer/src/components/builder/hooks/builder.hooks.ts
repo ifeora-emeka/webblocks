@@ -10,11 +10,13 @@ import {
   groupElements,
   moveElement,
   removeElement,
+  removeElementAttribute,
   removeElementChakraStyle,
   RendererState,
   selectMultipleElement,
   setRendererState,
   updateElement,
+  updateElementAttributes,
   updateElementChakraStyle,
 } from '@/redux/features/renderer/renderer.slice'
 import { ChakraProps } from '@chakra-ui/react'
@@ -145,6 +147,37 @@ export const useBuilder = () => {
     }
   }
 
+
+  const updateAttributes = ({
+    element_id,
+    newAttributes,
+  }: {
+    element_id: string;
+    newAttributes: Record<string, string>;
+  }) => {
+    dispatch(
+      updateElementAttributes({
+        element_id,
+        newAttributes,
+      }),
+    );
+  };
+
+  const removeAttribute = ({
+    element_id,
+    property,
+  }: {
+    element_id: string;
+    property: string;
+  }) => {
+    dispatch(
+      removeElementAttribute({
+        element_id,
+        property,
+      }),
+    );
+  };
+
   return {
     appendChildToParentElement,
     removeElementFromPage,
@@ -158,5 +191,7 @@ export const useBuilder = () => {
     updateElementChakraStyleData,
     getViewportWidth,
     removeElementChakraProperty,
+    updateAttributes,
+    removeAttribute,
   }
 }
