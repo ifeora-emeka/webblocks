@@ -3,12 +3,9 @@ import { ChakraProps } from '@chakra-ui/react'
 import { ResponsiveChakraProps } from '@repo/designer/types/designer.types'
 
 export const staticFrameChakraStyle: ResponsiveChakraProps = {
-  background: generateStaticBreakpoints('#ffff'),
-
   position: generateStaticBreakpoints('relative'),
 
   //layout
-  gap: generateStaticBreakpoints('0px'),
   display: generateStaticBreakpoints('flex'),
   justifyContent: generateStaticBreakpoints('flex-start'),
 

@@ -23,7 +23,7 @@ export const staticHeadingElement = (
       element_id: id,
       index: data.index,
       parent_element_id: data.parent_id,
-      text_content: "Default heading text",
+      text_content: 'Default heading text',
       html_tag: 'h1',
       chakraProps: {
         fontSize: generateStaticBreakpoints('20px'),

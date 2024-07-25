@@ -4,19 +4,18 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/tooltip"
-
+} from '@/components/ui/tooltip'
 
 const EachPropertyButton = ({
   children,
   isActive,
   onClick,
-  toolTip
+  toolTip,
 }: {
   children: any
   isActive?: boolean
   onClick: () => void
-  toolTip: string;
+  toolTip: string
 }) => {
   return (
     <TooltipProvider>
@@ -27,7 +26,7 @@ const EachPropertyButton = ({
               'h-6 text-xs w-full rounded-md flex justify-center items-center hover:text-card-foreground',
               {
                 'bg-card': isActive,
-                'text-muted-foreground': !isActive
+                'text-muted-foreground': !isActive,
               },
             )}
             onClick={onClick}
@@ -35,7 +34,7 @@ const EachPropertyButton = ({
             {children}
           </button>
         </TooltipTrigger>
-        <TooltipContent className='bg-background text-card-foreground'>
+        <TooltipContent className="bg-background text-card-foreground">
           <p>{toolTip}</p>
         </TooltipContent>
       </Tooltip>

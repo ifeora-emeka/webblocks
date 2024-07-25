@@ -22,8 +22,7 @@ export const staticParagraphElement = (
       element_id: id,
       index: data.index,
       parent_element_id: data.parent_id,
-      attributes: {
-      },
+      attributes: {},
       html_tag: 'p',
       text_content: 'Default paragraph text',
       chakraProps: {

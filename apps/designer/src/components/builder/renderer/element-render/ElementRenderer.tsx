@@ -10,7 +10,7 @@ import { setRendererState } from '@/redux/features/renderer/renderer.slice'
 import { cn } from '@/lib/utils'
 import { useBuilder } from '../../hooks/builder.hooks'
 import { debounce } from '@/components/builder/builder.utils'
-import { getResponsiveProps } from '@repo/designer/utils/element.utils';
+import { getResponsiveProps } from '@repo/designer/utils/element.utils'
 import ElementToolbar from './ElementToolbox'
 import TextContentPopup from '../../popups/TextContentPopup'
 
@@ -19,7 +19,7 @@ interface DesignerElementProps {
 }
 
 const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
-  const [textEdit, setTextEdit] = useState(false);
+  const [textEdit, setTextEdit] = useState(false)
   const isVoidElement = (tag: string) =>
     /^(area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr)$/i.test(
       tag,
@@ -94,7 +94,7 @@ const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
       if (
         active_element.length > 0 &&
         element.element_data.element_id !==
-        active_element[0]?.element_data.element_id
+          active_element[0]?.element_data.element_id
       ) {
         dispatch(
           setRendererState({
@@ -145,11 +145,13 @@ const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
         onClick={handleClick}
         onDoubleClickCapture={(e) => {
           // e.stopPropagation()
-          setTextEdit(true);
+          setTextEdit(true)
         }}
         onDoubleClick={() => setEditInnerText(!editInnerText)}
       >
-        {textEdit && isActive && element_data?.text_content && <TextContentPopup text_content={element_data.text_content} />}
+        {textEdit && isActive && element_data?.text_content && (
+          <TextContentPopup text_content={element_data.text_content} />
+        )}
         {isActive && <ElementToolbar element={element} />}
         <>
           {element_data.text_content}

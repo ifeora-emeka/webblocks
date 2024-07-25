@@ -3,7 +3,6 @@ import { TbPlus, TbX } from 'react-icons/tb'
 import DefaultTooltip from '@/components/DefaultTooltip'
 
 type Props = {
-  
   label: string
   children: React.ReactNode
   isEmpty?: boolean

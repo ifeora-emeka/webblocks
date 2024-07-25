@@ -5,6 +5,7 @@ import StyleProperty from '@/components/builder/element-properties/style-propert
 import LayoutProperty from '@/components/builder/element-properties/layout-properties/LayoutProperty'
 import SizeProperty from '@/components/builder/element-properties/size-properties/SizeProperty'
 import SpacingProperty from '@/components/builder/element-properties/spacing-property/ElementSpacingProperty'
+import TypographyProperties from './element-properties/typography-properties/TypographyProperties'
 
 export default function PropertiesPanel() {
   return (
@@ -44,6 +45,7 @@ export default function PropertiesPanel() {
               <SizeProperty />
               <SpacingProperty />
               <LayoutProperty />
+              <TypographyProperties />
               <StyleProperty />
             </Accordion>
           </TabsContent>
