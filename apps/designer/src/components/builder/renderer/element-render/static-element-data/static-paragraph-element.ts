@@ -28,6 +28,7 @@ export const staticParagraphElement = (
       chakraProps: {
         ...staticFrameChakraStyle,
         fontSize: generateStaticBreakpoints('16px'),
+        textAlign: generateStaticBreakpoints('center'),
         color: generateStaticBreakpoints('#4b4848'),
       },
       style: {},

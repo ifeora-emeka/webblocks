@@ -8,6 +8,7 @@ import FontSizeProperty from './FontSizeProperty'
 import { useSelector } from 'react-redux'
 import { AppStore } from '@/redux/store'
 import FontColorProperty from './FontColorProperty'
+import FontAlignmentProperty from './FontAlignmentProperty'
 
 export default function TypographyProperties() {
   const { active_element } = useSelector((state: AppStore) => state.renderer)
@@ -28,6 +29,7 @@ export default function TypographyProperties() {
           >
             <FontSizeProperty />
             <FontColorProperty />
+            <FontAlignmentProperty />
           </div>
         </AccordionContent>
       </AccordionItem>

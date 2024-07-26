@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { AppStore } from '@/redux/store'
 import { useBuilder } from '@/components/builder/hooks/builder.hooks'
-import { HTMLAttributes } from "react"
+
 
 type HTMLAttributeProps = keyof React.HTMLAttributes<HTMLElement> | keyof React.ImgHTMLAttributes<HTMLImageElement>;
 

@@ -28,6 +28,7 @@ export const staticHeadingElement = (
       chakraProps: {
         fontSize: generateStaticBreakpoints('20px'),
         fontWeight: generateStaticBreakpoints('bold'),
+        textAlign: generateStaticBreakpoints('start'),
         color: generateStaticBreakpoints('#1c1b1b'),
       },
       style: {},
