@@ -33,10 +33,11 @@ import React from 'react'
 import withRenderer, {
   WithRendererProps,
 } from '@/components/builder/HOCs/WithRenderer'
-import { DndElementData } from '@repo/designer/types/designer.types'
+import { DndElementData, ResponsiveChakraProps } from '@repo/designer/types/designer.types'
 import { StaticElement } from '@/components/builder/renderer/element-render/static-element-data/static-element.types'
 import { getStaticElement } from '@/components/builder/renderer/element-render/static-element-data/static-element.utils'
 import { ChakraProps } from '@chakra-ui/react'
+import { generateStaticBreakpoints } from '@/lib/designer.utils'
 
 type Props = {
   children: any
@@ -60,7 +61,7 @@ function ElementMenu({ children, onOpenChange, builderHook, element }: Props) {
     })
   }
 
-  const updateChakraStyle = (style: ChakraProps) => {
+  const updateChakraStyle = (style: ResponsiveChakraProps) => {
     updateElementChakraStyleData({
       element_id: element.element_data.element_id,
       newChakraStyle: style,
@@ -131,10 +132,10 @@ function ElementMenu({ children, onOpenChange, builderHook, element }: Props) {
                   className="gap-default_spacing"
                   onClick={() =>
                     updateChakraStyle({
-                      display: 'flex',
-                      flexFlow: 'column',
-                      placeContent: 'center',
-                      alignItems: 'center',
+                      display: generateStaticBreakpoints('flex'),
+                      flexFlow: generateStaticBreakpoints('column'),
+                      placeContent: generateStaticBreakpoints('center'),
+                      alignItems: generateStaticBreakpoints('center'),
                     })
                   }
                 >
@@ -144,10 +145,10 @@ function ElementMenu({ children, onOpenChange, builderHook, element }: Props) {
                   className="gap-default_spacing"
                   onClick={() =>
                     updateChakraStyle({
-                      display: 'flex',
-                      flexFlow: 'row',
-                      placeContent: 'center',
-                      alignItems: 'center',
+                      display: generateStaticBreakpoints('flex'),
+                      flexFlow: generateStaticBreakpoints('row'),
+                      placeContent: generateStaticBreakpoints('center'),
+                      alignItems: generateStaticBreakpoints('center'),
                     })
                   }
                 >

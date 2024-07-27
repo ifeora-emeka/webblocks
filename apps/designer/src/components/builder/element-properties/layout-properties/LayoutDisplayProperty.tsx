@@ -23,12 +23,14 @@ export default function LayoutDisplayProperty() {
           <EachPropertyButton
             isActive={displayValue === 'flex'}
             onClick={() => updateDisplayValue('flex')}
+            toolTip='Flex box'
           >
-            Flex
+            Default
           </EachPropertyButton>
           <EachPropertyButton
             isActive={displayValue === 'grid'}
             onClick={() => updateDisplayValue('grid')}
+            toolTip='Grid'
           >
             Grid
           </EachPropertyButton>

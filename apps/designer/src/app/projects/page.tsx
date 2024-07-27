@@ -9,7 +9,7 @@ import { CLIENT_URL } from '@/lib/constants'
 export default async function Page() {
   await connectToDataBase()
 
-  let projects = await axios(CLIENT_URL + '/api/projects')
+  let projects = { data: [] }
 
   return (
     <DashboardLayout>

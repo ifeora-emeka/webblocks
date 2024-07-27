@@ -3,10 +3,9 @@ import useElementProperty from '../../hooks/element-property.hooks'
 import EachPropertyLayout from '../EachPropertyLayout'
 import EachPropertyButton from '../EachPropertyButton'
 import {
-  TbAlignBoxBottomCenter,
-  TbAlignBoxCenterMiddle,
-  TbAlignBoxLeftMiddle,
-  TbAlignBoxTopCenter,
+  TbLayoutAlignBottomFilled,
+  TbLayoutAlignCenterFilled,
+  TbLayoutAlignTopFilled,
 } from 'react-icons/tb'
 
 export default function LayoutAlignmentProperty() {
@@ -26,21 +25,21 @@ export default function LayoutAlignmentProperty() {
             isActive={propertyValue === 'flex-start'}
             onClick={() => updatePropertyValue('flex-start')}
           >
-            <TbAlignBoxTopCenter size={18} />
+            <TbLayoutAlignTopFilled size={18} />
           </EachPropertyButton>
           <EachPropertyButton
             toolTip="Center"
             isActive={propertyValue === 'center'}
             onClick={() => updatePropertyValue('center')}
           >
-            <TbAlignBoxCenterMiddle size={18} />
+            <TbLayoutAlignCenterFilled size={18} />
           </EachPropertyButton>
           <EachPropertyButton
             toolTip="End"
             isActive={propertyValue === 'flex-end'}
             onClick={() => updatePropertyValue('flex-end')}
           >
-            <TbAlignBoxBottomCenter size={18} />
+            <TbLayoutAlignBottomFilled size={18} />
           </EachPropertyButton>
         </div>
       </EachPropertyLayout>
