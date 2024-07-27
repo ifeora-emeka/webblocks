@@ -4,10 +4,15 @@ import withRenderer, {
 } from '@/components/builder/HOCs/WithRenderer'
 import { getStaticElement } from '@/components/builder/renderer/element-render/static-element-data/static-element.utils'
 import { DndElementData } from '@repo/designer/types/designer.types'
+import { useDispatch } from 'react-redux'
+import { copyElements, pasteElements } from '@/redux/features/renderer/renderer.slice'
+
 
 type Props = {} & WithRendererProps
 
 function BuilderKeyMapper({ builderHook, rendererState }: Props) {
+  const dispatch = useDispatch();
+
   const {
     removeElementFromPage,
     changeElementPosition,
@@ -64,7 +69,7 @@ function BuilderKeyMapper({ builderHook, rendererState }: Props) {
 
       switch (event.key) {
         case 'Delete':
-          if (active_element && event.ctrlKey) {
+          if (active_element.length > 0 && event.ctrlKey) {
             event.preventDefault()
             removeElementFromPage({
               dnd_ids: active_element.map((el) => el.dnd_id),
@@ -99,6 +104,18 @@ function BuilderKeyMapper({ builderHook, rendererState }: Props) {
           if (event.ctrlKey && active_element.length > 1) {
             event.preventDefault()
             groupSelectedElementData()
+          }
+          break
+        case 'c':
+          if (event.ctrlKey) {
+            event.preventDefault()
+            dispatch(copyElements())
+          }
+          break
+        case 'v':
+          if (event.ctrlKey) {
+            event.preventDefault()
+            dispatch(pasteElements())
           }
           break
         default:

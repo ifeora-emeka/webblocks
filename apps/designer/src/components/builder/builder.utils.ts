@@ -1,5 +1,10 @@
 import { DndElementData } from '@repo/designer/types/designer.types'
 
+/**
+ * @description Compiles all Dnd elements into a tree structure
+ * @param elements
+ * @returns 
+ */
 export const compileAllDndElements = (
   elements: DndElementData[],
 ): DndElementData => {

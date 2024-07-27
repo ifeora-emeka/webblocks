@@ -13,6 +13,7 @@ import { ChakraProps } from '@chakra-ui/react'
 export interface RendererState {
   allElements: DndElementData[]
   active_element: DndElementData[]
+  copiedElements: DndElementData[]
   activeBreakpoint: BuilderBreakpoints
 }
 
@@ -20,7 +21,20 @@ const initialState: RendererState = {
   allElements: [],
   active_element: [],
   activeBreakpoint: 'lg',
+  copiedElements: []
 }
+
+
+const deepCloneElement = (element: DndElementData): DndElementData => {
+  const clonedElement = {
+    ...element,
+    children_dnd_element_data: element.children_dnd_element_data
+      ? element.children_dnd_element_data.map(deepCloneElement)
+      : [],
+  };
+  return clonedElement;
+};
+
 
 export const rendererSlice = createSlice({
   name: 'renderer',
@@ -155,13 +169,16 @@ export const rendererSlice = createSlice({
         return newElements
       }
 
-      let newElements = removeElementAndChildren(state.allElements, [...IDs])
+      let newElements = removeElementAndChildren(state.allElements, [...IDs]);
+      let rootElement = state.allElements.find(el => el.element_data.parent_element_id === null);
 
       return {
         ...state,
         allElements: newElements,
-        active_element: [],
+        active_element: [rootElement || state.allElements[0]],
       }
+
+
     },
     updateElement: (
       state,
@@ -399,10 +416,93 @@ export const rendererSlice = createSlice({
         delete element.element_data.attributes[property];
       }
     },
+    copyElements: (state) => {
+      if (!state.active_element[0].element_data.element_id.includes('root')) {
+        state.copiedElements = [];
+
+        state.active_element.forEach((element) => {
+          const clonedElement = deepCloneElement(element);
+          state.copiedElements.push(clonedElement);
+        });
+
+        const findAndCopyChildren = (element: DndElementData) => {
+          const children = state.allElements.filter((el) => el.parent_dnd_id === element.dnd_id);
+          children.forEach((child) => {
+            state.copiedElements.push(deepCloneElement(child));
+            findAndCopyChildren(child);
+          });
+        };
+
+        state.copiedElements.forEach(findAndCopyChildren);
+      }
+    },
+    pasteElements: (state) => {
+      if (state.active_element.length > 0 && state.copiedElements.length > 0) {
+        const activeElementId = state.active_element[0].dnd_id;
+        const idMap: Record<string, string> = {};
+
+        const updateElementAndChildren = (
+          element: DndElementData,
+          newParentId: string
+        ): DndElementData => {
+          const newId = generateRandomId(14) + 'copied';
+          idMap[element.dnd_id] = newId;
+
+          const updatedElement = {
+            ...element,
+            parent_dnd_id: newParentId,
+            dnd_id: newId,
+            element_data: {
+              ...element.element_data,
+              element_id: newId,
+              parent_element_id: newParentId,
+            },
+            children_dnd_element_data: element.children_dnd_element_data?.map((child) =>
+              updateElementAndChildren(child, newId)
+            ),
+          };
+
+          return updatedElement;
+        };
+
+        const updatedElements = state.copiedElements.map((element) =>
+          updateElementAndChildren(element, activeElementId)
+        );
+
+        const updateChildElements = (element: DndElementData) => {
+          const children = state.allElements.filter((el) => el.parent_dnd_id === element.dnd_id);
+          children.forEach((child) => {
+            const newChildId = generateRandomId(14) + 'copied';
+            idMap[child.dnd_id] = newChildId;
+
+            const updatedChild = {
+              ...child,
+              parent_dnd_id: idMap[element.dnd_id],
+              dnd_id: newChildId,
+              element_data: {
+                ...child.element_data,
+                element_id: newChildId,
+                parent_element_id: idMap[element.dnd_id],
+              },
+            };
+
+            state.allElements.push(updatedChild);
+            updateChildElements(updatedChild);
+          });
+        };
+
+        updatedElements.forEach(updateChildElements);
+
+        state.allElements.push(...updatedElements);
+        state.copiedElements = [];
+        state.active_element = [updatedElements[0]];
+      }
+    },
   },
 })
 
 export const {
+  pasteElements,
   moveElement,
   setRendererState,
   removeElement,
@@ -413,8 +513,9 @@ export const {
   groupElements,
   updateElementChakraStyle,
   removeElementChakraStyle,
-  updateElementAttributes, 
-  removeElementAttribute
+  updateElementAttributes,
+  removeElementAttribute,
+  copyElements
 } = rendererSlice.actions
 
 export default rendererSlice.reducer
