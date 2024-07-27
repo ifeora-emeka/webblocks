@@ -18,7 +18,7 @@ import {
 import { RendererProps } from '@repo/designer/types/designer.types'
 import { sortableKeyboardCoordinates } from '@dnd-kit/sortable'
 import { useDispatch, useSelector } from 'react-redux'
-import { DesignerProvider } from '@/app/projects/[project_id]/DesignerProvider'
+import { DesignerProvider } from '@/app/projects/designer/[project_id]/DesignerProvider'
 import GPTElementRenderer from './renderer/WebsiteRenderer'
 import { AppStore, RootState } from '@/redux/store'
 import { setRendererState } from '@/redux/features/renderer/renderer.slice'
