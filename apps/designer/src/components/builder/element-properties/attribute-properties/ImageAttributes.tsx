@@ -56,7 +56,7 @@ export default function ImageAttributes() {
                 <Input
                     className=" focus:bg-background active:bg-background hover:bg-background border-0 text-center"
                     value={widthValue}
-                    onChange={e => debouncedUpdateWidthValue(parseInt(e.target.value))}
+                    onChange={e => debouncedUpdateWidthValue(e.target.value)}
                 />
             </EachPropertyLayout>
             <EachPropertyLayout
