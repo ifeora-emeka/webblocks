@@ -70,8 +70,9 @@ export default function BuilderLeftMenu() {
           <DefaultIconBtn
             Icon={TbColumns}
             tooltip={'Variables'}
-            onClick={() => {}}
+            onClick={() => dispatch(toggleLeftPanel('variables'))}
             side={'right'}
+            isActive={panel === 'variables'}
           />
           <DefaultIconBtn
             Icon={TbBrush}

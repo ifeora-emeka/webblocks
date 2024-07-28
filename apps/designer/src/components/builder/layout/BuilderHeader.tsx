@@ -42,7 +42,7 @@ function BuilderHeader({ rendererState, builderHook }: Props) {
 
   return (
     <>
-      <div
+      <header
         className={cn(
           `min-h-builder_nav_size max-h-builder_nav_size bg-card w-full flex justify-between h-full px-default_spacing items-center z-[90] border-b select-none`,
         )}
@@ -163,7 +163,7 @@ function BuilderHeader({ rendererState, builderHook }: Props) {
             Publish <TbRocket size={17} className={'ml-2'} />
           </Button>
         </div>
-      </div>
+      </header>
     </>
   )
 }
