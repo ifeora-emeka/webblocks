@@ -30,7 +30,7 @@ export default function BuilderLeftMenu() {
       <div
         style={{ zIndex: 1000 }}
         className={cn(
-          `min-h-[calc(100vh-${BUILDER_NAV_SIZE})] max-h-[calc(100vh-50px)] bg-card min-w-builder_nav_size flex flex-col justify-between py-default_spacing z-50`,
+          `min-h-[calc(100vh-${BUILDER_NAV_SIZE})] max-h-[calc(100vh-50px)] bg-card min-w-builder_nav_size flex flex-col justify-between py-default_spacing z-[100]`,
         )}
       >
         <div

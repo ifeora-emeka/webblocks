@@ -5,13 +5,15 @@ import withRenderer, {
 import { getStaticElement } from '@/components/builder/renderer/element-render/static-element-data/static-element.utils'
 import { DndElementData } from '@repo/designer/types/designer.types'
 import { useDispatch } from 'react-redux'
-import { copyElements, pasteElements } from '@/redux/features/renderer/renderer.slice'
-
+import {
+  copyElements,
+  pasteElements,
+} from '@/redux/features/renderer/renderer.slice'
 
 type Props = {} & WithRendererProps
 
 function BuilderKeyMapper({ builderHook, rendererState }: Props) {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   const {
     removeElementFromPage,

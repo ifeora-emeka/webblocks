@@ -17,8 +17,8 @@ export const staticImageElement = (
     parent_dnd_id: data.parent_id,
     element_data: {
       attributes: {
-        width: "100%",
-        src: "https://savethefrogs.com/wp-content/uploads/placeholder-image-blue-landscape.png"
+        width: '100%',
+        src: 'https://savethefrogs.com/wp-content/uploads/placeholder-image-blue-landscape.png',
       },
       element_id: id,
       index: data.index,

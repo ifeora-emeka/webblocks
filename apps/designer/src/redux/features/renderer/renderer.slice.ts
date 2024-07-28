@@ -21,9 +21,8 @@ const initialState: RendererState = {
   allElements: [],
   active_element: [],
   activeBreakpoint: 'lg',
-  copiedElements: []
+  copiedElements: [],
 }
-
 
 const deepCloneElement = (element: DndElementData): DndElementData => {
   const clonedElement = {
@@ -31,10 +30,9 @@ const deepCloneElement = (element: DndElementData): DndElementData => {
     children_dnd_element_data: element.children_dnd_element_data
       ? element.children_dnd_element_data.map(deepCloneElement)
       : [],
-  };
-  return clonedElement;
-};
-
+  }
+  return clonedElement
+}
 
 export const rendererSlice = createSlice({
   name: 'renderer',
@@ -169,16 +167,16 @@ export const rendererSlice = createSlice({
         return newElements
       }
 
-      let newElements = removeElementAndChildren(state.allElements, [...IDs]);
-      let rootElement = state.allElements.find(el => el.element_data.parent_element_id === null);
+      let newElements = removeElementAndChildren(state.allElements, [...IDs])
+      let rootElement = state.allElements.find(
+        (el) => el.element_data.parent_element_id === null,
+      )
 
       return {
         ...state,
         allElements: newElements,
         active_element: [rootElement || state.allElements[0]],
       }
-
-
     },
     updateElement: (
       state,
@@ -233,7 +231,7 @@ export const rendererSlice = createSlice({
         state.allElements.map((el: DndElementData, index) => {
           if (
             el.element_data.parent_element_id ===
-            targetElement.element_data.parent_element_id &&
+              targetElement.element_data.parent_element_id &&
             el.element_data.index > targetElement.element_data.index &&
             el.element_data.element_id !== targetElement.element_data.element_id
           ) {
@@ -393,60 +391,68 @@ export const rendererSlice = createSlice({
         }
       }
     },
-    updateElementAttributes: (state, action: PayloadAction<{
-      element_id: string;
-      newAttributes: Record<string, string>;
-    }>) => {
-      const { element_id, newAttributes } = action.payload;
-      const element = state.allElements.find(el => el.dnd_id === element_id);
+    updateElementAttributes: (
+      state,
+      action: PayloadAction<{
+        element_id: string
+        newAttributes: Record<string, string>
+      }>,
+    ) => {
+      const { element_id, newAttributes } = action.payload
+      const element = state.allElements.find((el) => el.dnd_id === element_id)
       if (element) {
         element.element_data.attributes = {
           ...element.element_data.attributes,
           ...newAttributes,
-        };
+        }
       }
     },
-    removeElementAttribute: (state, action: PayloadAction<{
-      element_id: string;
-      property: string;
-    }>) => {
-      const { element_id, property } = action.payload;
-      const element = state.allElements.find(el => el.dnd_id === element_id);
+    removeElementAttribute: (
+      state,
+      action: PayloadAction<{
+        element_id: string
+        property: string
+      }>,
+    ) => {
+      const { element_id, property } = action.payload
+      const element = state.allElements.find((el) => el.dnd_id === element_id)
       if (element && element.element_data.attributes) {
-        delete element.element_data.attributes[property];
+        delete element.element_data.attributes[property]
       }
     },
     copyElements: (state) => {
       if (!state.active_element[0].element_data.element_id.includes('root')) {
-        state.copiedElements = [];
+        state.copiedElements = []
 
         state.active_element.forEach((element) => {
-          const clonedElement = deepCloneElement(element);
-          state.copiedElements.push(clonedElement);
-        });
+          const clonedElement = deepCloneElement(element)
+          state.copiedElements.push(clonedElement)
+        })
 
         const findAndCopyChildren = (element: DndElementData) => {
-          const children = state.allElements.filter((el) => el.parent_dnd_id === element.dnd_id);
+          const children = state.allElements.filter(
+            (el) => el.parent_dnd_id === element.dnd_id,
+          )
           children.forEach((child) => {
-            state.copiedElements.push(deepCloneElement(child));
-            findAndCopyChildren(child);
-          });
-        };
+            state.copiedElements.push(deepCloneElement(child))
+            findAndCopyChildren(child)
+          })
+        }
 
-        state.copiedElements.forEach(findAndCopyChildren);
+        state.copiedElements.forEach(findAndCopyChildren)
       }
     },
     pasteElements: (state) => {
       if (state.active_element.length > 0 && state.copiedElements.length > 0) {
-        const activeElementId = state.active_element[0].dnd_id;
-        const idMap: Record<string, string> = {};
+        const activeElementId = state.active_element[0].dnd_id
+        const idMap: Record<string, string> = {}
 
         const updateElementAndChildren = (
           element: DndElementData,
-          newParentId: string
+          newParentId: string,
         ): DndElementData => {
-          const newId = generateRandomId(14) + 'copied';
-          idMap[element.dnd_id] = newId;
+          const newId = generateRandomId(14) + 'copied'
+          idMap[element.dnd_id] = newId
 
           const updatedElement = {
             ...element,
@@ -457,23 +463,25 @@ export const rendererSlice = createSlice({
               element_id: newId,
               parent_element_id: newParentId,
             },
-            children_dnd_element_data: element.children_dnd_element_data?.map((child) =>
-              updateElementAndChildren(child, newId)
+            children_dnd_element_data: element.children_dnd_element_data?.map(
+              (child) => updateElementAndChildren(child, newId),
             ),
-          };
+          }
 
-          return updatedElement;
-        };
+          return updatedElement
+        }
 
         const updatedElements = state.copiedElements.map((element) =>
-          updateElementAndChildren(element, activeElementId)
-        );
+          updateElementAndChildren(element, activeElementId),
+        )
 
         const updateChildElements = (element: DndElementData) => {
-          const children = state.allElements.filter((el) => el.parent_dnd_id === element.dnd_id);
+          const children = state.allElements.filter(
+            (el) => el.parent_dnd_id === element.dnd_id,
+          )
           children.forEach((child) => {
-            const newChildId = generateRandomId(14) + 'copied';
-            idMap[child.dnd_id] = newChildId;
+            const newChildId = generateRandomId(14) + 'copied'
+            idMap[child.dnd_id] = newChildId
 
             const updatedChild = {
               ...child,
@@ -484,18 +492,18 @@ export const rendererSlice = createSlice({
                 element_id: newChildId,
                 parent_element_id: idMap[element.dnd_id],
               },
-            };
+            }
 
-            state.allElements.push(updatedChild);
-            updateChildElements(updatedChild);
-          });
-        };
+            state.allElements.push(updatedChild)
+            updateChildElements(updatedChild)
+          })
+        }
 
-        updatedElements.forEach(updateChildElements);
+        updatedElements.forEach(updateChildElements)
 
-        state.allElements.push(...updatedElements);
-        state.copiedElements = [];
-        state.active_element = [updatedElements[0]];
+        state.allElements.push(...updatedElements)
+        state.copiedElements = []
+        state.active_element = [updatedElements[0]]
       }
     },
   },
@@ -515,7 +523,7 @@ export const {
   removeElementChakraStyle,
   updateElementAttributes,
   removeElementAttribute,
-  copyElements
+  copyElements,
 } = rendererSlice.actions
 
 export default rendererSlice.reducer

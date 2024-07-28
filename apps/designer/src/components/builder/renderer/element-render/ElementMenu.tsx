@@ -33,7 +33,10 @@ import React from 'react'
 import withRenderer, {
   WithRendererProps,
 } from '@/components/builder/HOCs/WithRenderer'
-import { DndElementData, ResponsiveChakraProps } from '@repo/designer/types/designer.types'
+import {
+  DndElementData,
+  ResponsiveChakraProps,
+} from '@repo/designer/types/designer.types'
 import { StaticElement } from '@/components/builder/renderer/element-render/static-element-data/static-element.types'
 import { getStaticElement } from '@/components/builder/renderer/element-render/static-element-data/static-element.utils'
 import { ChakraProps } from '@chakra-ui/react'

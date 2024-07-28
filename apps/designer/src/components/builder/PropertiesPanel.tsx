@@ -41,7 +41,13 @@ export default function PropertiesPanel() {
             <Accordion
               type="multiple"
               className="w-full"
-              defaultValue={['attributes', 'layout', 'size', 'style', 'spacing']}
+              defaultValue={[
+                'attributes',
+                'layout',
+                'size',
+                'style',
+                'spacing',
+              ]}
             >
               <ElementAttributeProperties />
               <SizeProperty />

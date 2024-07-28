@@ -67,44 +67,28 @@ export default function WebsiteBuilder({ page, elements }: RendererProps) {
     }
   }, [allElements])
 
-  // useEffect(() => {
-  //   const htmlElement = document.documentElement
-
-  //   htmlElement.classList.remove('light')
-  //   htmlElement.classList.add('dark')
-  //   htmlElement.setAttribute('data-theme', 'dark')
-  //   htmlElement.style.colorScheme = 'dark'
-
-  //   return () => {
-  //     htmlElement.classList.remove('dark')
-  //     htmlElement.classList.add('light')
-  //     htmlElement.setAttribute('data-theme', 'light')
-  //     htmlElement.style.colorScheme = 'light'
-  //   }
-  // }, [])
-
   if (!show) {
     return null
   }
 
   return (
     <>
-      <DndContext
-        sensors={sensors}
-        collisionDetection={closestCenter}
-        onDragEnd={handleDragEnd}
-      >
-        <BuilderKeyMapper />
-        <div
-          className={
-            'bg-background min-h-[100vh] max-h-[100vh] flex dark flex-col dark overflow-hidden'
-          }
+      <DesignerProvider>
+        <DndContext
+          sensors={sensors}
+          collisionDetection={closestCenter}
+          onDragEnd={handleDragEnd}
         >
-          <BuilderHeader />
-          <div className={'flex-1 flex overflow-hidden'}>
-            <BuilderLeftMenu />
-            <LeftNavOptions />
-            <DesignerProvider>
+          <BuilderKeyMapper />
+          <div
+            className={
+              'bg-background min-h-[100vh] max-h-[100vh] flex dark flex-col dark overflow-hidden'
+            }
+          >
+            <BuilderHeader />
+            <div className={'flex-1 flex overflow-hidden'}>
+              <BuilderLeftMenu />
+              <LeftNavOptions />
               <div
                 className={cn(
                   `min-h-[calc(100vh-${BUILDER_NAV_SIZE})] max-h-[calc(100vh-50px)] overflow-y-auto w-full light`,
@@ -112,11 +96,11 @@ export default function WebsiteBuilder({ page, elements }: RendererProps) {
               >
                 <GPTElementRenderer elements={allElements} />
               </div>
-            </DesignerProvider>
-            <PropertiesPanel />
+              <PropertiesPanel />
+            </div>
           </div>
-        </div>
-      </DndContext>
+        </DndContext>
+      </DesignerProvider>
     </>
   )
 }

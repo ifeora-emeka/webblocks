@@ -44,7 +44,7 @@ function BuilderHeader({ rendererState, builderHook }: Props) {
     <>
       <header
         className={cn(
-          `min-h-builder_nav_size max-h-builder_nav_size bg-card w-full flex justify-between h-full px-default_spacing items-center z-[90] border-b select-none`,
+          `min-h-builder_nav_size max-h-builder_nav_size bg-card w-full flex justify-between h-full px-default_spacing items-center z-[100] border-b select-none`,
         )}
       >
         <div className={'flex gap-default_spacing items-center min-w-96'}>
@@ -55,11 +55,11 @@ function BuilderHeader({ rendererState, builderHook }: Props) {
             <DefaultIconBtn
               Icon={TbBrandFramerMotion}
               tooltip={'Home'}
-              onClick={() => { }}
+              onClick={() => {}}
               side={'right'}
             />
           </Link>
-          <div className='flex gap-default_spacing_lg'>
+          <div className="flex gap-default_spacing_lg">
             <button
               className={
                 'rounded-md text-sm text-muted-foreground hover:text-card-foreground px-2 hover:bg-background flex gap-1 border items-center py-1'
@@ -71,12 +71,12 @@ function BuilderHeader({ rendererState, builderHook }: Props) {
               <DefaultIconBtn
                 Icon={() => <TbArrowBackUp size={20} />}
                 tooltip={'Undo'}
-                onClick={() => { }}
+                onClick={() => {}}
               />
               <DefaultIconBtn
                 Icon={() => <TbArrowForwardUp size={20} />}
                 tooltip={'Redo'}
-                onClick={() => { }}
+                onClick={() => {}}
               />
             </div>
           </div>
@@ -102,13 +102,12 @@ function BuilderHeader({ rendererState, builderHook }: Props) {
             'items-center min-w-[350px] max-w-[350px] flex justify-end gap-default_spacing'
           }
         >
-
           <DropdownMenu>
             <DropdownMenuTrigger>
               <DefaultIconBtn
                 Icon={TbDeviceDesktop}
                 tooltip={'Viewport width'}
-                onClick={() => { }}
+                onClick={() => {}}
               />
             </DropdownMenuTrigger>
             <DropdownMenuContent className="dark">
@@ -151,12 +150,12 @@ function BuilderHeader({ rendererState, builderHook }: Props) {
           <DefaultIconBtn
             Icon={TbUserPlus}
             tooltip={'Invite teammates'}
-            onClick={() => { }}
+            onClick={() => {}}
           />
           <DefaultIconBtn
             Icon={TbPlayerPlay}
             tooltip={'Preview'}
-            onClick={() => { }}
+            onClick={() => {}}
           />
           <Separator className={'h-full w-3'} orientation={'vertical'} />
           <Button size={'sm'}>
