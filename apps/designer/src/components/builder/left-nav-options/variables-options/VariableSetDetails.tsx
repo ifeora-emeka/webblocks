@@ -2,6 +2,7 @@ import React from 'react'
 import {
   Table,
   TableBody,
+  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -12,6 +13,7 @@ import DefaultTooltip from '@/components/DefaultTooltip'
 import { Button } from '@/components/ui/button'
 import {
   TbChartCircles,
+  TbColumns,
   TbNumbers,
   TbPalette,
   TbPlus,
@@ -24,18 +26,25 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import { VariableValueType } from '@repo/designer/types/variables.types'
 
 export default function VariableSetDetails({
   children,
 }: React.PropsWithChildren) {
-  const [mounted, setMounted] = React.useState(false)
-  const { activeSet } = useBuilderVariables()
+  const { activeSet, variables, addAVariableToSet } = useBuilderVariables()
+  const activeVariables = variables.filter((v) => v.set === activeSet)
 
-  React.useEffect(() => setMounted(true), [])
+  const addVariable = (type: VariableValueType) => {
+    if (activeSet) {
+      addAVariableToSet({
+        name: '',
+        setId: activeSet,
+        value_type: type,
+      })
+    }
+  }
 
   if (!activeSet) {
     return null
@@ -44,6 +53,21 @@ export default function VariableSetDetails({
   return (
     <div className="min-h-[calc(100vh-50px)] max-h-[calc(100vh-50px)] bg-card w-[400px] fixed bottom-0 left-[calc(50px+250px)] z-80 text-foreground animate__animated animate__fadeInLeft animate__faster select-none z-[90]">
       <Table>
+        <TableCaption>
+          {activeVariables.length === 0 ? (
+            <div
+              className={
+                'flex flex-col w-full items-center justify-center gap-default_spacing text-muted-foreground p-10 h-72'
+              }
+            >
+              <TbColumns size={25} />
+              <small>
+                No variable added yet. Click on the plus icon at the top right
+                to add one
+              </small>
+            </div>
+          ) : null}
+        </TableCaption>
         <TableHeader className="max-h-[2.20rem]">
           <TableRow>
             <TableHead className="min-w-[30px] pl-5 h-[2.20rem]"></TableHead>
@@ -68,17 +92,29 @@ export default function VariableSetDetails({
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent className={'dark z-[100]'}>
-                    <DropdownMenuItem className={'flex gap-default_spacing'}>
+                    <DropdownMenuItem
+                      className={'flex gap-default_spacing'}
+                      onClick={() => addVariable(VariableValueType.NUMBER)}
+                    >
                       <TbNumbers size={17} /> Number
                     </DropdownMenuItem>
-                    <DropdownMenuItem className={'flex gap-default_spacing'}>
+                    <DropdownMenuItem
+                      className={'flex gap-default_spacing'}
+                      onClick={() => addVariable(VariableValueType.TEXT)}
+                    >
                       <TbTextSize size={17} /> Text
                     </DropdownMenuItem>
-                    <DropdownMenuItem className={'flex gap-default_spacing'}>
+                    <DropdownMenuItem
+                      className={'flex gap-default_spacing'}
+                      onClick={() => addVariable(VariableValueType.COLOR)}
+                    >
                       <TbPalette size={17} /> Color
                     </DropdownMenuItem>
                     {process.env.NODE_ENV !== 'production' && (
-                      <DropdownMenuItem className={'flex gap-default_spacing'}>
+                      <DropdownMenuItem
+                        className={'flex gap-default_spacing'}
+                        onClick={() => addVariable(VariableValueType.BOOLEAN)}
+                      >
                         <TbChartCircles size={17} />
                         Boolean
                       </DropdownMenuItem>
@@ -90,9 +126,11 @@ export default function VariableSetDetails({
           </TableRow>
         </TableHeader>
         <TableBody>
-          {new Array(7).fill(null).map((_, i) => {
-            return <EachVariable key={i} />
-          })}
+          {variables
+            .filter((v) => v.set === activeSet)
+            .map((_, i) => {
+              return <EachVariable key={i} />
+            })}
         </TableBody>
       </Table>
     </div>
