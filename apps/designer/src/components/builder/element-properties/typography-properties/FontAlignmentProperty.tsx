@@ -10,7 +10,7 @@ import {
 import EachPropertyLayout from '../EachPropertyLayout'
 
 export default function FontAlignmentProperty() {
-  const { propertyValue: flexFlowValue, updatePropertyValue: updateFlexFlow } =
+  const { propertyValue: flexFlowValue, updatePropertyValue } =
     useElementProperty('textAlign')
 
   return (
@@ -18,7 +18,7 @@ export default function FontAlignmentProperty() {
       <EachPropertyLayout
         label={'Align'}
         isEmpty={!flexFlowValue}
-        onAddValue={() => {}}
+        onAddValue={() => updatePropertyValue('start')}
       >
         <div
           className={
@@ -28,28 +28,28 @@ export default function FontAlignmentProperty() {
           <EachPropertyButton
             toolTip="Left"
             isActive={flexFlowValue === 'start'}
-            onClick={() => updateFlexFlow('start')}
+            onClick={() => updatePropertyValue('start')}
           >
             <TbAlignLeft size={18} />
           </EachPropertyButton>
           <EachPropertyButton
             toolTip="Center"
             isActive={flexFlowValue === 'center'}
-            onClick={() => updateFlexFlow('center')}
+            onClick={() => updatePropertyValue('center')}
           >
             <TbAlignCenter size={18} />
           </EachPropertyButton>
           <EachPropertyButton
             toolTip="Right"
             isActive={flexFlowValue === 'end'}
-            onClick={() => updateFlexFlow('end')}
+            onClick={() => updatePropertyValue('end')}
           >
             <TbAlignRight size={18} />
           </EachPropertyButton>
           <EachPropertyButton
             toolTip="Justify"
             isActive={flexFlowValue === 'justify'}
-            onClick={() => updateFlexFlow('justify')}
+            onClick={() => updatePropertyValue('justify')}
           >
             <TbAlignJustified size={18} />
           </EachPropertyButton>
