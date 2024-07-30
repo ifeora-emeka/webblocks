@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react'
+import React, { createContext, useContext, useEffect, useState } from 'react'
 import {
   VariableData,
   VariableSetData,
@@ -6,6 +6,7 @@ import {
 } from '@repo/designer/types/variables.types'
 import { generateRandomId } from '@/lib/utils'
 import slugify from 'slugify'
+import { generateDefaultCollectionAndVariables } from '@/__mock__/variables.mock'
 
 interface BuilderVariablesContextType {
   state: {
@@ -54,6 +55,16 @@ export const BuilderVariablesProvider: React.FC<{
     variableSets: [],
     activeSet: null,
   })
+
+  useEffect(() => {
+    let { variableSets: sets, variables: vars } =
+      generateDefaultCollectionAndVariables()
+    setState({
+      activeSet: null,
+      variableSets: sets,
+      variables: vars,
+    })
+  }, [])
 
   const createVariableSet = (name: string) => {
     if (name) {
@@ -162,7 +173,7 @@ export const BuilderVariablesProvider: React.FC<{
   }
 
   const setActiveSet = (val: string) => {
-    if(val !== state.activeSet) {
+    if (val !== state.activeSet) {
       setState((prev) => ({
         ...prev,
         activeSet: val,

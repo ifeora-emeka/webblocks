@@ -3,7 +3,7 @@ import { Input } from '@/components/ui/input'
 import DefaultTooltip from '@/components/DefaultTooltip'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
-import { TbTrash } from 'react-icons/tb'
+import { TbLock, TbTrash } from 'react-icons/tb'
 import React, { useEffect, useState } from 'react'
 import { VariableData } from '@repo/designer/types/variables.types'
 import { useBuilderVariables } from '@/context/builder-variables.context'
@@ -59,18 +59,33 @@ export default function EachVariable({ variable }: Props) {
           </div>
         </TableCell>
         <TableCell className="p-default_spacing">
-          <DefaultTooltip content={'Delete variable'} side={'top'}>
-            <Button
-              onClick={() => deleteVariable(variable._id)}
-              variant="ghost"
-              size="icon"
-              className={cn(
-                'hover:bg-card hover:text-danger text-muted opacity-0 group-hover:opacity-100',
-              )}
-            >
-              <TbTrash className="h-4 w-4" />
-            </Button>
-          </DefaultTooltip>
+          {variable.isStatic ? (
+            <DefaultTooltip content={'Locked'} side={'top'}>
+              <Button
+                disabled
+                variant="ghost"
+                size="icon"
+                className={cn(
+                  'hover:bg-card hover:text-danger text-muted opacity-0 group-hover:opacity-100',
+                )}
+              >
+                <TbLock className="h-4 w-4" />
+              </Button>
+            </DefaultTooltip>
+          ) : (
+            <DefaultTooltip content={'Delete variable'} side={'top'}>
+              <Button
+                onClick={() => deleteVariable(variable._id)}
+                variant="ghost"
+                size="icon"
+                className={cn(
+                  'hover:bg-card hover:text-danger text-muted opacity-0 group-hover:opacity-100',
+                )}
+              >
+                <TbTrash className="h-4 w-4" />
+              </Button>
+            </DefaultTooltip>
+          )}
         </TableCell>
       </TableRow>
     </>

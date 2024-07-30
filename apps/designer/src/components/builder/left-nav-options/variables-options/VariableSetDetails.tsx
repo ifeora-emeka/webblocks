@@ -47,8 +47,6 @@ export default function VariableSetDetails({
     }
   }
 
-  console.log('ACTIVE SET :::', activeSet)
-
   if (!activeSet) {
     return null
   }

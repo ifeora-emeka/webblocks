@@ -7,7 +7,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { TbDotsVertical, TbPencil, TbTrash } from 'react-icons/tb'
+import { TbDotsVertical, TbLock, TbPencil, TbTrash } from 'react-icons/tb'
 
 export default function EachVariableSet({
   label,
@@ -72,6 +72,7 @@ export default function EachVariableSet({
             <span className={'text-sm '}>{name}</span>
           )}
         </div>
+        {isStatic && <TbLock />}
         {!editMode && (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>

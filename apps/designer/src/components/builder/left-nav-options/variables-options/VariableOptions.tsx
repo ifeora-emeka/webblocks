@@ -56,6 +56,7 @@ export default function VariableOptions({}: Props) {
               editEnabled={v.editEnabled}
               onClick={() => setActiveSet(v._id)}
               isActive={v._id === activeSet}
+              isStatic={v.isStatic}
             />
           )
         })}
