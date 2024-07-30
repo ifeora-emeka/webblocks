@@ -21,7 +21,7 @@ export default function BuilderLeftPanelContainer({
     <>
       <aside
         className={
-          'bg-card shadow-xl border-l border-r min-w-[250px] max-w-[250px] min-h-[calc(100vh-50px)] max-h-[calc(100vh-50px)] bottom-0  left-[50px] flex flex-col text-muted-foreground select-none animate__animated animate__fadeInLeft animate__faster z-[99]'
+          'bg-card shadow-xl border-l border-r min-w-[250px] max-w-[250px] min-h-[calc(100vh-50px)] max-h-[calc(100vh-50px)] bottom-0  left-[50px] flex flex-col text-muted-foreground select-none animate__animated animate__fadeInLeft animate__faster z-[99] fixed'
         }
       >
         <div

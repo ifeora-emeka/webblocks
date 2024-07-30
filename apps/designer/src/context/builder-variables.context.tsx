@@ -8,10 +8,18 @@ import { generateRandomId } from '@/lib/utils'
 import slugify from 'slugify'
 
 interface BuilderVariablesContextType {
-  variables: VariableData[]
-  setVariables: React.Dispatch<React.SetStateAction<VariableData[]>>
-  variableSets: VariableSetData[]
-  setVariableSets: React.Dispatch<React.SetStateAction<VariableSetData[]>>
+  state: {
+    variables: VariableData[]
+    variableSets: VariableSetData[]
+    activeSet: string | null
+  }
+  setState: React.Dispatch<
+    React.SetStateAction<{
+      variables: VariableData[]
+      variableSets: VariableSetData[]
+      activeSet: string | null
+    }>
+  >
   createVariableSet: (name: string) => void
   deleteSetByID: (_id: string) => Promise<void>
   addAVariableToSet: (params: {
@@ -21,13 +29,13 @@ interface BuilderVariablesContextType {
     isStatic?: boolean
   }) => void
   setActiveSet: (val: string) => void
-  activeSet: string | null
   updateVariableSet: (params: { name: string; _id: string }) => void
   updateVariable: (params: {
     _id: string
     name: string
     value: number | string
   }) => void
+  deleteVariable: (_id: string) => Promise<void>
 }
 
 const BuilderVariablesContext = createContext<
@@ -37,49 +45,60 @@ const BuilderVariablesContext = createContext<
 export const BuilderVariablesProvider: React.FC<{
   children: React.ReactNode
 }> = ({ children }) => {
-  const [variables, setVariables] = useState<VariableData[]>([])
-  const [variableSets, setVariableSets] = useState<VariableSetData[]>([])
-  const [activeSet, setActiveSet] = useState<string | null>(null)
+  const [state, setState] = useState<{
+    variables: VariableData[]
+    variableSets: VariableSetData[]
+    activeSet: string | null
+  }>({
+    variables: [],
+    variableSets: [],
+    activeSet: null,
+  })
 
   const createVariableSet = (name: string) => {
     if (name) {
       let newSetID = generateRandomId(9)
-      setVariableSets((prev) => [
+      setState((prev) => ({
         ...prev,
-        {
-          _id: newSetID,
-          name,
-          slug: slugify(name),
-          index: prev.length + 1,
-          editEnabled: true,
-        },
-      ])
-      setActiveSet(newSetID)
+        variableSets: [
+          ...prev.variableSets,
+          {
+            _id: newSetID,
+            name,
+            slug: slugify(name),
+            index: prev.variableSets.length + 1,
+            editEnabled: true,
+          },
+        ],
+        activeSet: newSetID,
+      }))
     }
   }
 
   const updateVariableSet = ({ name, _id }: { name: string; _id: string }) => {
-    setVariableSets((prev) =>
-      prev.map((set) =>
+    setState((prev) => ({
+      ...prev,
+      variableSets: prev.variableSets.map((set) =>
         set._id === _id
           ? { ...set, name, slug: slugify(name), editEnabled: false }
           : set,
       ),
-    )
+    }))
   }
 
   const deleteSetByID = async (_id: string) => {
-    setVariableSets((prev) => prev.filter((set) => set._id !== _id))
-    setVariables((prev) =>
-      prev.filter((variable) =>
-        typeof variable.set === 'string'
-          ? variable.set !== _id
-          : variable.set._id !== _id,
-      ),
-    )
-    if (activeSet === _id) {
-      setActiveSet(null)
-    }
+    setState((prev) => {
+      return {
+        ...prev,
+        variableSets: prev.variableSets.filter((set) => set._id !== _id),
+        variables: prev.variables.filter((variable) =>
+          typeof variable.set === 'string'
+            ? variable.set !== _id
+            : variable.set._id !== _id,
+        ),
+        activeSet: null,
+      }
+    })
   }
 
   const addAVariableToSet = ({
@@ -93,7 +112,7 @@ export const BuilderVariablesProvider: React.FC<{
     name: string
     isStatic?: boolean
   }) => {
-    const set = variableSets.find((s) => s._id === setId)
+    const set = state.variableSets.find((s) => s._id === setId)
     if (!set) return
 
     const newVariable: VariableData = {
@@ -101,7 +120,7 @@ export const BuilderVariablesProvider: React.FC<{
       name,
       slug: slugify(name),
       index:
-        variables.filter((v) =>
+        state.variables.filter((v) =>
           typeof v.set === 'string' ? v.set === setId : v.set._id === setId,
         ).length + 1,
       value_type,
@@ -110,7 +129,10 @@ export const BuilderVariablesProvider: React.FC<{
       value: value_type === 'number' ? 16 : '',
     }
 
-    setVariables((prev) => [...prev, newVariable])
+    setState((prev) => ({
+      ...prev,
+      variables: [...prev.variables, newVariable],
+    }))
   }
 
   const updateVariable = ({
@@ -122,27 +144,42 @@ export const BuilderVariablesProvider: React.FC<{
     name: string
     value: number | string
   }) => {
-    setVariables((prev) =>
-      prev.map((variable) =>
+    setState((prev) => ({
+      ...prev,
+      variables: prev.variables.map((variable) =>
         variable._id === _id
           ? { ...variable, name, slug: slugify(name), value }
           : variable,
       ),
-    )
+    }))
+  }
+
+  const deleteVariable = async (_id: string) => {
+    setState((prev) => ({
+      ...prev,
+      variables: prev.variables.filter((variable) => variable._id !== _id),
+    }))
+  }
+
+  const setActiveSet = (val: string) => {
+    if(val !== state.activeSet) {
+      setState((prev) => ({
+        ...prev,
+        activeSet: val,
+      }))
+    }
   }
 
   const value: BuilderVariablesContextType = {
-    activeSet,
-    setActiveSet,
-    variables,
-    setVariables,
-    variableSets,
-    setVariableSets,
+    state,
+    setState,
     createVariableSet,
     deleteSetByID,
     addAVariableToSet,
     updateVariableSet,
     updateVariable,
+    deleteVariable,
+    setActiveSet,
   }
 
   return (

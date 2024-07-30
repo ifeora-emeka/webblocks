@@ -4,7 +4,7 @@ import DefaultTooltip from '@/components/DefaultTooltip'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import { TbTrash } from 'react-icons/tb'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { VariableData } from '@repo/designer/types/variables.types'
 import { useBuilderVariables } from '@/context/builder-variables.context'
 
@@ -13,9 +13,23 @@ type Props = {
 }
 
 export default function EachVariable({ variable }: Props) {
-  const { updateVariable } = useBuilderVariables()
+  const { updateVariable, deleteVariable } = useBuilderVariables()
   const [name, setName] = useState(variable.name)
   const [value, setValue] = useState(variable.value)
+  const [isNameActive, setIsNameActive] = useState(false)
+
+  useEffect(() => {
+    setName(variable.name)
+    setValue(variable.value)
+  }, [variable])
+
+  const handleNameUpdate = () => {
+    updateVariable({
+      name,
+      value,
+      _id: variable._id,
+    })
+  }
 
   return (
     <>
@@ -29,6 +43,7 @@ export default function EachVariable({ variable }: Props) {
               value={name}
               onChange={(e) => setName(e.target.value)}
               autoFocus={!name}
+              onBlur={() => handleNameUpdate()}
             />
           </div>
         </TableCell>
@@ -37,13 +52,16 @@ export default function EachVariable({ variable }: Props) {
             <Input
               className="border-0 hover:bg-card focus:bg-card focus:ring-border"
               placeholder="Enter value"
-              value="48px"
+              value={value}
+              onChange={(e) => setValue(e.target.value)}
+              onBlur={() => handleNameUpdate()}
             />
           </div>
         </TableCell>
         <TableCell className="p-default_spacing">
           <DefaultTooltip content={'Delete variable'} side={'top'}>
             <Button
+              onClick={() => deleteVariable(variable._id)}
               variant="ghost"
               size="icon"
               className={cn(

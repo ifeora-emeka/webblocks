@@ -31,7 +31,10 @@ import EachVariable from '@/components/builder/left-nav-options/variables-option
 export default function VariableSetDetails({
   children,
 }: React.PropsWithChildren) {
-  const { activeSet, variables, addAVariableToSet } = useBuilderVariables()
+  const {
+    state: { variables, activeSet },
+    addAVariableToSet,
+  } = useBuilderVariables()
   const activeVariables = variables.filter((v) => v.set === activeSet)
 
   const addVariable = (type: VariableValueType) => {
@@ -43,6 +46,8 @@ export default function VariableSetDetails({
       })
     }
   }
+
+  console.log('ACTIVE SET :::', activeSet)
 
   if (!activeSet) {
     return null

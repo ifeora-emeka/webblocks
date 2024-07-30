@@ -1,2 +1,1 @@
-
-export type UnitOfMeasurement = "%" | "px" | "rem" | 'vh' | 'vw';
+export type UnitOfMeasurement = "%" | "px" | "rem" | "vh" | "vw";
