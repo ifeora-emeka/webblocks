@@ -27,6 +27,7 @@ import {
 import withRenderer, {
   WithRendererProps,
 } from '@/components/builder/HOCs/WithRenderer'
+import Image from 'next/image'
 
 type Props = {} & WithRendererProps
 
@@ -52,12 +53,13 @@ function BuilderHeader({ rendererState, builderHook }: Props) {
             href={'/projects'}
             className={'min-w-builder_nav_size max-w-builder_nav_size flex'}
           >
-            <DefaultIconBtn
-              Icon={TbBrandFramerMotion}
-              tooltip={'Home'}
-              onClick={() => {}}
-              side={'right'}
-            />
+            <Image src={'/brand/brand-icon-blue.png'} alt={'brand'} width={30} height={30} />
+            {/*<DefaultIconBtn*/}
+            {/*  Icon={TbBrandFramerMotion}*/}
+            {/*  tooltip={'Home'}*/}
+            {/*  onClick={() => {}}*/}
+            {/*  side={'right'}*/}
+            {/*/>*/}
           </Link>
           <div className="flex gap-default_spacing_lg">
             <button

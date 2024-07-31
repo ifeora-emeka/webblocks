@@ -1,37 +1,45 @@
-import { cn } from '@/lib/utils'
-import { BUILDER_NAV_SIZE } from '@/components/builder/builder.constants'
+'use client'
+import Image from 'next/image'
+import { Progress } from "@/components/ui/progress"
+import { useState, useEffect } from 'react'
 
-export default function WebsiteBuilderLoading() {
+export default function WebsiteBuilderLoading({ start }: { start?: boolean }) {
+  const [progress, setProgress] = useState(10);
+  const [show, setShow] = useState(true);
+
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+
+    if (start) {
+      interval = setInterval(() => {
+        setProgress((prevProgress) => {
+          if (prevProgress >= 100) {
+            clearInterval(interval);
+            setTimeout(() => {
+              setShow(false)
+            },2000)
+            return 100;
+          }
+          return prevProgress + 1;
+        });
+      }, 30);
+    }
+
+    return () => {
+      if (interval) clearInterval(interval);
+    };
+  }, [start]);
+
+  if(!show){
+    return null;
+  }
+
   return (
     <>
-      <div
-        className={
-          'bg-background min-h-[100vh] max-h-[100vh] flex dark flex-col'
-        }
-      >
-        <div
-          className={cn(
-            `min-h-builder_nav_size max-h-builder_nav_size bg-card w-full`,
-          )}
-        ></div>
-        <div className={'flex-1 flex'}>
-          <div
-            className={cn(
-              `min-h-[calc(100vh-${BUILDER_NAV_SIZE})] max-h-[calc(100vh-50px)] bg-card min-w-builder_nav_size`,
-            )}
-          ></div>
-          <div
-            className={cn(
-              `flex-1 flex justify-center min-h-[calc(100vh-${BUILDER_NAV_SIZE})] max-h-[calc(100vh-50px)] overflow-y-auto `,
-            )}
-          >
-            <div
-              className={'bg-card rounded-lg min-h-screen min-w-[95%] my-10'}
-            ></div>
-          </div>
-          <div
-            className={`min-h-[calc(100vh-${BUILDER_NAV_SIZE})] max-h-[calc(100vh-${BUILDER_NAV_SIZE})] bg-card min-w-[400px] max-w-[500px]`}
-          ></div>
+      <div className={'bg-card dark fixed z-[1400] w-[100vw] h-[100vh] flex justify-center items-center'}>
+        <div className={'w-[300px] flex flex-col gap-default_spacing items-center'}>
+          <Image src={'/brand/brand-text-white.png'} alt={'brand text'} width={200} height={60} className={'mb-10'} />
+          <Progress value={progress} className={'w-[80%] bg-background'} />
         </div>
       </div>
     </>
