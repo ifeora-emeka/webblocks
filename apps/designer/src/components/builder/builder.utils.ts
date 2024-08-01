@@ -1,4 +1,7 @@
-import { DndElementData } from '@repo/designer/types/designer.types'
+import {
+  BuilderReferenceValue,
+  DndElementData,
+} from '@repo/designer/types/designer.types'
 
 /**
  * @description Compiles all Dnd elements into a tree structure
@@ -47,4 +50,8 @@ export const debounce = (func: (...args: any[]) => void, delay: number) => {
       func(...args)
     }, delay)
   }
+}
+
+export const createRefString = (ref: BuilderReferenceValue): string => {
+  return `ref::${ref.type}::${ref.ref_id}`
 }

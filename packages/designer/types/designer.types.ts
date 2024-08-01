@@ -87,3 +87,10 @@ export type DraggableElement =
   | "column";
 
 export type BuilderBreakpoints = "base" | "md" | "lg" | "xl";
+
+export type BuilderReferenceType = "collections" | "variables" | "styles";
+
+export type BuilderReferenceValue = {
+  type: BuilderReferenceType;
+  ref_id: string;
+};

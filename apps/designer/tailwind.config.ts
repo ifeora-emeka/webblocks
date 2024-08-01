@@ -2,7 +2,8 @@ import type { Config } from 'tailwindcss'
 import {
   BUILDER_DEFAULT_SPACING,
   BUILDER_DEFAULT_SPACING_LG,
-  BUILDER_NAV_SIZE, BUILDER_NAV_SIZE_SM,
+  BUILDER_NAV_SIZE,
+  BUILDER_NAV_SIZE_SM,
 } from './src/components/builder/builder.constants'
 
 const config = {

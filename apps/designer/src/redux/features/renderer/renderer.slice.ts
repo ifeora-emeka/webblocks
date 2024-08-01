@@ -8,7 +8,6 @@ import {
 import slugify from 'slugify'
 import { generateRandomId } from '@/lib/utils'
 import { staticFrameElement } from '@/components/builder/renderer/element-render/static-element-data/frame-element'
-import { ChakraProps } from '@chakra-ui/react'
 
 export interface RendererState {
   allElements: DndElementData[]

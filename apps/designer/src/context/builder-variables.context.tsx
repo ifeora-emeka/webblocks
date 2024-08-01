@@ -7,6 +7,10 @@ import {
 import { generateRandomId } from '@/lib/utils'
 import slugify from 'slugify'
 import { generateDefaultCollectionAndVariables } from '@/__mock__/variables.mock'
+import {
+  BuilderReferenceType,
+  BuilderReferenceValue,
+} from '@repo/designer/types/designer.types'
 
 interface BuilderVariablesContextType {
   state: {
@@ -37,6 +41,8 @@ interface BuilderVariablesContextType {
     value: number | string
   }) => void
   deleteVariable: (_id: string) => Promise<void>
+  getVariableByID: (ID: string) => VariableData | undefined
+  parseVariableRef: (ref: string) => BuilderReferenceValue
 }
 
 const BuilderVariablesContext = createContext<
@@ -59,11 +65,20 @@ export const BuilderVariablesProvider: React.FC<{
   useEffect(() => {
     let { variableSets: sets, variables: vars } =
       generateDefaultCollectionAndVariables()
-    setState({
-      activeSet: null,
-      variableSets: sets,
-      variables: vars,
-    })
+    let exists = localStorage.getItem('vars')
+
+    if (exists) {
+      setState(JSON.parse(exists))
+    } else {
+      let data = {
+        activeSet: null,
+        variableSets: sets,
+        variables: vars,
+      }
+
+      localStorage.setItem('vars', JSON.stringify(data))
+      setState(data)
+    }
   }, [])
 
   const createVariableSet = (name: string) => {
@@ -102,9 +117,7 @@ export const BuilderVariablesProvider: React.FC<{
       return {
         ...prev,
         variableSets: prev.variableSets.filter((set) => set._id !== _id),
-        variables: prev.variables.filter((variable) =>
-            variable.set !== _id
-        ),
+        variables: prev.variables.filter((variable) => variable.set !== _id),
         activeSet: null,
       }
     })
@@ -128,10 +141,7 @@ export const BuilderVariablesProvider: React.FC<{
       _id: generateRandomId(9),
       name,
       slug: slugify(name),
-      index:
-        state.variables.filter((v) =>
-          v.set === setId
-        ).length + 1,
+      index: state.variables.filter((v) => v.set === setId).length + 1,
       value_type,
       set: setId,
       isStatic,
@@ -179,6 +189,21 @@ export const BuilderVariablesProvider: React.FC<{
     }
   }
 
+  const getVariableByID = (ID: string): VariableData | undefined => {
+    return state.variables.find((vars) => vars._id === ID)
+  }
+
+  const parseVariableRef = (ref: string): BuilderReferenceValue => {
+    let val = ref.split('::')
+    let type = val[1] as BuilderReferenceType
+    let ref_id = val[2] as string
+
+    return {
+      ref_id,
+      type,
+    }
+  }
+
   const value: BuilderVariablesContextType = {
     state,
     setState,
@@ -189,6 +214,8 @@ export const BuilderVariablesProvider: React.FC<{
     updateVariable,
     deleteVariable,
     setActiveSet,
+    getVariableByID,
+    parseVariableRef,
   }
 
   return (

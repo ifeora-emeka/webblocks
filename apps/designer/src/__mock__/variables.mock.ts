@@ -7,31 +7,31 @@ import { generateRandomId } from '@/lib/utils'
 import slugify from 'slugify'
 
 interface VariableSetInfo {
-  slug: string;
-  type: VariableValueType;
+  slug: string
+  type: VariableValueType
 }
 
 let variableSetInfo: VariableSetInfo[] = [
-  { slug: 'spacing', type: VariableValueType.NUMBER },
-  { slug: 'font_size', type: VariableValueType.NUMBER },
+  { slug: 'spacing', type: VariableValueType.UOM },
+  { slug: 'font_size', type: VariableValueType.UOM },
   { slug: 'brand', type: VariableValueType.COLOR },
   { slug: 'color', type: VariableValueType.COLOR },
-  { slug: 'line_height', type: VariableValueType.NUMBER },
+  { slug: 'line_height', type: VariableValueType.UOM },
   { slug: 'font_weight', type: VariableValueType.NUMBER },
-  { slug: 'border_radius', type: VariableValueType.NUMBER },
-  { slug: 'shadow', type: VariableValueType.TEXT },
+  { slug: 'border_radius', type: VariableValueType.UOM },
+  { slug: 'shadow', type: VariableValueType.SHADOW },
 ]
 
 let slugVariables: Record<string, Partial<VariableData>[]> = {
   spacing: [
-    { name: 'small', value: 4 },
-    { name: 'medium', value: 8 },
-    { name: 'large', value: 16 },
+    { name: 'small', value: '4px' },
+    { name: 'medium', value: '8px' },
+    { name: 'large', value: '16px' },
   ],
   font_size: [
-    { name: 'small', value: 12 },
-    { name: 'medium', value: 16 },
-    { name: 'large', value: 24 },
+    { name: 'small', value: '12px' },
+    { name: 'medium', value: '16px' },
+    { name: 'large', value: '24px' },
   ],
   brand: [
     { name: 'primary', value: '#1E90FF' },
@@ -41,9 +41,9 @@ let slugVariables: Record<string, Partial<VariableData>[]> = {
     { name: 'black', value: '#000000' },
     { name: 'white', value: '#FFFFFF' },
     { name: 'gray', value: '#808080' },
-    { name: 'red', value: '#FF0000' },
-    { name: 'green', value: '#00FF00' },
-    { name: 'blue', value: '#0000FF' },
+    { name: 'red', value: '#D96243' },
+    { name: 'green', value: '#4E8054' },
+    { name: 'blue', value: '#3535d9' },
   ],
   line_height: [
     { name: 'tight', value: 1.2 },

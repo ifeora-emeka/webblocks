@@ -1,5 +1,5 @@
 import WebsiteBuilderLoading from '@/components/builder/WebsiteBuilderLoading'
 
-export default function BuilderLoading(){
-   return <WebsiteBuilderLoading start />
+export default function BuilderLoading() {
+  return <WebsiteBuilderLoading start />
 }

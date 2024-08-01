@@ -19,8 +19,8 @@ export interface VariableData {
 }
 
 export enum VariableValueType {
-  TEXT = "text",
+  UOM = "UOM", // Ex. 14px, 3rem, 80%
   COLOR = "color",
   NUMBER = "number",
-  BOOLEAN = "boolean",
+  SHADOW = "shadow",
 }

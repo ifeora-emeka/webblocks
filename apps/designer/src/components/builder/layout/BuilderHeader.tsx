@@ -53,7 +53,12 @@ function BuilderHeader({ rendererState, builderHook }: Props) {
             href={'/projects'}
             className={'min-w-builder_nav_size max-w-builder_nav_size flex'}
           >
-            <Image src={'/brand/brand-icon-blue.png'} alt={'brand'} width={30} height={30} />
+            <Image
+              src={'/brand/brand-icon-blue.png'}
+              alt={'brand'}
+              width={30}
+              height={30}
+            />
             {/*<DefaultIconBtn*/}
             {/*  Icon={TbBrandFramerMotion}*/}
             {/*  tooltip={'Home'}*/}
