@@ -3,6 +3,7 @@ import EachPropertyLayout from '../EachPropertyLayout'
 import { Input } from '@/components/ui/input'
 import useElementProperty from '../../hooks/element-property.hooks'
 import { debounce } from '../../builder.utils'
+import UOMInput from '@/components/builder/inputs/UOMInput'
 
 export default function ElementPaddingProperty() {
   const {
@@ -28,11 +29,12 @@ export default function ElementPaddingProperty() {
         onAddValue={() => updatePaddingValue('20px')}
         onRemoveValue={removePaddingValue}
       >
-        <Input
-          className="w-[50px] focus:bg-background active:bg-background hover:bg-background border-0 text-center"
-          value={paddingValue ? parseInt(paddingValue || '0') : ''}
-          onChange={handlePaddingChange}
-        />
+        <UOMInput />
+        {/*<Input*/}
+        {/*  className="w-[50px] focus:bg-background active:bg-background hover:bg-background border-0 text-center"*/}
+        {/*  value={paddingValue ? parseInt(paddingValue || '0') : ''}*/}
+        {/*  onChange={handlePaddingChange}*/}
+        {/*/>*/}
       </EachPropertyLayout>
     </>
   )

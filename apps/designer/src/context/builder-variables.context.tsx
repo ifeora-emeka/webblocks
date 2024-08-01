@@ -103,9 +103,7 @@ export const BuilderVariablesProvider: React.FC<{
         ...prev,
         variableSets: prev.variableSets.filter((set) => set._id !== _id),
         variables: prev.variables.filter((variable) =>
-          typeof variable.set === 'string'
-            ? variable.set !== _id
-            : variable.set._id !== _id,
+            variable.set !== _id
         ),
         activeSet: null,
       }
@@ -132,7 +130,7 @@ export const BuilderVariablesProvider: React.FC<{
       slug: slugify(name),
       index:
         state.variables.filter((v) =>
-          typeof v.set === 'string' ? v.set === setId : v.set._id === setId,
+          v.set === setId
         ).length + 1,
       value_type,
       set: setId,

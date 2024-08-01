@@ -14,7 +14,7 @@ export interface VariableData {
   index: number;
   isStatic?: boolean;
   value_type: VariableValueType;
-  set: VariableSetData | string; // it could be the set object or the set id
+  set: string; // it could be the set object or the set id
   value: string | number;
 }
 

@@ -2,7 +2,7 @@ import type { Config } from 'tailwindcss'
 import {
   BUILDER_DEFAULT_SPACING,
   BUILDER_DEFAULT_SPACING_LG,
-  BUILDER_NAV_SIZE,
+  BUILDER_NAV_SIZE, BUILDER_NAV_SIZE_SM,
 } from './src/components/builder/builder.constants'
 
 const config = {
@@ -25,6 +25,7 @@ const config = {
     extend: {
       spacing: {
         builder_nav_size: BUILDER_NAV_SIZE,
+        builder_nav_size_sm: BUILDER_NAV_SIZE_SM,
         default_spacing: BUILDER_DEFAULT_SPACING,
         default_spacing_lg: BUILDER_DEFAULT_SPACING_LG,
       },
