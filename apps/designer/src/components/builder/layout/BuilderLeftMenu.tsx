@@ -8,11 +8,15 @@ import {
   TbDatabase,
   TbDiamonds,
   TbFile,
+  TbFolder,
+  TbHelp,
   TbListTree,
   TbPhoto,
   TbPlus,
   TbSchool,
   TbSettings2,
+  TbShoppingCart,
+  TbUsers,
 } from 'react-icons/tb'
 import { BUILDER_NAV_SIZE } from '@/components/builder/builder.constants'
 import { Separator } from '@/components/ui/separator'
@@ -82,8 +86,8 @@ export default function BuilderLeftMenu() {
           />
           <Separator className={'bg-muted-foreground opacity-30'} />
           <DefaultIconBtn
-            Icon={TbPhoto}
-            tooltip={'Asset browser'}
+            Icon={TbFolder}
+            tooltip={'File browser'}
             onClick={() => dispatch(toggleLeftPanel('assets'))}
             side={'right'}
             isActive={panel === 'assets'}
@@ -95,6 +99,19 @@ export default function BuilderLeftMenu() {
             side={'right'}
           />
           <DefaultIconBtn
+            Icon={TbShoppingCart}
+            tooltip={'Ecommerce'}
+            onClick={() => {}}
+            side={'right'}
+          />
+          <DefaultIconBtn
+            Icon={TbUsers}
+            tooltip={'Users'}
+            onClick={() => {}}
+            side={'right'}
+          />
+          <Separator className={'bg-muted-foreground opacity-30'} />
+          <DefaultIconBtn
             Icon={TbSettings2}
             tooltip={'Site settings'}
             onClick={() => {}}
@@ -105,14 +122,8 @@ export default function BuilderLeftMenu() {
           className={'flex flex-col items-center w-full gap-default_spacing'}
         >
           <DefaultIconBtn
-            Icon={TbBrandHipchat}
-            tooltip={'Chat support'}
-            onClick={() => {}}
-            side={'right'}
-          />
-          <DefaultIconBtn
-            Icon={TbSchool}
-            tooltip={'Tutorials'}
+            Icon={TbHelp}
+            tooltip={'Help'}
             onClick={() => {}}
             side={'right'}
           />
