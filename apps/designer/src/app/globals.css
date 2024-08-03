@@ -113,3 +113,11 @@
 .element_toolbox {
   opacity: 1 !important;
 }
+
+.fast-transition {
+  transition: all 0.2s ease-in-out;
+}
+
+.slow-transition {
+  transition: all 0.8s ease-in-out;
+}

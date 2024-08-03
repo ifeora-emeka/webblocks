@@ -8,7 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "format": "prettier --write \"**/*.{js,ts,css,json,tsx}\""
+    "format": "prettier --write \"**/*.{js,ts,css,json,tsx}\"",
+    "tauri": "tauri dev"
   },
   "dependencies": {
     "@chakra-ui/next-js": "^2.2.0",
@@ -58,6 +59,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@tauri-apps/cli": "^1.6.0",
     "@types/jsonwebtoken": "^9.0.6",
     "@types/mongoose": "^5.11.97",
     "@types/node": "^20",

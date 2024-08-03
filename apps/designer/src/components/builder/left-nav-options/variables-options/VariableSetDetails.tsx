@@ -101,9 +101,9 @@ export default function VariableSetDetails({
                     </DropdownMenuItem>
                     <DropdownMenuItem
                       className={'flex gap-default_spacing'}
-                      onClick={() => addVariable(VariableValueType.TEXT)}
+                      onClick={() => addVariable(VariableValueType.SHADOW)}
                     >
-                      <TbTextSize size={17} /> Text
+                      <TbTextSize size={17} /> Shadow
                     </DropdownMenuItem>
                     <DropdownMenuItem
                       className={'flex gap-default_spacing'}
@@ -111,15 +111,15 @@ export default function VariableSetDetails({
                     >
                       <TbPalette size={17} /> Color
                     </DropdownMenuItem>
-                    {process.env.NODE_ENV !== 'production' && (
-                      <DropdownMenuItem
-                        className={'flex gap-default_spacing'}
-                        onClick={() => addVariable(VariableValueType.BOOLEAN)}
-                      >
-                        <TbChartCircles size={17} />
-                        Boolean
-                      </DropdownMenuItem>
-                    )}
+                    {/*{process.env.NODE_ENV !== 'production' && (*/}
+                    {/*  <DropdownMenuItem*/}
+                    {/*    className={'flex gap-default_spacing'}*/}
+                    {/*    onClick={() => addVariable(VariableValueType.BOOLEAN)}*/}
+                    {/*  >*/}
+                    {/*    <TbChartCircles size={17} />*/}
+                    {/*    Boolean*/}
+                    {/*  </DropdownMenuItem>*/}
+                    {/*)}*/}
                   </DropdownMenuContent>
                 </DropdownMenu>
               </DefaultTooltip>
