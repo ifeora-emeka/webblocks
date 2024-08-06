@@ -1,6 +1,7 @@
 import React from 'react'
-import { TbPlus, TbX } from 'react-icons/tb'
+import { TbBorderCorners, TbPlus } from 'react-icons/tb'
 import DefaultTooltip from '@/components/DefaultTooltip'
+import { IoRemoveOutline } from 'react-icons/io5'
 
 type Props = {
   label: string
@@ -8,6 +9,7 @@ type Props = {
   isEmpty?: boolean
   onAddValue: () => void
   onRemoveValue?: () => void
+  onAddCorners?: () => void
 }
 
 export default function EachPropertyLayout({
@@ -16,11 +18,12 @@ export default function EachPropertyLayout({
   isEmpty,
   onAddValue,
   onRemoveValue,
+  onAddCorners
 }: Props) {
   return (
     <>
       <div
-        className={'dark flex items-center justify-between min-h-10 max-h-10'}
+        className={'dark flex items-center justify-between min-h-10 max-h-10-'}
       >
         <div className={'min-w-[30%] max-w-[30%]'}>
           <label className="text-xs text-muted-foreground">{label}</label>
@@ -46,13 +49,18 @@ export default function EachPropertyLayout({
           ) : (
             children
           )}
+          {
+            onAddCorners && !isEmpty && <button onClick={onAddCorners}>
+              <TbBorderCorners />
+            </button>
+          }
           {onRemoveValue && !isEmpty && (
             <DefaultTooltip content={'Remove'}>
               <button
                 onClick={onRemoveValue}
-                className={'text-muted-foreground hover:text-card-foreground'}
+                className={'text-card-foreground hover:text-card-foreground'}
               >
-                <TbX />
+                <IoRemoveOutline />
               </button>
             </DefaultTooltip>
           )}

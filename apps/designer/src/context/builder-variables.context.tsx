@@ -31,7 +31,7 @@ interface BuilderVariablesContextType {
     value_type: VariableValueType
     setId: string
     name: string
-    isStatic?: boolean
+    isGlobal?: boolean
   }) => void
   setActiveSet: (val: string) => void
   updateVariableSet: (params: { name: string; _id: string }) => void

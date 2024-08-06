@@ -15,7 +15,8 @@ type Props = {
   value: string
   allowed_values: VariableValueType[]
   onChange: (e: number | string) => void
-  ref_value: string
+  ref_value: string;
+  isCorners?: boolean;
 }
 
 export default function UOMInput({
@@ -23,6 +24,7 @@ export default function UOMInput({
   value,
   onChange,
   ref_value,
+  isCorners
 }: Props) {
   const [focused, setFocused] = useState(false)
 
@@ -45,6 +47,12 @@ export default function UOMInput({
     return 'px'
   }
 
+  if(isCorners) {
+    return <div className={'border min-h-20 hover:bg-background rounded-md w-full'}>
+
+    </div>
+  }
+
   return (
     <>
       <div
@@ -56,22 +64,7 @@ export default function UOMInput({
         )}
       >
         {value.includes('ref') ? (
-          <div
-            className={
-              'bg-purple-300 font-bold text-purple-700 border border-purple-700 text-center rounded-sm flex items-center px-1 gap-default_spacing cursor-pointer'
-            }
-          >
-            <VariableListDropdown
-              allowed_values={allowed_values}
-              onChange={(val) => onChange(val)}
-            >
-              <small className={'flex-1 truncate pl-2'}>{ref_value}</small>
-            </VariableListDropdown>
-
-            <button onClick={() => onChange(ref_value.trim() || '16' + 'px')}>
-              <TbX />
-            </button>
-          </div>
+          <EachVariableBadge onChange={onChange} ref_value={ref_value} allowed_values={allowed_values}  />
         ) : (
           <>
             <div className={'flex items-center w-full'}>
@@ -127,4 +120,23 @@ export default function UOMInput({
       </div>
     </>
   )
+}
+
+const EachVariableBadge = ({ allowed_values, ref_value, onChange}: {allowed_values: VariableValueType[], onChange: (val:string) => void; ref_value:string}) => {
+  return <div
+    className={
+      'bg-purple-300 font-bold text-purple-700 border border-purple-700 text-center rounded-sm flex items-center px-1 gap-default_spacing cursor-pointer'
+    }
+  >
+    <VariableListDropdown
+      allowed_values={allowed_values}
+      onChange={(val) => onChange(val)}
+    >
+      <small className={'flex-1 truncate pl-2'}>{ref_value}</small>
+    </VariableListDropdown>
+
+    <button onClick={() => onChange(ref_value.trim() || '16' + 'px')}>
+      <TbX />
+    </button>
+  </div>
 }

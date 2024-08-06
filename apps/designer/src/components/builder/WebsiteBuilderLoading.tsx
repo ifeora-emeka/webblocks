@@ -50,7 +50,7 @@ export default function WebsiteBuilderLoading({ start }: { start?: boolean }) {
           <Image
             src={'/brand/brand-text-white.png'}
             alt={'brand text'}
-            width={200}
+            width={250}
             height={60}
             className={'mb-10'}
           />

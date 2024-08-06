@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 import { AppStore } from '@/redux/store'
 import { useBuilder } from '@/components/builder/hooks/builder.hooks'
 import { ChakraProps } from '@chakra-ui/react'
+import { useBuilderVariables } from '@/context/builder-variables.context'
 
 const areAllValuesSame = (obj: Record<string, string>) => {
   const values = Object.values(obj)
@@ -10,6 +11,7 @@ const areAllValuesSame = (obj: Record<string, string>) => {
 }
 
 const useElementProperty = (property: keyof ChakraProps) => {
+  const { getVariableByID, parseVariableRef } = useBuilderVariables()
   const { updateElementChakraStyleData, removeElementChakraProperty } =
     useBuilder()
   const { active_element, activeBreakpoint, allElements } = useSelector(
@@ -36,7 +38,7 @@ const useElementProperty = (property: keyof ChakraProps) => {
     const newChakraStyle: Partial<ChakraProps> = {
       [property]: {
         ...currentProperty,
-        [activeBreakpoint]: value,
+        [activeBreakpoint]: value.trim(),
       },
     }
 
@@ -67,10 +69,24 @@ const useElementProperty = (property: keyof ChakraProps) => {
     }
   }
 
+  let varReferenceValue = '';
+  let isCorners = false;
+
+  if (propertyValue.includes('ref')) {
+    let val = parseVariableRef(propertyValue)
+    varReferenceValue = String(getVariableByID(val.ref_id)?.value || '')
+  }
+
+  if(propertyValue.split(' ').length === 4){
+    isCorners = true;
+  }
+
   return {
     propertyValue,
     updatePropertyValue,
     removePropertyValue,
+    varReferenceValue,
+    isCorners
   }
 }
 
