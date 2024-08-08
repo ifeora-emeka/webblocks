@@ -38,22 +38,25 @@ export default function WebsiteBuilderLoading({ start }: { start?: boolean }) {
   return (
     <>
       <div
-        className={
-          cn('opacity-100 bg-card dark fixed z-[1400] w-[100vw] h-[100vh] flex justify-center items-center slow-transition', {
-            "opacity-0": progress == 100
-          })
-        }
+        className={cn(
+          'opacity-100 bg-card dark fixed z-[1400] w-[100vw] h-[100vh] flex justify-center items-center slow-transition select-none',
+          {
+            'opacity-0': progress == 100,
+          },
+        )}
       >
         <div
-          className={'w-[300px] flex flex-col gap-default_spacing items-center'}
+          className={'w-[500px] flex flex-col mb-10 items-center'}
         >
-          <Image
-            src={'/brand/brand-text-white.png'}
-            alt={'brand text'}
-            width={250}
-            height={60}
-            className={'mb-10'}
-          />
+          <div className={'flex flex-col mb-10 items-center gap-default_spacing'}>
+            <Image
+              src={'/brand/brand-text-white.png'}
+              alt={'brand text'}
+              width={250}
+              height={60}
+            />
+            <small className={'text-muted-foreground'}>by <strong>iDegin</strong></small>
+          </div>
           <Progress value={progress} className={'w-[80%] bg-background'} />
         </div>
       </div>

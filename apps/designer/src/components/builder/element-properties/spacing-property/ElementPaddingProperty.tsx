@@ -6,15 +6,14 @@ import UOMInput from '@/components/builder/inputs/UOMInput'
 import { VariableValueType } from '@repo/designer/types/variables.types'
 import { DEBOUNCE_TIME } from '@/components/builder/builder.constants'
 
-
 export default function ElementPaddingProperty() {
   const {
     propertyValue: paddingValue,
     updatePropertyValue: updatePaddingValue,
     removePropertyValue: removePaddingValue,
     varReferenceValue,
-    isCorners
-  } = useElementProperty('padding');
+    isCorners,
+  } = useElementProperty('padding')
 
   const debouncedUpdatePaddingValue = debounce((value: string) => {
     updatePaddingValue(value)
@@ -29,10 +28,15 @@ export default function ElementPaddingProperty() {
     <>
       <EachPropertyLayout
         label={'Padding'}
+        layout={isCorners ? 'column' : 'row'}
         isEmpty={!paddingValue}
         onAddValue={() => updatePaddingValue('20px')}
         onRemoveValue={removePaddingValue}
-        onAddCorners={() => updatePaddingValue(`${paddingValue} ${paddingValue} ${paddingValue} ${paddingValue}`)}
+        onAddCorners={() =>
+          updatePaddingValue(
+             isCorners ? paddingValue.split(' ')[0] : `${paddingValue} ${paddingValue} ${paddingValue} ${paddingValue}`,
+          )
+        }
       >
         <UOMInput
           isCorners={isCorners}

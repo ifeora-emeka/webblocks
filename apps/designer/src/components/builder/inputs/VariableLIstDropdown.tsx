@@ -79,8 +79,11 @@ function VariableList({
       >
         <TbSearch />
         <input
+          type={'search'}
           placeholder={'Search variables'}
-          className={'bg-inherit text-card-foreground outline-none'}
+          className={
+            'bg-inherit text-card-foreground outline-none text-sm flex-1'
+          }
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />

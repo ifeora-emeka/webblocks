@@ -69,16 +69,16 @@ const useElementProperty = (property: keyof ChakraProps) => {
     }
   }
 
-  let varReferenceValue = '';
-  let isCorners = false;
+  let varReferenceValue = ''
+  let isCorners = false
 
   if (propertyValue.includes('ref')) {
     let val = parseVariableRef(propertyValue)
     varReferenceValue = String(getVariableByID(val.ref_id)?.value || '')
   }
 
-  if(propertyValue.split(' ').length === 4){
-    isCorners = true;
+  if (propertyValue.split(' ').length === 4) {
+    isCorners = true
   }
 
   return {
@@ -86,7 +86,7 @@ const useElementProperty = (property: keyof ChakraProps) => {
     updatePropertyValue,
     removePropertyValue,
     varReferenceValue,
-    isCorners
+    isCorners,
   }
 }
 

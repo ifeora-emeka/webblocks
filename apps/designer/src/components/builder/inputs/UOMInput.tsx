@@ -1,5 +1,5 @@
 import { TbCapture, TbX } from 'react-icons/tb'
-import { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { cn } from '@/lib/utils'
 import VariableListDropdown from '@/components/builder/inputs/VariableLIstDropdown'
 import { VariableValueType } from '@repo/designer/types/variables.types'
@@ -15,18 +15,96 @@ type Props = {
   value: string
   allowed_values: VariableValueType[]
   onChange: (e: number | string) => void
-  ref_value: string;
-  isCorners?: boolean;
+  ref_value: string
+  isCorners?: boolean
+  withoutUOM?: boolean
 }
 
-export default function UOMInput({
+export default function UOMInput(props: Props) {
+  if (props.isCorners) {
+    return <MultipleUOMInput {...props} />
+  }
+  return <SingleUOMInput {...props} />
+}
+
+export function MultipleUOMInput(props: Props) {
+  const { isCorners, onChange, value, allowed_values, ref_value } = props;
+
+  let allValues = value.split(' ');
+
+  const updateCornerValue = (value: string, index: number) => {
+    let allUOM = [...allValues];
+    allUOM[index] = value;
+    let newVal = allUOM.join(' ');
+
+    onChange(newVal);
+  };
+
+  return (
+    <>
+      <div
+        className={
+          'min-h-20 rounded-md w-full flex flex-wrap gap-default_spacing'
+        }
+      >
+        <div className={'flex gap-default_spacing'}>
+          <SingleUOMInput
+            withoutUOM
+            isCorners={isCorners}
+            onChange={val => updateCornerValue(`${val}`, 0)}
+            value={allValues[0]}
+            allowed_values={allowed_values}
+            ref_value={ref_value}
+          />
+          <SingleUOMInput
+            withoutUOM
+            isCorners={isCorners}
+            onChange={val => updateCornerValue(`${val}`, 1)}
+            value={allValues[1]}
+            allowed_values={allowed_values}
+            ref_value={ref_value}
+          />
+        </div>
+        <div className={'flex gap-default_spacing'}>
+          <SingleUOMInput
+            withoutUOM
+            isCorners={isCorners}
+            onChange={val => updateCornerValue(`${val}`, 2)}
+            value={allValues[2]}
+            allowed_values={allowed_values}
+            ref_value={ref_value}
+          />
+          <SingleUOMInput
+            withoutUOM
+            isCorners={isCorners}
+            onChange={val => updateCornerValue(`${val}`, 3)}
+            value={allValues[3]}
+            allowed_values={allowed_values}
+            ref_value={ref_value}
+          />
+        </div>
+      </div>
+    </>
+  )
+}
+
+export function SingleUOMInput({
   allowed_values,
   value,
   onChange,
   ref_value,
-  isCorners
+  withoutUOM,
 }: Props) {
-  const [focused, setFocused] = useState(false)
+  const [focused, setFocused] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  // Function to handle the focus event
+  const handleFocus = () => {
+    if (inputRef.current) {
+      setFocused(true);
+      inputRef.current.select();
+    }
+  };
 
   const removeUOM = (value: string) => {
     let val
@@ -47,31 +125,32 @@ export default function UOMInput({
     return 'px'
   }
 
-  if(isCorners) {
-    return <div className={'border min-h-20 hover:bg-background rounded-md w-full'}>
-
-    </div>
-  }
-
   return (
     <>
       <div
         className={cn(
-          'flex items-center dark h-9 px-2 rounded-lg hover:bg-background max-w-[90%] justify-between gap-default_spacing_lg border',
+          'flex items-center dark h-9 px-2 rounded-lg hover:bg-background max-w-[100%] justify-between  border',
           {
             'bg-background': focused,
+            'gap-default_spacing': withoutUOM,
+            'gap-default_spacing_lg': !withoutUOM,
           },
         )}
       >
         {value.includes('ref') ? (
-          <EachVariableBadge onChange={onChange} ref_value={ref_value} allowed_values={allowed_values}  />
+          <EachVariableBadge
+            onChange={onChange}
+            ref_value={ref_value}
+            allowed_values={allowed_values}
+          />
         ) : (
           <>
             <div className={'flex items-center w-full'}>
               <input
                 type={'number'}
+                ref={inputRef}
                 className={'w-full bg-inherit dark outline-none text-sm'}
-                onFocus={() => setFocused(true)}
+                onFocus={handleFocus}
                 onBlur={() => setFocused(false)}
                 value={removeUOM(value.trim())}
                 onChange={(e) =>
@@ -81,31 +160,33 @@ export default function UOMInput({
                   )
                 }
               />
-              <DropdownMenu>
-                <DropdownMenuTrigger>
-                  <div className={'h-full flex items-start text-sm'}>
-                    {getUOM(value)}
-                  </div>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className={'dark'}>
-                  {Object.keys(SUPPORTED_UOM).map((uom) => {
-                    return (
-                      <DropdownMenuCheckboxItem
-                        className={'capitalize'}
-                        key={uom}
-                        // @ts-ignore
-                        checked={value.includes(SUPPORTED_UOM[uom] as string)}
-                        onCheckedChange={(e) =>
+              {!withoutUOM && (
+                <DropdownMenu>
+                  <DropdownMenuTrigger>
+                    <div className={'h-full flex items-start text-sm'}>
+                      {getUOM(value)}
+                    </div>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className={'dark'}>
+                    {Object.keys(SUPPORTED_UOM).map((uom) => {
+                      return (
+                        <DropdownMenuCheckboxItem
+                          className={'capitalize'}
+                          key={uom}
                           // @ts-ignore
-                          onChange(removeUOM(value) + SUPPORTED_UOM[uom])
-                        }
-                      >
-                        {uom.replaceAll('_', ' ')}
-                      </DropdownMenuCheckboxItem>
-                    )
-                  })}
-                </DropdownMenuContent>
-              </DropdownMenu>
+                          checked={value.includes(SUPPORTED_UOM[uom] as string)}
+                          onCheckedChange={(e) =>
+                            // @ts-ignore
+                            onChange(removeUOM(value) + SUPPORTED_UOM[uom])
+                          }
+                        >
+                          {uom.replaceAll('_', ' ')}
+                        </DropdownMenuCheckboxItem>
+                      )
+                    })}
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              )}
             </div>
             <VariableListDropdown
               allowed_values={allowed_values}
@@ -122,21 +203,31 @@ export default function UOMInput({
   )
 }
 
-const EachVariableBadge = ({ allowed_values, ref_value, onChange}: {allowed_values: VariableValueType[], onChange: (val:string) => void; ref_value:string}) => {
-  return <div
-    className={
-      'bg-purple-300 font-bold text-purple-700 border border-purple-700 text-center rounded-sm flex items-center px-1 gap-default_spacing cursor-pointer'
-    }
-  >
-    <VariableListDropdown
-      allowed_values={allowed_values}
-      onChange={(val) => onChange(val)}
+const EachVariableBadge = ({
+  allowed_values,
+  ref_value,
+  onChange,
+}: {
+  allowed_values: VariableValueType[]
+  onChange: (val: string) => void
+  ref_value: string
+}) => {
+  return (
+    <div
+      className={
+        'bg-purple-300 font-bold text-purple-700 border border-purple-700 text-center rounded-sm flex items-center px-1 gap-default_spacing cursor-pointer'
+      }
     >
-      <small className={'flex-1 truncate pl-2'}>{ref_value}</small>
-    </VariableListDropdown>
+      <VariableListDropdown
+        allowed_values={allowed_values}
+        onChange={(val) => onChange(val)}
+      >
+        <small className={'flex-1 truncate pl-2'}>{ref_value}</small>
+      </VariableListDropdown>
 
-    <button onClick={() => onChange(ref_value.trim() || '16' + 'px')}>
-      <TbX />
-    </button>
-  </div>
+      <button onClick={() => onChange(ref_value.trim() || '16' + 'px')}>
+        <TbX />
+      </button>
+    </div>
+  )
 }

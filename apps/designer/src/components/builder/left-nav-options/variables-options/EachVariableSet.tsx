@@ -72,7 +72,7 @@ export default function EachVariableSet({
             <span className={'text-sm '}>{name}</span>
           )}
         </div>
-        {isStatic && <TbLock />}
+        {isStatic && !editMode && <TbLock />}
         {!editMode && (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
