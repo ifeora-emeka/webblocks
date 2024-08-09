@@ -35,13 +35,13 @@ export default function EachPropertyLayout({
           },
         )}
       >
-        <div
+        {label && <div
           className={cn('min-w-[30%] max-w-[30%] flex', {
             'min-w-[100%] max-w-[100%]': layout === 'column',
           })}
         >
           <label className="text-xs text-muted-foreground">{label}</label>
-        </div>
+        </div>}
         <div
           className={cn(
             'min-w-[65%] max-w-[65%] flex gap-default_spacing justify-end',

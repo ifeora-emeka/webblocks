@@ -39,6 +39,7 @@ export default function ElementPaddingProperty() {
         }
       >
         <UOMInput
+          leftContent={['T', 'R', 'B', 'L']}
           isCorners={isCorners}
           onChange={handlePaddingChange}
           value={paddingValue}
