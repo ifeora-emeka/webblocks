@@ -26,7 +26,8 @@ export const staticFrameElement = (
         display: generateStaticBreakpoints('flex'),
         padding: generateStaticBreakpoints('15px'),
         flexFlow: generateStaticBreakpoints('column'),
-        // minHeight: generateStaticBreakpoints('20px'),
+        // minHeight: generateStaticBreak
+        // points('20px'),
         // minWidth: generateStaticBreakpoints('20px'),
         width: generateStaticBreakpoints('100%'),
         // background: generateStaticBreakpoints(DEFAULT_FRAME_COLOR),

@@ -7,6 +7,7 @@ import SizeProperty from '@/components/builder/element-properties/size-propertie
 import SpacingProperty from '@/components/builder/element-properties/spacing-property/ElementSpacingProperty'
 import TypographyProperties from './element-properties/typography-properties/TypographyProperties'
 import ElementAttributeProperties from './element-properties/attribute-properties/ElementAttributeProperties'
+import PositionProperty from '@/components/builder/element-properties/positiion-property/PositionProperty'
 
 export default function PropertiesPanel() {
   return (
@@ -53,6 +54,7 @@ export default function PropertiesPanel() {
               <SizeProperty />
               <SpacingProperty />
               <LayoutProperty />
+              <PositionProperty />
               <TypographyProperties />
               <StyleProperty />
             </Accordion>

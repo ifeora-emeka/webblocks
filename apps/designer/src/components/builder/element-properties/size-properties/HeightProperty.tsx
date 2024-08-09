@@ -10,31 +10,23 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { UnitOfMeasurement } from '@repo/designer/types/index.types'
+import UOMInput from '@/components/builder/inputs/UOMInput'
+import { VariableValueType } from '@repo/designer/types/variables.types'
 
 export default function HeightProperty() {
   const {
     propertyValue: heightValue,
     updatePropertyValue: updateHeightValue,
     removePropertyValue: removeHeightValue,
+    isCorners,
+    varReferenceValue
   } = useElementProperty('height')
 
-  const updateUnitOfMeasurement = (unit: UnitOfMeasurement) => {
-    if (unit == '%') {
-      updateHeightValue('100' + unit)
-    } else {
-      updateHeightValue(parseInt(heightValue) + unit)
-    }
+  const updateUnitOfMeasurement = (value:string) => {
+    updateHeightValue(value);
   }
 
-  let currentUnitOfMeasurement = (): UnitOfMeasurement => {
-    if (String(heightValue.trim()).includes('%')) {
-      return '%'
-    } else if (String(heightValue.trim()).includes('vh')) {
-      return 'vh'
-    } else {
-      return 'px'
-    }
-  }
+
 
   return (
     <>
@@ -44,36 +36,15 @@ export default function HeightProperty() {
         onAddValue={() => updateHeightValue('20px')}
         onRemoveValue={removeHeightValue}
       >
-        <Input
-          className="w-[55px] hover:bg-background focus:bg-background active:bg-background border-0"
-          type={'number'}
-          value={parseInt(heightValue || '0')}
-          onChange={(e) =>
-            updateHeightValue(
-              String(parseInt(e.target.value)) + currentUnitOfMeasurement(),
-            )
-          }
-        />
-        <Select
-          onValueChange={(e) => updateUnitOfMeasurement(e as UnitOfMeasurement)}
-        >
-          <SelectTrigger className="max-w-[40%]">
-            <SelectValue
-              placeholder={
-                heightValue.includes('%')
-                  ? 'Fill'
-                  : heightValue.includes('vh')
-                    ? 'View'
-                    : 'Fixed'
-              }
-            />
-          </SelectTrigger>
-          <SelectContent className={'dark'}>
-            <SelectItem value="%">Fill</SelectItem>
-            <SelectItem value="px">Fixed</SelectItem>
-            <SelectItem value="vh">View</SelectItem>
-          </SelectContent>
-        </Select>
+        <div className={'flex items-center gap-default_spacing justify-end'}>
+          <UOMInput
+            isCorners={isCorners}
+            onChange={val => updateUnitOfMeasurement(`${val}`)}
+            value={heightValue}
+            allowed_values={[VariableValueType.UOM]}
+            ref_value={varReferenceValue}
+          />
+        </div>
       </EachPropertyLayout>
     </>
   )

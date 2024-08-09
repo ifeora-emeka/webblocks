@@ -17,16 +17,16 @@ export const staticImageElement = (
     parent_dnd_id: data.parent_id,
     element_data: {
       attributes: {
-        width: '100%',
-        src: 'https://savethefrogs.com/wp-content/uploads/placeholder-image-blue-landscape.png',
+        // width: '100%',
+        src: 'https://picsum.photos/200/300',
       },
       element_id: id,
       index: data.index,
       parent_element_id: data.parent_id,
       html_tag: 'img',
       chakraProps: {
-        width: generateStaticBreakpoints('100%'),
-        height: generateStaticBreakpoints('100%'),
+        width: generateStaticBreakpoints('300px'),
+        height: generateStaticBreakpoints('300px'),
       },
       style: {},
       name: 'Image',
