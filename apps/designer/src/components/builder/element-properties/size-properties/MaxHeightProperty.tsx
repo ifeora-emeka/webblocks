@@ -11,7 +11,11 @@ export default function MaxHeightProperty() {
         removePropertyValue,
         isCorners,
         varReferenceValue
-    } = useElementProperty('maxHeight')
+    } = useElementProperty('maxHeight');
+
+    if(!propertyValue) {
+        return null
+    }
 
     const updateUnitOfMeasurement = (value: string) => {
         updatePropertyValue(value);

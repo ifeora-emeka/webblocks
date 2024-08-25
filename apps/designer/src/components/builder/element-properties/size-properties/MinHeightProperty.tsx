@@ -13,6 +13,10 @@ export default function MinHeightProperty() {
         varReferenceValue
     } = useElementProperty('minHeight')
 
+    if(!propertyValue) {
+        return null
+    }
+
     const updateUnitOfMeasurement = (value: string) => {
         updatePropertyValue(value);
     }

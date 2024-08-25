@@ -118,6 +118,10 @@ export const useBuilder = () => {
     element_id: string
     newChakraStyle: ResponsiveChakraProps
   }) => {
+    console.log('INCOMING ::', {
+      newChakraStyle,
+      element_id,
+    })
     dispatch(
       updateElementChakraStyle({
         element_id,

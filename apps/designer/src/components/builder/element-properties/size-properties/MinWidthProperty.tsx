@@ -10,8 +10,12 @@ export default function MinWidthProperty() {
         updatePropertyValue,
         removePropertyValue,
         isCorners,
-        varReferenceValue
+        varReferenceValue,
     } = useElementProperty('minWidth')
+
+    if(!propertyValue) {
+        return null;
+    }
 
     const updateUnitOfMeasurement = (value: string) => {
         updatePropertyValue(value);

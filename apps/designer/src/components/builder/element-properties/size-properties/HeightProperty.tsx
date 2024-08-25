@@ -1,15 +1,6 @@
 import React from 'react'
 import EachPropertyLayout from '../EachPropertyLayout'
 import useElementProperty from '../../hooks/element-property.hooks'
-import { Input } from '@/components/ui/input'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
-import { UnitOfMeasurement } from '@repo/designer/types/index.types'
 import UOMInput from '@/components/builder/inputs/UOMInput'
 import { VariableValueType } from '@repo/designer/types/variables.types'
 

@@ -6,7 +6,7 @@ import ElementPlacementProperty
 
 export default function PositionProperty(){
   return <>
-    <AccordionItem value="size">
+    <AccordionItem value="position">
       <AccordionTrigger className={'px-default_spacing py-default_spacing'}>
         Position
       </AccordionTrigger>

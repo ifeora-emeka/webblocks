@@ -13,6 +13,10 @@ export default function MaxWidthProperty() {
         varReferenceValue
     } = useElementProperty('maxWidth')
 
+    if(!propertyValue) {
+        return null;
+    }
+
     const updateUnitOfMeasurement = (value: string) => {
         updatePropertyValue(value);
     }
