@@ -2,7 +2,7 @@
 'use client'
 
 import { ChakraProvider } from '@chakra-ui/react'
-import { BuilderVariablesProvider } from '@/context/builder-variables.context'
+import { BuilderVariablesProvider } from '@/components/builder/context/builder-variables.context'
 
 export function DesignerProvider({ children }: { children: React.ReactNode }) {
   return (

@@ -24,7 +24,7 @@ export const defaultRootElement = (
         ...staticFrameChakraStyle,
         background: generateStaticBreakpoints(DEFAULT_FRAME_COLOR),
         placeContent: generateStaticBreakpoints('start'),
-        gap: generateStaticBreakpoints('0'),
+        gap: generateStaticBreakpoints('0px'),
         minHeight: generateStaticBreakpoints('100vh'),
         bgPosition: generateStaticBreakpoints('center'),
         bgSize: generateStaticBreakpoints('cover'),

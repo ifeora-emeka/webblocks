@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 import { TbDotsVertical, TbPencil, TbPlus, TbTrash } from 'react-icons/tb'
 import { cn } from '@/lib/utils'
 import VariableSetDetails from './VariableSetDetails'
-import { useBuilderVariables } from '@/context/builder-variables.context'
+import { useBuilderVariables } from '@/components/builder/context/builder-variables.context'
 import {
   DropdownMenu,
   DropdownMenuContent,

@@ -18,7 +18,7 @@ import {
   TbTextSize,
 } from 'react-icons/tb'
 import { cn } from '@/lib/utils'
-import { useBuilderVariables } from '@/context/builder-variables.context'
+import { useBuilderVariables } from '@/components/builder/context/builder-variables.context'
 import {
   DropdownMenu,
   DropdownMenuContent,

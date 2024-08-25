@@ -2,6 +2,8 @@ import EachPropertyLayout from '@/components/builder/element-properties/EachProp
 import useElementProperty from '@/components/builder/hooks/element-property.hooks'
 import { Input } from '@/components/ui/input'
 import { debounce } from '@/components/builder/builder.utils'
+import UOMInput from '../../inputs/UOMInput'
+import { VariableValueType } from '@repo/designer/types/variables.types'
 
 export default function LayoutGapProperty() {
   const { propertyValue, updatePropertyValue, removePropertyValue } =
@@ -23,14 +25,12 @@ export default function LayoutGapProperty() {
       onRemoveValue={removePropertyValue}
     >
       <div className={'flex items-center gap-default_spacing justify-end'}>
-        <Input
-          className={
-            'w-[40%] hover:bg-background active:bg-background focus:bg-background border-0 text-center'
-          }
-          type="number"
-          placeholder="Gap"
-          value={parseInt(propertyValue)}
-          onChange={(e) => debouncedSetGap(Number(e.target.value))}
+        <UOMInput
+          isCorners={false}
+          onChange={val => updatePropertyValue(`${val}`)}
+          value={propertyValue}
+          allowed_values={[VariableValueType.UOM]}
+          ref_value={''}
         />
       </div>
     </EachPropertyLayout>

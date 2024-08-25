@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils'
 import { TbLock, TbTrash } from 'react-icons/tb'
 import React, { useEffect, useState } from 'react'
 import { VariableData } from '@repo/designer/types/variables.types'
-import { useBuilderVariables } from '@/context/builder-variables.context'
+import { useBuilderVariables } from '@/components/builder/context/builder-variables.context'
 
 type Props = {
   variable: VariableData

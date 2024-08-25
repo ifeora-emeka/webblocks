@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useBuilderVariables } from '@/context/builder-variables.context'
+import { useBuilderVariables } from '@/components/builder/context/builder-variables.context'
 import { cn } from '@/lib/utils'
 import {
   DropdownMenu,

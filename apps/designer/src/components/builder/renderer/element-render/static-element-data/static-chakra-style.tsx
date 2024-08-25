@@ -5,7 +5,7 @@ import { ResponsiveChakraProps } from '@repo/designer/types/designer.types'
 export const staticFrameChakraStyle: ResponsiveChakraProps = {
   //position
   position: generateStaticBreakpoints('relative'),
-  zIndex: generateStaticBreakpoints('0'),
+  zIndex: generateStaticBreakpoints('0px'),
 
   //layout
   display: generateStaticBreakpoints('flex'),

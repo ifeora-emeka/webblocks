@@ -1,37 +1,50 @@
 import React from 'react'
+import EachPropertyLayout from '../EachPropertyLayout'
 import useElementProperty from '../../hooks/element-property.hooks'
 import { debounce } from '../../builder.utils'
-import EachPropertyLayout from '../EachPropertyLayout'
-import { Input } from '@/components/ui/input'
+import UOMInput from '@/components/builder/inputs/UOMInput'
+import { VariableValueType } from '@repo/designer/types/variables.types'
+import { DEBOUNCE_TIME } from '@/components/builder/builder.constants'
 
 export default function ElementMarginProperty() {
   const {
-    propertyValue: marginValue,
-    updatePropertyValue: updateMarginValue,
-    removePropertyValue: removeMarginValue,
+    propertyValue,
+    updatePropertyValue,
+    removePropertyValue,
+    varReferenceValue,
+    isCorners,
   } = useElementProperty('margin')
 
   const debouncedUpdateMarginValue = debounce((value: string) => {
-    updateMarginValue(value)
-  }, 30)
+    updatePropertyValue(value)
+  }, DEBOUNCE_TIME.short)
 
-  const handleMarginChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value
-    debouncedUpdateMarginValue(value + 'px')
+  const handleMarginChange = (e: string | number) => {
+    let value = `${e}`
+    debouncedUpdateMarginValue(value)
   }
 
   return (
     <>
       <EachPropertyLayout
         label={'Margin'}
-        isEmpty={!marginValue}
-        onAddValue={() => updateMarginValue('20px')}
-        onRemoveValue={removeMarginValue}
+        layout={isCorners ? 'column' : 'row'}
+        isEmpty={!propertyValue}
+        onAddValue={() => updatePropertyValue('20px')}
+        onRemoveValue={removePropertyValue}
+        onAddCorners={() =>
+          updatePropertyValue(
+            isCorners ? propertyValue.split(' ')[0] : `${propertyValue} ${propertyValue} ${propertyValue} ${propertyValue}`,
+          )
+        }
       >
-        <Input
-          className="w-[50px] focus:bg-background active:bg-background hover:bg-background border-0 text-center"
-          value={marginValue ? parseInt(marginValue || '0') : ''}
+        <UOMInput
+          leftContent={['T', 'R', 'B', 'L']}
+          isCorners={isCorners}
           onChange={handleMarginChange}
+          value={propertyValue}
+          allowed_values={[VariableValueType.UOM]}
+          ref_value={varReferenceValue}
         />
       </EachPropertyLayout>
     </>

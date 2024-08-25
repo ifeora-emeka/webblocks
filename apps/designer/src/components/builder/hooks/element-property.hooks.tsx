@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import { AppStore } from '@/redux/store'
 import { useBuilder } from '@/components/builder/hooks/builder.hooks'
 import { ChakraProps } from '@chakra-ui/react'
-import { useBuilderVariables } from '@/context/builder-variables.context'
+import { useBuilderVariables } from '@/components/builder/context/builder-variables.context'
 
 const areAllValuesSame = (obj: Record<string, string>) => {
   const values = Object.values(obj)

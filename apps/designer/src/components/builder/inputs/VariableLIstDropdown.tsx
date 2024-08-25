@@ -5,7 +5,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { TbNumbers, TbPalette, TbSearch, TbTextSize } from 'react-icons/tb'
-import { useBuilderVariables } from '@/context/builder-variables.context'
+import { useBuilderVariables } from '@/components/builder/context/builder-variables.context'
 import {
   VariableData,
   VariableValueType,
