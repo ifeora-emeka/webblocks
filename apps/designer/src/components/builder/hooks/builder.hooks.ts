@@ -3,8 +3,6 @@
 // So clean this up. it should only focus on builder related things
 // and not element related things.
 
-
-
 import { useDispatch } from 'react-redux'
 import {
   BuilderBreakpoints,
@@ -118,10 +116,6 @@ export const useBuilder = () => {
     element_id: string
     newChakraStyle: ResponsiveChakraProps
   }) => {
-    console.log('INCOMING ::', {
-      newChakraStyle,
-      element_id,
-    })
     dispatch(
       updateElementChakraStyle({
         element_id,

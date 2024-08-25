@@ -8,8 +8,13 @@ import { debounce } from '@/components/builder/builder.utils'
 import { DEBOUNCE_TIME } from '@/components/builder/builder.constants'
 
 export default function BorderRadiusProperty() {
-  const { propertyValue, updatePropertyValue, removePropertyValue, isCorners, varReferenceValue } =
-    useElementProperty('borderRadius');
+  const {
+    propertyValue,
+    updatePropertyValue,
+    removePropertyValue,
+    isCorners,
+    varReferenceValue,
+  } = useElementProperty('borderRadius')
 
   const debouncedUpdatePaddingValue = debounce((value: string) => {
     updatePropertyValue(value)
@@ -26,7 +31,9 @@ export default function BorderRadiusProperty() {
         onRemoveValue={removePropertyValue}
         onAddCorners={() =>
           updatePropertyValue(
-            isCorners ? propertyValue.split(' ')[0] : `${propertyValue} ${propertyValue} ${propertyValue} ${propertyValue}`,
+            isCorners
+              ? propertyValue.split(' ')[0]
+              : `${propertyValue} ${propertyValue} ${propertyValue} ${propertyValue}`,
           )
         }
       >

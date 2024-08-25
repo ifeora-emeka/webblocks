@@ -10,14 +10,12 @@ export default function HeightProperty() {
     updatePropertyValue: updateHeightValue,
     removePropertyValue: removeHeightValue,
     isCorners,
-    varReferenceValue
+    varReferenceValue,
   } = useElementProperty('height')
 
-  const updateUnitOfMeasurement = (value:string) => {
-    updateHeightValue(value);
+  const updateUnitOfMeasurement = (value: string) => {
+    updateHeightValue(value)
   }
-
-
 
   return (
     <>
@@ -30,7 +28,7 @@ export default function HeightProperty() {
         <div className={'flex items-center gap-default_spacing justify-end'}>
           <UOMInput
             isCorners={isCorners}
-            onChange={val => updateUnitOfMeasurement(`${val}`)}
+            onChange={(val) => updateUnitOfMeasurement(`${val}`)}
             value={heightValue}
             allowed_values={[VariableValueType.UOM]}
             ref_value={varReferenceValue}

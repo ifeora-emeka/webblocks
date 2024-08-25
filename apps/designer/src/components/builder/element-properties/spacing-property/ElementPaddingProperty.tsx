@@ -34,7 +34,9 @@ export default function ElementPaddingProperty() {
         onRemoveValue={removePaddingValue}
         onAddCorners={() =>
           updatePaddingValue(
-             isCorners ? paddingValue.split(' ')[0] : `${paddingValue} ${paddingValue} ${paddingValue} ${paddingValue}`,
+            isCorners
+              ? paddingValue.split(' ')[0]
+              : `${paddingValue} ${paddingValue} ${paddingValue} ${paddingValue}`,
           )
         }
       >

@@ -18,7 +18,7 @@ type Props = {
   ref_value: string
   isCorners?: boolean
   withoutUOM?: boolean
-  leftContent?: any[];
+  leftContent?: any[]
 }
 
 export default function UOMInput(props: Props) {
@@ -29,18 +29,18 @@ export default function UOMInput(props: Props) {
 }
 
 export function MultipleUOMInput(props: Props) {
-  const { leftContent } = props;
-  const { isCorners, onChange, value, allowed_values, ref_value } = props;
+  const { leftContent } = props
+  const { isCorners, onChange, value, allowed_values, ref_value } = props
 
-  let allValues = value.split(' ');
+  let allValues = value.split(' ')
 
   const updateCornerValue = (value: string, index: number) => {
-    let allUOM = [...allValues];
-    allUOM[index] = value;
-    let newVal = allUOM.join(' ');
+    let allUOM = [...allValues]
+    allUOM[index] = value
+    let newVal = allUOM.join(' ')
 
-    onChange(newVal);
-  };
+    onChange(newVal)
+  }
 
   return (
     <>
@@ -53,7 +53,7 @@ export function MultipleUOMInput(props: Props) {
           <SingleUOMInput
             {...props}
             leftContent={leftContent && leftContent[0]}
-            onChange={val => updateCornerValue(`${val}`, 0)}
+            onChange={(val) => updateCornerValue(`${val}`, 0)}
             value={allValues[0]}
             allowed_values={allowed_values}
             ref_value={ref_value}
@@ -61,7 +61,7 @@ export function MultipleUOMInput(props: Props) {
           <SingleUOMInput
             {...props}
             leftContent={leftContent && leftContent[1]}
-            onChange={val => updateCornerValue(`${val}`, 1)}
+            onChange={(val) => updateCornerValue(`${val}`, 1)}
             value={allValues[1]}
             allowed_values={allowed_values}
             ref_value={ref_value}
@@ -71,7 +71,7 @@ export function MultipleUOMInput(props: Props) {
           <SingleUOMInput
             {...props}
             leftContent={leftContent && leftContent[2]}
-            onChange={val => updateCornerValue(`${val}`, 2)}
+            onChange={(val) => updateCornerValue(`${val}`, 2)}
             value={allValues[2]}
             allowed_values={allowed_values}
             ref_value={ref_value}
@@ -80,7 +80,7 @@ export function MultipleUOMInput(props: Props) {
             {...props}
             leftContent={leftContent && leftContent[3]}
             isCorners={isCorners}
-            onChange={val => updateCornerValue(`${val}`, 3)}
+            onChange={(val) => updateCornerValue(`${val}`, 3)}
             value={allValues[3]}
             allowed_values={allowed_values}
             ref_value={ref_value}
@@ -98,18 +98,18 @@ export function SingleUOMInput({
   ref_value,
   withoutUOM,
   leftContent,
-  isCorners
+  isCorners,
 }: Props) {
-  const [focused, setFocused] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const [focused, setFocused] = useState(false)
+  const inputRef = useRef<HTMLInputElement>(null)
 
   // Function to handle the focus event
   const handleFocus = () => {
     if (inputRef.current) {
-      setFocused(true);
-      inputRef.current.select();
+      setFocused(true)
+      inputRef.current.select()
     }
-  };
+  }
 
   const removeUOM = (value: string) => {
     let val
@@ -143,9 +143,11 @@ export function SingleUOMInput({
         )}
       >
         <div className={'flex items-center gap-default_spacing text-xs'}>
-          {leftContent && isCorners && <div className={'text-muted-foreground text-[9px]'}>
-            {leftContent}
-          </div>}
+          {leftContent && isCorners && (
+            <div className={'text-muted-foreground text-[9px]'}>
+              {leftContent}
+            </div>
+          )}
           {value.includes('ref') ? (
             <EachVariableBadge
               onChange={onChange}
@@ -165,7 +167,7 @@ export function SingleUOMInput({
                   onChange={(e) =>
                     onChange(
                       parseInt(e.target.value.trim() || '0') +
-                      getUOM(value.trim()) || 'px',
+                        getUOM(value.trim()) || 'px',
                     )
                   }
                 />
@@ -183,7 +185,9 @@ export function SingleUOMInput({
                             className={'capitalize'}
                             key={uom}
                             // @ts-ignore
-                            checked={value.includes(SUPPORTED_UOM[uom] as string)}
+                            checked={value.includes(
+                              SUPPORTED_UOM[uom] as string,
+                            )}
                             onCheckedChange={(e) =>
                               // @ts-ignore
                               onChange(removeUOM(value) + SUPPORTED_UOM[uom])

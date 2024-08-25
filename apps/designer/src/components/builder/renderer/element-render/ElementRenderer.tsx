@@ -109,10 +109,6 @@ const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
     element,
   ])
 
-  if (isActive) {
-    console.log(active_element[0])
-  }
-
   if (isVoidElement(html_tag as string)) {
     return (
       <Box

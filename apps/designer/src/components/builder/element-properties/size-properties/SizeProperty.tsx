@@ -11,7 +11,6 @@ import MaxWidthProperty from './MaxWidthProperty'
 import MaxHeightProperty from './MaxHeightProperty'
 import AddElementProperty from '@/components/builder/element-properties/AddElementProperty'
 
-
 export default function SizeProperty() {
   return (
     <>
@@ -34,29 +33,29 @@ export default function SizeProperty() {
             <MaxWidthProperty />
             <MaxHeightProperty />
 
-
             <AddElementProperty
+              label={'Add'}
               options={[
                 {
-                  label: "Min width",
-                  property: "minWidth",
-                  defaultValue: "0px"
+                  label: 'Min width',
+                  property: 'minWidth',
+                  defaultValue: '0px',
                 },
                 {
-                  label: "Min height",
-                  property: "minHeight",
-                  defaultValue: "0px"
+                  label: 'Min height',
+                  property: 'minHeight',
+                  defaultValue: '0px',
                 },
                 {
-                  label: "Max width",
-                  property: "maxWidth",
-                  defaultValue: "0px"
+                  label: 'Max width',
+                  property: 'maxWidth',
+                  defaultValue: '0px',
                 },
                 {
-                  label: "Max height",
-                  property: "maxHeight",
-                  defaultValue: "0px"
-                }
+                  label: 'Max height',
+                  property: 'maxHeight',
+                  defaultValue: '0px',
+                },
               ]}
             />
           </div>

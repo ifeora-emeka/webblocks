@@ -34,7 +34,9 @@ export default function ElementMarginProperty() {
         onRemoveValue={removePropertyValue}
         onAddCorners={() =>
           updatePropertyValue(
-            isCorners ? propertyValue.split(' ')[0] : `${propertyValue} ${propertyValue} ${propertyValue} ${propertyValue}`,
+            isCorners
+              ? propertyValue.split(' ')[0]
+              : `${propertyValue} ${propertyValue} ${propertyValue} ${propertyValue}`,
           )
         }
       >

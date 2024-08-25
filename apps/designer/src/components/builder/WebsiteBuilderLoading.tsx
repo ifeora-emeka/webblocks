@@ -45,17 +45,19 @@ export default function WebsiteBuilderLoading({ start }: { start?: boolean }) {
           },
         )}
       >
-        <div
-          className={'w-[500px] flex flex-col mb-10 items-center'}
-        >
-          <div className={'flex flex-col mb-10 items-center gap-default_spacing'}>
+        <div className={'w-[500px] flex flex-col mb-10 items-center'}>
+          <div
+            className={'flex flex-col mb-10 items-center gap-default_spacing'}
+          >
             <Image
               src={'/brand/brand-text-white.png'}
               alt={'brand text'}
               width={250}
               height={60}
             />
-            <small className={'text-muted-foreground'}>by <strong>iDegin</strong></small>
+            <small className={'text-muted-foreground'}>
+              by <strong>iDegin</strong>
+            </small>
           </div>
           <Progress value={progress} className={'w-[80%] bg-background'} />
         </div>

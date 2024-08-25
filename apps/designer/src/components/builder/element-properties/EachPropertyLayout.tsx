@@ -12,7 +12,7 @@ type Props = {
   onRemoveValue?: () => void
   onAddCorners?: () => void
   layout?: 'column' | 'row'
-  isCorners?: boolean;
+  isCorners?: boolean
 }
 
 export default function EachPropertyLayout({
@@ -23,7 +23,7 @@ export default function EachPropertyLayout({
   onRemoveValue,
   onAddCorners,
   layout,
-  isCorners
+  isCorners,
 }: Props) {
   return (
     <>
@@ -35,13 +35,15 @@ export default function EachPropertyLayout({
           },
         )}
       >
-        {label && <div
-          className={cn('min-w-[30%] max-w-[30%] flex', {
-            'min-w-[100%] max-w-[100%]': layout === 'column',
-          })}
-        >
-          <label className="text-xs text-muted-foreground">{label}</label>
-        </div>}
+        {label && (
+          <div
+            className={cn('min-w-[30%] max-w-[30%] flex', {
+              'min-w-[100%] max-w-[100%]': layout === 'column',
+            })}
+          >
+            <label className="text-xs text-muted-foreground">{label}</label>
+          </div>
+        )}
         <div
           className={cn(
             'min-w-[65%] max-w-[65%] flex gap-default_spacing justify-end',
@@ -66,10 +68,13 @@ export default function EachPropertyLayout({
           ) : (
             children
           )}
-          <div className={cn('flex gap-2', {
-            "flex-col gap-default_spacing_lg justify-between h-full": layout === 'column',
-            "flex-row": layout === 'row'
-          })}>
+          <div
+            className={cn('flex gap-2', {
+              'flex-col gap-default_spacing_lg justify-between h-full':
+                layout === 'column',
+              'flex-row': layout === 'row',
+            })}
+          >
             {onAddCorners && !isEmpty && (
               <button onClick={onAddCorners}>
                 <TbBorderSides />

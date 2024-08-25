@@ -27,7 +27,7 @@ export default function LayoutGapProperty() {
       <div className={'flex items-center gap-default_spacing justify-end'}>
         <UOMInput
           isCorners={false}
-          onChange={val => updatePropertyValue(`${val}`)}
+          onChange={(val) => updatePropertyValue(`${val}`)}
           value={propertyValue}
           allowed_values={[VariableValueType.UOM]}
           ref_value={''}

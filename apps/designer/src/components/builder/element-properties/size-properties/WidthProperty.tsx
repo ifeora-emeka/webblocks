@@ -10,11 +10,11 @@ export default function WidthProperty() {
     updatePropertyValue: updateWidthValue,
     removePropertyValue: removeWidthValue,
     isCorners,
-    varReferenceValue
+    varReferenceValue,
   } = useElementProperty('width')
 
-  const updateUnitOfMeasurement = (value:string) => {
-    updateWidthValue(value);
+  const updateUnitOfMeasurement = (value: string) => {
+    updateWidthValue(value)
   }
 
   return (
@@ -28,7 +28,7 @@ export default function WidthProperty() {
         <div className={'flex items-center gap-default_spacing justify-end'}>
           <UOMInput
             isCorners={isCorners}
-            onChange={val => updateUnitOfMeasurement(`${val}`)}
+            onChange={(val) => updateUnitOfMeasurement(`${val}`)}
             value={widthValue}
             allowed_values={[VariableValueType.UOM]}
             ref_value={varReferenceValue}
