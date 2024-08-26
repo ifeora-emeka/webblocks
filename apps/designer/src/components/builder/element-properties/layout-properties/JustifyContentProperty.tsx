@@ -24,7 +24,7 @@ export default function JustifyContentProperty() {
           onValueChange={(value) => updatePropertyValue(value)}
           value={propertyValue}
         >
-          <SelectTrigger className="hover:bg-background focus:bg-background">
+          <SelectTrigger className="hover:bg-background focus:bg-background border-border rounded-lg">
             <SelectValue />
           </SelectTrigger>
           <SelectContent className="dark hover:bg-background">

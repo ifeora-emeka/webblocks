@@ -2,7 +2,6 @@
 import { cn } from '@/lib/utils'
 import {
   TbBox,
-  TbBrandHipchat,
   TbBrush,
   TbColumns,
   TbDatabase,
@@ -11,9 +10,6 @@ import {
   TbFolder,
   TbHelp,
   TbListTree,
-  TbPhoto,
-  TbPlus,
-  TbSchool,
   TbSettings2,
   TbShoppingCart,
   TbUsers,

@@ -1,6 +1,6 @@
+'use client'
 import { BUILDER_NAV_SIZE } from '@/components/builder/builder.constants'
 import { Accordion } from '@/components/ui/accordion'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import StyleProperty from '@/components/builder/element-properties/style-properties/StyleProperty'
 import LayoutProperty from '@/components/builder/element-properties/layout-properties/LayoutProperty'
 import SizeProperty from '@/components/builder/element-properties/size-properties/SizeProperty'
@@ -8,59 +8,77 @@ import SpacingProperty from '@/components/builder/element-properties/spacing-pro
 import TypographyProperties from './element-properties/typography-properties/TypographyProperties'
 import ElementAttributeProperties from './element-properties/attribute-properties/ElementAttributeProperties'
 import PositionProperty from '@/components/builder/element-properties/positiion-property/PositionProperty'
+import { Button } from '../ui/button'
+import { TbBrush, TbChevronLeftPipe, TbChevronRightPipe, TbPointer } from 'react-icons/tb'
+import DefaultIconBtn from '../DefaultIconBtn'
+import { useState } from 'react'
 
 export default function PropertiesPanel() {
+  const [showPanel, setShowPanel] = useState(false);
+
   return (
     <>
-      <Tabs
-        defaultValue="styling"
-        className={`min-h-[calc(100vh-${BUILDER_NAV_SIZE})] max-h-[calc(100vh-${BUILDER_NAV_SIZE})] bg-card min-w-[245px] max-w-[245px] overflow-x-hidden overflow-y-hidden text-foreground select-none flex flex-col z-50`}
-      >
-        <div
-          defaultValue="styling"
-          className={`flex-1 flex flex-col max-h-[calc(100vh-${BUILDER_NAV_SIZE})]`}
-        >
-          <div className={'min-h-[35px] max-h-[35px] w-[95%]'}>
-            <TabsList
-              className={`bg-background mx-default_spacing min-h-full w-full flex justify-start py-0`}
-            >
-              <TabsTrigger value="styling" className={'text-xs'}>
-                Styling
-              </TabsTrigger>
-              <TabsTrigger value="attributes" className={'text-xs'}>
-                Attributes
-              </TabsTrigger>
-              <TabsTrigger value="animations" className={'text-xs'}>
-                Animation
-              </TabsTrigger>
-            </TabsList>
-          </div>
-          <TabsContent
-            value="styling"
-            className={`flex-1 flex-col flex h-full overflow-y-auto max-h-[calc(100vh-${BUILDER_NAV_SIZE}-80px)] min-h-[calc(100vh-${BUILDER_NAV_SIZE}-35px)] pb-[35px] text-white/70 z-50`}
+      <div className='bg-card dark flex'>
+        {
+          showPanel && <div
+            className={`min-h-[calc(100vh-100px-${BUILDER_NAV_SIZE})] max-h-[calc(100vh-${BUILDER_NAV_SIZE})] bg-card min-w-[245px] max-w-[245px] overflow-x-hidden border-r overflow-y-auto text-foreground select-none flex flex-col z-50 pb-default_spacing_lg`}
           >
-            <Accordion
-              type="multiple"
-              className="w-full"
-              defaultValue={[
-                'attributes',
-                'layout',
-                'size',
-                'style',
-                'spacing',
-              ]}
+            <div
+              defaultValue="styling"
+              className={`flex-1 flex flex-col max-h-[calc(100vh-${BUILDER_NAV_SIZE})]`}
             >
-              <ElementAttributeProperties />
-              <SizeProperty />
-              <SpacingProperty />
-              <LayoutProperty />
-              <PositionProperty />
-              <TypographyProperties />
-              <StyleProperty />
-            </Accordion>
-          </TabsContent>
+              <Accordion
+                type="multiple"
+                className="w-full"
+                defaultValue={[
+                  'attributes',
+                  'layout',
+                  'size',
+                  'style',
+                  'spacing',
+                  'position',
+                ]}
+              >
+                <ElementAttributeProperties />
+                <SizeProperty />
+                <SpacingProperty />
+                <LayoutProperty />
+                <PositionProperty />
+                <TypographyProperties />
+                <StyleProperty />
+              </Accordion>
+            </div>
+          </div>
+        }
+        <div className={`min-w-[50px] max-w-[50px] flex flex-col items-center py-default_spacing gap-default_spacing justify-between z-[100]`}>
+          <div className='flex items-center flex-col w-full gap-default_spacing'>
+            <DefaultIconBtn
+              Icon={TbBrush}
+              tooltip={'Styling'}
+              onClick={() => { }}
+              side={'left'}
+              isActive={false}
+            />
+            <DefaultIconBtn
+              Icon={TbPointer}
+              tooltip={'Interaction'}
+              onClick={() => { }}
+              side={'left'}
+              isActive={false}
+            />
+          </div>
+          <div>
+            <DefaultIconBtn
+              Icon={showPanel ? TbChevronRightPipe : TbChevronLeftPipe}
+              tooltip={showPanel ? 'Show panel' : 'Hide panel'}
+              onClick={() => setShowPanel(!showPanel)}
+              side={'left'}
+              isActive={false}
+            />
+          </div>
         </div>
-      </Tabs>
+
+      </div>
     </>
   )
 }

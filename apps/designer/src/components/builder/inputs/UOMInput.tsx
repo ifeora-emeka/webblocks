@@ -186,6 +186,7 @@ export function SingleUOMInput({
                             key={uom}
                             // @ts-ignore
                             checked={value.includes(
+                              //@ts-ignore
                               SUPPORTED_UOM[uom] as string,
                             )}
                             onCheckedChange={(e) =>
