@@ -5,6 +5,7 @@ import {
 } from '@/components/ui/accordion'
 import FillProperty from '@/components/builder/element-properties/style-properties/FillProperty'
 import BorderRadiusProperty from './BorderRadiusProperty'
+import OverflowProperty from '@/components/builder/element-properties/style-properties/OverflowProperty'
 
 function StyleProperty() {
   return (
@@ -19,6 +20,7 @@ function StyleProperty() {
           >
             <BorderRadiusProperty />
             <FillProperty />
+            <OverflowProperty />
           </div>
         </AccordionContent>
       </AccordionItem>

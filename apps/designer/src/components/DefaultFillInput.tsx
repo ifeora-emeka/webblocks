@@ -1,6 +1,5 @@
 import { TbLayersLinked, TbX } from 'react-icons/tb'
 import ColorPicker from 'react-best-gradient-color-picker'
-import ReactGPicker from 'react-gcolor-picker'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { AppStore } from '@/redux/store'
@@ -32,7 +31,7 @@ export default function DefaultFillInput({ value, onChange }: Props) {
       {show && (
         <div
           className={
-            'bottom-[6rem] w-80 min-h-96 bg-background p-3 rounded-lg absolute z-50 right-72 shadow-lg animate__animated animate__fadeIn animate__faster flex flex-col gap-default_spacing'
+            'bottom-[6rem] w-80 min-h-96- bg-background p-3 rounded-lg absolute z-50 right-72 shadow-lg animate__animated animate__fadeIn animate__faster flex flex-col gap-default_spacing'
           }
         >
           <header className={'flex items-center justify-between h-8 max-h-8'}>
@@ -41,15 +40,15 @@ export default function DefaultFillInput({ value, onChange }: Props) {
               <TbX />
             </button>
           </header>
-          {/*<ColorPicker value={value} onChange={e => setColor(e)} height={100} width={300} />*/}
-          <ReactGPicker
-            format={'hex'}
-            value={color}
-            onChange={updateFillColor}
-            debounce
-            debounceMS={150}
-            showInputs
-          />
+          <ColorPicker value={value} onChange={e => updateFillColor(e)} height={100} width={300} hidePresets hideAdvancedSliders  />
+          {/*<ReactGPicker*/}
+          {/*  format={'hex'}*/}
+          {/*  value={color}*/}
+          {/*  onChange={updateFillColor}*/}
+          {/*  debounce*/}
+          {/*  debounceMS={150}*/}
+          {/*  showInputs*/}
+          {/*/>*/}
         </div>
       )}
       <div

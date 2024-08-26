@@ -19,8 +19,6 @@ const useElementAttribute = (property: HTMLAttributeProps) => {
   const elementAttributes =
     activeElement && activeElement.element_data.attributes
 
-  console.log('ALL ATTRIBUTE::', elementAttributes)
-
   const [propertyValue, setPropertyValue] = useState<string>(
     //@ts-ignore
     elementAttributes?.[property] || '',

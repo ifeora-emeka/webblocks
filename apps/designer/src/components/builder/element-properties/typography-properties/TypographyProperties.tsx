@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux'
 import { AppStore } from '@/redux/store'
 import FontColorProperty from './FontColorProperty'
 import FontAlignmentProperty from './FontAlignmentProperty'
+import FontWeightProperty from '@/components/builder/element-properties/typography-properties/FontWeightProperty'
 
 export default function TypographyProperties() {
   const { active_element } = useSelector((state: AppStore) => state.renderer)
@@ -19,7 +20,7 @@ export default function TypographyProperties() {
 
   return (
     <>
-      <AccordionItem value="size">
+      <AccordionItem value="typography">
         <AccordionTrigger className={'px-default_spacing py-default_spacing'}>
           Typography
         </AccordionTrigger>
@@ -28,6 +29,7 @@ export default function TypographyProperties() {
             className={'p-default_spacing flex flex-col gap-default_spacing'}
           >
             <FontSizeProperty />
+            <FontWeightProperty />
             <FontColorProperty />
             <FontAlignmentProperty />
           </div>

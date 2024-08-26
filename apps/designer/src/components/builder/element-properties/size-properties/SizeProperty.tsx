@@ -34,7 +34,7 @@ export default function SizeProperty() {
             <MaxHeightProperty />
 
             <AddElementProperty
-              label={'Add'}
+              label={'Add Min / Max'}
               options={[
                 {
                   label: 'Min width',

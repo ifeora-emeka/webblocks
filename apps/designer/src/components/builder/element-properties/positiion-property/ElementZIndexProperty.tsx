@@ -1,8 +1,7 @@
 import useElementProperty from '@/components/builder/hooks/element-property.hooks'
 import EachPropertyLayout from '@/components/builder/element-properties/EachPropertyLayout'
-import { VariableValueType } from '@repo/designer/types/variables.types'
-import UOMInput from '@/components/builder/inputs/UOMInput'
 import React from 'react'
+import { Input } from '@/components/ui/input'
 
 export default function ElementZIndexProperty() {
   const { propertyValue, updatePropertyValue } = useElementProperty('zIndex')
@@ -12,16 +11,11 @@ export default function ElementZIndexProperty() {
       <EachPropertyLayout
         label={'Z Index'}
         isEmpty={!propertyValue}
-        onAddValue={() => updatePropertyValue('relative')}
+        onAddValue={() => updatePropertyValue('0')}
         // onRemoveValue={removePropertyValue}
       >
         <div className={'flex items-center gap-default_spacing justify-end'}>
-          <UOMInput
-            onChange={(val) => updatePropertyValue(String(parseInt(`${val}`)))}
-            value={propertyValue}
-            allowed_values={[VariableValueType.UOM]}
-            ref_value={''}
-          />
+          <Input type={'number'} onChange={(val) => updatePropertyValue(String(parseInt(`${val.target.value}`)))} value={parseInt(propertyValue)} />
         </div>
       </EachPropertyLayout>
     </>
