@@ -31,7 +31,7 @@ export default function DefaultFillInput({ value, onChange }: Props) {
       {show && (
         <div
           className={
-            'bottom-[6rem] w-80 min-h-96- bg-background p-3 rounded-lg absolute z-50 right-72 shadow-lg animate__animated animate__fadeIn animate__faster flex flex-col gap-default_spacing'
+            'bottom-[6rem] w-80 min-h-96- bg-background p-3 rounded-lg absolute z-[1000] right-72 shadow-lg animate__animated animate__fadeIn animate__faster flex flex-col gap-default_spacing'
           }
         >
           <header className={'flex items-center justify-between h-8 max-h-8'}>

@@ -103,7 +103,6 @@ export function SingleUOMInput({
   const [focused, setFocused] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
 
-  // Function to handle the focus event
   const handleFocus = () => {
     if (inputRef.current) {
       setFocused(true)
