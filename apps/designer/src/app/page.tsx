@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation'
 
 export default function Page() {
-  redirect('/projects/designer/664ceae8885cd17cb3725c84')
+  redirect('/dashboard/workspace/3434twee-rtewt-wet-ewt')
   return <h2>Login Page</h2>
 }

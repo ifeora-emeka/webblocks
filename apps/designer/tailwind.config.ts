@@ -36,6 +36,7 @@ const config = {
         mode_on: '#8D6FC2',
         mode_on_light: '#d9f0ff',
 
+        primary_darker: '#11255a',
         primary_lighter: '#3474f01f',
 
         active: 'var(--b-active)',

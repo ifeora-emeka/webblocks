@@ -1,47 +1,30 @@
-import { ICON_LOGO } from '@/lib/constants'
-import EachDashboardNav from '@/components/layout/EachDashboardNav'
-import DashboardLayoutHeader from '@/components/layout/DashboardLayoutHeader'
-import {
-  TbLayoutDashboard,
-  TbMoneybag,
-  TbSettings2,
-  TbUsers,
-  TbVideo,
-} from 'react-icons/tb'
-import { Separator } from '@/components/ui/separator'
+import React from 'react'
+import { BUILDER_NAV_SIZE } from '../builder/builder.constants'
 
-export default function DashboardLayout({ children }: any) {
-  return (
-    <div className={'flex flex-col bg-white'}>
-      <DashboardLayoutHeader />
-      <div className={'flex justify-center min-h-screen'}>
-        <div className={'lg:min-w-[1000px] lg:max-w-[1000px] w-screen flex'}>
-          <aside
-            className={
-              'hidden lg:flex flex-col border-r border-border min-w-[250px] '
-            }
-          >
-            <div
-              className={
-                'sticky top-0 bottom-0 rounded-md min-h-[80vh] flex flex-col gap-default_spacing p-default_spacing select-none'
-              }
-            >
-              <EachDashboardNav
-                icon={TbLayoutDashboard}
-                label={'All site'}
-                isActive
-              />
-              <EachDashboardNav icon={TbMoneybag} label={'Billing'} />
-              <EachDashboardNav icon={TbVideo} label={'Tutorial'} />
-              <Separator />
-              <EachDashboardNav icon={TbSettings2} label={'Settings'} />
+type Props = {
+    children: any;
+    leftNav: React.ReactNode;
+}
+
+export default function DashboardLayout({ children, leftNav }: Props) {
+    return (
+        <>
+            <div className='flex'>
+                <div className={`bg-primary_darker dark:bg-card min-w-[${BUILDER_NAV_SIZE}] min-h-screen max-h-screen`}>
+                </div>
+                <aside className='bg-card min-w-72 max-w-72 min-h-screen max-h-screen border-r'>
+                    <div className={`min-h-[50px] max-h-[50px] border-b`}>
+
+                    </div>
+                    <div className='max-h-[calc(100vh-50px)] overflow-y-auto min-h-[calc(100vh-50px)]'>
+                        {leftNav}
+                    </div>
+
+                </aside>
+                <div className='max-h-[calc(100vh-50px)] overflow-y-auto'>
+                    {children}
+                </div>
             </div>
-          </aside>
-          <main className={'flex-1 min-h-screen flex flex-col'}>
-            {children}
-          </main>
-        </div>
-      </div>
-    </div>
-  )
+        </>
+    )
 }
