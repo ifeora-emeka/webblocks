@@ -35,6 +35,7 @@ export default function PropertiesPanel() {
                   'size',
                   'style',
                   'spacing',
+                  'typography',
                   'position',
                 ]}
               >

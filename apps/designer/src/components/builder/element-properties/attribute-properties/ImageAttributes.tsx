@@ -3,8 +3,12 @@ import EachPropertyLayout from '../EachPropertyLayout'
 import useElementAttribute from '../../hooks/element-attribute.hooks'
 import { Input } from '@/components/ui/input'
 import { debounce } from '../../builder.utils'
+import { useSelector } from 'react-redux'
+import { AppStore } from '@/redux/store'
 
 export default function ImageAttributes() {
+  const { active_element } = useSelector((state: AppStore) => state.renderer)
+  const tagType = active_element[0]?.element_data?.html_tag
   const {
     propertyValue: srcValue,
     updatePropertyValue: updateSrcValue,
@@ -20,6 +24,8 @@ export default function ImageAttributes() {
     updatePropertyValue: updateHeightValue,
     removePropertyValue: removeHeightValue,
   } = useElementAttribute('height')
+
+  if (tagType !== 'img') return null
 
   const debouncedUpdateMarginValue = debounce((value: string) => {
     updateSrcValue(value)
