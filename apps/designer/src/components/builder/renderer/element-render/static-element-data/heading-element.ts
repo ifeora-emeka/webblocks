@@ -27,7 +27,7 @@ export const staticHeadingElement = (
       html_tag: 'h1',
       chakraProps: {
         fontSize: generateStaticBreakpoints('20px'),
-        fontWeight: generateStaticBreakpoints('normal'),
+        fontWeight: generateStaticBreakpoints('400'),
         textAlign: generateStaticBreakpoints('start'),
         color: generateStaticBreakpoints('#1c1b1b'),
       },

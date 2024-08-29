@@ -17,7 +17,7 @@ export default function FontWeightProperty(){
     <EachPropertyLayout
       label={'Weight'}
       isEmpty={!propertyValue}
-      onAddValue={() => updatePropertyValue('normal')}
+      onAddValue={() => updatePropertyValue('400')}
     >
       <Select value={propertyValue} onValueChange={value => updatePropertyValue(value)}>
         <SelectTrigger className={'border-border'}>

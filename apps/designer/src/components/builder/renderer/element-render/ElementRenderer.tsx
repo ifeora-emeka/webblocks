@@ -12,14 +12,12 @@ import { useBuilder } from '../../hooks/builder.hooks'
 import { debounce } from '@/components/builder/builder.utils'
 import { getResponsiveProps } from '@repo/designer/utils/element.utils'
 import ElementToolbar from './ElementToolbox'
-import TextContentPopup from '../../popups/TextContentPopup'
 
 interface DesignerElementProps {
   element: DndElementData
 }
 
 const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
-  const [textEdit, setTextEdit] = useState(false)
   const isVoidElement = (tag: string) =>
     /^(area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr)$/i.test(
       tag,
@@ -141,13 +139,9 @@ const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
         onClick={handleClick}
         onDoubleClickCapture={(e) => {
           // e.stopPropagation()
-          setTextEdit(true)
         }}
         onDoubleClick={() => setEditInnerText(!editInnerText)}
       >
-        {textEdit && isActive && element_data?.text_content && (
-          <TextContentPopup text_content={element_data.text_content} />
-        )}
         {isActive && <ElementToolbar element={element} />}
         <>
           {element_data.text_content}

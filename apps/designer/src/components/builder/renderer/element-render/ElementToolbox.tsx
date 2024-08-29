@@ -50,7 +50,7 @@ export default function ElementToolbar({
           'element_toolbox bg-card absolute p-2 rounded-md shadow-xl border z-50  min-h-10 border-border text-muted-foreground flex items-center gap-default_spacing_lg justify-between opacity-100 hover:opacity-100 ',
           {
             'top-5 right-5': !parentID,
-            '-top-20 left-0': parentID,
+            '-top-12 left-0': parentID,
           },
         )}
         onClick={(e) => {
@@ -59,36 +59,34 @@ export default function ElementToolbar({
       >
         {!isRootElement && (
           <>
-            <div className={'flex items-center gap-1'}>
-              <Button variant="outline" size="icon" onClick={remove}>
+            <div className={'flex items-center gap-default_spacing'}>
+              <button className='hover:text-foreground' onClick={remove}>
                 <TbTrash className="h-4 w-4" />
-              </Button>
+              </button>
             </div>
-            <div className={'flex items-center gap-1'}>
-              <Button
-                variant="outline"
-                size="icon"
+            <div className={'flex items-center gap-default_spacing'}>
+              <button className='hover:text-foreground'
                 onClick={() => move('down')}
               >
                 <TbArrowDown className="h-4 w-4" />
-              </Button>
-              <Button variant="outline" size="icon" onClick={() => move('up')}>
+              </button>
+              <button className='hover:text-foreground' onClick={() => move('up')}>
                 <TbArrowUp className="h-4 w-4" />
-              </Button>
+              </button>
             </div>
           </>
         )}
 
-        <div className={'flex items-center gap-1'}>
+        <div className={'flex items-center gap-default_spacing'}>
           {!isRootElement && (
-            <Button variant="outline" size="icon" onClick={remove}>
+            <button className='hover:text-foreground' onClick={remove}>
               <TbCopy className="h-4 w-4" />
-            </Button>
+            </button>
           )}
           <ElementMenu onOpenChange={() => {}} element={element}>
-            <Button variant="outline" size="icon">
+            <button className='hover:text-foreground' >
               <TbChevronDown className="h-4 w-4" />
-            </Button>
+            </button>
           </ElementMenu>
         </div>
       </Box>

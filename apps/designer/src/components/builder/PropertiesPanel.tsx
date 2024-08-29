@@ -32,20 +32,20 @@ export default function PropertiesPanel() {
                 defaultValue={[
                   'attributes',
                   'layout',
-                  'size',
-                  'style',
-                  'spacing',
-                  'typography',
-                  'position',
+                  // 'size',
+                  // 'style',
+                  // 'spacing',
+                  // 'typography',
+                  // 'position',
                 ]}
               >
                 <ElementAttributeProperties />
                 <SizeProperty />
                 <SpacingProperty />
                 <LayoutProperty />
-                <PositionProperty />
-                <TypographyProperties />
                 <StyleProperty />
+                <TypographyProperties />
+                <PositionProperty />
               </Accordion>
             </div>
           </div>
