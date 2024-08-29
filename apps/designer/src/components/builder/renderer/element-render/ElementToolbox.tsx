@@ -47,7 +47,7 @@ export default function ElementToolbar({
       <Box
         opacity={1}
         className={cn(
-          'element_toolbox bg-card absolute p-2 rounded-md shadow-xl border z-50  min-h-10 border-border text-muted-foreground flex items-center gap-default_spacing_lg justify-between opacity-100 hover:opacity-100 ',
+          'element_toolbox bg-card absolute p-2 rounded-md shadow-xl border z-[1000]  min-h-10 border-border text-muted-foreground flex items-center gap-default_spacing_lg justify-between opacity-100 hover:opacity-100 ',
           {
             'top-5 right-5': !parentID,
             '-top-12 left-0': parentID,
