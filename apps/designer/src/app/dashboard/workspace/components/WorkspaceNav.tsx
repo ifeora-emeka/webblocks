@@ -2,7 +2,7 @@ import EachDashboardNavLink from '@/components/layout/EachDashboardNavLink'
 import { Separator } from '@/components/ui/separator'
 import Link from 'next/link'
 import React from 'react'
-import { TbFileCode, TbMoneybag, TbUserPlus, TbVideo } from 'react-icons/tb'
+import { TbFileCode, TbMoneybag, TbSettings, TbUserPlus, TbVideo } from 'react-icons/tb'
 
 export default function WorkspaceNav() {
     return (
@@ -13,14 +13,15 @@ export default function WorkspaceNav() {
             <Link href=''>
                 <EachDashboardNavLink Icon={TbUserPlus} label='Team' />
             </Link>
-            <Link href=''>
-                <Separator className='my-default_spacing' />
-            </Link>
+            <Separator />
             <Link href=''>
                 <EachDashboardNavLink Icon={TbVideo} label='Tutorials' />
             </Link>
             <Link href=''>
                 <EachDashboardNavLink Icon={TbMoneybag} label='Billing' />
+            </Link>
+            <Link href=''>
+                <EachDashboardNavLink Icon={TbSettings} label='Settings' />
             </Link>
         </div>
     )

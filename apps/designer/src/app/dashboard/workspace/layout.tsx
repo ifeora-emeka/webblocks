@@ -1,4 +1,3 @@
-import { BUILDER_NAV_SIZE } from '@/components/builder/builder.constants'
 import DashboardLayout from '@/components/layout/DashboardLayout'
 import React from 'react'
 import WorkspaceNav from './components/WorkspaceNav'
