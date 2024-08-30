@@ -1,6 +1,10 @@
-import { redirect } from 'next/navigation'
+import { AuthLayout } from '@/components/auth/AuthLayout'
+import LoginForm from '@/components/auth/LoginForm'
 
 export default function Page() {
-  redirect('/dashboard/workspace/3434twee-rtewt-wet-ewt')
-  return <h2>Login Page</h2>
+  return <>
+  <AuthLayout>
+    <LoginForm />
+  </AuthLayout>
+  </>
 }
