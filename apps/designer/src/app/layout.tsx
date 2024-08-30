@@ -19,11 +19,9 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  const session = await getSession();
-
 
   return (
-    <html lang="en" className='bg-background min-h-screen'>
+    <html lang="en" className='bg-background min-h-screen select-none'>
       <head>
         <link
           rel="stylesheet"
@@ -31,7 +29,7 @@ export default async function RootLayout({
         />
       </head>
       <body className={inter.className}>
-        <Providers session={session}>{children}</Providers>
+        <Providers>{children}</Providers>
       </body>
     </html>
   )

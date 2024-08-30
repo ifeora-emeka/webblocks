@@ -10,12 +10,15 @@ import builderViewSlice, {
 import rendererSlice, {
   RendererState,
 } from './features/renderer/renderer.slice'
-import RendererSlice from './features/renderer/renderer.slice'
+import { projectsAPI } from './apis/project.api'
+import { setupListeners } from '@reduxjs/toolkit/query'
 
 const rootReducer = combineReducers({
   builder: builderSlice,
   builder_view: builderViewSlice,
   renderer: rendererSlice,
+  // APIs
+  [projectsAPI.reducerPath]: projectsAPI.reducer,
 })
 
 const persistConfig = {
@@ -28,10 +31,13 @@ const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 export const store = configureStore({
   reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(projectsAPI.middleware),
 })
 
-export const persistor = persistStore(store)
+setupListeners(store.dispatch)
 
+export const persistor = persistStore(store)
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch
 

@@ -8,7 +8,6 @@ import { Input } from '../ui/input';
 import Link from 'next/link';
 import { Button } from '../ui/button';
 import { TbBrandGoogleFilled } from 'react-icons/tb';
-import { signIn } from 'next-auth/react';
 import axios from 'axios'
 import { API_URL } from '@/lib/constants';
 import Cookie from 'js-cookie';
@@ -39,26 +38,14 @@ export default function LoginForm() {
             const res = await axios(API_URL + `/auth/login`, {
                 method: 'POST',
                 data,
-                // withCredentials: true
             })
-            console.log('THE RES::', res.data)
-            Cookie.set('token', String(res.data.data.token).split('=')[1])
+            const token = String(res.data.data.token).split('=')[1].trim().split(';')[0];
+            
+            Cookie.set('token', token, { expires: 60 }) // last for 60 mins
             window.location.reload();
         } catch (error) {
             console.log('THE ERROR::', error)
         }
-
-        // signIn('credentials', {
-        //     redirect: false,
-        //     email: data.email,
-        //     password: data.password
-        // })
-        //     .then(res => {
-        //         console.log('THE AUTH RES::', res)
-        //     })
-        //     .catch(error => {
-        //         console.log('AUTH ERROR :::', error)
-        //     })
     };
 
     return (

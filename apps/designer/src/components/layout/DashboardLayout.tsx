@@ -22,7 +22,7 @@ export default function DashboardLayout({ children, leftNav }: Props) {
                     </div>
 
                 </aside>
-                <div className='max-h-[calc(100vh-50px)] overflow-y-auto flex-1'>
+                <div className='max-h-screen overflow-y-auto flex-1'>
                     {children}
                 </div>
             </div>

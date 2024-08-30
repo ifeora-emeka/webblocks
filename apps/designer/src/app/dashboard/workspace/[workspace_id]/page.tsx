@@ -1,21 +1,15 @@
-import DashboardBodyContainer from "@/components/layout/DashboardBodyContainer"
-import EachProject from "../components/EachProject"
+import { API_URL } from "@/lib/constants"
+import ProjectsPage from "./ProjectsPage"
+import { fetchAPI } from "@/lib/api"
 
 export default async function Page() {
 
-  let projects = { data: [] }
+  let projectRes = await fetchAPI(API_URL + '/projects/?limit=20&page=1', {});
+  let projects = await projectRes.json();
 
   return (
     <>
-      <DashboardBodyContainer heading="Projects">
-        <div className="grid grid-cols-1 gap-default_spacing sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          {
-            new Array(12).fill(null).map((_, i) => {
-              return <EachProject key={`project-${i}`} />
-            })
-          }
-        </div>
-      </DashboardBodyContainer>
+      <ProjectsPage projects={projects?.data?.results || []} />
     </>
   )
 }
