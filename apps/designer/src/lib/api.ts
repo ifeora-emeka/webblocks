@@ -1,4 +1,3 @@
-import Cookie from 'js-cookie';
 import { cookies } from 'next/headers';
 
 export const fetchAPI = async (url: string, options: RequestInit) => {

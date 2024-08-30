@@ -9,7 +9,7 @@ type Props = {
 export default function EachProject({ project }: Props) {
     return (
         <div className='flex flex-col gap-default_spacing'>
-            <div className='rounded-md bg-card border hover:shadow-sm overflow-hidden h-64 relative group flex justify-center'>
+            <div className='rounded-md bg-card border hover:shadow-sm overflow-hidden h-52 relative group flex justify-center'>
                 <div className='absolute bg-black/80 h-full w-full flex items-center justify-center opacity-0 group-hover:opacity-100 fast-transition flex-col gap-default_spacing_lg'>
                     <Button>
                         Open in designer
