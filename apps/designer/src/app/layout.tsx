@@ -5,6 +5,7 @@ import '../styles/overrides.css'
 import { APP_NAME } from '@/lib/constants'
 import Providers from '@/components/Providers'
 import 'animate.css'
+import { getSession } from 'next-auth/react'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -13,11 +14,14 @@ export const metadata: Metadata = {
   description: '#1 Free website builder',
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const session = await getSession();
+
+
   return (
     <html lang="en" className='bg-background min-h-screen'>
       <head>
@@ -27,7 +31,7 @@ export default function RootLayout({
         />
       </head>
       <body className={inter.className}>
-        <Providers>{children}</Providers>
+        <Providers session={session}>{children}</Providers>
       </body>
     </html>
   )

@@ -3,8 +3,9 @@ import { Provider } from 'react-redux'
 import { persistor, store } from '@/redux/store'
 import { Next13ProgressBar } from 'next13-progressbar'
 import { PersistGate } from 'redux-persist/integration/react'
+import { SessionProvider } from "next-auth/react"
 
-export default function Providers({ children }: any) {
+export default function Providers({ children, session }: { children: any, session: any }) {
   return (
     <>
       <Provider store={store}>
@@ -14,7 +15,9 @@ export default function Providers({ children }: any) {
             color="var(--primary)"
             showOnShallow
           />
-          {children}
+          <SessionProvider session={session}>
+            {children}
+          </SessionProvider>
         </PersistGate>
       </Provider>
     </>

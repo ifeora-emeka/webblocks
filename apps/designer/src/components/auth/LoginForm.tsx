@@ -1,16 +1,69 @@
-import React from 'react'
-import { Label } from '../ui/label'
-import { Input } from '../ui/input'
-import Link from 'next/link'
-import { Button } from '../ui/button'
-import { TbBrandGoogleFilled } from 'react-icons/tb'
+'use client'
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import { Label } from '../ui/label';
+import { Input } from '../ui/input';
+import Link from 'next/link';
+import { Button } from '../ui/button';
+import { TbBrandGoogleFilled } from 'react-icons/tb';
+import { signIn } from 'next-auth/react';
+import axios from 'axios'
+import { API_URL } from '@/lib/constants';
+import Cookie from 'js-cookie';
 
-type Props = {}
 
-export default function LoginForm({ }: Props) {
+type FormValues = {
+    email: string;
+    password: string;
+};
+
+const schema = yup.object().shape({
+    email: yup.string().email('Enter a valid email').required('Email is required'),
+    password: yup.string().required('Password is required'),
+});
+
+export default function LoginForm() {
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<FormValues>({
+        resolver: yupResolver(schema),
+    });
+
+    const onSubmit = async (data: FormValues) => {
+        console.log(data);
+        try {
+            const res = await axios(API_URL + `/auth/login`, {
+                method: 'POST',
+                data,
+                // withCredentials: true
+            })
+            console.log('THE RES::', res.data)
+            Cookie.set('token', String(res.data.data.token).split('=')[1])
+            window.location.reload();
+        } catch (error) {
+            console.log('THE ERROR::', error)
+        }
+
+        // signIn('credentials', {
+        //     redirect: false,
+        //     email: data.email,
+        //     password: data.password
+        // })
+        //     .then(res => {
+        //         console.log('THE AUTH RES::', res)
+        //     })
+        //     .catch(error => {
+        //         console.log('AUTH ERROR :::', error)
+        //     })
+    };
+
     return (
         <>
-            <div className="mx-auto grid w-[350px] gap-6">
+            <form onSubmit={handleSubmit(onSubmit)} className="mx-auto grid w-[350px] gap-6">
                 <div className="grid gap-2 text-center">
                     <h1 className="text-3xl font-bold">Login</h1>
                     <p className="text-balance text-muted-foreground">
@@ -24,9 +77,13 @@ export default function LoginForm({ }: Props) {
                             id="email"
                             type="email"
                             placeholder="m@example.com"
-                            required
-                            className='bg-card focus:shadow-md focus:ring-primary'
+                            className={`bg-card focus:shadow-md focus:ring-primary ${errors.email ? 'border-red-500' : ''
+                                }`}
+                            {...register('email')}
                         />
+                        {errors.email && (
+                            <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
+                        )}
                     </div>
                     <div className="grid gap-2">
                         <div className="flex items-center">
@@ -38,22 +95,32 @@ export default function LoginForm({ }: Props) {
                                 Forgot your password?
                             </Link>
                         </div>
-                        <Input id="password" type="password" required className='bg-card focus:shadow-md focus:ring-primary' />
+                        <Input
+                            id="password"
+                            type="password"
+                            className={`bg-card focus:shadow-md focus:ring-primary ${errors.password ? 'border-red-500' : ''
+                                }`}
+                            {...register('password')}
+                        />
+                        {errors.password && (
+                            <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>
+                        )}
                     </div>
                     <Button type="submit" className="w-full">
                         Login
                     </Button>
                     <Button className="flex gap-default_spacing items-center text-card-foreground w-full bg-card hover:shadow-md focus:bg-white">
-                        <TbBrandGoogleFilled size={16}  className='text-muted-foreground'/> Login with Google
+                        <TbBrandGoogleFilled size={16} className="text-muted-foreground" /> Login
+                        with Google
                     </Button>
                 </div>
                 <div className="mt-4 text-center text-sm">
-                    Don&apos;t have an account?{" "}
+                    Don&apos;t have an account?{' '}
                     <Link href="#" className="underline">
                         Sign up
                     </Link>
                 </div>
-            </div>
+            </form>
         </>
-    )
+    );
 }
