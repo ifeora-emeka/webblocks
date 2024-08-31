@@ -11,11 +11,13 @@
   "dependencies": {
     "@repo/eslint-config": "*",
     "@repo/typescript-config": "*",
-    "@repo/ui": "*"
+    "@repo/ui": "*",
+    "chroma-js": "^3.0.0"
   },
   "devDependencies": {
     "@repo/eslint-config": "*",
     "@repo/typescript-config": "*",
-    "@repo/ui": "*"
+    "@repo/ui": "*",
+    "@types/chroma-js": "^2.4.4"
   }
 }

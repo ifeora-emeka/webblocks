@@ -15,6 +15,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { useCreateProjectMutation } from '@/redux/apis/project.api'
 import { useRouter } from 'next/navigation'
+import { generateColorScale } from '@repo/designer/utils/color.utils'
 
 
 type Props = {
@@ -25,6 +26,7 @@ export default function ProjectsPage({ projects }: Props) {
     const [createProject, { isLoading, data }] = useCreateProjectMutation();
     const [name, setName] = useState('');
     const router = useRouter();
+    const [colors, setColors] = useState<string[]>([]);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -34,14 +36,25 @@ export default function ProjectsPage({ projects }: Props) {
         })
     }
 
+
+
     useEffect(() => {
-        if(data){
+        if (data) {
             router.refresh();
         }
-    },[data])
+       
+    }, [data])
+
+    useEffect(() => { 
+        const inputColor = "#F87171"; // or "rgba(52, 152, 219, 1)"
+        const colorScale = generateColorScale(inputColor);
+        console.log('OUTPUT:', colorScale);
+        setColors(colorScale);
+    }, [])
 
     return (
         <>
+
             <DashboardBodyContainer heading="Projects" rightContent={<>
                 <Dialog>
                     <DialogTrigger asChild>
@@ -67,6 +80,13 @@ export default function ProjectsPage({ projects }: Props) {
                 </Dialog>
             </>}>
                 <hr />
+                <div className='flex bg-red-400 p-default_spacing'>
+                    {
+                        colors.map((color, i) => {
+                            return <div key={`color-${i}`} style={{ backgroundColor: color, width: '100px', height: '100px' }}></div>
+                        })
+                    }
+                </div>
                 <div className="grid grid-cols-1 gap-default_spacing sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                     {
                         projects.map((_, i) => {
