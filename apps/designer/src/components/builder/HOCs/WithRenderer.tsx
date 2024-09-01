@@ -1,11 +1,11 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { useBuilder } from '@/components/builder/hooks/builder.hooks'
 import { AppStore } from '@/redux/store'
 import { RendererState } from '@/redux/features/renderer/renderer.slice'
+import { useBuilderUtils } from '../hooks/builder-utils.hooks'
 
 export type WithRendererProps = {
-  builderHook: ReturnType<typeof useBuilder>
+  builderHook: ReturnType<typeof useBuilderUtils>
   rendererState: RendererState
 }
 
@@ -13,7 +13,7 @@ const withRenderer = <P extends WithRendererProps>(
   WrappedComponent: React.ComponentType<P>,
 ) => {
   return (props: any) => {
-    const builderHook = useBuilder()
+    const builderHook = useBuilderUtils()
     const rendererState = useSelector((state: AppStore) => state.renderer)
 
     return (

@@ -7,11 +7,11 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { ChakraProps } from '@chakra-ui/react'
-import { useBuilder } from '@/components/builder/hooks/builder.hooks'
 import { useSelector } from 'react-redux'
 import { AppStore } from '@/redux/store'
 import { generateStaticBreakpoints } from '@/lib/designer.utils'
 import { DndElementData } from '@repo/designer/types/designer.types'
+import { useBuilderUtils } from '../hooks/builder-utils.hooks'
 
 interface AddElementMenuType {
   label: string
@@ -25,7 +25,7 @@ type Props = {
 }
 
 export default function AddElementProperty({ options, label }: Props) {
-  const { updateElementChakraStyleData } = useBuilder()
+  const { updateElementChakraStyleData } = useBuilderUtils()
   const { active_element, allElements } = useSelector(
     (state: AppStore) => state.renderer,
   )

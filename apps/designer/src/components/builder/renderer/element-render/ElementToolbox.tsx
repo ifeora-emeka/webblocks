@@ -10,17 +10,17 @@ import {
 } from 'react-icons/tb'
 import React from 'react'
 import { DndElementData } from '@repo/designer/types/designer.types'
-import { useBuilder } from '../../hooks/builder.hooks'
 import { useSelector } from 'react-redux'
 import { AppStore } from '@/redux/store'
 import ElementMenu from '@/components/builder/renderer/element-render/ElementMenu'
+import { useBuilderUtils } from '../../hooks/builder-utils.hooks'
 
 export default function ElementToolbar({
   element,
 }: {
   element: DndElementData
 }) {
-  const { changeElementPosition, removeElementFromPage } = useBuilder()
+  const { changeElementPosition, removeElementFromPage } = useBuilderUtils()
   let parentID = element.parent_dnd_id
   const { active_element } = useSelector((state: AppStore) => state.renderer)
   const isRootElement = !element?.element_data?.parent_element_id

@@ -24,16 +24,16 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import Image from 'next/image'
-import { useBuilder } from '../hooks/builder.hooks'
 import { useSelector } from 'react-redux'
 import { AppStore } from '@/redux/store'
+import { useBuilderUtils } from '../hooks/builder-utils.hooks'
 
 type Props = {}
 
 function BuilderHeader({}: Props) {
   const { project } = useSelector((state: AppStore) => state.builder)
   const { activeBreakpoint } = useSelector((state: AppStore) => state.renderer)
-  const { updateRenderer } = useBuilder()
+  const { updateRenderer } = useBuilderUtils()
 
   const clearAllTheShit = () => {
     sessionStorage.clear()

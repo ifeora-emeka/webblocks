@@ -12,6 +12,7 @@ export function DesignerProvider({
   children,
   project,
   metadata,
+  pages
 }: {
   children: React.ReactNode
   project: ProjectData
@@ -25,6 +26,7 @@ export function DesignerProvider({
     setBuilderState({
       project,
       metadata,
+      pages
     }),
   )
   return (

@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { AppStore } from '@/redux/store'
-import { useBuilder } from '@/components/builder/hooks/builder.hooks'
 import { ChakraProps } from '@chakra-ui/react'
 import { useBuilderVariables } from '@/components/builder/context/builder-variables.context'
+import { useBuilderUtils } from './builder-utils.hooks'
 
 const areAllValuesSame = (obj: Record<string, string>) => {
   const values = Object.values(obj)
@@ -13,7 +13,7 @@ const areAllValuesSame = (obj: Record<string, string>) => {
 const useElementProperty = (property: keyof ChakraProps) => {
   const { getVariableByID, parseVariableRef } = useBuilderVariables()
   const { updateElementChakraStyleData, removeElementChakraProperty } =
-    useBuilder()
+    useBuilderUtils()
   const { active_element, activeBreakpoint, allElements } = useSelector(
     (state: AppStore) => state.renderer,
   )

@@ -8,10 +8,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import { AppStore, RootState, store } from '@/redux/store'
 import { setRendererState } from '@/redux/features/renderer/renderer.slice'
 import { cn } from '@/lib/utils'
-import { useBuilder } from '../../hooks/builder.hooks'
 import { debounce } from '@/components/builder/builder.utils'
 import { getResponsiveProps } from '@repo/designer/utils/element.utils'
 import ElementToolbar from './ElementToolbox'
+import { useBuilderUtils } from '../../hooks/builder-utils.hooks'
 
 interface DesignerElementProps {
   element: DndElementData
@@ -24,7 +24,7 @@ const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
     )
   const theStore: AppStore = store.getState()
   let allElements = theStore.renderer.allElements
-  const { updateElementData, selectMultipleElementData } = useBuilder()
+  const { updateElementData, selectMultipleElementData } = useBuilderUtils()
 
   const { element_data, children_dnd_element_data } = element
   const { html_tag, chakraProps, attributes, style } = element_data

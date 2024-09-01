@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { AppStore } from '@/redux/store'
-import { useBuilder } from '@/components/builder/hooks/builder.hooks'
+import { useBuilderUtils } from './builder-utils.hooks'
 
 type HTMLAttributeProps =
   | keyof React.HTMLAttributes<HTMLElement>
   | keyof React.ImgHTMLAttributes<HTMLImageElement>
 
 const useElementAttribute = (property: HTMLAttributeProps) => {
-  const { updateAttributes, removeAttribute } = useBuilder()
+  const { updateAttributes, removeAttribute } = useBuilderUtils()
   const { active_element, allElements } = useSelector(
     (state: AppStore) => state.renderer,
   )
