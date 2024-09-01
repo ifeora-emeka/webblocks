@@ -46,9 +46,12 @@ export default function ProjectsPage({ projects }: Props) {
     }, [data])
 
     useEffect(() => { 
-        const inputColor = "#F87171"; // or "rgba(52, 152, 219, 1)"
-        const colorScale = generateColorScale(inputColor);
-        console.log('OUTPUT:', colorScale);
+        // const inputColor = "#d5fdb1";
+        const inputColor = "#fb6107";
+        // const inputColor = "#3474F0";
+        // const inputColor = "#1c3f3a";
+        const colorScale = generateColorScale(inputColor, 7);
+        // console.log('OUTPUT:', colorScale);
         setColors(colorScale);
     }, [])
 
@@ -80,7 +83,7 @@ export default function ProjectsPage({ projects }: Props) {
                 </Dialog>
             </>}>
                 <hr />
-                <div className='flex bg-red-400 p-default_spacing'>
+                <div className='flex bg-red-400 p-default_spacing gap-default_spacing'>
                     {
                         colors.map((color, i) => {
                             return <div key={`color-${i}`} style={{ backgroundColor: color, width: '100px', height: '100px' }}></div>

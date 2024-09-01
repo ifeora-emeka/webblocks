@@ -1,5 +1,5 @@
 import { API_URL } from "@/lib/constants"
-import ProjectsPage from "./ProjectsPage"
+import ProjectsPage from "../ProjectsPage"
 import { fetchAPI } from "@/lib/api"
 
 export default async function Page() {

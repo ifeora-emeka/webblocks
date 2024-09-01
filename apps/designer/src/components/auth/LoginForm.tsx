@@ -41,7 +41,7 @@ export default function LoginForm() {
             })
             const token = String(res.data.data.token).split('=')[1].trim().split(';')[0];
             
-            Cookie.set('token', token, { expires: 60 }) // last for 60 mins
+            Cookie.set('token', token, { expires: 120 })
             window.location.reload();
         } catch (error) {
             console.log('THE ERROR::', error)

@@ -1,6 +1,8 @@
+import DashboardLayout from '@/components/layout/DashboardLayout';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import React from 'react'
+import WorkspaceNav from '../../components/WorkspaceNav';
 
 export default function layout({ children }: any) {
     const cookie = cookies();
@@ -12,7 +14,9 @@ export default function layout({ children }: any) {
     
     return (
         <>
-            {children}
+            <DashboardLayout leftNav={<WorkspaceNav />}>
+                {children}
+            </DashboardLayout>
         </>
     )
 }

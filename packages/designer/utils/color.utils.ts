@@ -8,13 +8,22 @@ function parseColor(color: string) {
     }
 }
 
-export function generateColorScale(color: string): string[] {
-    const baseColor = parseColor(color);
+// export function generateColorScale(color: string): string[] {
+//     const baseColor = parseColor(color);
 
-    const scale = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9];
-    const colorScale = scale.map((factor, index) => {
-        return baseColor.set('lch.l', baseColor.get('lch.l') * (1 - factor)).hex();
-    });
+//     const scale = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9];
+//     const colorScale = scale.map((factor, index) => {
+//         return baseColor.set('lch.l', baseColor.get('lch.l') * (1 - factor)).hex();
+//     });
 
-    return colorScale;
+//     return colorScale;
+// }
+
+export function generateColorScale(
+    baseColor: string,
+    steps: number = 5
+): string[] {
+    return chroma.scale([chroma(baseColor).brighten(2), baseColor, chroma(baseColor).darken(2), chroma(baseColor).darken(4)])
+        .mode('lab')
+        .colors(steps);
 }
