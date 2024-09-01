@@ -14,7 +14,7 @@ const FillProperty = () => {
 
   const updateUnitOfMeasurement = debounce((value: number) => {
     updatePropertyValue(String(value))
-  }, 30)
+  }, 100)
 
   return (
     <EachPropertyLayout
