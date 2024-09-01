@@ -9,16 +9,20 @@ import { useBuilder } from '../../hooks/builder.hooks'
 type Props = {}
 
 export default function TextElementAttribute({}: Props) {
-  const { active_element } = useSelector((state: AppStore) => state.renderer);
-  const text_content = active_element[0]?.element_data?.text_content;
-  const [textContent, setTextContent] = useState(text_content);
-  const { updateElementData } = useBuilder();
+  const { active_element } = useSelector((state: AppStore) => state.renderer)
+  const text_content = active_element[0]?.element_data?.text_content
+  const [textContent, setTextContent] = useState(text_content)
+  const { updateElementData } = useBuilder()
 
   useEffect(() => {
-    setTextContent(text_content);
-  }, [text_content]);
-  
-  if(!SUPPORTED_TEXT_ELEMENTS.includes(String(active_element[0]?.element_data?.html_tag) || 'null')) {
+    setTextContent(text_content)
+  }, [text_content])
+
+  if (
+    !SUPPORTED_TEXT_ELEMENTS.includes(
+      String(active_element[0]?.element_data?.html_tag) || 'null',
+    )
+  ) {
     return null
   }
 
@@ -48,7 +52,7 @@ export default function TextElementAttribute({}: Props) {
         <Textarea
           value={textContent}
           onBlur={handleSave}
-          onChange={e => setTextContent(e.target.value)}
+          onChange={(e) => setTextContent(e.target.value)}
           className="border border-border text-sm focus:bg-background"
           placeholder="Enter text content"
         />

@@ -16,7 +16,7 @@ export default function Providers({ children }: { children: any }) {
             showOnShallow
           />
           {/* <SessionProvider session={session}> */}
-            {children}
+          {children}
           {/* </SessionProvider> */}
         </PersistGate>
       </Provider>

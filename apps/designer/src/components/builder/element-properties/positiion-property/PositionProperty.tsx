@@ -11,7 +11,6 @@ import RightPlacementProperty from '@/components/builder/element-properties/posi
 import BottomPlacementProperty from '@/components/builder/element-properties/positiion-property/BottomPlacementProperty'
 import LeftPlacementProperty from '@/components/builder/element-properties/positiion-property/LeftPlacementProperty'
 
-
 export default function PositionProperty() {
   return (
     <>

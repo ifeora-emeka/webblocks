@@ -1,5 +1,3 @@
-
-
 import React from 'react'
 import useElementProperty from '../../hooks/element-property.hooks'
 import EachPropertyLayout from '../EachPropertyLayout'
@@ -12,8 +10,7 @@ import {
 } from '@/components/ui/select'
 
 export default function OverflowProperty() {
-  const { propertyValue, updatePropertyValue,  } =
-    useElementProperty('overflow');
+  const { propertyValue, updatePropertyValue } = useElementProperty('overflow')
 
   return (
     <>

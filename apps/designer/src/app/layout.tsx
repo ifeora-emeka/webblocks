@@ -19,9 +19,8 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-
   return (
-    <html lang="en" className='bg-background min-h-screen select-none'>
+    <html lang="en" className="bg-background min-h-screen select-none">
       <head>
         <link
           rel="stylesheet"

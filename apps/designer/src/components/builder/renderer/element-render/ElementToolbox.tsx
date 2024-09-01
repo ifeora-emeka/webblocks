@@ -60,17 +60,21 @@ export default function ElementToolbar({
         {!isRootElement && (
           <>
             <div className={'flex items-center gap-default_spacing'}>
-              <button className='hover:text-foreground' onClick={remove}>
+              <button className="hover:text-foreground" onClick={remove}>
                 <TbTrash className="h-4 w-4" />
               </button>
             </div>
             <div className={'flex items-center gap-default_spacing'}>
-              <button className='hover:text-foreground'
+              <button
+                className="hover:text-foreground"
                 onClick={() => move('down')}
               >
                 <TbArrowDown className="h-4 w-4" />
               </button>
-              <button className='hover:text-foreground' onClick={() => move('up')}>
+              <button
+                className="hover:text-foreground"
+                onClick={() => move('up')}
+              >
                 <TbArrowUp className="h-4 w-4" />
               </button>
             </div>
@@ -79,12 +83,12 @@ export default function ElementToolbar({
 
         <div className={'flex items-center gap-default_spacing'}>
           {!isRootElement && (
-            <button className='hover:text-foreground' onClick={remove}>
+            <button className="hover:text-foreground" onClick={remove}>
               <TbCopy className="h-4 w-4" />
             </button>
           )}
           <ElementMenu onOpenChange={() => {}} element={element}>
-            <button className='hover:text-foreground' >
+            <button className="hover:text-foreground">
               <TbChevronDown className="h-4 w-4" />
             </button>
           </ElementMenu>

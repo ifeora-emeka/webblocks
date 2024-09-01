@@ -40,7 +40,14 @@ export default function DefaultFillInput({ value, onChange }: Props) {
               <TbX />
             </button>
           </header>
-          <ColorPicker value={value} onChange={e => updateFillColor(e)} height={100} width={300} hidePresets hideAdvancedSliders  />
+          <ColorPicker
+            value={value}
+            onChange={(e) => updateFillColor(e)}
+            height={100}
+            width={300}
+            hidePresets
+            hideAdvancedSliders
+          />
           {/*<ReactGPicker*/}
           {/*  format={'hex'}*/}
           {/*  value={color}*/}

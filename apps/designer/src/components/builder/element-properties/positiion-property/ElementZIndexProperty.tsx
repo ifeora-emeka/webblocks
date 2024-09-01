@@ -17,7 +17,10 @@ export default function ElementZIndexProperty() {
       >
         <div className={'flex items-center gap-default_spacing justify-end'}>
           {/* <Input type={'number'} onChange={(val) => updatePropertyValue(String(parseInt(`${val.target.value}`)))} value={parseInt(propertyValue)} /> */}
-          <NumberIncrementInput onChange={val => updatePropertyValue(String(val))} value={parseInt(propertyValue)} />
+          <NumberIncrementInput
+            onChange={(val) => updatePropertyValue(String(val))}
+            value={parseInt(propertyValue)}
+          />
         </div>
       </EachPropertyLayout>
     </>

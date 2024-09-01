@@ -1,15 +1,16 @@
+import { PageMetadata } from '@/types/pages.type'
+import { ProjectData } from '@/types/projects.types'
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import { DesignerLeftPanel } from '@repo/designer/types/designer.types'
 
 export interface BuilderState {
-  activeProject: number
-  activeLeftPanel: DesignerLeftPanel
+  project: ProjectData | null
+  metadata: PageMetadata | null
 }
 
 const initialState: BuilderState = {
-  activeProject: 0,
-  activeLeftPanel: null,
+  project: null,
+  metadata: null,
 }
 
 export const builderSlice = createSlice({

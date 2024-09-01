@@ -1,22 +1,18 @@
 import React, { CSSProperties } from "react";
 import { ChakraProps } from "@chakra-ui/react";
 import { ElementBreakpoint } from "../../../apps/designer/src/components/builder/types/element-style.types";
+import { PageMetadata } from "../../../apps/designer/src/types/pages.type";
 
 export type ResponsiveChakraProps = {
   [key: string]: ElementBreakpoint;
 };
-
-export interface DesignerPageMetadata {
-  title: string;
-  description: string;
-}
 
 export interface DesignerPageData {
   element_id: string;
   name: string;
   slug: string;
   description?: string;
-  meta_tags: DesignerPageMetadata;
+  meta_tags: PageMetadata;
   // elements: DesignerElementData[]
   body: Partial<DesignerElementData>;
 }
@@ -67,11 +63,6 @@ export type DesignerLeftPanel =
   | "assets"
   | "content"
   | "settings";
-
-export type RendererProps = {
-  page: DesignerPageData;
-  elements: DndElementData[];
-};
 
 export type DraggableElement =
   | "hero"

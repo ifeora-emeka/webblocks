@@ -4,7 +4,6 @@ import DefaultIconBtn from '@/components/DefaultIconBtn'
 import {
   TbArrowBackUp,
   TbArrowForwardUp,
-  TbBrandFramerMotion,
   TbCircleCheckFilled,
   TbCode,
   TbDeviceDesktop,
@@ -24,16 +23,17 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import withRenderer, {
-  WithRendererProps,
-} from '@/components/builder/HOCs/WithRenderer'
 import Image from 'next/image'
+import { useBuilder } from '../hooks/builder.hooks'
+import { useSelector } from 'react-redux'
+import { AppStore } from '@/redux/store'
 
-type Props = {} & WithRendererProps
+type Props = {}
 
-function BuilderHeader({ rendererState, builderHook }: Props) {
-  const { activeBreakpoint } = rendererState
-  const { updateRenderer } = builderHook
+function BuilderHeader({}: Props) {
+  const { project } = useSelector((state: AppStore) => state.builder)
+  const { activeBreakpoint } = useSelector((state: AppStore) => state.renderer)
+  const { updateRenderer } = useBuilder()
 
   const clearAllTheShit = () => {
     sessionStorage.clear()
@@ -50,7 +50,7 @@ function BuilderHeader({ rendererState, builderHook }: Props) {
       >
         <div className={'flex gap-default_spacing items-center min-w-96'}>
           <Link
-            href={'/projects'}
+            href={'/'}
             className={'min-w-builder_nav_size max-w-builder_nav_size flex'}
           >
             <Image
@@ -101,7 +101,7 @@ function BuilderHeader({ rendererState, builderHook }: Props) {
               'bg-inherit text-muted-foreground text-start outline-none truncate focus:text-white/80'
             }
             placeholder={'Project name'}
-            value={'Untitled project'}
+            value={project?.name || 'Untitled project'}
           />
         </div>
         <div
@@ -174,4 +174,4 @@ function BuilderHeader({ rendererState, builderHook }: Props) {
   )
 }
 
-export default withRenderer(BuilderHeader)
+export default BuilderHeader

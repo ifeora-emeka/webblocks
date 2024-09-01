@@ -15,17 +15,15 @@ import {
   useSensor,
   useSensors,
 } from '@dnd-kit/core'
-import { RendererProps } from '@repo/designer/types/designer.types'
 import { sortableKeyboardCoordinates } from '@dnd-kit/sortable'
 import { useDispatch, useSelector } from 'react-redux'
-import { DesignerProvider } from '@/app/dashboard/workspace/[workspace_id]/project/[project_id]/designer/[page_slug]/DesignerProvider'
 import GPTElementRenderer from './renderer/WebsiteRenderer'
 import { AppStore } from '@/redux/store'
 import { setRendererState } from '@/redux/features/renderer/renderer.slice'
 import { defaultRootElement } from '@/components/builder/renderer/element-render/static-element-data/default-body'
 import BuilderKeyMapper from '@/components/builder/BuilderKeyMapper'
 
-export default function WebsiteBuilder({ page, elements }: RendererProps) {
+export default function WebsiteBuilder() {
   const [show, setShow] = useState(false)
   const { allElements } = useSelector((state: AppStore) => state.renderer)
   const dispatch = useDispatch()
@@ -73,34 +71,32 @@ export default function WebsiteBuilder({ page, elements }: RendererProps) {
 
   return (
     <>
-      <DesignerProvider>
-        <DndContext
-          sensors={sensors}
-          collisionDetection={closestCenter}
-          onDragEnd={handleDragEnd}
+      <DndContext
+        sensors={sensors}
+        collisionDetection={closestCenter}
+        onDragEnd={handleDragEnd}
+      >
+        <BuilderKeyMapper />
+        <div
+          className={
+            'bg-background min-h-[100vh] max-h-[100vh] flex dark flex-col dark overflow-hidden'
+          }
         >
-          <BuilderKeyMapper />
-          <div
-            className={
-              'bg-background min-h-[100vh] max-h-[100vh] flex dark flex-col dark overflow-hidden'
-            }
-          >
-            <BuilderHeader />
-            <div className={'flex-1 flex overflow-hidden'}>
-              <BuilderLeftMenu />
-              <LeftNavOptions />
-              <div
-                className={cn(
-                  `min-h-[calc(100vh-${BUILDER_NAV_SIZE})] max-h-[calc(100vh-50px)] overflow-y-auto w-full light`,
-                )}
-              >
-                <GPTElementRenderer elements={allElements} />
-              </div>
-              <PropertiesPanel />
+          <BuilderHeader />
+          <div className={'flex-1 flex overflow-hidden'}>
+            <BuilderLeftMenu />
+            <LeftNavOptions />
+            <div
+              className={cn(
+                `min-h-[calc(100vh-${BUILDER_NAV_SIZE})] max-h-[calc(100vh-50px)] overflow-y-auto w-full light`,
+              )}
+            >
+              <GPTElementRenderer elements={allElements} />
             </div>
+            <PropertiesPanel />
           </div>
-        </DndContext>
-      </DesignerProvider>
+        </div>
+      </DndContext>
     </>
   )
 }

@@ -8,18 +8,23 @@ import SpacingProperty from '@/components/builder/element-properties/spacing-pro
 import TypographyProperties from './element-properties/typography-properties/TypographyProperties'
 import ElementAttributeProperties from './element-properties/attribute-properties/ElementAttributeProperties'
 import PositionProperty from '@/components/builder/element-properties/positiion-property/PositionProperty'
-import { TbBrush, TbChevronLeftPipe, TbChevronRightPipe, TbPointer } from 'react-icons/tb'
+import {
+  TbBrush,
+  TbChevronLeftPipe,
+  TbChevronRightPipe,
+  TbPointer,
+} from 'react-icons/tb'
 import DefaultIconBtn from '../DefaultIconBtn'
 import { useState } from 'react'
 
 export default function PropertiesPanel() {
-  const [showPanel, setShowPanel] = useState(true);
+  const [showPanel, setShowPanel] = useState(true)
 
   return (
     <>
-      <div className='bg-card dark flex'>
-        {
-          showPanel && <div
+      <div className="bg-card dark flex">
+        {showPanel && (
+          <div
             className={`min-h-[calc(100vh-100px-${BUILDER_NAV_SIZE})] max-h-[calc(100vh-${BUILDER_NAV_SIZE})] bg-card min-w-[245px] max-w-[245px] overflow-x-hidden border-r overflow-y-auto text-foreground select-none flex flex-col z-50 pb-default_spacing_lg`}
           >
             <div
@@ -49,20 +54,22 @@ export default function PropertiesPanel() {
               </Accordion>
             </div>
           </div>
-        }
-        <div className={`min-w-[50px] max-w-[50px] flex flex-col items-center py-default_spacing gap-default_spacing justify-between z-[100]`}>
-          <div className='flex items-center flex-col w-full gap-default_spacing'>
+        )}
+        <div
+          className={`min-w-[50px] max-w-[50px] flex flex-col items-center py-default_spacing gap-default_spacing justify-between z-[100]`}
+        >
+          <div className="flex items-center flex-col w-full gap-default_spacing">
             <DefaultIconBtn
               Icon={TbBrush}
               tooltip={'Styling'}
-              onClick={() => { }}
+              onClick={() => {}}
               side={'left'}
               isActive={false}
             />
             <DefaultIconBtn
               Icon={TbPointer}
               tooltip={'Interaction'}
-              onClick={() => { }}
+              onClick={() => {}}
               side={'left'}
               isActive={false}
             />
@@ -77,7 +84,6 @@ export default function PropertiesPanel() {
             />
           </div>
         </div>
-
       </div>
     </>
   )

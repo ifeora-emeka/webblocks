@@ -9,7 +9,8 @@ import { useSelector } from 'react-redux'
 import { AppStore } from '@/redux/store'
 import TextElementAttribute from './TextElementAttribute'
 
-export default function ElementAttributeProperties() {2
+export default function ElementAttributeProperties() {
+  2
   const { active_element } = useSelector((state: AppStore) => state.renderer)
   const tagType = active_element[0]?.element_data?.html_tag
 

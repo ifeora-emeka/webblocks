@@ -16,5 +16,12 @@ export const DEBOUNCE_TIME = {
   longer: 800,
 }
 export const SUPPORTED_TEXT_ELEMENTS = [
-  'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'span'
+  'h1',
+  'h2',
+  'h3',
+  'h4',
+  'h5',
+  'h6',
+  'p',
+  'span',
 ]
