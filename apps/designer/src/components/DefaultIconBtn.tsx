@@ -24,9 +24,9 @@ const DefaultIconBtn = ({
         variant="ghost"
         size="icon"
         className={cn(
-          'text-muted-foreground hover:text-white/80',
+          'text-muted-foreground',
           {
-            'text-white/80 bg-accent': isActive,
+            "text-accent-foreground bg-accent": isActive
           },
           className,
         )}

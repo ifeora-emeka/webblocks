@@ -1,7 +1,7 @@
 'use client'
 import BuilderLeftPanelContainer from '../../layout/BuilderLeftPanelContainer'
 import { cn } from '@/lib/utils'
-import { TbPlus, TbSettings2 } from 'react-icons/tb'
+import { TbPencil, TbPlus, TbSettings2 } from 'react-icons/tb'
 import DefaultTooltip from '@/components/DefaultTooltip'
 import { Button } from '@/components/ui/button'
 import { useBuilder } from '../../hooks/builder.hooks'
@@ -54,21 +54,24 @@ const EachPageSelection = ({
         className={cn(
           'relative p-default_spacing rounded-md hover:bg-accent hover:shadow-sm flex flex-col group',
           {
-            'bg-accent shadow-sm': isActive,
+            'bg-accent text-accent-foreground shadow-sm': isActive,
           },
         )}
       >
-        <DefaultTooltip content={'Page setting'} side={'right'}>
+        <DefaultTooltip content={'Edit page'} side={'top'}>
           <button
             className={
-              'absolute right-2 top-2 opacity-0 group-hover:opacity-100 hover:text-white/80'
+              cn('absolute right-2 top-2 group-hover:opacity-100 text-accent-foreground hover:text-foreground', {
+                "opacity-100": isActive,
+                "opacity-0": !isActive,
+              })
             }
           >
-            <TbSettings2 />
+            <TbPencil />
           </button>
         </DefaultTooltip>
-        <small className={'text-card-foreground'}>{heading}</small>
-        <small>{route}</small>
+        <small className={cn('text-accent-foreground')}>{heading}</small>
+        <small className={cn('text-muted-foreground')}>{route}</small>
       </div>
     </>
   )

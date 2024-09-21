@@ -12,6 +12,7 @@ import {
   TbListTree,
   TbSettings2,
   TbShoppingCart,
+  TbSunHigh,
   TbUsers,
 } from 'react-icons/tb'
 import { BUILDER_NAV_SIZE } from '@/components/builder/builder.constants'
@@ -20,10 +21,12 @@ import DefaultIconBtn from '@/components/DefaultIconBtn'
 import { useDispatch, useSelector } from 'react-redux'
 import { toggleLeftPanel } from '@/redux/features/builder/builder-view.slice'
 import { RootState } from '@/redux/store'
+import { useTheme } from 'next-themes'
 
 export default function BuilderLeftMenu() {
   const dispatch = useDispatch()
-  const { panel } = useSelector((state: RootState) => state.builder_view)
+  const { panel } = useSelector((state: RootState) => state.builder_view);
+  const { setTheme, theme } = useTheme();
 
   return (
     <>
@@ -59,7 +62,7 @@ export default function BuilderLeftMenu() {
             side={'right'}
             isActive={panel === 'components'}
           />
-          <Separator className={'bg-muted-foreground opacity-30'} />
+          <Separator />
           <DefaultIconBtn
             Icon={TbBox}
             tooltip={'Blocks'}
@@ -74,13 +77,8 @@ export default function BuilderLeftMenu() {
             side={'right'}
             isActive={panel === 'variables'}
           />
-          <DefaultIconBtn
-            Icon={TbBrush}
-            tooltip={'Themes'}
-            onClick={() => {}}
-            side={'right'}
-          />
-          <Separator className={'bg-muted-foreground opacity-30'} />
+          
+          <Separator />
           <DefaultIconBtn
             Icon={TbFolder}
             tooltip={'File browser'}
@@ -106,7 +104,7 @@ export default function BuilderLeftMenu() {
             onClick={() => {}}
             side={'right'}
           />
-          <Separator className={'bg-muted-foreground opacity-30'} />
+          <Separator />
           <DefaultIconBtn
             Icon={TbSettings2}
             tooltip={'Site settings'}
@@ -117,6 +115,12 @@ export default function BuilderLeftMenu() {
         <div
           className={'flex flex-col items-center w-full gap-default_spacing'}
         >
+          <DefaultIconBtn
+            Icon={TbSunHigh}
+            tooltip={'Change color mode'}
+            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+            side={'right'}
+          />
           <DefaultIconBtn
             Icon={TbHelp}
             tooltip={'Help'}

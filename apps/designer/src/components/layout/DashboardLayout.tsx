@@ -10,7 +10,7 @@ type Props = {
 export default function DashboardLayout({ children, leftNav }: Props) {
   return (
     <>
-      <div className="flex">
+      <div className="flex bg-background">
         <div
           className={`bg-primary_darker dark:bg-card min-w-[${BUILDER_NAV_SIZE}] min-h-screen max-h-screen`}
         ></div>
@@ -24,7 +24,7 @@ export default function DashboardLayout({ children, leftNav }: Props) {
             {leftNav}
           </div>
         </aside>
-        <div className="max-h-screen overflow-y-auto flex-1">{children}</div>
+        <main className="max-h-screen overflow-y-auto flex-1">{children}</main>
       </div>
     </>
   )

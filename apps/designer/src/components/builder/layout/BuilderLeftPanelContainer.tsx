@@ -29,7 +29,7 @@ export default function BuilderLeftPanelContainer({
             `h-[2.25rem] max-h-[2.25rem] border-b flex items-center px-default_spacing justify-between`,
           )}
         >
-          <small className={'text-white/80'}>{heading}</small>
+          <small className={'text-muted-foreground'}>{heading}</small>
           <div className={'flex items-center gap-default_spacing'}>
             {actions}
           </div>
@@ -64,9 +64,9 @@ const SearchInput = ({ onSearch }: { onSearch: (keyword: string) => void }) => {
     <>
       <div
         className={cn(
-          ' flex items-center w-full rounded-md gap-default_spacing py-[3px] px-default_spacing',
+          ' flex items-center w-full rounded-md gap-default_spacing py-[3px] px-default_spacing hover:bg-background',
           {
-            'bg-background': inFocus,
+            'hover:bg-background hover:text-foreground': inFocus,
           },
         )}
       >
@@ -77,7 +77,7 @@ const SearchInput = ({ onSearch }: { onSearch: (keyword: string) => void }) => {
           onFocus={() => setInFocus(true)}
           onBlur={() => setInFocus(false)}
           placeholder={`Search ${panel}...`}
-          className={'bg-inherit text-sm outline-none flex-1 text-white/80'}
+          className={'bg-inherit text-sm outline-none flex-1 text-muted-foreground focus:text-foreground'}
         />
       </div>
     </>

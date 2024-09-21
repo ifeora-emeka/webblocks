@@ -97,7 +97,7 @@ function BuilderHeader({}: Props) {
           />
           <input
             className={
-              'bg-inherit text-muted-foreground text-start outline-none truncate focus:text-white/80'
+              'bg-inherit text-muted-foreground text-start outline-none truncate focus:text-foreground'
             }
             placeholder={'Project name'}
             value={project?.name || 'Untitled project'}

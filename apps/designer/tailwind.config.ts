@@ -44,7 +44,7 @@ const config = {
         border: 'var(--border)',
         input: 'hsl(var(--input))',
         ring: 'var(--ring)',
-        background: 'var(--background)',
+        background: 'hsl(var(--background))',
         foreground: 'var(--foreground)',
         primary: {
           DEFAULT: 'var(--primary)',
@@ -59,20 +59,20 @@ const config = {
           foreground: 'hsl(var(--destructive-foreground))',
         },
         muted: {
-          DEFAULT: 'var(--muted)',
-          foreground: 'var(--muted-foreground)',
+          DEFAULT: 'hsl(var(--muted))',
+          foreground: 'hsl(var(--muted-foreground))',
         },
         accent: {
           // this is for hover & focus
-          DEFAULT: 'var(--accent)',
-          foreground: 'var(--accent-foreground)',
+          DEFAULT: 'hsl(var(--accent))',
+          foreground: 'hsl(var(--accent-foreground))',
         },
         popover: {
           DEFAULT: 'hsl(var(--popover))',
           foreground: 'hsl(var(--popover-foreground))',
         },
         card: {
-          DEFAULT: 'var(--card)',
+          DEFAULT: 'hsl(var(--card))',
           foreground: 'var(--card-foreground)',
         },
       },
