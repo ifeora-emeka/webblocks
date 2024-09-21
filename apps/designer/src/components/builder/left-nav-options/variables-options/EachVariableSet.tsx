@@ -58,7 +58,7 @@ export default function EachVariableSet({
             <input
               onChange={(e) => setName(e.target.value)}
               className={cn(
-                'dark bg-card text-card-foreground hover:bg-accent group-hover:bg-accent outline-none text-sm',
+                'bg-card text-card-foreground hover:bg-accent group-hover:bg-accent outline-none text-sm',
                 {
                   'bg-accent': isActive,
                 },

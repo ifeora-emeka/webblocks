@@ -92,7 +92,7 @@ export default function VariableSetDetails({
                       <TbPlus className="h-4 w-4" />
                     </Button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent className={'dark z-[100]'}>
+                  <DropdownMenuContent className={'z-[100]'}>
                     <DropdownMenuItem
                       className={'flex gap-default_spacing'}
                       onClick={() => addVariable(VariableValueType.NUMBER)}

@@ -26,7 +26,7 @@ export default function OverflowProperty() {
           <SelectTrigger className="hover:bg-background focus:bg-background">
             <SelectValue defaultValue={propertyValue} />
           </SelectTrigger>
-          <SelectContent className="dark hover:bg-background">
+          <SelectContent className="hover:bg-background">
             <SelectItem value="hidden">Hidden</SelectItem>
             <SelectItem value="visible">Visible</SelectItem>
             <SelectItem value="scroll">Scroll</SelectItem>

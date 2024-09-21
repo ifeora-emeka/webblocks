@@ -5,7 +5,6 @@ import {
   TbArrowBackUp,
   TbArrowForwardUp,
   TbCircleCheckFilled,
-  TbCode,
   TbDeviceDesktop,
   TbDeviceMobile,
   TbDeviceTablet,
@@ -26,7 +25,7 @@ import {
 import Image from 'next/image'
 import { useSelector } from 'react-redux'
 import { AppStore } from '@/redux/store'
-import { useBuilderUtils } from '../hooks/builder-utils.hooks'
+import { useBuilderUtils } from '../../hooks/builder-utils.hooks'
 
 type Props = {}
 
@@ -117,7 +116,7 @@ function BuilderHeader({}: Props) {
                 onClick={() => {}}
               />
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="dark">
+            <DropdownMenuContent>
               <DropdownMenuCheckboxItem
                 checked={activeBreakpoint === 'lg'}
                 className="flex gap-default_spacing"
@@ -164,6 +163,7 @@ function BuilderHeader({}: Props) {
             tooltip={'Preview'}
             onClick={() => {}}
           />
+          
           <Separator className={'h-full w-3'} orientation={'vertical'} />
           <Button size={'sm'}>
             Publish <TbRocket size={17} className={'ml-2'} />

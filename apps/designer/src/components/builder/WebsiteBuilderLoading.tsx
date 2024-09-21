@@ -39,7 +39,7 @@ export default function WebsiteBuilderLoading({ start }: { start?: boolean }) {
     <>
       <div
         className={cn(
-          'opacity-100 bg-card dark fixed z-[1400] w-[100vw] h-[100vh] flex justify-center items-center slow-transition select-none',
+          'opacity-100 bg-card fixed z-[1400] w-[100vw] h-[100vh] flex justify-center items-center slow-transition select-none',
           {
             'opacity-0': progress == 100,
           },

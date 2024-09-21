@@ -60,7 +60,7 @@ export default function DefaultFillInput({ value, onChange }: Props) {
       )}
       <div
         className={
-          'bg-background p-default_spacing rounded-md flex items-center gap-default_spacing min-h-8 max-h-8 dark relative w-full'
+          'bg-background p-default_spacing rounded-md flex items-center gap-default_spacing min-h-8 max-h-8 relative w-full'
         }
       >
         <div

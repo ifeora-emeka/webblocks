@@ -133,7 +133,7 @@ export function SingleUOMInput({
     <>
       <div
         className={cn(
-          'flex items-center dark h-9 px-2 rounded-lg hover:bg-background max-w-[100%] justify-between  border',
+          'flex items-center h-9 px-2 rounded-lg hover:bg-background max-w-[100%] justify-between  border',
           {
             'bg-background': focused,
             'gap-default_spacing': withoutUOM,
@@ -159,7 +159,7 @@ export function SingleUOMInput({
                 <input
                   type={'number'}
                   ref={inputRef}
-                  className={'w-full bg-inherit dark outline-none text-sm'}
+                  className={'w-full bg-inherit outline-none text-sm'}
                   onFocus={handleFocus}
                   onBlur={() => setFocused(false)}
                   value={removeUOM(value.trim())}

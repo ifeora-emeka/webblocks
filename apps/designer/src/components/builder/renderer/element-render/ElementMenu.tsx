@@ -77,14 +77,14 @@ function ElementMenu({ children, onOpenChange, builderHook, element }: Props) {
         <DropdownMenuTrigger className={'py-0'} asChild>
           {children}
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="dark bg-card">
+        <DropdownMenuContent className="bg-card">
           <DropdownMenuSub>
             <DropdownMenuSubTrigger className="gap-default_spacing">
               <TbPlus /> Add element
             </DropdownMenuSubTrigger>
             <DropdownMenuPortal>
               <DropdownMenuSubContent
-                className={'dark bg-card text-card-foreground'}
+                className={'bg-card text-card-foreground'}
               >
                 <DropdownMenuItem
                   className="gap-default_spacing"
@@ -129,7 +129,7 @@ function ElementMenu({ children, onOpenChange, builderHook, element }: Props) {
             </DropdownMenuSubTrigger>
             <DropdownMenuPortal>
               <DropdownMenuSubContent
-                className={'dark bg-card text-card-foreground'}
+                className={'bg-card text-card-foreground'}
               >
                 <DropdownMenuItem
                   className="gap-default_spacing"

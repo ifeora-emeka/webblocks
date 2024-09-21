@@ -5,7 +5,7 @@ export default function Layout({ children }: any) {
     <>
       <div
         className={
-          'bg-card dark fixed top-0 left-0 right-0 bottom-0 text-white/80 items-center justify-center  lg:hidden flex '
+          'bg-card fixed top-0 left-0 right-0 bottom-0 text-white/80 items-center justify-center  lg:hidden flex '
         }
         style={{ zIndex: 1500 }}
       >

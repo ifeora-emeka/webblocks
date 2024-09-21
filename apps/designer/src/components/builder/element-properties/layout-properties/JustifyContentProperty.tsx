@@ -27,7 +27,7 @@ export default function JustifyContentProperty() {
           <SelectTrigger className="hover:bg-background focus:bg-background border-border rounded-lg">
             <SelectValue />
           </SelectTrigger>
-          <SelectContent className="dark hover:bg-background">
+          <SelectContent className="hover:bg-background">
             <SelectItem value="flex-start">Start</SelectItem>
             <SelectItem value="center">Center</SelectItem>
             <SelectItem value="flex-end">End</SelectItem>

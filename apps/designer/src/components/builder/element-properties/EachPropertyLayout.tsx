@@ -29,7 +29,7 @@ export default function EachPropertyLayout({
     <>
       <div
         className={cn(
-          'dark flex items-center justify-between min-h-10 max-h-10-',
+          'flex items-center justify-between min-h-10 max-h-10-',
           {
             'flex-col gap-default_spacing_lg': layout === 'column',
           },

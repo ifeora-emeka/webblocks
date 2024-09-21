@@ -29,7 +29,7 @@ export default function VariableListDropdown({
       <DropdownMenuTrigger asChild>{children}</DropdownMenuTrigger>
       <DropdownMenuContent
         className={
-          'dark mt-5 p-0 min-h-80 max-h-80 min-w-[300px] max-w-[300px] mr-5'
+          'mt-5 p-0 min-h-80 max-h-80 min-w-[300px] max-w-[300px] mr-5'
         }
       >
         <VariableList allowed_values={allowed_values} onChange={onChange} />
@@ -71,7 +71,7 @@ function VariableList({
   )
 
   return (
-    <div className={'select-none dark min-h-80 max-h-80 w-full rounded-md'}>
+    <div className={'select-none min-h-80 max-h-80 w-full rounded-md'}>
       <div
         className={
           'bg-card border-b min-h-builder_nav_size_sm flex gap-default_spacing items-center px-default_spacing_lg text-muted-foreground'

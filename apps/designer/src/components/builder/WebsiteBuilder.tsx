@@ -4,7 +4,7 @@ import { BUILDER_NAV_SIZE } from '@/components/builder/builder.constants'
 import PropertiesPanel from '@/components/builder/PropertiesPanel'
 import BuilderLeftMenu from '@/components/builder/layout/BuilderLeftMenu'
 import React, { useEffect, useState } from 'react'
-import BuilderHeader from '@/components/builder/layout/BuilderHeader'
+import BuilderHeader from '@/components/builder/layout/builder-header/BuilderHeader'
 import LeftNavOptions from './left-nav-options/LeftNavOptions'
 import {
   closestCenter,
@@ -79,7 +79,7 @@ export default function WebsiteBuilder() {
         <BuilderKeyMapper />
         <div
           className={
-            'bg-background min-h-[100vh] max-h-[100vh] flex dark flex-col dark overflow-hidden'
+            'bg-background min-h-[100vh] max-h-[100vh] flex flex-col overflow-hidden'
           }
         >
           <BuilderHeader />
@@ -88,7 +88,7 @@ export default function WebsiteBuilder() {
             <LeftNavOptions />
             <div
               className={cn(
-                `min-h-[calc(100vh-${BUILDER_NAV_SIZE})] max-h-[calc(100vh-50px)] overflow-y-auto w-full light`,
+                `min-h-[calc(100vh-${BUILDER_NAV_SIZE})] max-h-[calc(100vh-50px)] overflow-y-auto w-full light border-l border-r`,
               )}
             >
               <GPTElementRenderer elements={allElements} />

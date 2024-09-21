@@ -22,7 +22,7 @@ export default function PropertiesPanel() {
 
   return (
     <>
-      <div className="bg-card dark flex">
+      <div className="bg-card flex">
         {showPanel && (
           <div
             className={`min-h-[calc(100vh-100px-${BUILDER_NAV_SIZE})] max-h-[calc(100vh-${BUILDER_NAV_SIZE})] bg-card min-w-[245px] max-w-[245px] overflow-x-hidden border-r overflow-y-auto text-foreground select-none flex flex-col z-50 pb-default_spacing_lg`}
