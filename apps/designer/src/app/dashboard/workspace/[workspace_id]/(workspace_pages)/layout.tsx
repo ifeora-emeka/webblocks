@@ -5,12 +5,12 @@ import React from 'react'
 import WorkspaceNav from '../../components/WorkspaceNav'
 
 export default function layout({ children }: any) {
-  const cookie = cookies()
-  let token = cookie.get('token')?.value
+  // const cookie = cookies()
+  // let token = cookie.get('token')?.value
 
-  if (!token) {
-    return redirect('/')
-  }
+  // if (!token) {
+  //   return redirect('/')
+  // }
 
   return (
     <>

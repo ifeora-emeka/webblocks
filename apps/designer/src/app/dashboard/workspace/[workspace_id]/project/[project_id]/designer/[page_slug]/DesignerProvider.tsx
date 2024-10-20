@@ -3,32 +3,32 @@
 
 import { ChakraProvider } from '@chakra-ui/react'
 import { BuilderVariablesProvider } from '@/components/builder/context/builder-variables.context'
-import { ProjectData } from '@/types/projects.types'
-import { useDispatch } from 'react-redux'
-import { setBuilderState } from '@/redux/features/builder/builder.slice'
-import { PageMetadata, PagesData } from '@/types/pages.type'
+// import { ProjectData } from '@/types/projects.types'
+// import { useDispatch } from 'react-redux'
+// import { setBuilderState } from '@/redux/features/builder/builder.slice'
+// import { PageMetadata, PagesData } from '@/types/pages.type'
 
 export function DesignerProvider({
   children,
-  project,
-  metadata,
-  pages
+  // project,
+  // metadata,
+  // pages
 }: {
   children: React.ReactNode
-  project: ProjectData
-  pages: PagesData[]
-  metadata: PageMetadata
+  // project: ProjectData
+  // pages: PagesData[]
+  // metadata: PageMetadata
 }) {
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
 
   // console.log('INCOMING PROJECT:::', project)
-  dispatch(
-    setBuilderState({
-      project,
-      metadata,
-      pages
-    }),
-  )
+  // dispatch(
+  //   setBuilderState({
+  //     project,
+  //     metadata,
+  //     pages
+  //   }),
+  // )
   return (
     <ChakraProvider disableGlobalStyle>
       <BuilderVariablesProvider>{children}</BuilderVariablesProvider>
