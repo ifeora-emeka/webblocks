@@ -2,7 +2,7 @@ import { cn } from '@/lib/utils'
 import React, { useEffect, useState } from 'react'
 import { PiRowsFill } from 'react-icons/pi'
 import { TbCaretDownFilled, TbDots, TbCaretRightFilled } from 'react-icons/tb'
-import { DndElementData } from '@repo/designer/types/designer.types'
+import { ElementData } from '@repo/designer/types/designer.types'
 import { DebounceInput } from 'react-debounce-input'
 import slugify from 'slugify'
 import withRenderer, {
@@ -11,7 +11,7 @@ import withRenderer, {
 import ElementMenu from '@/components/builder/renderer/element-render/ElementMenu'
 
 type Props = {
-  element: DndElementData
+  element: ElementData
   children?: any
 } & WithRendererProps
 
@@ -26,7 +26,7 @@ function EachOutline({ children, element, rendererState, builderHook }: Props) {
   const isRoot = element.dnd_id.includes('-root__')
   const [showChildren, setShowChildren] = useState(isRoot)
   const targetElement = active_element.filter(
-    (x: DndElementData) => x.dnd_id === element.dnd_id,
+    (x: ElementData) => x.dnd_id === element.dnd_id,
   )
   const isActive: boolean =
     targetElement?.length > 0 && targetElement[0]?.dnd_id === element.dnd_id

@@ -3,12 +3,8 @@ import withRenderer, {
   WithRendererProps,
 } from '@/components/builder/HOCs/WithRenderer'
 import { getStaticElement } from '@/components/builder/renderer/element-render/static-element-data/static-element.utils'
-import { DndElementData } from '@repo/designer/types/designer.types'
+import { ElementData } from '@repo/designer/types/designer.types'
 import { useDispatch } from 'react-redux'
-import {
-  copyElements,
-  pasteElements,
-} from '@/redux/features/renderer/renderer.slice'
 
 type Props = {} & WithRendererProps
 
@@ -16,11 +12,6 @@ function BuilderKeyMapper({ builderHook, rendererState }: Props) {
   const dispatch = useDispatch()
 
   const {
-    removeElementFromPage,
-    changeElementPosition,
-    duplicateElementData,
-    groupSelectedElementData,
-    appendChildToParentElement,
   } = builderHook
   const { active_element } = rendererState
 
@@ -28,13 +19,13 @@ function BuilderKeyMapper({ builderHook, rendererState }: Props) {
     const handleKeyDown = (event: KeyboardEvent) => {
       const addElement = (type: string) => {
         if (active_element && active_element.length === 1) {
-          const parent_id = active_element[0].dnd_id
-          const newChild: DndElementData = getStaticElement({
+          const parent_id = active_element[0].id
+          const newChild: ElementData = getStaticElement({
             type,
             parent_id,
             index: 0,
           })
-          appendChildToParentElement({ parent_id, newChild })
+          // appendChildToParentElement({ parent_id, newChild })
         }
       }
 
@@ -73,51 +64,51 @@ function BuilderKeyMapper({ builderHook, rendererState }: Props) {
         case 'Delete':
           if (active_element.length > 0 && event.ctrlKey) {
             event.preventDefault()
-            removeElementFromPage({
-              dnd_ids: active_element.map((el) => el.dnd_id),
-            })
+            // removeElementFromPage({
+            //   dnd_ids: active_element.map((el) => el.id),
+            // })
           }
           break
         case 'ArrowUp':
           if (event.ctrlKey && active_element && active_element.length === 1) {
             event.preventDefault()
-            changeElementPosition({
-              element_id: active_element[0].dnd_id,
-              direction: 'up',
-            })
+            // changeElementPosition({
+            //   element_id: active_element[0].id,
+            //   direction: 'up',
+            // })
           }
           break
         case 'ArrowDown':
           if (event.ctrlKey && active_element && active_element.length === 1) {
             event.preventDefault()
-            changeElementPosition({
-              element_id: active_element[0].dnd_id,
-              direction: 'down',
-            })
+            // changeElementPosition({
+            //   element_id: active_element[0].id,
+            //   direction: 'down',
+            // })
           }
           break
         case 'd':
           if (event.ctrlKey && active_element && active_element.length === 1) {
             event.preventDefault()
-            duplicateElementData({ element_id: active_element[0].dnd_id })
+            // duplicateElementData({ element_id: active_element[0].id })
           }
           break
         case 'g':
           if (event.ctrlKey && active_element.length > 1) {
             event.preventDefault()
-            groupSelectedElementData()
+            // groupSelectedElementData()
           }
           break
         case 'c':
           if (event.ctrlKey) {
             event.preventDefault()
-            dispatch(copyElements())
+            // dispatch(copyElements())
           }
           break
         case 'v':
           if (event.ctrlKey) {
             event.preventDefault()
-            dispatch(pasteElements())
+            // dispatch(pasteElements())
           }
           break
         default:

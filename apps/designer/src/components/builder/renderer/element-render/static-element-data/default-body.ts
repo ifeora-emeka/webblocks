@@ -1,13 +1,13 @@
 import { generateStaticBreakpoints } from '@/lib/designer.utils'
 import { StaticElementParams } from './static-element.types'
-import { DndElementData } from '@repo/designer/types/designer.types'
+import { ElementData } from '@repo/designer/types/designer.types'
 import { staticFrameChakraStyle } from '@/components/builder/renderer/element-render/static-element-data/static-chakra-style'
 import { DEFAULT_FRAME_COLOR } from '@/components/builder/builder.constants'
 
 //todo: move this to DB and delete it
 export const defaultRootElement = (
   data: StaticElementParams,
-): DndElementData => {
+): ElementData => {
   let id = '__designer-root__' // ⚠️ don't change this ⚠️
   return {
     dnd_id: id,

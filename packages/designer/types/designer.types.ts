@@ -18,6 +18,7 @@ export interface DesignerPageData {
 
 export interface ElementData extends PageElement {
   parent_element_id: string | null;
+  children_elements: ElementData[]
 }
 
 export interface PageElement {
@@ -37,10 +38,10 @@ export interface PageElement {
   text_content?: string;
 }
 
-// export interface DndElementData {
+// export interface ElementData {
 //   index: number;
 //   element_data: DesignerElementDataDTO;
-//   children_dnd_element_data?: DndElementData[];
+//   children_dnd_element_data?: ElementData[];
 
 //   dnd_id: string;
 //   parent_dnd_id: string | null;

@@ -34,7 +34,7 @@ import withRenderer, {
   WithRendererProps,
 } from '@/components/builder/HOCs/WithRenderer'
 import {
-  DndElementData,
+  ElementData,
   ResponsiveChakraProps,
 } from '@repo/designer/types/designer.types'
 import { StaticElement } from '@/components/builder/renderer/element-render/static-element-data/static-element.types'
@@ -45,30 +45,20 @@ import { generateStaticBreakpoints } from '@/lib/designer.utils'
 type Props = {
   children: any
   onOpenChange: (e: boolean) => void
-  element: DndElementData
+  element: ElementData
 } & WithRendererProps
 
 function ElementMenu({ children, onOpenChange, builderHook, element }: Props) {
-  const { appendChildToParentElement, updateElementChakraStyleData } =
+  const {  } =
     builderHook
-  const isRootElement = !element.element_data.parent_element_id
+  const isRootElement = !element.parent_element_id
 
   const addElement = (type: StaticElement) => {
-    appendChildToParentElement({
-      parent_id: element.element_data.element_id,
-      newChild: getStaticElement({
-        type,
-        parent_id: element.element_data.element_id,
-        index: 0,
-      }),
-    })
+    
   }
 
   const updateChakraStyle = (style: ResponsiveChakraProps) => {
-    updateElementChakraStyleData({
-      element_id: element.element_data.element_id,
-      newChakraStyle: style,
-    })
+    
   }
 
   return (

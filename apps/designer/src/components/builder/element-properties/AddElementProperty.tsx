@@ -10,7 +10,7 @@ import { ChakraProps } from '@chakra-ui/react'
 import { useSelector } from 'react-redux'
 import { AppStore } from '@/redux/store'
 import { generateStaticBreakpoints } from '@/lib/designer.utils'
-import { DndElementData } from '@repo/designer/types/designer.types'
+import { ElementData } from '@repo/designer/types/designer.types'
 import { useBuilderUtils } from '../hooks/builder-utils.hooks'
 
 interface AddElementMenuType {

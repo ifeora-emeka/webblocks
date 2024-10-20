@@ -1,6 +1,6 @@
 import {
   BuilderReferenceValue,
-  DndElementData,
+  ElementData,
 } from '@repo/designer/types/designer.types'
 
 /**
@@ -9,25 +9,25 @@ import {
  * @returns
  */
 export const compileAllDndElements = (
-  elements: DndElementData[],
-): DndElementData => {
-  const elementMap: { [key: string]: DndElementData } = {}
+  elements: ElementData[],
+): ElementData => {
+  const elementMap: { [key: string]: ElementData } = {}
 
   elements.forEach((element) => {
-    elementMap[element.dnd_id] = { ...element, children_dnd_element_data: [] }
+    elementMap[element.id] = { ...element, children_elements: [] }
   })
 
-  let rootElement: DndElementData | null = null
+  let rootElement: ElementData | null = null
 
   elements.forEach((element) => {
-    if (element.parent_dnd_id) {
-      if (elementMap[element.parent_dnd_id]) {
-        elementMap[element.parent_dnd_id].children_dnd_element_data?.push(
-          elementMap[element.dnd_id] as any,
+    if (element.parent_element_id) {
+      if (elementMap[element.parent_element_id]) {
+        elementMap[element.parent_element_id].children_elements?.push(
+          elementMap[element.id] as any,
         )
       }
     } else {
-      rootElement = elementMap[element.dnd_id]
+      rootElement = elementMap[element.id]
     }
   })
 

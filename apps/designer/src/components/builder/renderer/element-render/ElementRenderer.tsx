@@ -1,7 +1,7 @@
 import React, { useRef, useState, useCallback } from 'react'
 import {
   BuilderBreakpoints,
-  DndElementData,
+  ElementData,
 } from '@repo/designer/types/designer.types'
 import { Box, ChakraProps } from '@chakra-ui/react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -14,7 +14,7 @@ import ElementToolbar from './ElementToolbox'
 import { useBuilderUtils } from '../../hooks/builder-utils.hooks'
 
 interface DesignerElementProps {
-  element: DndElementData
+  element: ElementData
 }
 
 const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
@@ -39,7 +39,7 @@ const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
     activeBreakpoint as BuilderBreakpoints,
   )
 
-  const renderChildren = (children: Array<DndElementData> | undefined) => {
+  const renderChildren = (children: Array<ElementData> | undefined) => {
     if (!children) return null
     const sortedChildren = children.slice().sort((a, b) => {
       return a.index - b.index

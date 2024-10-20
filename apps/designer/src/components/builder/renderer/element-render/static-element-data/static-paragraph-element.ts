@@ -1,4 +1,4 @@
-import { DndElementData } from '@repo/designer/types/designer.types'
+import { ElementData } from '@repo/designer/types/designer.types'
 import { StaticElementParams } from './static-element.types'
 import { generateRandomId } from '@/lib/utils'
 import { store } from '@/redux/store'
@@ -7,7 +7,7 @@ import { generateStaticBreakpoints } from '@/lib/designer.utils'
 
 export const staticParagraphElement = (
   data: StaticElementParams,
-): DndElementData => {
+): ElementData => {
   let id = generateRandomId(14) + '-paragraph'
   let headings = store
     ?.getState()

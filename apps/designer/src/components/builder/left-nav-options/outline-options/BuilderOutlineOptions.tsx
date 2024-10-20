@@ -5,7 +5,7 @@ import EachOutline from './EachOutline'
 import { useSelector } from 'react-redux'
 import { AppStore } from '@/redux/store'
 import { compileAllDndElements } from '../../builder.utils'
-import { DndElementData } from '@repo/designer/types/designer.types'
+import { ElementData } from '@repo/designer/types/designer.types'
 import withRenderer, {
   WithRendererProps,
 } from '@/components/builder/HOCs/WithRenderer'
@@ -18,7 +18,7 @@ function BuilderOutlineOptions({ rendererState }: Props) {
   const [keyword, setKeyword] = useState('')
 
   const filterElements = (
-    element: DndElementData,
+    element: ElementData,
     keyword: string,
   ): boolean => {
     if (
@@ -41,7 +41,7 @@ function BuilderOutlineOptions({ rendererState }: Props) {
     return false
   }
 
-  const renderOutline = (element: DndElementData) => {
+  const renderOutline = (element: ElementData) => {
     if (!element.children_dnd_element_data) return null
 
     return (
@@ -57,7 +57,7 @@ function BuilderOutlineOptions({ rendererState }: Props) {
     )
   }
 
-  const renderFilteredOutline = (element: DndElementData) => {
+  const renderFilteredOutline = (element: ElementData) => {
     if (!filterElements(element, keyword)) return null
 
     return (

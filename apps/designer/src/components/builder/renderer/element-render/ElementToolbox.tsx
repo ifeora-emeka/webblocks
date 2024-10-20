@@ -9,7 +9,7 @@ import {
   TbTrash,
 } from 'react-icons/tb'
 import React from 'react'
-import { DndElementData } from '@repo/designer/types/designer.types'
+import { ElementData } from '@repo/designer/types/designer.types'
 import { useSelector } from 'react-redux'
 import { AppStore } from '@/redux/store'
 import ElementMenu from '@/components/builder/renderer/element-render/ElementMenu'
@@ -18,24 +18,19 @@ import { useBuilderUtils } from '../../hooks/builder-utils.hooks'
 export default function ElementToolbar({
   element,
 }: {
-  element: DndElementData
+  element: ElementData
 }) {
-  const { changeElementPosition, removeElementFromPage } = useBuilderUtils()
-  let parentID = element.parent_dnd_id
+  const {  } = useBuilderUtils()
+  let parentID = element.parent_element_id
   const { active_element } = useSelector((state: AppStore) => state.renderer)
-  const isRootElement = !element?.element_data?.parent_element_id
+  const isRootElement = !element?.parent_element_id
 
   const move = (direction: 'up' | 'down') => {
-    changeElementPosition({
-      element_id: element.dnd_id,
-      direction,
-    })
+   
   }
 
   const remove = () => {
-    removeElementFromPage({
-      dnd_ids: [element.dnd_id],
-    })
+    
   }
 
   if (active_element?.length > 1) {

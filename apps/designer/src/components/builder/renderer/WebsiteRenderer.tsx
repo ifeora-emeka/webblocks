@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import { DndElementData } from '@repo/designer/types/designer.types'
+import { ElementData } from '@repo/designer/types/designer.types'
 import { cn } from '@/lib/utils'
 import ElementRenderer from '@/components/builder/renderer/element-render/ElementRenderer'
 import { compileAllDndElements } from '@/components/builder/builder.utils'
@@ -10,7 +10,7 @@ import withRenderer, {
 } from '@/components/builder/HOCs/WithRenderer'
 
 type Props = {
-  elements: DndElementData[]
+  elements: ElementData[]
 } & WithRendererProps
 
 const GPTElementRenderer = ({
