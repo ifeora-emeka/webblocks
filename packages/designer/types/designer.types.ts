@@ -1,5 +1,4 @@
 import React, { CSSProperties } from "react";
-import { ChakraProps } from "@chakra-ui/react";
 import { ElementBreakpoint } from "../../../apps/designer/src/components/builder/types/element-style.types";
 import { PageMetadata } from "../../../apps/designer/src/types/pages.type";
 
@@ -17,14 +16,35 @@ export interface DesignerPageData {
   body: Partial<DesignerElementData>;
 }
 
-export interface DndElementData {
-  index: number;
-  element_data: DesignerElementDataDTO;
-  children_dnd_element_data?: DndElementData[];
-
-  dnd_id: string;
-  parent_dnd_id: string | null;
+export interface ElementData extends PageElement {
+  parent_element_id: string | null;
 }
+
+export interface PageElement {
+  id: string;
+  component_id: string | null;
+
+  name: string;
+  slug: string;
+  index: number;
+
+  description?: string;
+  html_tag: React.ElementType;
+  style?: CSSProperties;
+  attributes: AttributeData;
+  chakraProps: ResponsiveChakraProps;
+  can_delete?: boolean;
+  text_content?: string;
+}
+
+// export interface DndElementData {
+//   index: number;
+//   element_data: DesignerElementDataDTO;
+//   children_dnd_element_data?: DndElementData[];
+
+//   dnd_id: string;
+//   parent_dnd_id: string | null;
+// }
 
 export interface DesignerElementDataDTO {
   element_id: string;
