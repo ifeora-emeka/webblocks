@@ -41,6 +41,7 @@ const RendererContext = createContext<{
   state: RendererState
   setRendererState: (payload: Partial<RendererState>) => void
   addElements: (element: ElementData[]) => void
+  selectMultipleElements: (id: string) => void;
 } | null>(null)
 
 export const RendererProvider: React.FC<{ children: React.ReactNode }> = ({
@@ -69,12 +70,21 @@ export const RendererProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   }, [])
 
-  const addElements = (elements: ElementData[]) => {
-    let currentList = [...state.allElements]
-    let activeElement = state.active_element[0]
+  const getNeeded = () => {
+    let allElements = [...state.allElements]
+    let activeElements = state.active_element
 
-    const activeElementChildren = currentList.filter(
-      (el) => el.parent_element_id == activeElement.id,
+    return {
+      allElements,
+      activeElements
+    }
+  }
+
+  const addElements = (elements: ElementData[]) => {
+   const { activeElements, allElements } = getNeeded()
+
+    const activeElementChildren = allElements.filter(
+      (el) => el.parent_element_id == activeElements[0]?.id,
     )
 
     elements.map((el) => {
@@ -84,8 +94,27 @@ export const RendererProvider: React.FC<{ children: React.ReactNode }> = ({
       }
     })
     setRendererState({
-      allElements: [...currentList, ...elements],
+      allElements: [...allElements, ...elements],
     })
+  }
+
+  const selectMultipleElements = (element_id: string) => {
+    const { activeElements, allElements } = getNeeded();
+    const activeElementIDs = activeElements.map(el => el.id)
+
+    if(activeElementIDs.includes(element_id)) {
+      setRendererState({
+        active_element: activeElements.filter(el => el.id === element_id)
+      })
+    } else {
+      const theElement = allElements.find(el => el.id === element_id)
+      if(theElement) {
+        setRendererState({
+          active_element: [...activeElements, theElement]
+        })
+      }
+    }
+
   }
 
   const removeElements = (element_ids: string[]) => {}
@@ -105,7 +134,7 @@ export const RendererProvider: React.FC<{ children: React.ReactNode }> = ({
   const cutElement = (element_id: string) => {}
 
   return (
-    <RendererContext.Provider value={{ state, setRendererState, addElements }}>
+    <RendererContext.Provider value={{ state, setRendererState, addElements, selectMultipleElements }}>
       {children}
     </RendererContext.Provider>
   )

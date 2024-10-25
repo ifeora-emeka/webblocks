@@ -24,7 +24,7 @@ const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
       tag,
     )
   const {
-    state: { allElements, active_element, activeBreakpoint },
+    state: { allElements, active_element, activeBreakpoint }, selectMultipleElements
   } = useRenderer()
 
   const { html_tag, chakraProps, attributes, style } = element
@@ -68,9 +68,7 @@ const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
     e.stopPropagation()
     if (e.shiftKey) {
       e.preventDefault()
-      // selectMultipleElementData({
-      //   element: element,
-      // })
+      selectMultipleElements(element.id)
     } else {
       if (active_element.length > 0 && element.id !== active_element[0]?.id) {
         dispatch(
