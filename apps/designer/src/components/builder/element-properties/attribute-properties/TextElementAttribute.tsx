@@ -5,11 +5,12 @@ import { useSelector } from 'react-redux'
 import { AppStore } from '@/redux/store'
 import { SUPPORTED_TEXT_ELEMENTS } from '../../builder.constants'
 import { useBuilderUtils } from '../../hooks/builder-utils.hooks'
+import { useRenderer } from '@/components/builder/context/renderer.context'
 
 type Props = {}
 
 export default function TextElementAttribute({}: Props) {
-  const { active_element } = useSelector((state: AppStore) => state.renderer)
+  const { state: {active_element}} = useRenderer();
   const text_content = active_element[0]?.text_content
   const [textContent, setTextContent] = useState(text_content)
   const {} = useBuilderUtils()

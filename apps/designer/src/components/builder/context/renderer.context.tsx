@@ -5,6 +5,7 @@ import {
 } from '@repo/designer/types/designer.types'
 import { defaultRootElement } from '@/components/builder/renderer/element-render/static-element-data/default-body'
 import { ChakraProps } from '@chakra-ui/react'
+import { isVoidElement } from '@repo/designer/constants'
 
 interface RendererState {
   allElements: ElementData[]
@@ -42,6 +43,7 @@ const RendererContext = createContext<{
   setRendererState: (payload: Partial<RendererState>) => void
   addElements: (element: ElementData[]) => void
   selectMultipleElements: (id: string) => void;
+  removeElements: (ids:string[]) => void;
 } | null>(null)
 
 export const RendererProvider: React.FC<{ children: React.ReactNode }> = ({
@@ -82,20 +84,26 @@ export const RendererProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const addElements = (elements: ElementData[]) => {
    const { activeElements, allElements } = getNeeded()
-
+    let canCreate = true;
     const activeElementChildren = allElements.filter(
       (el) => el.parent_element_id == activeElements[0]?.id,
     )
 
-    elements.map((el) => {
+    elements.forEach((el) => {
+      if(isVoidElement(activeElements[0].html_tag as string) || activeElements[0].text_content) {
+        canCreate = false;
+      }
       if (!el.parent_element_id) {
         el.parent_element_id = state.active_element[0].id
         el.index = activeElementChildren.length
       }
     })
-    setRendererState({
-      allElements: [...allElements, ...elements],
-    })
+   if(canCreate) {
+     setRendererState({
+       allElements: [...allElements, ...elements],
+       active_element: elements
+     })
+   }
   }
 
   const selectMultipleElements = (element_id: string) => {
@@ -104,7 +112,7 @@ export const RendererProvider: React.FC<{ children: React.ReactNode }> = ({
 
     if(activeElementIDs.includes(element_id)) {
       setRendererState({
-        active_element: activeElements.filter(el => el.id === element_id)
+        active_element: activeElements.filter(el => el.id !== element_id)
       })
     } else {
       const theElement = allElements.find(el => el.id === element_id)
@@ -114,10 +122,31 @@ export const RendererProvider: React.FC<{ children: React.ReactNode }> = ({
         })
       }
     }
-
   }
 
-  const removeElements = (element_ids: string[]) => {}
+  const removeElements = (element_ids: string[]) => {
+      let allElements = [...state.allElements];
+
+    const removeChildren = (parent_id: string) => {
+      let children = allElements.filter(el => el.parent_element_id == parent_id);
+      if(children.length > 0){
+        children.forEach(child => {
+          allElements = allElements.filter(el => el.id !== child.id)
+          removeChildren(parent_id)
+        })
+      }
+    }
+
+    element_ids.forEach(id => {
+      allElements = allElements.filter(el => el.id !== id)
+      removeChildren(id)
+    })
+
+    setRendererState({
+      allElements,
+      active_element: [state.allElements.find(el => !el.parent_element_id) as ElementData]
+    })
+  }
 
   const updateElementIndex = ({}: {
     element_id: string
@@ -134,7 +163,7 @@ export const RendererProvider: React.FC<{ children: React.ReactNode }> = ({
   const cutElement = (element_id: string) => {}
 
   return (
-    <RendererContext.Provider value={{ state, setRendererState, addElements, selectMultipleElements }}>
+    <RendererContext.Provider value={{ state, setRendererState, addElements, selectMultipleElements, removeElements }}>
       {children}
     </RendererContext.Provider>
   )

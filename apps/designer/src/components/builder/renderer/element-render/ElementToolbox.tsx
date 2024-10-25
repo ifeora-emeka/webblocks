@@ -14,16 +14,14 @@ import { useSelector } from 'react-redux'
 import { AppStore } from '@/redux/store'
 import ElementMenu from '@/components/builder/renderer/element-render/ElementMenu'
 import { useBuilderUtils } from '../../hooks/builder-utils.hooks'
+import { useRenderer } from '@/components/builder/context/renderer.context'
 
 export default function ElementToolbar({ element }: { element: ElementData }) {
-  const {} = useBuilderUtils()
+  const { state: { active_element }, removeElements } = useRenderer();
   let parentID = element.parent_element_id
-  const { active_element } = useSelector((state: AppStore) => state.renderer)
   const isRootElement = !element?.parent_element_id
 
   const move = (direction: 'up' | 'down') => {}
-
-  const remove = () => {}
 
   if (active_element?.length > 1) {
     return null
@@ -47,7 +45,7 @@ export default function ElementToolbar({ element }: { element: ElementData }) {
         {!isRootElement && (
           <>
             <div className={'flex items-center gap-default_spacing'}>
-              <button className="hover:text-foreground" onClick={remove}>
+              <button className="hover:text-foreground" onClick={() => removeElements([element.id])}>
                 <TbTrash className="h-4 w-4" />
               </button>
             </div>
@@ -70,7 +68,7 @@ export default function ElementToolbar({ element }: { element: ElementData }) {
 
         <div className={'flex items-center gap-default_spacing'}>
           {!isRootElement && (
-            <button className="hover:text-foreground" onClick={remove}>
+            <button className="hover:text-foreground">
               <TbCopy className="h-4 w-4" />
             </button>
           )}

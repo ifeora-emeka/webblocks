@@ -31,13 +31,6 @@ export default function WebsiteBuilder() {
     setShow(true)
   }, [])
 
-  const sensors = useSensors(
-    useSensor(PointerSensor),
-    useSensor(KeyboardSensor, {
-      coordinateGetter: sortableKeyboardCoordinates,
-    }),
-  )
-
   if (!show) {
     return null
   }

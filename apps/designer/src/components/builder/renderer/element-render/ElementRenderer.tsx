@@ -5,26 +5,24 @@ import {
 } from '@repo/designer/types/designer.types'
 import { Box, ChakraProps } from '@chakra-ui/react'
 import { useDispatch, useSelector } from 'react-redux'
-import { AppStore, RootState, store } from '@/redux/store'
-import { setRendererState } from '@/redux/features/renderer/renderer.slice'
 import { cn } from '@/lib/utils'
 import { debounce } from '@/components/builder/builder.utils'
 import { getResponsiveProps } from '@repo/designer/utils/element.utils'
 import ElementToolbar from './ElementToolbox'
-import { useBuilderUtils } from '../../hooks/builder-utils.hooks'
 import { useRenderer } from '@/components/builder/context/renderer.context'
+import { isVoidElement } from '@repo/designer/constants'
 
 interface DesignerElementProps {
   element: ElementData
 }
 
 const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
-  const isVoidElement = (tag: string) =>
-    /^(area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr)$/i.test(
-      tag,
-    )
+  // const isVoidElement = (tag: string) =>
+  //   /^(area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr)$/i.test(
+  //     tag,
+  //   )
   const {
-    state: { allElements, active_element, activeBreakpoint }, selectMultipleElements
+    state: { allElements, active_element, activeBreakpoint }, selectMultipleElements, setRendererState
   } = useRenderer()
 
   const { html_tag, chakraProps, attributes, style } = element
@@ -71,14 +69,13 @@ const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
       selectMultipleElements(element.id)
     } else {
       if (active_element.length > 0 && element.id !== active_element[0]?.id) {
-        dispatch(
           setRendererState({
             active_element: [element],
-          }),
-        )
+          })
       }
     }
   }
+
 
   const debouncedHandleInput = useCallback(debounce(handleInput, 700), [
     element,

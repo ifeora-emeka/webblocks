@@ -24,7 +24,7 @@ const GPTElementRenderer = ({}: Props) => {
             maxWidth: getViewportWidth(activeBreakpoint),
           }}
           className={cn(
-            `bg-white select-none overflow-hidden min-w-[700px] max-w-[700px] max-h-[calc(100vh-${BUILDER_NAV_SIZE})] min-h-[calc(100vh-${BUILDER_NAV_SIZE})] overflow-y-auto`,
+            `bg-black select-none overflow-hidden min-w-[700px] max-w-[700px] max-h-[calc(100vh-${BUILDER_NAV_SIZE})] min-h-[calc(100vh-${BUILDER_NAV_SIZE})] overflow-y-auto min-h-[150vh] bg-[url(https://img.freepik.com/premium-vector/black-checkerboard-checkered-gingham-plaid-pattern-background-perfect-wallpaper-backdrop_565280-400.jpg?w=360)] bg-repeat p-3`,
             {
               'min-h-[calc(100vh-50px-1rem)]': allElements.length == 0,
             },
