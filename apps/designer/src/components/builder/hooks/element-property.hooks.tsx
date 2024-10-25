@@ -12,16 +12,16 @@ const areAllValuesSame = (obj: Record<string, string>) => {
 
 const useElementProperty = (property: keyof ChakraProps) => {
   const { getVariableByID, parseVariableRef } = useBuilderVariables()
-  const { updateElementChakraStyleData, removeElementChakraProperty } =
+  const {  } =
     useBuilderUtils()
   const { active_element, activeBreakpoint, allElements } = useSelector(
     (state: AppStore) => state.renderer,
   )
 
   const activeElement = allElements.find(
-    (el) => el.dnd_id === active_element[0].dnd_id,
+    (el) => el.id === active_element[0].id,
   )
-  const chakraProps = activeElement && activeElement.element_data.chakraProps
+  const chakraProps = activeElement && activeElement.chakraProps
 
   const [propertyValue, setPropertyValue] = useState<string>(
     //@ts-ignore
@@ -51,21 +51,21 @@ const useElementProperty = (property: keyof ChakraProps) => {
       }
     }
 
-    updateElementChakraStyleData({
-      element_id: active_element[0].element_data.element_id,
-      //@ts-ignore
-      newChakraStyle,
-    })
+    // updateElementChakraStyleData({
+    //   element_id: active_element[0]?.element_id,
+    //   //@ts-ignore
+    //   newChakraStyle,
+    // })
 
     setPropertyValue(value)
   }
 
   const removePropertyValue = () => {
     if (activeElement) {
-      removeElementChakraProperty({
-        property,
-        element_id: activeElement?.element_data.element_id,
-      })
+      // removeElementChakraProperty({
+      //   property,
+      //   element_id: activeElement?.element_data.element_id,
+      // })
     }
   }
 

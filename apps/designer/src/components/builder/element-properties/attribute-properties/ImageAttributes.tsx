@@ -8,7 +8,7 @@ import { AppStore } from '@/redux/store'
 
 export default function ImageAttributes() {
   const { active_element } = useSelector((state: AppStore) => state.renderer)
-  const tagType = active_element[0]?.element_data?.html_tag
+  const tagType = active_element[0]?.html_tag
   const {
     propertyValue: srcValue,
     updatePropertyValue: updateSrcValue,

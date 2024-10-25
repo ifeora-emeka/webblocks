@@ -22,18 +22,18 @@ function BuilderOutlineOptions({ rendererState }: Props) {
     keyword: string,
   ): boolean => {
     if (
-      element.element_data.name.toLowerCase().includes(keyword.toLowerCase()) ||
-      element.element_data.slug.toLowerCase().includes(keyword.toLowerCase()) ||
-      (element.element_data.description &&
-        element.element_data.description
+      element.name.toLowerCase().includes(keyword.toLowerCase()) ||
+      element.slug.toLowerCase().includes(keyword.toLowerCase()) ||
+      (element.description &&
+        element.description
           .toLowerCase()
           .includes(keyword.toLowerCase()))
     ) {
       return true
     }
 
-    if (element.children_dnd_element_data) {
-      return element.children_dnd_element_data.some((child) =>
+    if (element.children_elements) {
+      return element.children_elements.some((child:ElementData) =>
         filterElements(child, keyword),
       )
     }
@@ -42,13 +42,13 @@ function BuilderOutlineOptions({ rendererState }: Props) {
   }
 
   const renderOutline = (element: ElementData) => {
-    if (!element.children_dnd_element_data) return null
+    if (!element.children_elements) return null
 
     return (
-      <EachOutline key={element.dnd_id} element={element}>
-        {element.children_dnd_element_data.length > 0 ? (
+      <EachOutline key={element.id} element={element}>
+        {element.children_elements.length > 0 ? (
           <>
-            {element.children_dnd_element_data.map((child) =>
+            {element.children_elements.map((child: ElementData) =>
               renderOutline(child),
             )}
           </>
@@ -61,12 +61,12 @@ function BuilderOutlineOptions({ rendererState }: Props) {
     if (!filterElements(element, keyword)) return null
 
     return (
-      <EachOutline key={element.dnd_id} element={element}>
+      <EachOutline key={element.id} element={element}>
         <>
           {/*@ts-ignore*/}
           {element.children_dnd_element_data
-            .filter((child) => filterElements(child, keyword))
-            .map((child) => renderFilteredOutline(child))}
+            .filter((child: ElementData) => filterElements(child, keyword))
+            .map((child: ElementData) => renderFilteredOutline(child))}
         </>
       </EachOutline>
     )

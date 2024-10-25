@@ -25,15 +25,15 @@ type Props = {
 }
 
 export default function AddElementProperty({ options, label }: Props) {
-  const { updateElementChakraStyleData } = useBuilderUtils()
+  const {  } = useBuilderUtils()
   const { active_element, allElements } = useSelector(
     (state: AppStore) => state.renderer,
   )
 
   const activeElement = allElements.find(
-    (el) => el.dnd_id === active_element[0].dnd_id,
+    (el) => el.id === active_element[0].id,
   )
-  const chakraProps = activeElement?.element_data?.chakraProps
+  const chakraProps = activeElement?.chakraProps
   const chakraKeys = chakraProps ? Object.keys(chakraProps) : []
 
   if (options.filter((x) => !chakraKeys.includes(x.property)).length === 0) {
@@ -67,15 +67,7 @@ export default function AddElementProperty({ options, label }: Props) {
                 <DropdownMenuItem
                   key={`add-option-${index}`}
                   onClick={() => {
-                    updateElementChakraStyleData({
-                      element_id: active_element[0].element_data.element_id,
-                      //@ts-ignore
-                      newChakraStyle: {
-                        [option.property]: generateStaticBreakpoints(
-                          option.defaultValue,
-                        ),
-                      },
-                    })
+
                   }}
                 >
                   {option.label}

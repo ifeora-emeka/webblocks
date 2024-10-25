@@ -24,10 +24,8 @@ const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
     )
   const theStore: AppStore = store.getState()
   let allElements = theStore.renderer.allElements
-  const { updateElementData, selectMultipleElementData } = useBuilderUtils()
 
-  const { element_data, children_dnd_element_data } = element
-  const { html_tag, chakraProps, attributes, style } = element_data
+  const { html_tag, chakraProps, attributes, style } = element
   const dispatch = useDispatch()
   const { active_element, activeBreakpoint } = useSelector(
     (state: RootState) => state.renderer,
@@ -46,16 +44,16 @@ const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
     })
 
     return sortedChildren.map((child) => {
-      return <ElementRenderer key={child.dnd_id} element={child} />
+      return <ElementRenderer key={child.id} element={child} />
     })
   }
 
   const isActive = active_element
-    .map((el) => el.dnd_id)
-    .includes(element.dnd_id)
+    .map((el) => el.id)
+    .includes(element.id)
 
   let theParent =
-    allElements.find((el) => el.dnd_id === element.parent_dnd_id) || null
+    allElements.find((el) => el.id === element.parent_element_id) || null
 
   const handleInput = () => {
     if (childRef?.current) {
@@ -65,19 +63,7 @@ const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
       //   ? (elementInnerText = ' ')
       //   : elementInnerText
 
-      updateElementData({
-        element_id: element.dnd_id,
-        data: {
-          ...element,
-          element_data: {
-            ...element.element_data,
-            attributes: {
-              ...element.element_data.attributes,
-              innerText: newText,
-            },
-          },
-        },
-      })
+      console.log(newText)
     }
   }
 
@@ -85,14 +71,14 @@ const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
     e.stopPropagation()
     if (e.shiftKey) {
       e.preventDefault()
-      selectMultipleElementData({
-        element: element,
-      })
+      // selectMultipleElementData({
+      //   element: element,
+      // })
     } else {
       if (
         active_element.length > 0 &&
-        element.element_data.element_id !==
-          active_element[0]?.element_data.element_id
+        element.id !==
+          active_element[0]?.id
       ) {
         dispatch(
           setRendererState({
@@ -129,7 +115,7 @@ const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
         autoFocus
         {...attributes}
         ds-index={element.index}
-        ds-id={element.dnd_id}
+        ds-id={element.id}
         as={html_tag}
         {...(responsiveChakraProps as ChakraProps)}
         style={style}
@@ -144,8 +130,8 @@ const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
       >
         {isActive && <ElementToolbar element={element} />}
         <>
-          {element_data.text_content}
-          {renderChildren(children_dnd_element_data)}
+          {element.text_content}
+          {renderChildren(element.children_elements)}
         </>
       </Box>
     </>

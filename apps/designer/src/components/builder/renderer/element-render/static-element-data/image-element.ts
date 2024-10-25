@@ -11,18 +11,14 @@ export const staticImageElement = (
   let id = generateRandomId(14) + '-img'
 
   return {
-    dnd_id: id,
-    children_dnd_element_data: [],
+    id,
+    children_elements: [],
     index: data.index,
-    parent_dnd_id: data.parent_id,
-    element_data: {
+    parent_element_id: data.parent_id,
       attributes: {
         // width: '100%',
         src: 'https://picsum.photos/200/300',
       },
-      element_id: id,
-      index: data.index,
-      parent_element_id: data.parent_id,
       html_tag: 'img',
       chakraProps: {
         width: generateStaticBreakpoints('300px'),
@@ -33,6 +29,5 @@ export const staticImageElement = (
       slug: 'image',
       description: 'default image element',
       can_delete: true,
-    },
   }
 }

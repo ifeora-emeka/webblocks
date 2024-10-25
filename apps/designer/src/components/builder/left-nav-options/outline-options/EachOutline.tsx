@@ -17,37 +17,26 @@ type Props = {
 
 //https://dribbble.com/shots/18864162-Updated-Nav-Icons
 function EachOutline({ children, element, rendererState, builderHook }: Props) {
-  const { updateElementData, updateRenderer, selectMultipleElementData } =
+  const { updateRenderer } =
     builderHook
   const { active_element } = rendererState
   const [menuOpen, setMenuOpen] = useState(false)
-  const { element_data } = element
+  const element_data = element
 
-  const isRoot = element.dnd_id.includes('-root__')
+  const isRoot = element.id.includes('-root__')
   const [showChildren, setShowChildren] = useState(isRoot)
   const targetElement = active_element.filter(
-    (x: ElementData) => x.dnd_id === element.dnd_id,
+    (x: ElementData) => x.id === element.id,
   )
   const isActive: boolean =
-    targetElement?.length > 0 && targetElement[0]?.dnd_id === element.dnd_id
+    targetElement?.length > 0 && targetElement[0]?.id === element.id
   const [edit, setEdit] = useState(false)
   const [name, setName] = useState('')
 
   const handleNameUpdate = () => {
     setEdit(false)
-    if (!name) return setName(element.element_data.name)
+    if (!name) return setName(element.name)
 
-    updateElementData({
-      element_id: element.dnd_id,
-      data: {
-        ...element,
-        element_data: {
-          ...element.element_data,
-          name,
-          slug: slugify(name),
-        },
-      },
-    })
   }
 
   const handleSingleClick = (
@@ -56,9 +45,7 @@ function EachOutline({ children, element, rendererState, builderHook }: Props) {
     e.stopPropagation()
     if (e.shiftKey) {
       e.preventDefault()
-      selectMultipleElementData({
-        element: element,
-      })
+
     } else {
       updateRenderer({
         active_element: [element],
@@ -67,7 +54,7 @@ function EachOutline({ children, element, rendererState, builderHook }: Props) {
   }
 
   useEffect(() => {
-    setName(element.element_data.name)
+    setName(element.name)
   }, [element])
 
   return (

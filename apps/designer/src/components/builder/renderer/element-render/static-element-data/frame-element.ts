@@ -10,14 +10,10 @@ export const staticFrameElement = (
   let id = generateRandomId(14) + '-frame'
 
   return {
-    dnd_id: id,
-    children_dnd_element_data: [],
+    id,
+    children_elements: [],
     index: data.index,
-    parent_dnd_id: data.parent_id,
-    element_data: {
-      element_id: id,
-      index: data.index,
-      parent_element_id: data.parent_id,
+    parent_element_id: data.parent_id,
       attributes: {},
       html_tag: 'div',
       chakraProps: {
@@ -34,6 +30,5 @@ export const staticFrameElement = (
       slug: 'frame',
       description: '',
       can_delete: true,
-    },
   }
 }

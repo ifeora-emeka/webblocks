@@ -13,7 +13,7 @@ import { AppStore } from '@/redux/store'
 export default function LayoutProperty() {
   const { active_element } = useSelector((state: AppStore) => state.renderer)
 
-  if (active_element && active_element[0]?.element_data.text_content) {
+  if (active_element && active_element[0]?.text_content) {
     return null
   }
 

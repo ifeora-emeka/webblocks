@@ -11,18 +11,14 @@ export const staticHeadingElement = (
   let id = generateRandomId(14) + '-heading'
   let headings = store
     ?.getState()
-    .renderer.allElements.filter((x) => x.element_data.slug == 'heading')
+    .renderer.allElements.filter((x) => x.slug == 'heading')
 
   return {
-    dnd_id: id,
-    children_dnd_element_data: [],
+    id,
+    children_elements: [],
     index: data.index,
-    parent_dnd_id: data.parent_id,
-    element_data: {
+    parent_element_id: data.parent_id,
       attributes: {},
-      element_id: id,
-      index: data.index,
-      parent_element_id: data.parent_id,
       text_content: 'Default heading text',
       html_tag: 'h1',
       chakraProps: {
@@ -36,6 +32,5 @@ export const staticHeadingElement = (
       slug: 'heading',
       description: '',
       can_delete: true,
-    },
   }
 }

@@ -11,17 +11,13 @@ export const staticParagraphElement = (
   let id = generateRandomId(14) + '-paragraph'
   let headings = store
     ?.getState()
-    .renderer.allElements.filter((x) => x.element_data.slug == 'paragraph')
+    .renderer.allElements.filter((x) => x.slug == 'paragraph')
 
   return {
-    dnd_id: id,
-    children_dnd_element_data: [],
+    id,
+    children_elements: [],
     index: data.index,
-    parent_dnd_id: data.parent_id,
-    element_data: {
-      element_id: id,
-      index: data.index,
-      parent_element_id: data.parent_id,
+    parent_element_id: data.parent_id,
       attributes: {},
       html_tag: 'p',
       text_content: 'Default paragraph text',
@@ -36,6 +32,5 @@ export const staticParagraphElement = (
       slug: 'paragraph',
       description: '',
       can_delete: true,
-    },
   }
 }

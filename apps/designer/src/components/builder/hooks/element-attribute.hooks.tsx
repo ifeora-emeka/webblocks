@@ -8,16 +8,16 @@ type HTMLAttributeProps =
   | keyof React.ImgHTMLAttributes<HTMLImageElement>
 
 const useElementAttribute = (property: HTMLAttributeProps) => {
-  const { updateAttributes, removeAttribute } = useBuilderUtils()
+  const {  } = useBuilderUtils()
   const { active_element, allElements } = useSelector(
     (state: AppStore) => state.renderer,
   )
 
   const activeElement = allElements.find(
-    (el) => el.dnd_id === active_element[0].dnd_id,
+    (el) => el.id === active_element[0]?.id,
   )
   const elementAttributes =
-    activeElement && activeElement.element_data.attributes
+    activeElement && activeElement.attributes
 
   const [propertyValue, setPropertyValue] = useState<string>(
     //@ts-ignore
@@ -35,21 +35,21 @@ const useElementAttribute = (property: HTMLAttributeProps) => {
       [property]: value,
     }
 
-    updateAttributes({
-      element_id: active_element[0].element_data.element_id,
-      //@ts-ignore
-      newAttributes,
-    })
+    // updateAttributes({
+    //   element_id: active_element[0].element_id,
+    //   //@ts-ignore
+    //   newAttributes,
+    // })
 
     setPropertyValue(value)
   }
 
   const removePropertyValue = () => {
     if (activeElement) {
-      removeAttribute({
-        property,
-        element_id: activeElement?.element_data.element_id,
-      })
+      // removeAttribute({
+      //   property,
+      //   element_id: activeElement?.element_id,
+      // })
     }
   }
 
