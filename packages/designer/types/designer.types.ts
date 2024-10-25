@@ -1,6 +1,7 @@
 import React, { CSSProperties } from "react";
 import { ElementBreakpoint } from "../../../apps/designer/src/components/builder/types/element-style.types";
 import { PageMetadata } from "../../../apps/designer/src/types/pages.type";
+import { ComponentProps } from './component.types'
 
 export type ResponsiveChakraProps = {
   [key: string]: ElementBreakpoint;
@@ -16,14 +17,9 @@ export interface DesignerPageData {
   body: Partial<DesignerElementData>;
 }
 
-export interface ElementData extends PageElement {
-  parent_element_id: string | null;
-  children_elements: ElementData[]
-}
-
-export interface PageElement {
+// the main element type
+export interface ElementData {
   id: string;
-  component_id: string | null;
 
   name: string;
   slug: string;
@@ -36,16 +32,14 @@ export interface PageElement {
   chakraProps: ResponsiveChakraProps;
   can_delete?: boolean;
   text_content?: string;
+
+  is_component?: boolean;
+  custom_props?: ComponentProps | null;
+
+  parent_element_id: string | null;
+  children_elements?: ElementData[]
 }
 
-// export interface ElementData {
-//   index: number;
-//   element_data: DesignerElementDataDTO;
-//   children_dnd_element_data?: ElementData[];
-
-//   dnd_id: string;
-//   parent_dnd_id: string | null;
-// }
 
 export interface DesignerElementDataDTO {
   element_id: string;

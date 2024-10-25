@@ -12,6 +12,7 @@ import { debounce } from '@/components/builder/builder.utils'
 import { getResponsiveProps } from '@repo/designer/utils/element.utils'
 import ElementToolbar from './ElementToolbox'
 import { useBuilderUtils } from '../../hooks/builder-utils.hooks'
+import { useRenderer } from '@/components/builder/context/renderer.context'
 
 interface DesignerElementProps {
   element: ElementData
@@ -22,14 +23,10 @@ const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
     /^(area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr)$/i.test(
       tag,
     )
-  const theStore: AppStore = store.getState()
-  let allElements = theStore.renderer.allElements
+  const { state: { allElements, active_element, activeBreakpoint } } = useRenderer();
 
   const { html_tag, chakraProps, attributes, style } = element
   const dispatch = useDispatch()
-  const { active_element, activeBreakpoint } = useSelector(
-    (state: RootState) => state.renderer,
-  )
   const childRef = useRef<HTMLHeadingElement>(null)
   const [editInnerText, setEditInnerText] = useState(false)
   const responsiveChakraProps = getResponsiveProps(

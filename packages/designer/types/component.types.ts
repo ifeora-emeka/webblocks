@@ -1,14 +1,13 @@
-import { PageElement, } from "./designer.types";
 
-
-export interface ComponentPropMap {
-
+export enum ComponentPropsType {
+    STRING = "string",
+    BOOLEAN = "boolean",
+    COLOR = "color",
+    UOM = "uom"
 }
 
-export interface ComponentRefData {
-    component_id: string;
-}
-
-export interface ComponentData extends PageElement {
-    custom_props: Record<string, string>;
+export interface ComponentProps {
+    label: string;
+    type: ComponentPropsType;
+    value: string | number | boolean;
 }

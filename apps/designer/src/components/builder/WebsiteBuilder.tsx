@@ -22,11 +22,12 @@ import { AppStore } from '@/redux/store'
 import { setRendererState } from '@/redux/features/renderer/renderer.slice'
 import { defaultRootElement } from '@/components/builder/renderer/element-render/static-element-data/default-body'
 import BuilderKeyMapper from '@/components/builder/BuilderKeyMapper'
+import {
+  DesignerProvider
+} from '@/app/dashboard/workspace/[workspace_id]/project/[project_id]/designer/[page_slug]/DesignerProvider'
 
 export default function WebsiteBuilder() {
   const [show, setShow] = useState(false)
-  const { allElements } = useSelector((state: AppStore) => state.renderer)
-  const dispatch = useDispatch()
 
   useEffect(() => {
     setShow(true)
@@ -39,43 +40,13 @@ export default function WebsiteBuilder() {
     }),
   )
 
-  function handleDragEnd(event: DragEndEvent) {
-    // const { active, over } = event;
-    //
-    // console.log('DRAGGED::', event)
-    //
-    // if (active.id !== over?.id) {
-    //   dispatch(moveElement({ activeId: active.element_id, overId: over?.element_id }));
-    // }
-  }
-
-  useEffect(() => {
-    if (allElements.length == 0) {
-      let rootEl = defaultRootElement({
-        index: 0,
-        parent_id: null,
-      })
-
-      dispatch(
-        setRendererState({
-          allElements: [rootEl],
-          active_element: [rootEl],
-        }),
-      )
-    }
-  }, [allElements])
-
   if (!show) {
     return null
   }
 
   return (
     <>
-      <DndContext
-        sensors={sensors}
-        collisionDetection={closestCenter}
-        onDragEnd={handleDragEnd}
-      >
+      <DesignerProvider>
         <BuilderKeyMapper />
         <div
           className={
@@ -91,12 +62,13 @@ export default function WebsiteBuilder() {
                 `min-h-[calc(100vh-${BUILDER_NAV_SIZE})] max-h-[calc(100vh-50px)] overflow-y-auto w-full light border-l border-r`,
               )}
             >
-              <GPTElementRenderer elements={allElements} />
+              <GPTElementRenderer  />
             </div>
             <PropertiesPanel />
           </div>
         </div>
-      </DndContext>
+      </DesignerProvider>
+
     </>
   )
 }

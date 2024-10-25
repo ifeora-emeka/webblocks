@@ -1,6 +1,5 @@
 import React from 'react'
 import { DesignerProvider } from './[page_slug]/DesignerProvider'
-import { fetchAPI } from '@/lib/api'
 
 export default async function layout(props: any) {
     const { children, params } = props

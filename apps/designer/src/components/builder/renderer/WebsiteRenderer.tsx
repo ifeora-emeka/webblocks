@@ -1,25 +1,19 @@
 'use client'
 import React from 'react'
-import { ElementData } from '@repo/designer/types/designer.types'
 import { cn } from '@/lib/utils'
 import ElementRenderer from '@/components/builder/renderer/element-render/ElementRenderer'
 import { compileAllDndElements } from '@/components/builder/builder.utils'
 import { BUILDER_NAV_SIZE } from '@/components/builder/builder.constants'
-import withRenderer, {
-  WithRendererProps,
-} from '@/components/builder/HOCs/WithRenderer'
+import { useRenderer } from '@/components/builder/context/renderer.context'
+import { useBuilderUtils } from '@/components/builder/hooks/builder-utils.hooks'
 
 type Props = {
-  elements: ElementData[]
-} & WithRendererProps
+}
 
 const GPTElementRenderer = ({
-  elements,
-  rendererState,
-  builderHook,
 }: Props) => {
-  const { activeBreakpoint } = rendererState
-  const { getViewportWidth } = builderHook
+  const { state: {allElements, activeBreakpoint} } = useRenderer();
+  const { getViewportWidth } = useBuilderUtils();
 
   return (
     <>
@@ -32,13 +26,13 @@ const GPTElementRenderer = ({
           className={cn(
             `bg-white select-none overflow-hidden min-w-[700px] max-w-[700px] max-h-[calc(100vh-${BUILDER_NAV_SIZE})] min-h-[calc(100vh-${BUILDER_NAV_SIZE})] overflow-y-auto`,
             {
-              'min-h-[calc(100vh-50px-1rem)]': elements.length == 0,
+              'min-h-[calc(100vh-50px-1rem)]': allElements.length == 0,
             },
           )}
         >
-          {elements.length > 0 ? (
+          {allElements.length > 0 ? (
             <>
-              <ElementRenderer element={compileAllDndElements(elements)} />
+              <ElementRenderer element={compileAllDndElements(allElements)} />
             </>
           ) : null}
         </div>
@@ -47,4 +41,4 @@ const GPTElementRenderer = ({
   )
 }
 
-export default withRenderer(GPTElementRenderer)
+export default GPTElementRenderer
