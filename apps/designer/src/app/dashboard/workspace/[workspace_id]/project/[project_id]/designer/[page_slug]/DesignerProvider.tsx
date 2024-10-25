@@ -33,9 +33,7 @@ export function DesignerProvider({
   return (
     <ChakraProvider disableGlobalStyle>
       <RendererProvider>
-        <BuilderVariablesProvider>
-          {children}
-        </BuilderVariablesProvider>
+        <BuilderVariablesProvider>{children}</BuilderVariablesProvider>
       </RendererProvider>
     </ChakraProvider>
   )

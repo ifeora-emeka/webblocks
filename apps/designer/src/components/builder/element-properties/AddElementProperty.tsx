@@ -25,14 +25,12 @@ type Props = {
 }
 
 export default function AddElementProperty({ options, label }: Props) {
-  const {  } = useBuilderUtils()
+  const {} = useBuilderUtils()
   const { active_element, allElements } = useSelector(
     (state: AppStore) => state.renderer,
   )
 
-  const activeElement = allElements.find(
-    (el) => el.id === active_element[0].id,
-  )
+  const activeElement = allElements.find((el) => el.id === active_element[0].id)
   const chakraProps = activeElement?.chakraProps
   const chakraKeys = chakraProps ? Object.keys(chakraProps) : []
 
@@ -66,9 +64,7 @@ export default function AddElementProperty({ options, label }: Props) {
               return (
                 <DropdownMenuItem
                   key={`add-option-${index}`}
-                  onClick={() => {
-
-                  }}
+                  onClick={() => {}}
                 >
                   {option.label}
                 </DropdownMenuItem>

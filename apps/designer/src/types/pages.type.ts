@@ -1,7 +1,7 @@
 export interface PagesData {
   _id: string
   name: string
-  route: string;
+  route: string
   createdAt: string
   updateAt: string
 }

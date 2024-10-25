@@ -12,15 +12,12 @@ const areAllValuesSame = (obj: Record<string, string>) => {
 
 const useElementProperty = (property: keyof ChakraProps) => {
   const { getVariableByID, parseVariableRef } = useBuilderVariables()
-  const {  } =
-    useBuilderUtils()
+  const {} = useBuilderUtils()
   const { active_element, activeBreakpoint, allElements } = useSelector(
     (state: AppStore) => state.renderer,
   )
 
-  const activeElement = allElements.find(
-    (el) => el.id === active_element[0].id,
-  )
+  const activeElement = allElements.find((el) => el.id === active_element[0].id)
   const chakraProps = activeElement && activeElement.chakraProps
 
   const [propertyValue, setPropertyValue] = useState<string>(

@@ -77,7 +77,9 @@ const SearchInput = ({ onSearch }: { onSearch: (keyword: string) => void }) => {
           onFocus={() => setInFocus(true)}
           onBlur={() => setInFocus(false)}
           placeholder={`Search ${panel}...`}
-          className={'bg-inherit text-sm outline-none flex-1 text-muted-foreground focus:text-foreground'}
+          className={
+            'bg-inherit text-sm outline-none flex-1 text-muted-foreground focus:text-foreground'
+          }
         />
       </div>
     </>

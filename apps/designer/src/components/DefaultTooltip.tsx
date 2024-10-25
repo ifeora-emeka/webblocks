@@ -24,7 +24,10 @@ export default function DefaultTooltip({
           <TooltipTrigger asChild>{children}</TooltipTrigger>
           <TooltipContent
             side={side || 'top'}
-            className={cn('bg-popover shadow-md text-popover-foreground', className)}
+            className={cn(
+              'bg-popover shadow-md text-popover-foreground',
+              className,
+            )}
           >
             {content}
           </TooltipContent>

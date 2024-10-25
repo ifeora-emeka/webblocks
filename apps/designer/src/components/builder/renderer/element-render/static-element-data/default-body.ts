@@ -5,31 +5,29 @@ import { staticFrameChakraStyle } from '@/components/builder/renderer/element-re
 import { DEFAULT_FRAME_COLOR } from '@/components/builder/builder.constants'
 
 //todo: move this to DB and delete it
-export const defaultRootElement = (
-  data: StaticElementParams,
-): ElementData => {
+export const defaultRootElement = (data: StaticElementParams): ElementData => {
   let id = '__designer-root__' // ⚠️ don't change this ⚠️
   return {
     id,
-      index: data.index,
-      parent_element_id: data.parent_id,
-      attributes: {},
-      html_tag: 'div',
-      chakraProps: {
-        ...staticFrameChakraStyle,
-        background: generateStaticBreakpoints(DEFAULT_FRAME_COLOR),
-        placeContent: generateStaticBreakpoints('start'),
-        gap: generateStaticBreakpoints('0px'),
-        minHeight: generateStaticBreakpoints('100vh'),
-        bgPosition: generateStaticBreakpoints('center'),
-        bgSize: generateStaticBreakpoints('cover'),
-        display: generateStaticBreakpoints('flex'),
-        flexFlow: generateStaticBreakpoints('column'),
-      },
-      style: {},
-      name: '_root_',
-      slug: 'root-element',
-      description: '',
-      can_delete: false,
+    index: data.index,
+    parent_element_id: data.parent_id,
+    attributes: {},
+    html_tag: 'div',
+    chakraProps: {
+      ...staticFrameChakraStyle,
+      background: generateStaticBreakpoints(DEFAULT_FRAME_COLOR),
+      placeContent: generateStaticBreakpoints('start'),
+      gap: generateStaticBreakpoints('0px'),
+      minHeight: generateStaticBreakpoints('100vh'),
+      bgPosition: generateStaticBreakpoints('center'),
+      bgSize: generateStaticBreakpoints('cover'),
+      display: generateStaticBreakpoints('flex'),
+      flexFlow: generateStaticBreakpoints('column'),
+    },
+    style: {},
+    name: '_root_',
+    slug: 'root-element',
+    description: '',
+    can_delete: false,
   }
 }

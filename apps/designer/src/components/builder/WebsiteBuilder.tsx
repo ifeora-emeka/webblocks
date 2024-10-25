@@ -22,9 +22,7 @@ import { AppStore } from '@/redux/store'
 import { setRendererState } from '@/redux/features/renderer/renderer.slice'
 import { defaultRootElement } from '@/components/builder/renderer/element-render/static-element-data/default-body'
 import BuilderKeyMapper from '@/components/builder/BuilderKeyMapper'
-import {
-  DesignerProvider
-} from '@/app/dashboard/workspace/[workspace_id]/project/[project_id]/designer/[page_slug]/DesignerProvider'
+import { DesignerProvider } from '@/app/dashboard/workspace/[workspace_id]/project/[project_id]/designer/[page_slug]/DesignerProvider'
 
 export default function WebsiteBuilder() {
   const [show, setShow] = useState(false)
@@ -62,13 +60,12 @@ export default function WebsiteBuilder() {
                 `min-h-[calc(100vh-${BUILDER_NAV_SIZE})] max-h-[calc(100vh-50px)] overflow-y-auto w-full light border-l border-r`,
               )}
             >
-              <GPTElementRenderer  />
+              <GPTElementRenderer />
             </div>
             <PropertiesPanel />
           </div>
         </div>
       </DesignerProvider>
-
     </>
   )
 }

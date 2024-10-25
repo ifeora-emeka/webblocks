@@ -7,13 +7,13 @@ import { BUILDER_NAV_SIZE } from '@/components/builder/builder.constants'
 import { useRenderer } from '@/components/builder/context/renderer.context'
 import { useBuilderUtils } from '@/components/builder/hooks/builder-utils.hooks'
 
-type Props = {
-}
+type Props = {}
 
-const GPTElementRenderer = ({
-}: Props) => {
-  const { state: {allElements, activeBreakpoint} } = useRenderer();
-  const { getViewportWidth } = useBuilderUtils();
+const GPTElementRenderer = ({}: Props) => {
+  const {
+    state: { allElements, activeBreakpoint },
+  } = useRenderer()
+  const { getViewportWidth } = useBuilderUtils()
 
   return (
     <>

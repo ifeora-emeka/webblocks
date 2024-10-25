@@ -1,11 +1,11 @@
-import chroma from 'chroma-js';
+import chroma from "chroma-js";
 
 function parseColor(color: string) {
-    try {
-        return chroma(color);
-    } catch (error) {
-        throw new Error("Invalid color format");
-    }
+  try {
+    return chroma(color);
+  } catch (error) {
+    throw new Error("Invalid color format");
+  }
 }
 
 // export function generateColorScale(color: string): string[] {
@@ -20,10 +20,16 @@ function parseColor(color: string) {
 // }
 
 export function generateColorScale(
-    baseColor: string,
-    steps: number = 5
+  baseColor: string,
+  steps: number = 5,
 ): string[] {
-    return chroma.scale([chroma(baseColor).brighten(2), baseColor, chroma(baseColor).darken(2), chroma(baseColor).darken(4)])
-        .mode('lab')
-        .colors(steps);
+  return chroma
+    .scale([
+      chroma(baseColor).brighten(2),
+      baseColor,
+      chroma(baseColor).darken(2),
+      chroma(baseColor).darken(4),
+    ])
+    .mode("lab")
+    .colors(steps);
 }

@@ -1,7 +1,7 @@
 import React, { CSSProperties } from "react";
 import { ElementBreakpoint } from "../../../apps/designer/src/components/builder/types/element-style.types";
 import { PageMetadata } from "../../../apps/designer/src/types/pages.type";
-import { ComponentProps } from './component.types'
+import { ComponentProps } from "./component.types";
 
 export type ResponsiveChakraProps = {
   [key: string]: ElementBreakpoint;
@@ -37,9 +37,8 @@ export interface ElementData {
   custom_props?: ComponentProps | null;
 
   parent_element_id: string | null;
-  children_elements?: ElementData[]
+  children_elements?: ElementData[];
 }
-
 
 export interface DesignerElementDataDTO {
   element_id: string;

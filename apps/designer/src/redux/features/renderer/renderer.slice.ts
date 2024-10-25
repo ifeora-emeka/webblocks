@@ -7,7 +7,6 @@ import {
   ElementData,
 } from '@repo/designer/types/designer.types'
 
-
 export interface RendererState {
   allElements: ElementData[]
   active_element: ElementData[]
@@ -35,13 +34,9 @@ export const rendererSlice = createSlice({
         ...action.payload,
       }
     },
-
-   
   },
 })
 
-export const {
-  setRendererState,
-} = rendererSlice.actions
+export const { setRendererState } = rendererSlice.actions
 
 export default rendererSlice.reducer

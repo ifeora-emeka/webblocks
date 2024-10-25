@@ -17,8 +17,7 @@ type Props = {
 
 //https://dribbble.com/shots/18864162-Updated-Nav-Icons
 function EachOutline({ children, element, rendererState, builderHook }: Props) {
-  const { updateRenderer } =
-    builderHook
+  const { updateRenderer } = builderHook
   const { active_element } = rendererState
   const [menuOpen, setMenuOpen] = useState(false)
   const element_data = element
@@ -36,7 +35,6 @@ function EachOutline({ children, element, rendererState, builderHook }: Props) {
   const handleNameUpdate = () => {
     setEdit(false)
     if (!name) return setName(element.name)
-
   }
 
   const handleSingleClick = (
@@ -45,7 +43,6 @@ function EachOutline({ children, element, rendererState, builderHook }: Props) {
     e.stopPropagation()
     if (e.shiftKey) {
       e.preventDefault()
-
     } else {
       updateRenderer({
         active_element: [element],

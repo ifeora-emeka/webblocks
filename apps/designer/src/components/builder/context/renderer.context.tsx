@@ -40,12 +40,12 @@ const rendererReducer = (state: RendererState, action: RendererAction) => {
 const RendererContext = createContext<{
   state: RendererState
   setRendererState: (payload: Partial<RendererState>) => void
-  addElements: (element: ElementData[]) => void;
+  addElements: (element: ElementData[]) => void
 } | null>(null)
 
 export const RendererProvider: React.FC<{ children: React.ReactNode }> = ({
-                                                                            children,
-                                                                          }) => {
+  children,
+}) => {
   const [state, dispatch] = useReducer(rendererReducer, initialState)
 
   console.log('RENDER STATE:::', state)
@@ -56,43 +56,53 @@ export const RendererProvider: React.FC<{ children: React.ReactNode }> = ({
 
   useEffect(() => {
     if (state.allElements.length == 0) {
-      let rootElement = defaultRootElement({
+      let rootElement = {
+        ...defaultRootElement({
+          parent_id: null,
+        }),
         index: 0,
-        parent_id: null
-      })
+      }
       setRendererState({
         allElements: [rootElement],
-        active_element: [rootElement]
+        active_element: [rootElement],
       })
     }
-  },[])
+  }, [])
 
   const addElements = (elements: ElementData[]) => {
     let currentList = [...state.allElements]
+    let activeElement = state.active_element[0]
+
+    const activeElementChildren = currentList.filter(
+      (el) => el.parent_element_id == activeElement.id,
+    )
+
+    elements.map((el) => {
+      if (!el.parent_element_id) {
+        el.parent_element_id = state.active_element[0].id
+        el.index = activeElementChildren.length
+      }
+    })
     setRendererState({
-      allElements: [...currentList, ...elements]
+      allElements: [...currentList, ...elements],
     })
   }
 
-  const removeElements = (element_ids: string[]) => {
+  const removeElements = (element_ids: string[]) => {}
 
-  }
+  const updateElementIndex = ({}: {
+    element_id: string
+    mode: 'increment' | 'decrement'
+  }) => {}
 
-  const updateElementIndex = ({}:{ element_id: string; mode: 'increment' | 'decrement' }) => {
+  const updateElementChakraProps = ({}: {
+    element_id: string
+    data: ChakraProps
+  }) => {}
 
-  }
+  const copyElement = (element_id: string) => {}
 
-  const updateElementChakraProps = ({}:{element_id: string; data: ChakraProps }) => {
-
-  }
-
-  const copyElement = (element_id:string) => {
-
-  }
-
-  const cutElement = (element_id: string) => {
-
-  }
+  const cutElement = (element_id: string) => {}
 
   return (
     <RendererContext.Provider value={{ state, setRendererState, addElements }}>

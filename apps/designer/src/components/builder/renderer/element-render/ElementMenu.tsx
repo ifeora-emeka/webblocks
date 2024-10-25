@@ -41,6 +41,7 @@ import { StaticElement } from '@/components/builder/renderer/element-render/stat
 import { getStaticElement } from '@/components/builder/renderer/element-render/static-element-data/static-element.utils'
 import { ChakraProps } from '@chakra-ui/react'
 import { generateStaticBreakpoints } from '@/lib/designer.utils'
+import { useRenderer } from '@/components/builder/context/renderer.context'
 
 type Props = {
   children: any
@@ -49,16 +50,24 @@ type Props = {
 } & WithRendererProps
 
 function ElementMenu({ children, onOpenChange, builderHook, element }: Props) {
-  const {  } =
-    builderHook
+  const {} = builderHook
+  const { addElements } = useRenderer()
   const isRootElement = !element.parent_element_id
 
   const addElement = (type: StaticElement) => {
-    
+    addElements([
+      getStaticElement({
+        type,
+        parent_id: null,
+      }),
+    ])
   }
 
   const updateChakraStyle = (style: ResponsiveChakraProps) => {
-    
+    // updateElementChakraStyleData({
+    //   element_id: element.element_data.element_id,
+    //   newChakraStyle: style,
+    // })
   }
 
   return (

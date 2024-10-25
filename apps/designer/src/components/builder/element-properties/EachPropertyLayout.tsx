@@ -28,12 +28,9 @@ export default function EachPropertyLayout({
   return (
     <>
       <div
-        className={cn(
-          'flex items-center justify-between min-h-10 max-h-10-',
-          {
-            'flex-col gap-default_spacing_lg': layout === 'column',
-          },
-        )}
+        className={cn('flex items-center justify-between min-h-10 max-h-10-', {
+          'flex-col gap-default_spacing_lg': layout === 'column',
+        })}
       >
         {label && (
           <div

@@ -8,12 +8,14 @@ import { useBuilder } from '../../hooks/builder.hooks'
 import { useParams } from 'next/navigation'
 
 export default function BuilderPageOptions() {
-  const { page_slug } = useParams();
-  const { builderState: { pages } } = useBuilder();
+  const { page_slug } = useParams()
+  const {
+    builderState: { pages },
+  } = useBuilder()
   return (
     <>
       <BuilderLeftPanelContainer
-        onSearch={() => { }}
+        onSearch={() => {}}
         heading="Pages"
         actions={
           <div>
@@ -26,11 +28,19 @@ export default function BuilderPageOptions() {
         }
       >
         <div className={'p-default_spacing flex flex-col gap-default_spacing'}>
-          {
-            pages.map(page => {
-              return <EachPageSelection heading={page.name} route={page.route} isActive={page._id === page_slug || page_slug === 'home' && page.route == '/'} key={page.route} />
-            })
-          }
+          {pages.map((page) => {
+            return (
+              <EachPageSelection
+                heading={page.name}
+                route={page.route}
+                isActive={
+                  page._id === page_slug ||
+                  (page_slug === 'home' && page.route == '/')
+                }
+                key={page.route}
+              />
+            )
+          })}
         </div>
       </BuilderLeftPanelContainer>
     </>
@@ -60,12 +70,13 @@ const EachPageSelection = ({
       >
         <DefaultTooltip content={'Edit page'} side={'top'}>
           <button
-            className={
-              cn('absolute right-2 top-2 group-hover:opacity-100 text-accent-foreground hover:text-foreground', {
-                "opacity-100": isActive,
-                "opacity-0": !isActive,
-              })
-            }
+            className={cn(
+              'absolute right-2 top-2 group-hover:opacity-100 text-accent-foreground hover:text-foreground',
+              {
+                'opacity-100': isActive,
+                'opacity-0': !isActive,
+              },
+            )}
           >
             <TbPencil />
           </button>

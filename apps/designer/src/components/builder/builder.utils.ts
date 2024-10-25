@@ -8,9 +8,7 @@ import {
  * @param elements
  * @returns
  */
-export const compileAllDndElements = (
-  elements: ElementData[],
-): ElementData => {
+export const compileAllDndElements = (elements: ElementData[]): ElementData => {
   const elementMap: { [key: string]: ElementData } = {}
 
   elements.forEach((element) => {

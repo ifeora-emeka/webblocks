@@ -17,23 +17,18 @@ function BuilderOutlineOptions({ rendererState }: Props) {
   const compiledElement = compileAllDndElements(allElements)
   const [keyword, setKeyword] = useState('')
 
-  const filterElements = (
-    element: ElementData,
-    keyword: string,
-  ): boolean => {
+  const filterElements = (element: ElementData, keyword: string): boolean => {
     if (
       element.name.toLowerCase().includes(keyword.toLowerCase()) ||
       element.slug.toLowerCase().includes(keyword.toLowerCase()) ||
       (element.description &&
-        element.description
-          .toLowerCase()
-          .includes(keyword.toLowerCase()))
+        element.description.toLowerCase().includes(keyword.toLowerCase()))
     ) {
       return true
     }
 
     if (element.children_elements) {
-      return element.children_elements.some((child:ElementData) =>
+      return element.children_elements.some((child: ElementData) =>
         filterElements(child, keyword),
       )
     }

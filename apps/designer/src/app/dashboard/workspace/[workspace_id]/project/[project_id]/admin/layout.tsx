@@ -3,9 +3,9 @@ import React from 'react'
 import AdminNav from './components/AdminNav'
 
 export default function layout({ children }: any) {
-    return (
-        <>
-            <DashboardLayout leftNav={<AdminNav />}>{children}</DashboardLayout>
-        </>
-    )
+  return (
+    <>
+      <DashboardLayout leftNav={<AdminNav />}>{children}</DashboardLayout>
+    </>
+  )
 }

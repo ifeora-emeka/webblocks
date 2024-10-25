@@ -8,7 +8,7 @@ type HTMLAttributeProps =
   | keyof React.ImgHTMLAttributes<HTMLImageElement>
 
 const useElementAttribute = (property: HTMLAttributeProps) => {
-  const {  } = useBuilderUtils()
+  const {} = useBuilderUtils()
   const { active_element, allElements } = useSelector(
     (state: AppStore) => state.renderer,
   )
@@ -16,8 +16,7 @@ const useElementAttribute = (property: HTMLAttributeProps) => {
   const activeElement = allElements.find(
     (el) => el.id === active_element[0]?.id,
   )
-  const elementAttributes =
-    activeElement && activeElement.attributes
+  const elementAttributes = activeElement && activeElement.attributes
 
   const [propertyValue, setPropertyValue] = useState<string>(
     //@ts-ignore

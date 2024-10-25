@@ -11,8 +11,7 @@ type Props = {} & WithRendererProps
 function BuilderKeyMapper({ builderHook, rendererState }: Props) {
   const dispatch = useDispatch()
 
-  const {
-  } = builderHook
+  const {} = builderHook
   const { active_element } = rendererState
 
   const initializeHotkeys = () => {

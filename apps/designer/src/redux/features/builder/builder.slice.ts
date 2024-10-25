@@ -6,13 +6,13 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 export interface BuilderState {
   project: ProjectData | null
   metadata: PageMetadata | null
-  pages: PagesData[];
+  pages: PagesData[]
 }
 
 const initialState: BuilderState = {
   project: null,
   metadata: null,
-  pages: []
+  pages: [],
 }
 
 export const builderSlice = createSlice({

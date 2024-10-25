@@ -23,7 +23,9 @@ const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
     /^(area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr)$/i.test(
       tag,
     )
-  const { state: { allElements, active_element, activeBreakpoint } } = useRenderer();
+  const {
+    state: { allElements, active_element, activeBreakpoint },
+  } = useRenderer()
 
   const { html_tag, chakraProps, attributes, style } = element
   const dispatch = useDispatch()
@@ -45,9 +47,7 @@ const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
     })
   }
 
-  const isActive = active_element
-    .map((el) => el.id)
-    .includes(element.id)
+  const isActive = active_element.map((el) => el.id).includes(element.id)
 
   let theParent =
     allElements.find((el) => el.id === element.parent_element_id) || null
@@ -72,11 +72,7 @@ const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
       //   element: element,
       // })
     } else {
-      if (
-        active_element.length > 0 &&
-        element.id !==
-          active_element[0]?.id
-      ) {
+      if (active_element.length > 0 && element.id !== active_element[0]?.id) {
         dispatch(
           setRendererState({
             active_element: [element],

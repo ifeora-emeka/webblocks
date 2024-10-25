@@ -163,7 +163,7 @@ function BuilderHeader({}: Props) {
             tooltip={'Preview'}
             onClick={() => {}}
           />
-          
+
           <Separator className={'h-full w-3'} orientation={'vertical'} />
           <Button size={'sm'}>
             Publish <TbRocket size={17} className={'ml-2'} />

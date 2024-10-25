@@ -5,9 +5,7 @@ import { store } from '@/redux/store'
 import { staticFrameChakraStyle } from '@/components/builder/renderer/element-render/static-element-data/static-chakra-style'
 import { generateStaticBreakpoints } from '@/lib/designer.utils'
 
-export const staticImageElement = (
-  data: StaticElementParams,
-): ElementData => {
+export const staticImageElement = (data: StaticElementParams): ElementData => {
   let id = generateRandomId(14) + '-img'
 
   return {
@@ -15,19 +13,19 @@ export const staticImageElement = (
     children_elements: [],
     index: data.index,
     parent_element_id: data.parent_id,
-      attributes: {
-        // width: '100%',
-        src: 'https://picsum.photos/200/300',
-      },
-      html_tag: 'img',
-      chakraProps: {
-        width: generateStaticBreakpoints('300px'),
-        height: generateStaticBreakpoints('300px'),
-      },
-      style: {},
-      name: 'Image',
-      slug: 'image',
-      description: 'default image element',
-      can_delete: true,
+    attributes: {
+      // width: '100%',
+      src: 'https://picsum.photos/200/300',
+    },
+    html_tag: 'img',
+    chakraProps: {
+      width: generateStaticBreakpoints('300px'),
+      height: generateStaticBreakpoints('300px'),
+    },
+    style: {},
+    name: 'Image',
+    slug: 'image',
+    description: 'default image element',
+    can_delete: true,
   }
 }

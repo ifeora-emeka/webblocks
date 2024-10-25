@@ -1,5 +1,5 @@
 export type StaticElementParams = {
-  index: number
+  // index: number
   parent_id: string | null
 }
 

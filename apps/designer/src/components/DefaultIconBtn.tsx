@@ -26,7 +26,7 @@ const DefaultIconBtn = ({
         className={cn(
           'text-muted-foreground',
           {
-            "text-accent-foreground bg-accent": isActive
+            'text-accent-foreground bg-accent': isActive,
           },
           className,
         )}

@@ -25,8 +25,8 @@ import { useTheme } from 'next-themes'
 
 export default function BuilderLeftMenu() {
   const dispatch = useDispatch()
-  const { panel } = useSelector((state: RootState) => state.builder_view);
-  const { setTheme, theme } = useTheme();
+  const { panel } = useSelector((state: RootState) => state.builder_view)
+  const { setTheme, theme } = useTheme()
 
   return (
     <>
@@ -77,7 +77,7 @@ export default function BuilderLeftMenu() {
             side={'right'}
             isActive={panel === 'variables'}
           />
-          
+
           <Separator />
           <DefaultIconBtn
             Icon={TbFolder}

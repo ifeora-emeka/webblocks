@@ -6,37 +6,30 @@ import { staticImageElement } from './image-element'
 
 export function getStaticElement({
   type,
-  index,
   parent_id,
 }: {
   type: string
-  index: number
-  parent_id: string
+  parent_id: string | null
 }): ElementData {
   switch (type) {
     case 'heading':
       return staticHeadingElement({
-        index,
         parent_id,
       })
     case 'frame':
       return staticFrameElement({
-        index,
         parent_id,
       })
     case 'paragraph':
       return staticParagraphElement({
-        index,
         parent_id,
       })
     case 'image':
       return staticImageElement({
-        index,
         parent_id,
       })
     default:
       return staticFrameElement({
-        index,
         parent_id,
       })
   }

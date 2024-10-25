@@ -12,7 +12,6 @@ import {
 import {
   RendererState,
   setRendererState,
-
 } from '@/redux/features/renderer/renderer.slice'
 import { ChakraProps } from '@chakra-ui/react'
 
@@ -22,7 +21,6 @@ export const useBuilderUtils = () => {
   const updateRenderer = (newState: Partial<RendererState>) => {
     dispatch(setRendererState(newState))
   }
-
 
   const selectOneElementData = ({ element }: { element: ElementData }) => {
     dispatch(
@@ -44,7 +42,6 @@ export const useBuilderUtils = () => {
         return '100%'
     }
   }
-
 
   return {
     updateRenderer,

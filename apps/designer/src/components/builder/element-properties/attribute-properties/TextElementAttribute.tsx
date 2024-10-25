@@ -12,7 +12,7 @@ export default function TextElementAttribute({}: Props) {
   const { active_element } = useSelector((state: AppStore) => state.renderer)
   const text_content = active_element[0]?.text_content
   const [textContent, setTextContent] = useState(text_content)
-  const {  } = useBuilderUtils()
+  const {} = useBuilderUtils()
 
   useEffect(() => {
     setTextContent(text_content)
@@ -28,7 +28,6 @@ export default function TextElementAttribute({}: Props) {
 
   const handleSave = () => {
     if (textContent && active_element[0] && active_element.length === 1) {
-
     }
   }
 

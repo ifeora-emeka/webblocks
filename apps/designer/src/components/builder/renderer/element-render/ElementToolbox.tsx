@@ -15,23 +15,15 @@ import { AppStore } from '@/redux/store'
 import ElementMenu from '@/components/builder/renderer/element-render/ElementMenu'
 import { useBuilderUtils } from '../../hooks/builder-utils.hooks'
 
-export default function ElementToolbar({
-  element,
-}: {
-  element: ElementData
-}) {
-  const {  } = useBuilderUtils()
+export default function ElementToolbar({ element }: { element: ElementData }) {
+  const {} = useBuilderUtils()
   let parentID = element.parent_element_id
   const { active_element } = useSelector((state: AppStore) => state.renderer)
   const isRootElement = !element?.parent_element_id
 
-  const move = (direction: 'up' | 'down') => {
-   
-  }
+  const move = (direction: 'up' | 'down') => {}
 
-  const remove = () => {
-    
-  }
+  const remove = () => {}
 
   if (active_element?.length > 1) {
     return null
