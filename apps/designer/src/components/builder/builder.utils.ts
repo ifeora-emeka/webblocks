@@ -21,7 +21,11 @@ export const compileAllDndElements = (elements: ElementData[]): ElementData => {
     if (element.parent_element_id) {
       if (elementMap[element.parent_element_id]) {
         elementMap[element.parent_element_id].children_elements?.push(
-          elementMap[element.id] as any,
+          elementMap[element.id] as ElementData
+        )
+
+        elementMap[element.parent_element_id]?.children_elements?.sort(
+          (a, b) => a.index - b.index
         )
       }
     } else {
@@ -32,6 +36,8 @@ export const compileAllDndElements = (elements: ElementData[]): ElementData => {
   if (!rootElement) {
     throw new Error('No root element found')
   }
+
+  console.log('COMPILED :::::::::::', rootElement)
 
   return rootElement
 }

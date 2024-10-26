@@ -1,4 +1,4 @@
-import { ElementData } from '@repo/designer/types/designer.types'
+import { ElementData, ElementType } from '@repo/designer/types/designer.types'
 import { StaticElementParams } from './static-element.types'
 import { generateRandomId } from '@/lib/utils'
 import { store } from '@/redux/store'
@@ -16,7 +16,7 @@ export const staticParagraphElement = (
   return {
     id,
     children_elements: [],
-    index: data.index,
+    index: 0,
     parent_element_id: data.parent_id,
     attributes: {},
     html_tag: 'p',
@@ -32,5 +32,6 @@ export const staticParagraphElement = (
     slug: 'paragraph',
     description: '',
     can_delete: true,
+    element_type: ElementType.DEFAULT
   }
 }

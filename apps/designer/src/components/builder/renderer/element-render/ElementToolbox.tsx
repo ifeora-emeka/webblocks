@@ -17,11 +17,9 @@ import { useBuilderUtils } from '../../hooks/builder-utils.hooks'
 import { useRenderer } from '@/components/builder/context/renderer.context'
 
 export default function ElementToolbar({ element }: { element: ElementData }) {
-  const { state: { active_element }, removeElements } = useRenderer();
+  const { state: { active_element }, removeElements, updateElementIndex, duplicateSelected } = useRenderer();
   let parentID = element.parent_element_id
   const isRootElement = !element?.parent_element_id
-
-  const move = (direction: 'up' | 'down') => {}
 
   if (active_element?.length > 1) {
     return null
@@ -52,13 +50,13 @@ export default function ElementToolbar({ element }: { element: ElementData }) {
             <div className={'flex items-center gap-default_spacing'}>
               <button
                 className="hover:text-foreground"
-                onClick={() => move('down')}
+                onClick={() => updateElementIndex('increment')}
               >
                 <TbArrowDown className="h-4 w-4" />
               </button>
               <button
                 className="hover:text-foreground"
-                onClick={() => move('up')}
+                onClick={() => updateElementIndex('decrement')}
               >
                 <TbArrowUp className="h-4 w-4" />
               </button>
@@ -68,7 +66,7 @@ export default function ElementToolbar({ element }: { element: ElementData }) {
 
         <div className={'flex items-center gap-default_spacing'}>
           {!isRootElement && (
-            <button className="hover:text-foreground">
+            <button className="hover:text-foreground" onClick={duplicateSelected}>
               <TbCopy className="h-4 w-4" />
             </button>
           )}

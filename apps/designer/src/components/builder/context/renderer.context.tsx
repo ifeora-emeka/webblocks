@@ -6,6 +6,8 @@ import {
 import { defaultRootElement } from '@/components/builder/renderer/element-render/static-element-data/default-body'
 import { ChakraProps } from '@chakra-ui/react'
 import { isVoidElement } from '@repo/designer/constants'
+import { all } from 'axios'
+import { generateRandomId } from '@/lib/utils'
 
 interface RendererState {
   allElements: ElementData[]
@@ -44,6 +46,8 @@ const RendererContext = createContext<{
   addElements: (element: ElementData[]) => void
   selectMultipleElements: (id: string) => void;
   removeElements: (ids:string[]) => void;
+  updateElementIndex: (mode: "increment" | "decrement") => void;
+  duplicateSelected: () => void;
 } | null>(null)
 
 export const RendererProvider: React.FC<{ children: React.ReactNode }> = ({
@@ -148,10 +152,77 @@ export const RendererProvider: React.FC<{ children: React.ReactNode }> = ({
     })
   }
 
-  const updateElementIndex = ({}: {
-    element_id: string
-    mode: 'increment' | 'decrement'
-  }) => {}
+  const updateElementIndex = (mode: 'increment' | 'decrement') => {
+    const { activeElements, allElements: allEl } = getNeeded();
+    const allElements = [...allEl];
+    const theElement = activeElements.length === 1 ? allElements.find(el => el.id === activeElements[0].id) : null;
+
+    if (theElement) {
+      const parentChildren = allElements
+        .filter(el => el.parent_element_id === theElement.parent_element_id)
+        .sort((a, b) => a.index - b.index);
+
+      const elementIndex = parentChildren.findIndex(el => el.id === theElement.id);
+
+      if (mode === 'increment' && elementIndex < parentChildren.length - 1) {
+        [parentChildren[elementIndex].index, parentChildren[elementIndex + 1].index] = [
+          parentChildren[elementIndex + 1].index,
+          parentChildren[elementIndex].index,
+        ];
+      } else if (mode === 'decrement' && elementIndex > 0) {
+        [parentChildren[elementIndex].index, parentChildren[elementIndex - 1].index] = [
+          parentChildren[elementIndex - 1].index,
+          parentChildren[elementIndex].index,
+        ];
+      }
+
+      setRendererState({
+        allElements: allElements.map(el => {
+          const updatedChild = parentChildren.find(child => child.id === el.id);
+          return updatedChild ? { ...el, index: updatedChild.index } : el;
+        }),
+      });
+    }
+  };
+
+
+  const duplicateSelected = () => {
+    const { allElements, activeElements } = getNeeded();
+
+    if (!activeElements[0]) return;
+
+    const selectedElement = activeElements[0];
+    const newElements: ElementData[] = [];
+
+    const duplicateElementWithChildren = (element: ElementData, newParentID: string | null): ElementData => {
+      const newElementID = generateRandomId(12);
+
+      const duplicatedElement = {
+        ...element,
+        id: newElementID,
+        parent_element_id: newParentID,
+        children_elements: [],
+      };
+
+      const children = allElements.filter(el => el.parent_element_id === element.id);
+      children.forEach(child => {
+        const duplicatedChild = duplicateElementWithChildren(child, newElementID);
+        //@ts-ignore
+        duplicatedElement.children_elements?.push(duplicatedChild)
+      });
+
+      newElements.push(duplicatedElement);
+      return duplicatedElement;
+    };
+
+    duplicateElementWithChildren(selectedElement, selectedElement.parent_element_id);
+
+    setRendererState({
+      allElements: [...allElements, ...newElements],
+      active_element: [newElements[0]],
+    });
+  };
+
 
   const updateElementChakraProps = ({}: {
     element_id: string
@@ -163,7 +234,7 @@ export const RendererProvider: React.FC<{ children: React.ReactNode }> = ({
   const cutElement = (element_id: string) => {}
 
   return (
-    <RendererContext.Provider value={{ state, setRendererState, addElements, selectMultipleElements, removeElements }}>
+    <RendererContext.Provider value={{ state, setRendererState, addElements, selectMultipleElements, removeElements, updateElementIndex, duplicateSelected }}>
       {children}
     </RendererContext.Provider>
   )

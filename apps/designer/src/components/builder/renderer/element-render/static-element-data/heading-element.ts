@@ -1,8 +1,7 @@
-import { ElementData } from '@repo/designer/types/designer.types'
+import { ElementData, ElementType } from '@repo/designer/types/designer.types'
 import { StaticElementParams } from './static-element.types'
 import { generateRandomId } from '@/lib/utils'
 import { store } from '@/redux/store'
-import { staticFrameChakraStyle } from '@/components/builder/renderer/element-render/static-element-data/static-chakra-style'
 import { generateStaticBreakpoints } from '@/lib/designer.utils'
 
 export const staticHeadingElement = (
@@ -32,5 +31,6 @@ export const staticHeadingElement = (
     slug: 'heading',
     description: '',
     can_delete: true,
+    element_type: ElementType.DEFAULT
   }
 }

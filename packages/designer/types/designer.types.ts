@@ -17,6 +17,11 @@ export interface DesignerPageData {
   body: Partial<DesignerElementData>;
 }
 
+export enum ElementType {
+  DEFAULT = 'default',
+  COMPONENT_REF = 'component_ref'
+}
+
 // the main element type
 export interface ElementData {
   id: string;
@@ -24,6 +29,7 @@ export interface ElementData {
   name: string;
   slug: string;
   index: number;
+  element_type: ElementType;
 
   description?: string;
   html_tag: React.ElementType;
@@ -33,8 +39,9 @@ export interface ElementData {
   can_delete?: boolean;
   text_content?: string;
 
-  is_component?: boolean;
+  // is_component?: boolean;
   custom_props?: ComponentProps | null;
+  component_ref_id?: string;
 
   parent_element_id: string | null;
   children_elements?: ElementData[];

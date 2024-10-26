@@ -1,7 +1,9 @@
-import { ElementData } from '@repo/designer/types/designer.types'
+import { ElementData, ElementType } from '@repo/designer/types/designer.types'
 import { StaticElementParams } from './static-element.types'
 import { generateRandomId } from '@/lib/utils'
-import { staticFrameChakraStyle } from '@/components/builder/renderer/element-render/static-element-data/static-chakra-style'
+import {
+  staticFrameChakraStyle,
+} from '@/components/builder/renderer/element-render/static-element-data/static-chakra-style'
 import { generateStaticBreakpoints } from '@/lib/designer.utils'
 
 export const staticFrameElement = (data: StaticElementParams): ElementData => {
@@ -10,13 +12,13 @@ export const staticFrameElement = (data: StaticElementParams): ElementData => {
   return {
     id,
     children_elements: [],
-    index: data.index,
+    index: 0,
     parent_element_id: data.parent_id,
     attributes: {},
     html_tag: 'div',
     chakraProps: {
       ...staticFrameChakraStyle,
-      background: generateStaticBreakpoints('#ffff'),
+      background: generateStaticBreakpoints('#dae1ef'),
       display: generateStaticBreakpoints('flex'),
       padding: generateStaticBreakpoints('15px'),
       flexFlow: generateStaticBreakpoints('column'),
@@ -28,5 +30,6 @@ export const staticFrameElement = (data: StaticElementParams): ElementData => {
     slug: 'frame',
     description: '',
     can_delete: true,
+    element_type: ElementType.DEFAULT
   }
 }

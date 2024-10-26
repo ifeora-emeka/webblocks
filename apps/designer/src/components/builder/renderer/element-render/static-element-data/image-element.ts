@@ -1,4 +1,4 @@
-import { ElementData } from '@repo/designer/types/designer.types'
+import { ElementData, ElementType } from '@repo/designer/types/designer.types'
 import { StaticElementParams } from './static-element.types'
 import { generateRandomId } from '@/lib/utils'
 import { store } from '@/redux/store'
@@ -11,7 +11,7 @@ export const staticImageElement = (data: StaticElementParams): ElementData => {
   return {
     id,
     children_elements: [],
-    index: data.index,
+    index: 0,
     parent_element_id: data.parent_id,
     attributes: {
       // width: '100%',
@@ -27,5 +27,6 @@ export const staticImageElement = (data: StaticElementParams): ElementData => {
     slug: 'image',
     description: 'default image element',
     can_delete: true,
+    element_type: ElementType.DEFAULT
   }
 }

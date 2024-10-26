@@ -9,6 +9,7 @@ import withRenderer, {
   WithRendererProps,
 } from '@/components/builder/HOCs/WithRenderer'
 import ElementMenu from '@/components/builder/renderer/element-render/ElementMenu'
+import { useRenderer } from '@/components/builder/context/renderer.context'
 
 type Props = {
   element: ElementData
@@ -16,9 +17,9 @@ type Props = {
 } & WithRendererProps
 
 //https://dribbble.com/shots/18864162-Updated-Nav-Icons
-function EachOutline({ children, element, rendererState, builderHook }: Props) {
+function EachOutline({ children, element, builderHook }: Props) {
   const { updateRenderer } = builderHook
-  const { active_element } = rendererState
+  const { state: {allElements, active_element} } = useRenderer()
   const [menuOpen, setMenuOpen] = useState(false)
   const element_data = element
 
