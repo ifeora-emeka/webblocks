@@ -22,7 +22,9 @@ const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
   //     tag,
   //   )
   const {
-    state: { allElements, active_element, activeBreakpoint }, selectMultipleElements, setRendererState
+    state: { allElements, active_element, activeBreakpoint },
+    selectMultipleElements,
+    setRendererState,
   } = useRenderer()
 
   const { html_tag, chakraProps, attributes, style } = element
@@ -69,13 +71,12 @@ const ElementRenderer: React.FC<DesignerElementProps> = ({ element }) => {
       selectMultipleElements(element.id)
     } else {
       if (active_element.length > 0 && element.id !== active_element[0]?.id) {
-          setRendererState({
-            active_element: [element],
-          })
+        setRendererState({
+          active_element: [element],
+        })
       }
     }
   }
-
 
   const debouncedHandleInput = useCallback(debounce(handleInput, 700), [
     element,

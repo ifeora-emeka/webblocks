@@ -27,6 +27,6 @@ export const staticImageElement = (data: StaticElementParams): ElementData => {
     slug: 'image',
     description: 'default image element',
     can_delete: true,
-    element_type: ElementType.DEFAULT
+    element_type: ElementType.DEFAULT,
   }
 }

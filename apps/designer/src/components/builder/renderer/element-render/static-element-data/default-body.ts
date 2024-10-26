@@ -1,9 +1,7 @@
 import { generateStaticBreakpoints } from '@/lib/designer.utils'
 import { StaticElementParams } from './static-element.types'
 import { ElementData, ElementType } from '@repo/designer/types/designer.types'
-import {
-  staticFrameChakraStyle,
-} from '@/components/builder/renderer/element-render/static-element-data/static-chakra-style'
+import { staticFrameChakraStyle } from '@/components/builder/renderer/element-render/static-element-data/static-chakra-style'
 import { DEFAULT_FRAME_COLOR } from '@/components/builder/builder.constants'
 
 //todo: move this to DB and delete it
@@ -31,6 +29,6 @@ export const defaultRootElement = (data: StaticElementParams): ElementData => {
     slug: 'root-element',
     description: '',
     can_delete: false,
-    element_type: ElementType.DEFAULT
+    element_type: ElementType.DEFAULT,
   }
 }

@@ -32,7 +32,9 @@ type Props = {}
 
 function BuilderHeader({}: Props) {
   const { project } = useSelector((state: AppStore) => state.builder)
-  const { state: {activeBreakpoint} } = useRenderer()
+  const {
+    state: { activeBreakpoint },
+  } = useRenderer()
   const { updateRenderer } = useBuilderUtils()
 
   const clearAllTheShit = () => {

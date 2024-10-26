@@ -9,9 +9,12 @@ import JustifyContentProperty from './JustifyContentProperty'
 import LayoutAlignmentProperty from './LayoutAlignmentProperty'
 import { useSelector } from 'react-redux'
 import { AppStore } from '@/redux/store'
+import { useRenderer } from '@/components/builder/context/renderer.context'
 
 export default function LayoutProperty() {
-  const { active_element } = useSelector((state: AppStore) => state.renderer)
+  const {
+    state: { active_element },
+  } = useRenderer()
 
   if (active_element && active_element[0]?.text_content) {
     return null

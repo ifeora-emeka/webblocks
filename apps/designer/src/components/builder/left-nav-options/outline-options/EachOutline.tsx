@@ -1,5 +1,5 @@
 import { cn } from '@/lib/utils'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { PiRowsFill } from 'react-icons/pi'
 import { TbCaretDownFilled, TbDots, TbCaretRightFilled } from 'react-icons/tb'
 import { ElementData } from '@repo/designer/types/designer.types'
@@ -18,8 +18,11 @@ type Props = {
 
 //https://dribbble.com/shots/18864162-Updated-Nav-Icons
 function EachOutline({ children, element, builderHook }: Props) {
-  const { updateRenderer } = builderHook
-  const { state: {allElements, active_element} } = useRenderer()
+  const { setRendererState } = useRenderer()
+  const inputRef = useRef(null)
+  const {
+    state: { allElements, active_element },
+  } = useRenderer()
   const [menuOpen, setMenuOpen] = useState(false)
   const element_data = element
 
@@ -45,7 +48,7 @@ function EachOutline({ children, element, builderHook }: Props) {
     if (e.shiftKey) {
       e.preventDefault()
     } else {
-      updateRenderer({
+      setRendererState({
         active_element: [element],
       })
     }
@@ -94,6 +97,7 @@ function EachOutline({ children, element, builderHook }: Props) {
         </div>
         {edit ? (
           <DebounceInput
+            ref={inputRef}
             minLength={2}
             debounceTimeout={600}
             onBlur={() => handleNameUpdate()}

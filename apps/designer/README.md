@@ -1,5 +1,3 @@
-
-
 # MortarStudio - Website Builder
 
 MortarStudio is a website builder that uses Chakra UI for element rendering. Each element has a unique identifier structure and a hierarchical organization based on parent-child relationships.
@@ -25,3 +23,18 @@ The renderer context manages the state for each page, including:
 
 The compiler function organizes the array of elements for a given page into a single, nested object. This object structure represents the hierarchical, parent-child relationships of each element, creating a cohesive layout.
 
+
+### Responsive Chakra Styling (props)
+
+
+
+
+### Rules
+1. We don't ever want to have elements in the allElements array
+2. We strictly follow the parent-child relationships when update elements, especially the element IDs and parent IDs
+3. Don't edit the activeElements directly, instead look for that elements in the allElements array and update the array with the updated elements.
+
+
+
+
+This is for context, don't do anything yet. 

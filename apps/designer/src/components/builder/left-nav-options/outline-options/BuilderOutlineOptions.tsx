@@ -11,9 +11,10 @@ import withRenderer, {
 } from '@/components/builder/HOCs/WithRenderer'
 import { useRenderer } from '@/components/builder/context/renderer.context'
 
-
 function BuilderOutlineOptions() {
-  const { state: {allElements}} = useRenderer();
+  const {
+    state: { allElements },
+  } = useRenderer()
   const compiledElement = compileAllDndElements(allElements)
   const [keyword, setKeyword] = useState('')
 

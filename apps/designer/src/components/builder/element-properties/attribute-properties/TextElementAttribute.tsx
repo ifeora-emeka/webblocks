@@ -10,7 +10,9 @@ import { useRenderer } from '@/components/builder/context/renderer.context'
 type Props = {}
 
 export default function TextElementAttribute({}: Props) {
-  const { state: {active_element}} = useRenderer();
+  const {
+    state: { active_element },
+  } = useRenderer()
   const text_content = active_element[0]?.text_content
   const [textContent, setTextContent] = useState(text_content)
   const {} = useBuilderUtils()

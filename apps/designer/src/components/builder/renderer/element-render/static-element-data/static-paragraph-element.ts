@@ -32,6 +32,6 @@ export const staticParagraphElement = (
     slug: 'paragraph',
     description: '',
     can_delete: true,
-    element_type: ElementType.DEFAULT
+    element_type: ElementType.DEFAULT,
   }
 }

@@ -31,6 +31,6 @@ export const staticHeadingElement = (
     slug: 'heading',
     description: '',
     can_delete: true,
-    element_type: ElementType.DEFAULT
+    element_type: ElementType.DEFAULT,
   }
 }

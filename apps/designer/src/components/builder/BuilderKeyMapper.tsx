@@ -5,25 +5,30 @@ import withRenderer, {
 import { getStaticElement } from '@/components/builder/renderer/element-render/static-element-data/static-element.utils'
 import { ElementData } from '@repo/designer/types/designer.types'
 import { useDispatch } from 'react-redux'
+import { useRenderer } from '@/components/builder/context/renderer.context'
 
-type Props = {} & WithRendererProps
-
-function BuilderKeyMapper({ builderHook, rendererState }: Props) {
-  const dispatch = useDispatch()
-
-  const {} = builderHook
-  const { active_element } = rendererState
+function BuilderKeyMapper() {
+  const {
+    state: { active_element },
+    addElements,
+    removeElements,
+    duplicateSelected,
+    updateElementIndex,
+    groupSelected,
+    copySelectedElements,
+    pasteCopiedElements,
+  } = useRenderer()
 
   const initializeHotkeys = () => {
     const handleKeyDown = (event: KeyboardEvent) => {
       const addElement = (type: string) => {
-        if (active_element && active_element.length === 1) {
-          const parent_id = active_element[0].id
+        if (active_element && active_element?.length === 1) {
+          const parent_id = active_element[0]?.id
           const newChild: ElementData = getStaticElement({
             type,
             parent_id,
-            index: 0,
           })
+          addElements([newChild])
           // appendChildToParentElement({ parent_id, newChild })
         }
       }
@@ -61,53 +66,45 @@ function BuilderKeyMapper({ builderHook, rendererState }: Props) {
 
       switch (event.key) {
         case 'Delete':
-          if (active_element.length > 0 && event.ctrlKey) {
+          if (active_element.length > 0 && event.altKey) {
             event.preventDefault()
-            // removeElementFromPage({
-            //   dnd_ids: active_element.map((el) => el.id),
-            // })
+            removeElements()
           }
           break
         case 'ArrowUp':
-          if (event.ctrlKey && active_element && active_element.length === 1) {
+          if (event.altKey && active_element && active_element.length === 1) {
             event.preventDefault()
-            // changeElementPosition({
-            //   element_id: active_element[0].id,
-            //   direction: 'up',
-            // })
+            updateElementIndex('decrement')
           }
           break
         case 'ArrowDown':
-          if (event.ctrlKey && active_element && active_element.length === 1) {
+          if (event.altKey && active_element && active_element.length === 1) {
             event.preventDefault()
-            // changeElementPosition({
-            //   element_id: active_element[0].id,
-            //   direction: 'down',
-            // })
+            updateElementIndex('decrement')
           }
           break
         case 'd':
-          if (event.ctrlKey && active_element && active_element.length === 1) {
+          if (event.altKey && active_element && active_element.length === 1) {
             event.preventDefault()
-            // duplicateElementData({ element_id: active_element[0].id })
+            duplicateSelected()
           }
           break
         case 'g':
-          if (event.ctrlKey && active_element.length > 1) {
+          if (event.altKey && active_element.length > 1) {
             event.preventDefault()
-            // groupSelectedElementData()
+            groupSelected()
           }
           break
         case 'c':
-          if (event.ctrlKey) {
+          if (event.altKey) {
             event.preventDefault()
-            // dispatch(copyElements())
+            copySelectedElements()
           }
           break
         case 'v':
-          if (event.ctrlKey) {
+          if (event.altKey) {
             event.preventDefault()
-            // dispatch(pasteElements())
+            pasteCopiedElements()
           }
           break
         default:

@@ -21,11 +21,11 @@ export const compileAllDndElements = (elements: ElementData[]): ElementData => {
     if (element.parent_element_id) {
       if (elementMap[element.parent_element_id]) {
         elementMap[element.parent_element_id].children_elements?.push(
-          elementMap[element.id] as ElementData
+          elementMap[element.id] as ElementData,
         )
 
         elementMap[element.parent_element_id]?.children_elements?.sort(
-          (a, b) => a.index - b.index
+          (a, b) => a.index - b.index,
         )
       }
     } else {
