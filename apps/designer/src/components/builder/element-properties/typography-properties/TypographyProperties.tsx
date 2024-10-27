@@ -5,14 +5,13 @@ import {
 } from '@/components/ui/accordion'
 import React from 'react'
 import FontSizeProperty from './FontSizeProperty'
-import { useSelector } from 'react-redux'
-import { AppStore } from '@/redux/store'
 import FontColorProperty from './FontColorProperty'
 import FontAlignmentProperty from './FontAlignmentProperty'
 import FontWeightProperty from '@/components/builder/element-properties/typography-properties/FontWeightProperty'
+import { useRenderer } from '../../context/renderer.context'
 
 export default function TypographyProperties() {
-  const { active_element } = useSelector((state: AppStore) => state.renderer)
+  const { state: { active_element } } = useRenderer()
 
   if (!active_element[0]?.text_content) {
     return null

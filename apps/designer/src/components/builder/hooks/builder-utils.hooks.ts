@@ -7,13 +7,12 @@ import { useDispatch } from 'react-redux'
 import {
   BuilderBreakpoints,
   ElementData,
-  ResponsiveChakraProps,
 } from '@repo/designer/types/designer.types'
 import {
   RendererState,
   setRendererState,
 } from '@/redux/features/renderer/renderer.slice'
-import { ChakraProps } from '@chakra-ui/react'
+
 
 export const useBuilderUtils = () => {
   const dispatch = useDispatch()

@@ -37,6 +37,7 @@ const RendererContext = createContext<{
   pasteCopiedElements: () => void
   cutElements: () => void
   updateElementChakraProps: (data: ChakraProps) => void
+  removeChakraProp: (propKey: string) => void
 } | null>(null)
 
 export const RendererProvider: React.FC<{ children: React.ReactNode }> = ({
@@ -45,7 +46,6 @@ export const RendererProvider: React.FC<{ children: React.ReactNode }> = ({
   const [state, setState] = useState(initialState)
 
   const setRendererState = (payload: Partial<RendererState>) => {
-    // dispatch({ type: 'SET_RENDERER_STATE', payload })
     setState(prevState => {
       return {
         ...prevState,
@@ -100,10 +100,6 @@ export const RendererProvider: React.FC<{ children: React.ReactNode }> = ({
           active_element: newElements,
         }
       })
-      // setRendererState({
-      //   allElements: [...allElements, ...newElements],
-      //   active_element: newElements,
-      // });
     }
   };
 
@@ -246,37 +242,58 @@ export const RendererProvider: React.FC<{ children: React.ReactNode }> = ({
       selectedElement.parent_element_id,
     )
 
-    setRendererState({
-      allElements: [...allElements, ...newElements],
-      active_element: [newElements[0]],
+    setState(prevState => {
+      return {
+        ...prevState,
+        allElements: [...allElements, ...newElements],
+        active_element: [newElements[0]],
+      }
     })
   }
 
   const updateElementChakraProps = (data: ChakraProps) => {
-    if (!data || Object.keys(data).length === 0) return
+    if (!data || Object.keys(data).length === 0) return;
 
-    const { active_element: activeElements, allElements } = state
+    const { active_element: activeElements, allElements, activeBreakpoint } = state;
 
-    const updatedElements = [...allElements].map((el) => {
+    const updatedElements = allElements.map((el) => {
       if (activeElements.some((activeEl) => activeEl.id === el.id)) {
         return {
           ...el,
-          chakraProps: merge({}, el.chakraProps, data),
-        }
+          chakraProps: {
+            ...el.chakraProps,
+            [activeBreakpoint]: merge({}, el.chakraProps?.[activeBreakpoint], data)
+          }
+        };
       }
-      return el
-    })
+      return el;
+    });
 
-    setState(prevState => {
-      return {
-        ...prevState,
-        allElements: updatedElements,
+    setState((prevState) => ({
+      ...prevState,
+      allElements: updatedElements,
+    }));
+  };
+
+  const removeChakraProp = (propKey: string) => {
+    const { active_element: activeElements, allElements } = state;
+
+    const updatedElements = allElements.map((el) => {
+      if (activeElements.some((activeEl) => activeEl.id === el.id)) {
+        const updatedChakraProps = { ...el.chakraProps };
+        delete updatedChakraProps[propKey];
+
+        return { ...el, chakraProps: updatedChakraProps };
       }
-    })
-    // setRendererState({
-    //   allElements: updatedElements,
-    // })
-  }
+      return el;
+    });
+
+    setState((prevState) => ({
+      ...prevState,
+      allElements: updatedElements,
+    }));
+  };
+
 
 
   const copySelectedElements = () => {
@@ -379,9 +396,12 @@ export const RendererProvider: React.FC<{ children: React.ReactNode }> = ({
       }
     })
 
-    setRendererState({
-      allElements: allEl,
-      active_element: [newFrame],
+    setState(prevState => {
+      return {
+        ...prevState,
+        allElements: allEl,
+        active_element: [newFrame],
+      }
     })
   }
 
@@ -400,6 +420,7 @@ export const RendererProvider: React.FC<{ children: React.ReactNode }> = ({
         pasteCopiedElements,
         cutElements,
         updateElementChakraProps,
+        removeChakraProp
       }}
     >
       {children}

@@ -37,11 +37,11 @@ export default function PropertiesPanel() {
                 defaultValue={[
                   'attributes',
                   'layout',
-                  // 'size',
-                  // 'style',
-                  // 'spacing',
-                  // 'typography',
-                  // 'position',
+                  'size',
+                  'style',
+                  'spacing',
+                  'typography',
+                  'position',
                 ]}
               >
                 <ElementAttributeProperties />

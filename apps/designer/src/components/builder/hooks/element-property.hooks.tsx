@@ -12,7 +12,7 @@ const useElementProperty = (property: keyof ChakraProps) => {
   const { getVariableByID, parseVariableRef } = useBuilderVariables()
   const {
     state: { active_element, activeBreakpoint, allElements },
-    updateElementChakraProps,
+    updateElementChakraProps, removeChakraProp
   } = useRenderer()
   const activeElement = allElements.find((el) => el.id === active_element[0].id)
   const chakraProps = activeElement && activeElement.chakraProps
@@ -64,6 +64,7 @@ const useElementProperty = (property: keyof ChakraProps) => {
       //   property,
       //   element_id: activeElement?.element_data.element_id,
       // })
+      removeChakraProp(property)
     }
   }
 
