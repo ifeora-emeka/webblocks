@@ -46,8 +46,6 @@ export const RendererProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const [state, setState] = useState(initialState);
 
-  console.log('THE STATE::::', state)
-
   const setRendererState = (payload: Partial<RendererState>) => {
     setState(prevState => {
       return {
@@ -255,35 +253,30 @@ export const RendererProvider: React.FC<{ children: React.ReactNode }> = ({
   }
 
   const updateElementChakraProps = (data: ResponsiveChakraProps) => {
-    const { active_element, allElements, activeBreakpoint } = state;
+    const { allElements, active_element } = state;
 
-    if (!active_element[0]) return;
+    if(!active_element[0]) return
 
-    const elements = [...allElements];
-    const activeElementIndex = elements.findIndex(
-      (el) => el.id === active_element[0].id
-    );
+    let elements = [...allElements];
+    let elementIndex = elements.findIndex((el) => el.id === active_element[0].id);
+    let theElement: ElementData = elements[elementIndex];
 
-    if (activeElementIndex === -1) return;
+    if (elementIndex === -1) return;
 
-    const theElement = elements[activeElementIndex];
-
-    elements[activeElementIndex] = {
+    elements[elementIndex] = {
       ...theElement,
-      chakraProps: {
-        ...theElement.chakraProps,
-        [activeBreakpoint]: {
-          ...theElement.chakraProps[activeBreakpoint],
-          ...data, 
-        },
-      },
-    };
+      chakraProps: merge(theElement.chakraProps, data),
+    }
 
-    setState((prevState) => ({
-      ...prevState,
-      allElements: elements,
-    }));
+    setState(prevState => {
+      return {
+        ...prevState,
+        allElements: elements,
+      }
+    })
+
   };
+
 
 
   const removeChakraProp = (propKey: string) => {
