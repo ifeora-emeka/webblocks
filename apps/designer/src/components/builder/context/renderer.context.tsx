@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useReducer } from 'react'
+import { createContext, useContext, useEffect, useReducer, useState } from 'react'
 import {
   BuilderBreakpoints,
   ElementData,
@@ -24,23 +24,6 @@ const initialState: RendererState = {
   activeBreakpoint: 'lg',
 }
 
-type RendererAction = {
-  type: 'SET_RENDERER_STATE'
-  payload: Partial<RendererState>
-}
-
-const rendererReducer = (state: RendererState, action: RendererAction) => {
-  switch (action.type) {
-    case 'SET_RENDERER_STATE':
-      return {
-        ...state,
-        ...action.payload,
-      }
-    default:
-      return state
-  }
-}
-
 const RendererContext = createContext<{
   state: RendererState
   setRendererState: (payload: Partial<RendererState>) => void
@@ -59,10 +42,16 @@ const RendererContext = createContext<{
 export const RendererProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [state, dispatch] = useReducer(rendererReducer, initialState)
+  const [state, setState] = useState(initialState)
 
   const setRendererState = (payload: Partial<RendererState>) => {
-    dispatch({ type: 'SET_RENDERER_STATE', payload })
+    // dispatch({ type: 'SET_RENDERER_STATE', payload })
+    setState(prevState => {
+      return {
+        ...prevState,
+        ...payload,
+      }
+    })
   }
 
   useEffect(() => {
@@ -87,7 +76,7 @@ export const RendererProvider: React.FC<{ children: React.ReactNode }> = ({
 
     let canCreate = true;
 
-    const activeElementChildren = allElements.filter(
+    const activeElementChildren = [...allElements].filter(
       (el) => el.parent_element_id === activeElements[0]?.id
     );
 
@@ -104,10 +93,17 @@ export const RendererProvider: React.FC<{ children: React.ReactNode }> = ({
     });
 
     if (canCreate) {
-      setRendererState({
-        allElements: [...allElements, ...newElements],
-        active_element: newElements,
-      });
+      setState(prevState => {
+        return {
+          ...prevState,
+          allElements: [...prevState.allElements, ...newElements],
+          active_element: newElements,
+        }
+      })
+      // setRendererState({
+      //   allElements: [...allElements, ...newElements],
+      //   active_element: newElements,
+      // });
     }
   };
 
@@ -193,14 +189,18 @@ export const RendererProvider: React.FC<{ children: React.ReactNode }> = ({
         ]
       }
 
-      setRendererState({
-        allElements: allElements.map((el) => {
-          const updatedChild = parentChildren.find(
-            (child) => child.id === el.id,
-          )
-          return updatedChild ? { ...el, index: updatedChild.index } : el
-        }),
+      setState(prevState => {
+        return {
+          ...prevState,
+          allElements: prevState.allElements.map((el) => {
+            const updatedChild = parentChildren.find(
+              (child) => child.id === el.id,
+            )
+            return updatedChild ? { ...el, index: updatedChild.index } : el
+          }),
+        }
       })
+
     }
   }
 
@@ -257,7 +257,7 @@ export const RendererProvider: React.FC<{ children: React.ReactNode }> = ({
 
     const { active_element: activeElements, allElements } = state
 
-    const updatedElements = allElements.map((el) => {
+    const updatedElements = [...allElements].map((el) => {
       if (activeElements.some((activeEl) => activeEl.id === el.id)) {
         return {
           ...el,
@@ -267,9 +267,15 @@ export const RendererProvider: React.FC<{ children: React.ReactNode }> = ({
       return el
     })
 
-    setRendererState({
-      allElements: updatedElements,
+    setState(prevState => {
+      return {
+        ...prevState,
+        allElements: updatedElements,
+      }
     })
+    // setRendererState({
+    //   allElements: updatedElements,
+    // })
   }
 
 
