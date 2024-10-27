@@ -4,18 +4,18 @@ import { cn } from '@/lib/utils'
 import { TbPencil, TbPlus, TbSettings2 } from 'react-icons/tb'
 import DefaultTooltip from '@/components/DefaultTooltip'
 import { Button } from '@/components/ui/button'
-import { useBuilder } from '../../hooks/builder.hooks'
 import { useParams } from 'next/navigation'
+import { useBuilder } from '../../context/builder.context'
 
 export default function BuilderPageOptions() {
   const { page_slug } = useParams()
   const {
-    builderState: { pages },
+    state: { pages }
   } = useBuilder()
   return (
     <>
       <BuilderLeftPanelContainer
-        onSearch={() => {}}
+        onSearch={() => { }}
         heading="Pages"
         actions={
           <div>

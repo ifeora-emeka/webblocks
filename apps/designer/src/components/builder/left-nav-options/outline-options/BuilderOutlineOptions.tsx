@@ -6,9 +6,6 @@ import { useSelector } from 'react-redux'
 import { AppStore } from '@/redux/store'
 import { compileAllDndElements } from '../../builder.utils'
 import { ElementData } from '@repo/designer/types/designer.types'
-import withRenderer, {
-  WithRendererProps,
-} from '@/components/builder/HOCs/WithRenderer'
 import { useRenderer } from '@/components/builder/context/renderer.context'
 
 function BuilderOutlineOptions() {
@@ -85,4 +82,4 @@ function BuilderOutlineOptions() {
   )
 }
 
-export default withRenderer(BuilderOutlineOptions)
+export default BuilderOutlineOptions;

@@ -4,6 +4,7 @@
 import { ChakraProvider } from '@chakra-ui/react'
 import { BuilderVariablesProvider } from '@/components/builder/context/builder-variables.context'
 import { RendererProvider } from '@/components/builder/context/renderer.context'
+import { BuilderProvider } from '@/components/builder/context/builder.context'
 // import { ProjectData } from '@/types/projects.types'
 // import { useDispatch } from 'react-redux'
 // import { setBuilderState } from '@/redux/features/builder/builder.slice'
@@ -32,9 +33,11 @@ export function DesignerProvider({
   // )
   return (
     <ChakraProvider disableGlobalStyle>
-      <RendererProvider>
-        <BuilderVariablesProvider>{children}</BuilderVariablesProvider>
-      </RendererProvider>
+      <BuilderProvider>
+        <RendererProvider>
+          <BuilderVariablesProvider>{children}</BuilderVariablesProvider>
+        </RendererProvider>
+      </BuilderProvider>
     </ChakraProvider>
   )
 }

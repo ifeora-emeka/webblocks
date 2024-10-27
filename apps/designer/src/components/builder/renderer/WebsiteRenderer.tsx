@@ -5,7 +5,7 @@ import ElementRenderer from '@/components/builder/renderer/element-render/Elemen
 import { compileAllDndElements } from '@/components/builder/builder.utils'
 import { BUILDER_NAV_SIZE } from '@/components/builder/builder.constants'
 import { useRenderer } from '@/components/builder/context/renderer.context'
-import { useBuilderUtils } from '@/components/builder/hooks/builder-utils.hooks'
+import { useBuilder } from '../context/builder.context'
 
 type Props = {}
 
@@ -13,7 +13,7 @@ const GPTElementRenderer = ({}: Props) => {
   const {
     state: { allElements, activeBreakpoint },
   } = useRenderer()
-  const { getViewportWidth } = useBuilderUtils()
+  const { getViewportWidth } = useBuilder()
 
   return (
     <>

@@ -7,7 +7,6 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { ChakraProps } from '@chakra-ui/react'
-import { useBuilderUtils } from '../hooks/builder-utils.hooks'
 import { useRenderer } from '../context/renderer.context'
 
 interface AddElementMenuType {
@@ -22,7 +21,6 @@ type Props = {
 }
 
 export default function AddElementProperty({ options, label }: Props) {
-  const {} = useBuilderUtils()
   const { state: { active_element, allElements } } = useRenderer()
 
   const activeElement = allElements.find((el) => el.id === active_element[0].id)
@@ -59,7 +57,9 @@ export default function AddElementProperty({ options, label }: Props) {
               return (
                 <DropdownMenuItem
                   key={`add-option-${index}`}
-                  onClick={() => {}}
+                  onClick={() => {
+                    console.log('THE OPTION:::', option)  
+                  }}
                 >
                   {option.label}
                 </DropdownMenuItem>

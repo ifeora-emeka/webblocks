@@ -30,16 +30,12 @@ import {
   TbTrash,
 } from 'react-icons/tb'
 import React from 'react'
-import withRenderer, {
-  WithRendererProps,
-} from '@/components/builder/HOCs/WithRenderer'
 import {
   ElementData,
   ResponsiveChakraProps,
 } from '@repo/designer/types/designer.types'
 import { StaticElement } from '@/components/builder/renderer/element-render/static-element-data/static-element.types'
 import { getStaticElement } from '@/components/builder/renderer/element-render/static-element-data/static-element.utils'
-import { ChakraProps } from '@chakra-ui/react'
 import { generateStaticBreakpoints } from '@/lib/designer.utils'
 import { useRenderer } from '@/components/builder/context/renderer.context'
 
@@ -47,11 +43,10 @@ type Props = {
   children: any
   onOpenChange: (e: boolean) => void
   element: ElementData
-} & WithRendererProps
+} 
 
-function ElementMenu({ children, onOpenChange, builderHook, element }: Props) {
-  const {} = builderHook
-  const { addElements } = useRenderer()
+function ElementMenu({ children, onOpenChange, element }: Props) {
+  const { addElements, updateElementChakraProps } = useRenderer()
   const isRootElement = !element.parent_element_id
 
   const addElement = (type: StaticElement) => {
@@ -64,10 +59,7 @@ function ElementMenu({ children, onOpenChange, builderHook, element }: Props) {
   }
 
   const updateChakraStyle = (style: ResponsiveChakraProps) => {
-    // updateElementChakraStyleData({
-    //   element_id: element.element_data.element_id,
-    //   newChakraStyle: style,
-    // })
+    updateElementChakraProps(style)
   }
 
   return (
@@ -188,4 +180,4 @@ function ElementMenu({ children, onOpenChange, builderHook, element }: Props) {
   )
 }
 
-export default withRenderer(ElementMenu)
+export default ElementMenu

@@ -25,7 +25,6 @@ import {
 import Image from 'next/image'
 import { useSelector } from 'react-redux'
 import { AppStore } from '@/redux/store'
-import { useBuilderUtils } from '../../hooks/builder-utils.hooks'
 import { useRenderer } from '@/components/builder/context/renderer.context'
 
 type Props = {}
@@ -35,7 +34,7 @@ function BuilderHeader({}: Props) {
   const {
     state: { activeBreakpoint },
   } = useRenderer()
-  const { updateRenderer } = useBuilderUtils()
+  const { setRendererState } = useRenderer()
 
   const clearAllTheShit = () => {
     sessionStorage.clear()
@@ -124,7 +123,7 @@ function BuilderHeader({}: Props) {
                 checked={activeBreakpoint === 'lg'}
                 className="flex gap-default_spacing"
                 onCheckedChange={() =>
-                  updateRenderer({
+                  setRendererState({
                     activeBreakpoint: 'lg',
                   })
                 }
@@ -135,7 +134,7 @@ function BuilderHeader({}: Props) {
                 checked={activeBreakpoint === 'md'}
                 className="flex gap-default_spacing"
                 onCheckedChange={() =>
-                  updateRenderer({
+                  setRendererState({
                     activeBreakpoint: 'md',
                   })
                 }
@@ -146,7 +145,7 @@ function BuilderHeader({}: Props) {
                 checked={activeBreakpoint === 'base'}
                 className="flex gap-default_spacing"
                 onCheckedChange={() =>
-                  updateRenderer({
+                  setRendererState({
                     activeBreakpoint: 'base',
                   })
                 }

@@ -4,20 +4,16 @@ import { PiRowsFill } from 'react-icons/pi'
 import { TbCaretDownFilled, TbDots, TbCaretRightFilled } from 'react-icons/tb'
 import { ElementData } from '@repo/designer/types/designer.types'
 import { DebounceInput } from 'react-debounce-input'
-import slugify from 'slugify'
-import withRenderer, {
-  WithRendererProps,
-} from '@/components/builder/HOCs/WithRenderer'
 import ElementMenu from '@/components/builder/renderer/element-render/ElementMenu'
 import { useRenderer } from '@/components/builder/context/renderer.context'
 
 type Props = {
   element: ElementData
   children?: any
-} & WithRendererProps
+}
 
 //https://dribbble.com/shots/18864162-Updated-Nav-Icons
-function EachOutline({ children, element, builderHook }: Props) {
+function EachOutline({ children, element }: Props) {
   const { setRendererState } = useRenderer()
   const inputRef = useRef(null)
   const {
@@ -129,4 +125,4 @@ function EachOutline({ children, element, builderHook }: Props) {
   )
 }
 
-export default withRenderer(EachOutline)
+export default EachOutline

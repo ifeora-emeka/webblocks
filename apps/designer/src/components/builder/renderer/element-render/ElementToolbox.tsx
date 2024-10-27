@@ -10,10 +10,7 @@ import {
 } from 'react-icons/tb'
 import React from 'react'
 import { ElementData } from '@repo/designer/types/designer.types'
-import { useSelector } from 'react-redux'
-import { AppStore } from '@/redux/store'
 import ElementMenu from '@/components/builder/renderer/element-render/ElementMenu'
-import { useBuilderUtils } from '../../hooks/builder-utils.hooks'
 import { useRenderer } from '@/components/builder/context/renderer.context'
 
 export default function ElementToolbar({ element }: { element: ElementData }) {

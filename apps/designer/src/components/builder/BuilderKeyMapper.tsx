@@ -1,7 +1,4 @@
 import { useEffect } from 'react'
-import withRenderer, {
-  WithRendererProps,
-} from '@/components/builder/HOCs/WithRenderer'
 import { getStaticElement } from '@/components/builder/renderer/element-render/static-element-data/static-element.utils'
 import { ElementData } from '@repo/designer/types/designer.types'
 import { useDispatch } from 'react-redux'
@@ -130,4 +127,4 @@ function BuilderKeyMapper() {
   return <></>
 }
 
-export default withRenderer(BuilderKeyMapper)
+export default BuilderKeyMapper
