@@ -18,8 +18,8 @@ export interface DesignerPageData {
 }
 
 export enum ElementType {
-  DEFAULT = 'default',
-  COMPONENT_REF = 'component_ref'
+  DEFAULT = "default",
+  COMPONENT_REF = "component_ref",
 }
 
 // the main element type

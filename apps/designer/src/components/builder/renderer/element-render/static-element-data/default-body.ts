@@ -22,7 +22,7 @@ export const defaultRootElement = (data: StaticElementParams): ElementData => {
       bgPosition: generateStaticBreakpoints('center'),
       bgSize: generateStaticBreakpoints('cover'),
       display: generateStaticBreakpoints('flex'),
-      flexFlow: generateStaticBreakpoints('row'),
+      flexFlow: generateStaticBreakpoints('column'),
     },
     style: {},
     name: '_root_',

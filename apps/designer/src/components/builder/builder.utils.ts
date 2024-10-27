@@ -37,8 +37,6 @@ export const compileAllDndElements = (elements: ElementData[]): ElementData => {
     throw new Error('No root element found')
   }
 
-  console.log('COMPILED :::::::::::', rootElement)
-
   return rootElement
 }
 

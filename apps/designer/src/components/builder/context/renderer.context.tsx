@@ -7,7 +7,8 @@ import { defaultRootElement } from '@/components/builder/renderer/element-render
 import { ChakraProps } from '@chakra-ui/react'
 import { isVoidElement } from '@repo/designer/constants'
 import { generateRandomId } from '@/lib/utils'
-import { staticFrameElement } from '@/components/builder/renderer/element-render/static-element-data/frame-element'
+import { staticFrameElement } from '@/components/builder/renderer/element-render/static-element-data/frame-element';
+import merge from 'lodash.merge'
 
 interface RendererState {
   allElements: ElementData[]
@@ -60,8 +61,6 @@ export const RendererProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const [state, dispatch] = useReducer(rendererReducer, initialState)
 
-  console.log('RENDER STATE:::', state)
-
   const setRendererState = (payload: Partial<RendererState>) => {
     dispatch({ type: 'SET_RENDERER_STATE', payload })
   }
@@ -81,46 +80,40 @@ export const RendererProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   }, [])
 
-  const getNeeded = () => {
-    let allElements = [...state.allElements]
-    let activeElements = state.active_element
-
-    return {
-      allElements,
-      activeElements,
-      copiedElements: state.copiedElements,
-    }
-  }
-
   const addElements = (elements: ElementData[]) => {
-    const { activeElements, allElements } = getNeeded()
-    let canCreate = true
-    const activeElementChildren = allElements.filter(
-      (el) => el.parent_element_id == activeElements[0]?.id,
-    )
+    const { active_element: activeElements, allElements } = state;
 
-    elements.forEach((el) => {
-      if (
-        isVoidElement(activeElements[0].html_tag as string) ||
-        activeElements[0].text_content
-      ) {
-        canCreate = false
+    if (!activeElements[0]) return;
+
+    let canCreate = true;
+
+    const activeElementChildren = allElements.filter(
+      (el) => el.parent_element_id === activeElements[0]?.id
+    );
+
+    const newElements = elements.map((el) => {
+      if (isVoidElement(activeElements[0].html_tag as string) || activeElements[0].text_content) {
+        canCreate = false;
       }
-      if (!el.parent_element_id) {
-        el.parent_element_id = state.active_element[0].id
-        el.index = activeElementChildren.length
-      }
-    })
+
+      return {
+        ...el,
+        parent_element_id: el.parent_element_id ?? activeElements[0].id,
+        index: el.index ?? activeElementChildren.length,
+      };
+    });
+
     if (canCreate) {
       setRendererState({
-        allElements: [...allElements, ...elements],
-        active_element: elements,
-      })
+        allElements: [...allElements, ...newElements],
+        active_element: newElements,
+      });
     }
-  }
+  };
+
 
   const selectMultipleElements = (element_id: string) => {
-    const { activeElements, allElements } = getNeeded()
+    const { active_element: activeElements, allElements } = state
     const activeElementIDs = activeElements.map((el) => el.id)
 
     if (activeElementIDs.includes(element_id)) {
@@ -138,37 +131,35 @@ export const RendererProvider: React.FC<{ children: React.ReactNode }> = ({
   }
 
   const removeElements = () => {
-    const { activeElements } = getNeeded()
-    const element_ids = activeElements.map((el) => el.id)
-    let allElements = [...state.allElements]
+    const { active_element: activeElements } = state;
+    const element_ids = new Set(activeElements.map((el) => el.id));
+    let allElements = [...state.allElements];
 
     const removeChildren = (parent_id: string) => {
-      let children = allElements.filter(
-        (el) => el.parent_element_id == parent_id,
-      )
-      if (children.length > 0) {
-        children.forEach((child) => {
-          allElements = allElements.filter((el) => el.id !== child.id)
-          removeChildren(parent_id)
-        })
-      }
-    }
+      let children = allElements.filter((el) => el.parent_element_id === parent_id);
+
+      children.forEach((child) => {
+        allElements = allElements.filter((el) => el.id !== child.id);
+        removeChildren(child.id);
+      });
+    };
 
     element_ids.forEach((id) => {
-      allElements = allElements.filter((el) => el.id !== id)
-      removeChildren(id)
-    })
+      allElements = allElements.filter((el) => el.id !== id);
+      removeChildren(id);
+    });
 
     setRendererState({
       allElements,
       active_element: [
         state.allElements.find((el) => !el.parent_element_id) as ElementData,
       ],
-    })
-  }
+    });
+  };
+
 
   const updateElementIndex = (mode: 'increment' | 'decrement') => {
-    const { activeElements, allElements: allEl } = getNeeded()
+    const { active_element: activeElements, allElements: allEl } = state;
     const allElements = [...allEl]
     const theElement =
       activeElements.length === 1
@@ -214,7 +205,7 @@ export const RendererProvider: React.FC<{ children: React.ReactNode }> = ({
   }
 
   const duplicateSelected = () => {
-    const { allElements, activeElements } = getNeeded()
+    const { allElements, active_element: activeElements } = state;
 
     if (!activeElements[0]) return
 
@@ -262,19 +253,15 @@ export const RendererProvider: React.FC<{ children: React.ReactNode }> = ({
   }
 
   const updateElementChakraProps = (data: ChakraProps) => {
-    const { activeElements, allElements } = getNeeded()
-    const element = activeElements[0]
+    if (!data || Object.keys(data).length === 0) return
 
-    if (!element) return
+    const { active_element: activeElements, allElements } = state
 
-    const updatedElements: any[] = allElements.map((el) => {
-      if (el.id === element.id) {
+    const updatedElements = allElements.map((el) => {
+      if (activeElements.some((activeEl) => activeEl.id === el.id)) {
         return {
           ...el,
-          chakraProps: {
-            ...el.chakraProps,
-            ...data,
-          },
+          chakraProps: merge({}, el.chakraProps, data),
         }
       }
       return el
@@ -285,8 +272,9 @@ export const RendererProvider: React.FC<{ children: React.ReactNode }> = ({
     })
   }
 
+
   const copySelectedElements = () => {
-    const { activeElements, allElements } = getNeeded()
+    const { active_element: activeElements, allElements } = state;
     const selectedElement = activeElements[0]
 
     if (!selectedElement || !selectedElement.parent_element_id) return
@@ -317,7 +305,7 @@ export const RendererProvider: React.FC<{ children: React.ReactNode }> = ({
   }
 
   const pasteCopiedElements = () => {
-    const { activeElements, allElements, copiedElements } = getNeeded()
+    const { active_element: activeElements, allElements, copiedElements } = state;
     const newParent = activeElements[0]
 
     if (!newParent) return
@@ -342,34 +330,31 @@ export const RendererProvider: React.FC<{ children: React.ReactNode }> = ({
   }
 
   const cutElements = () => {
-    const { activeElements, allElements } = getNeeded()
+    const { active_element: activeElements, allElements } = state;
 
     if (!activeElements.length) return
 
-    // Get IDs of elements to be cut
     const cutElementIDs = new Set(activeElements.map((el) => el.id))
 
-    // Filter out the elements to be cut from allElements
     const remainingElements = allElements.filter(
       (el) => !cutElementIDs.has(el.id),
     )
 
-    // Set copiedElements to the active elements (similar to copy)
     const copiedElements = activeElements.map((el) => {
       const newElement = { ...el }
-      newElement.parent_element_id = null // Remove parent relationship temporarily
+      newElement.parent_element_id = null
       return newElement
     })
 
     setRendererState({
       allElements: remainingElements,
-      active_element: [], // Clear active selection
+      active_element: [],
       copiedElements,
     })
   }
 
   const groupSelected = () => {
-    const { activeElements, allElements } = getNeeded()
+    const { active_element: activeElements, allElements } = state;
     const selectedElementParent = activeElements[0]?.parent_element_id
     const allEl = [...allElements]
 
