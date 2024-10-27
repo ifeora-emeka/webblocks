@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useReducer, useState } from 'reac
 import {
   BuilderBreakpoints,
   ElementData,
+  ResponsiveChakraProps,
 } from '@repo/designer/types/designer.types'
 import { defaultRootElement } from '@/components/builder/renderer/element-render/static-element-data/default-body'
 import { ChakraProps } from '@chakra-ui/react'
@@ -36,7 +37,7 @@ const RendererContext = createContext<{
   copySelectedElements: () => void
   pasteCopiedElements: () => void
   cutElements: () => void
-  updateElementChakraProps: (data: ChakraProps) => void
+  updateElementChakraProps: (data: ResponsiveChakraProps) => void
   removeChakraProp: (propKey: string) => void
 } | null>(null)
 
@@ -253,37 +254,37 @@ export const RendererProvider: React.FC<{ children: React.ReactNode }> = ({
     })
   }
 
-  const updateElementChakraProps = (data: ChakraProps) => {
+  const updateElementChakraProps = (data: ResponsiveChakraProps) => {
     const { active_element, allElements, activeBreakpoint } = state;
 
-    if(!active_element[0]) return;
+    if (!active_element[0]) return;
 
-    let elements = [...allElements]
-
+    const elements = [...allElements];
     const activeElementIndex = elements.findIndex(
       (el) => el.id === active_element[0].id
-    )
+    );
 
-    if (activeElementIndex === -1) return
+    if (activeElementIndex === -1) return;
 
-    let theElement = elements[activeElementIndex]
+    const theElement = elements[activeElementIndex];
 
-    theElement = {
+    elements[activeElementIndex] = {
       ...theElement,
       chakraProps: {
         ...theElement.chakraProps,
-        [activeBreakpoint]: data,
-      }
-    }
+        [activeBreakpoint]: {
+          ...theElement.chakraProps[activeBreakpoint],
+          ...data, 
+        },
+      },
+    };
 
-    setState(prevState => {
-      return {
-        ...prevState,
-        allElements: elements,
-      }
-    })
-
+    setState((prevState) => ({
+      ...prevState,
+      allElements: elements,
+    }));
   };
+
 
   const removeChakraProp = (propKey: string) => {
     const { active_element: activeElements, allElements } = state;
